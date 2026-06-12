@@ -1,34 +1,28 @@
 # Relatórios de exemplo
 
-Amostras geradas pelo **motor de relatórios da Suricatoos** a partir de um **engajamento
-fictício** (ACME Corp — aplicação web + Active Directory) criado apenas para demonstração.
-Nenhum dado é real.
+O **mesmo relatório PTES**, gerado pelo motor da Suricatoos a partir de um **engajamento
+fictício** (ACME Corp — aplicação web + Active Directory), nos três formatos — **visualmente
+consistentes** entre si:
 
-## ⭐ Relatório PTES (livro) — flagship
+| Formato | Arquivo |
+|---|---|
+| 📕 **PDF** (livro) | [`suricatoos-relatorio-ptes.pdf`](suricatoos-relatorio-ptes.pdf) |
+| 📘 **Word** (.docx) | [`suricatoos-relatorio-ptes.docx`](suricatoos-relatorio-ptes.docx) |
+| 📙 **PowerPoint** (.pptx) | [`suricatoos-relatorio-ptes.pptx`](suricatoos-relatorio-ptes.pptx) |
 
-[**`suricatoos-relatorio-ptes.pdf`**](suricatoos-relatorio-ptes.pdf) — relatório técnico no padrão
-**PTES**, com design de livro caprichado e **gráficos avançados vetoriais**:
+Todos seguem o mesmo padrão:
 
-- **Capa co-branded (whitelabel):** logo da aplicação + logo/monograma do cliente.
-- **Storytelling:** seção "Narrativa do Ataque" com cadeia visual (recon → impacto) e timeline.
-- **Sumário executivo:** medidor de risco, rosca de severidade e KPIs.
-- **Visão de risco:** matriz 5×5 (probabilidade × impacto) e barras por categoria.
-- **Metodologia PTES** (7 fases) e **achados** em cartões com badge de severidade, CVSS/CWE, PoC e remediação.
-- **Plano de ação:** roteiro de remediação, **quadrante de quick wins** (impacto × esforço),
-  **tempo de correção por achado** e tabela priorizada (janela, esforço, prazo, quick win).
-- Header/rodapé fixos com paginação; margens respeitadas, sem sobreposição.
+- **Co-branding whitelabel** — logo da aplicação + logo/monograma do cliente.
+- **Storytelling** — "Narrativa do Ataque" com cadeia visual (recon → impacto) e timeline.
+- **Estrutura PTES** — sumário executivo, visão de risco, metodologia (7 fases), achados.
+- **Plano de ação** — roteiro de remediação, **quick wins** (impacto × esforço),
+  **tempo de correção por achado** e tabela priorizada (janela · esforço · prazo · quick win).
+- **Gráficos avançados idênticos** nos três formatos (medidor de risco, rosca de severidade,
+  matriz 5×5, quadrante, roteiro, barras de prazo) — vetoriais no PDF e embutidos como imagem no
+  DOCX/PPTX para consistência total.
+- Margens respeitadas, sem sobreposição de textos/imagens/gráficos.
 
 > Personalização: o logo da aplicação (whitelabel) e o **logo do cliente** (enviado pela interface)
-> entram automaticamente no relatório para uma saída co-branded.
-
-## Outras amostras (multi-formato)
-
-Exemplos dos formatos de exportação (evoluindo para o mesmo padrão PTES):
-
-| Relatório | Formatos |
-|---|---|
-| **Técnico** | [.docx](suricatoos-relatorio-tecnico.docx) · [.pptx](suricatoos-relatorio-tecnico.pptx) · [.pdf](suricatoos-relatorio-tecnico.pdf) |
-| **Executivo** | [.pptx](suricatoos-relatorio-executivo.pptx) · [.pdf](suricatoos-relatorio-executivo.pdf) |
-
-> ⚠️ Conteúdo meramente ilustrativo. O engajamento, os alvos (`acme.example`) e os achados são
-> fictícios e existem só para exemplificar a saída da ferramenta.
+> entram automaticamente para uma saída co-branded.
+>
+> ⚠️ Conteúdo ilustrativo. Engajamento, alvos (`acme.example`) e achados são fictícios.

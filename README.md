@@ -87,18 +87,16 @@ em tempo real pelo menu do usuário.
 
 ## 📄 Relatórios de exemplo
 
-⭐ **Flagship:** [**relatório PTES (livro)**](docs/sample-reports/suricatoos-relatorio-ptes.pdf) —
-padrão **PTES**, **storytelling** (narrativa do ataque), **plano de ação** com quick wins e tempo de
-correção, **gráficos avançados** (medidor de risco, matriz 5×5, quadrante impacto×esforço, linha do
-tempo) e **co-branding whitelabel** (logo da aplicação + logo do cliente). Margens respeitadas, sem
-sobreposições.
+Um **relatório PTES** no padrão de livro caprichado — **storytelling** (narrativa do ataque),
+**plano de ação** com quick wins e tempo de correção, **gráficos avançados** (medidor de risco,
+matriz 5×5, quadrante impacto×esforço, linha do tempo) e **co-branding whitelabel** (logo da
+aplicação + logo do cliente). Os três formatos são **visualmente consistentes** entre si:
 
-Outras amostras de formato em [`docs/sample-reports/`](docs/sample-reports/):
-
-| Relatório | Formatos |
+| Formato | Arquivo |
 |---|---|
-| **Técnico** | [.docx](docs/sample-reports/suricatoos-relatorio-tecnico.docx) · [.pptx](docs/sample-reports/suricatoos-relatorio-tecnico.pptx) · [.pdf](docs/sample-reports/suricatoos-relatorio-tecnico.pdf) |
-| **Executivo** | [.pptx](docs/sample-reports/suricatoos-relatorio-executivo.pptx) · [.pdf](docs/sample-reports/suricatoos-relatorio-executivo.pdf) |
+| 📕 PDF | [suricatoos-relatorio-ptes.pdf](docs/sample-reports/suricatoos-relatorio-ptes.pdf) |
+| 📘 Word | [suricatoos-relatorio-ptes.docx](docs/sample-reports/suricatoos-relatorio-ptes.docx) |
+| 📙 PowerPoint | [suricatoos-relatorio-ptes.pptx](docs/sample-reports/suricatoos-relatorio-ptes.pptx) |
 
 ## 🏗️ Arquitetura & stack
 
