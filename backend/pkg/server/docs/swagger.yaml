@@ -2017,15 +2017,15 @@ definitions:
     type: object
 info:
   contact:
-    email: team@pentagi.com
-    name: PentAGI Development Team
-    url: https://pentagi.com
-  description: Swagger API for Penetration Testing Advanced General Intelligence PentAGI.
+    email: team@suricatoos.com
+    name: Suricatoos Development Team
+    url: https://suricatoos.com
+  description: Swagger API for Penetration Testing Advanced General Intelligence Suricatoos.
   license:
     name: MIT
     url: https://opensource.org/license/mit
   termsOfService: http://swagger.io/terms/
-  title: PentAGI Swagger API
+  title: Suricatoos Swagger API
   version: "1.0"
 paths:
   /agentlogs/:

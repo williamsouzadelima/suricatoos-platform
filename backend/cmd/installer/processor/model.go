@@ -2,9 +2,9 @@ package processor
 
 import (
 	"context"
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/state"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/state"
 	"sync"
 	"time"
 

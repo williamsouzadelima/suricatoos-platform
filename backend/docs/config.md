@@ -1,10 +1,10 @@
-# PentAGI Configuration Guide
+# Suricatoos Configuration Guide
 
-This document serves as a comprehensive guide to the configuration system in PentAGI, primarily aimed at developers. It details all available configuration options, their purposes, default values, and how they're used throughout the application.
+This document serves as a comprehensive guide to the configuration system in Suricatoos, primarily aimed at developers. It details all available configuration options, their purposes, default values, and how they're used throughout the application.
 
 ## Table of Contents
 
-- [PentAGI Configuration Guide](#pentagi-configuration-guide)
+- [Suricatoos Configuration Guide](#suricatoos-configuration-guide)
   - [Table of Contents](#table-of-contents)
   - [Configuration Basics](#configuration-basics)
     - [Current Web Settings Coverage](#current-web-settings-coverage)
@@ -76,7 +76,7 @@ This document serves as a comprehensive guide to the configuration system in Pen
 
 ## Configuration Basics
 
-PentAGI uses environment variables for configuration, with support for `.env` files through the `godotenv` package. The configuration is defined in the `Config` struct in `pkg/config/config.go` and is loaded using the `NewConfig()` function.
+Suricatoos uses environment variables for configuration, with support for `.env` files through the `godotenv` package. The configuration is defined in the `Config` struct in `pkg/config/config.go` and is loaded using the `NewConfig()` function.
 
 ```go
 func NewConfig() (*Config, error) {
@@ -105,11 +105,11 @@ This function automatically loads environment variables from a `.env` file if pr
 
 ### Current Web Settings Coverage
 
-The running PentAGI instance already exposes several settings areas in the web UI:
+The running Suricatoos instance already exposes several settings areas in the web UI:
 
 - **Settings -> Providers**: Manage user-defined provider profiles, per-agent model and runtime options, and provider test actions for provider types supported by the running server.
 - **Settings -> Prompts**: Manage system, human, and tool prompt templates.
-- **Settings -> PentAGI API**: Create, revoke, and delete PentAGI API tokens.
+- **Settings -> Suricatoos API**: Create, revoke, and delete Suricatoos API tokens.
 - **Other UI-managed preferences**: Favorite flows are stored as user preferences, and theme selection is handled client-side from the main sidebar/profile controls.
 
 These web-console features do not replace the environment variables in this guide for provider credentials, endpoints, or external integrations.
@@ -129,15 +129,15 @@ These settings control basic application behavior and are foundational for the s
 
 | Option           | Environment Variable        | Default Value                                                                | Description                                                              |
 | ---------------- | --------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| DatabaseURL      | `DATABASE_URL`              | `postgres://pentagiuser:pentagipass@pgvector:5432/pentagidb?sslmode=disable` | Connection string for the PostgreSQL database with pgvector extension    |
+| DatabaseURL      | `DATABASE_URL`              | `postgres://suricatoosuser:suricatoospass@pgvector:5432/suricatoosdb?sslmode=disable` | Connection string for the PostgreSQL database with pgvector extension    |
 | DBMaxOpenConns   | `DATABASE_MAX_OPEN_CONNS`   | `25`                                                                         | Maximum open connections in the shared `sql.DB` pool (sqlc + GORM combined). See [database.md §Connection Pooling](database.md#connection-pooling). |
 | DBMaxIdleConns   | `DATABASE_MAX_IDLE_CONNS`   | `5`                                                                          | Maximum idle connections kept open between requests                      |
 | DBVectorMaxConns | `DATABASE_VECTOR_MAX_CONNS` | `10`                                                                         | Maximum connections in the shared `pgxpool` for all pgvector stores      |
 | Debug            | `DEBUG`                     | `false`                                                                      | Enables debug mode with additional logging                               |
 | DataDir          | `DATA_DIR`                  | `./data`                                                                     | Directory for storing persistent data                                    |
 | AskUser          | `ASK_USER`                  | `false`                                                                      | When enabled, requires explicit user confirmation for certain operations |
-| InstallationID   | `INSTALLATION_ID`           | *(none)*                                                                     | Unique installation identifier for PentAGI Cloud API communication       |
-| LicenseKey       | `LICENSE_KEY`               | *(none)*                                                                     | License key for PentAGI Cloud API authentication and feature activation  |
+| InstallationID   | `INSTALLATION_ID`           | *(none)*                                                                     | Unique installation identifier for Suricatoos Cloud API communication       |
+| LicenseKey       | `LICENSE_KEY`               | *(none)*                                                                     | License key for Suricatoos Cloud API authentication and feature activation  |
 
 ### Usage Details
 
@@ -175,7 +175,7 @@ if cfg.Debug {
 }
 ```
 
-- **DataDir**: Specifies where PentAGI stores persistent data. This is used across multiple components:
+- **DataDir**: Specifies where Suricatoos stores persistent data. This is used across multiple components:
   - In `docker/client.go` for container volume mapping
   - For screenshots storage in `services.NewScreenshotService`
   - In tools for file operations and data persistence
@@ -203,7 +203,7 @@ if fte.cfg.AskUser {
 }
 ```
 
-- **InstallationID**: A unique identifier for the PentAGI installation used for cloud API communication:
+- **InstallationID**: A unique identifier for the Suricatoos installation used for cloud API communication:
   - Generated automatically during installation or can be manually set
   - Required for certain cloud-based features and integrations
 
@@ -214,10 +214,10 @@ if cfg.InstallationID != "" {
 }
 ```
 
-- **LicenseKey**: Authentication key for PentAGI Cloud API and premium feature activation:
+- **LicenseKey**: Authentication key for Suricatoos Cloud API and premium feature activation:
   - Validates license and enables licensed features
   - Required for enterprise features and support
-  - Used for authentication with PentAGI Cloud services
+  - Used for authentication with Suricatoos Cloud services
 
 ```go
 // Used in cloud SDK initialization
@@ -228,11 +228,11 @@ if cfg.LicenseKey != "" {
 
 ## Docker Settings
 
-These settings control how PentAGI interacts with Docker, which is used for terminal isolation and executing commands in a controlled environment. They're crucial for the security and functionality of tool execution.
+These settings control how Suricatoos interacts with Docker, which is used for terminal isolation and executing commands in a controlled environment. They're crucial for the security and functionality of tool execution.
 
 | Option                       | Environment Variable               | Default Value          | Description |
 | ---------------------------- | ---------------------------------- | ---------------------- | ----------- |
-| DockerInside                 | `DOCKER_INSIDE`                    | `false`                | Set to `true` if PentAGI runs inside Docker and needs to access the host Docker daemon. |
+| DockerInside                 | `DOCKER_INSIDE`                    | `false`                | Set to `true` if Suricatoos runs inside Docker and needs to access the host Docker daemon. |
 | DockerNetAdmin               | `DOCKER_NET_ADMIN`                 | `false`                | Set to `true` to grant the primary container NET_ADMIN capability for advanced networking. |
 | DockerSocket                 | `DOCKER_SOCKET`                    | *(none)*               | Path to Docker socket for container management |
 | DockerNetwork                | `DOCKER_NETWORK`                   | *(none)*               | Docker network name for bridge mode, or `host` for host network mode. See network modes below. |
@@ -247,7 +247,7 @@ These settings control how PentAGI interacts with Docker, which is used for term
 
 The Docker settings are primarily used in `pkg/docker/client.go` which implements the Docker client interface used throughout the application. This client is responsible for creating, managing, and executing commands in Docker containers:
 
-- **DockerInside**: Signals whether PentAGI is running inside a Docker container itself, which affects how volumes and sockets are mounted:
+- **DockerInside**: Signals whether Suricatoos is running inside a Docker container itself, which affects how volumes and sockets are mounted:
   ```go
   inside := cfg.DockerInside
   ```
@@ -277,7 +277,7 @@ The Docker settings are primarily used in `pkg/docker/client.go` which implement
 
 - **DockerNetwork**: Controls the network isolation mode for containers. Supports two modes:
   
-  **Bridge Mode** (custom network name, e.g., `pentagi-network`):
+  **Bridge Mode** (custom network name, e.g., `suricatoos-network`):
   - Containers run in an isolated bridge network
   - Port forwarding maps container ports to host ports
   - Enhanced security through network isolation
@@ -337,7 +337,7 @@ This client is used by the tools executor to run commands in isolated containers
 
 ## Server Settings
 
-These settings control the HTTP and GraphQL server that forms the backend API of PentAGI.
+These settings control the HTTP and GraphQL server that forms the backend API of Suricatoos.
 
 | Option       | Environment Variable | Default Value | Description                      |
 | ------------ | -------------------- | ------------- | -------------------------------- |
@@ -471,7 +471,7 @@ The authentication settings are used in `pkg/server/router.go` to set up authent
 
   Example:
   ```bash
-  PUBLIC_URL=https://pentagi.example.com
+  PUBLIC_URL=https://suricatoos.example.com
   OAUTH_GITHUB_CLIENT_ID=your_github_client_id
   OAUTH_GITHUB_CLIENT_SECRET=your_github_client_secret
   OAUTH_GOOGLE_CLIENT_ID=your_google_client_id
@@ -501,7 +501,7 @@ The authentication settings are used in `pkg/server/router.go` to set up authent
   }
   ```
 
-  Google and GitHub both use the same PentAGI login callback endpoint. `PUBLIC_URL` should be the externally reachable base URL only, without an extra path suffix. If the URL configured in the provider console does not exactly match the generated callback URL, authentication will fail with a redirect URI mismatch error.
+  Google and GitHub both use the same Suricatoos login callback endpoint. `PUBLIC_URL` should be the externally reachable base URL only, without an extra path suffix. If the URL configured in the provider console does not exactly match the generated callback URL, authentication will fail with a redirect URI mismatch error.
 
 These settings are essential for:
 - Secure user authentication and session management
@@ -563,12 +563,12 @@ These settings control the integration with various Large Language Model (LLM) p
 | AnthropicAPIKey    | `ANTHROPIC_API_KEY`    | *(none)*                       | API key for Anthropic Claude services |
 | AnthropicServerURL | `ANTHROPIC_SERVER_URL` | `https://api.anthropic.com/v1` | Server URL for Anthropic API requests |
 
-**Note on Google Vertex AI**: PentAGI does not currently expose a dedicated Vertex AI configuration path for Anthropic Claude in `.env`. The variables above target the direct Anthropic API. To run Claude through a non-Anthropic-hosted backend, use one of:
+**Note on Google Vertex AI**: Suricatoos does not currently expose a dedicated Vertex AI configuration path for Anthropic Claude in `.env`. The variables above target the direct Anthropic API. To run Claude through a non-Anthropic-hosted backend, use one of:
 
 - **AWS Bedrock**: see the [AWS Bedrock LLM Provider](#aws-bedrock-llm-provider) section below and configure the `BEDROCK_*` variables.
-- **OpenAI-compatible gateway in front of Vertex AI**: expose Vertex AI through a proxy or gateway that translates requests into the Chat Completions format while preserving the chat and tool-call behavior PentAGI requires, then configure it as a [custom LLM provider](#custom-llm-provider) (`LLM_SERVER_URL`, `LLM_SERVER_KEY`, `LLM_SERVER_MODEL`). Reliability of this path depends on the gateway you choose.
+- **OpenAI-compatible gateway in front of Vertex AI**: expose Vertex AI through a proxy or gateway that translates requests into the Chat Completions format while preserving the chat and tool-call behavior Suricatoos requires, then configure it as a [custom LLM provider](#custom-llm-provider) (`LLM_SERVER_URL`, `LLM_SERVER_KEY`, `LLM_SERVER_MODEL`). Reliability of this path depends on the gateway you choose.
 
-There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired into PentAGI's provider initialization today.
+There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired into Suricatoos's provider initialization today.
 
 ### Ollama LLM Provider
 
@@ -617,7 +617,7 @@ There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired 
 | DeepSeekServerURL | `DEEPSEEK_SERVER_URL` | `https://api.deepseek.com` | DeepSeek API endpoint URL                                |
 | DeepSeekProvider  | `DEEPSEEK_PROVIDER`   | *(none)*                   | Provider name prefix for LiteLLM integration (optional)  |
 
-**LiteLLM Integration**: Set `DEEPSEEK_PROVIDER=deepseek` to enable model prefixing (e.g., `deepseek/deepseek-v4-flash`) when using LiteLLM proxy with default PentAGI configs.
+**LiteLLM Integration**: Set `DEEPSEEK_PROVIDER=deepseek` to enable model prefixing (e.g., `deepseek/deepseek-v4-flash`) when using LiteLLM proxy with default Suricatoos configs.
 
 ### GLM LLM Provider
 
@@ -632,7 +632,7 @@ There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired 
 - China: `https://open.bigmodel.cn/api/paas/v4`
 - Coding-specific: `https://api.z.ai/api/coding/paas/v4`
 
-**LiteLLM Integration**: Set `GLM_PROVIDER=zai` to enable model prefixing (e.g., `zai/glm-4`) when using LiteLLM proxy with default PentAGI configs.
+**LiteLLM Integration**: Set `GLM_PROVIDER=zai` to enable model prefixing (e.g., `zai/glm-4`) when using LiteLLM proxy with default Suricatoos configs.
 
 ### Kimi LLM Provider
 
@@ -646,7 +646,7 @@ There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired 
 - International: `https://api.moonshot.ai/v1` (default)
 - China: `https://api.moonshot.cn/v1`
 
-**LiteLLM Integration**: Set `KIMI_PROVIDER=moonshot` to enable model prefixing (e.g., `moonshot/kimi-k2.5`) when using LiteLLM proxy with default PentAGI configs.
+**LiteLLM Integration**: Set `KIMI_PROVIDER=moonshot` to enable model prefixing (e.g., `moonshot/kimi-k2.5`) when using LiteLLM proxy with default Suricatoos configs.
 
 ### Qwen LLM Provider
 
@@ -661,7 +661,7 @@ There is no `VERTEX_API_KEY` or `GOOGLE_APPLICATION_CREDENTIALS` variable wired 
 - Singapore: `https://dashscope-intl.aliyuncs.com/compatible-mode/v1`
 - China: `https://dashscope.aliyuncs.com/compatible-mode/v1`
 
-**LiteLLM Integration**: Set `QWEN_PROVIDER=dashscope` to enable model prefixing (e.g., `dashscope/qwen-plus`) when using LiteLLM proxy with default PentAGI configs.
+**LiteLLM Integration**: Set `QWEN_PROVIDER=dashscope` to enable model prefixing (e.g., `dashscope/qwen-plus`) when using LiteLLM proxy with default Suricatoos configs.
 
 ### Custom LLM Provider
 
@@ -867,7 +867,7 @@ These settings are critical for:
 
 ## Embedding Settings
 
-These settings control the vector embedding service used for semantic search and similarity matching, which is fundamental for PentAGI's intelligent search capabilities.
+These settings control the vector embedding service used for semantic search and similarity matching, which is fundamental for Suricatoos's intelligent search capabilities.
 
 | Option                 | Environment Variable        | Default Value | Description                                                                |
 | ---------------------- | --------------------------- | ------------- | -------------------------------------------------------------------------- |
@@ -935,7 +935,7 @@ These settings are essential for:
 
 ## Summarizer Settings
 
-These settings control the text summarization behavior used for condensing long conversations and improving context management in AI interactions. The summarization system is a critical component that allows PentAGI to maintain coherent, long-running conversations while managing token usage effectively.
+These settings control the text summarization behavior used for condensing long conversations and improving context management in AI interactions. The summarization system is a critical component that allows Suricatoos to maintain coherent, long-running conversations while managing token usage effectively.
 
 | Option                   | Environment Variable             | Default Value | Description                                                |
 | ------------------------ | -------------------------------- | ------------- | ---------------------------------------------------------- |
@@ -1216,7 +1216,7 @@ The assistant summarizer configuration is designed to provide more memory for co
 
 These settings control which tools are available to AI agents and allow adding custom external functions. The Functions API enables fine-grained control over agent capabilities by selectively disabling built-in tools or extending functionality with custom integrations.
 
-For provider-neutral OSINT enrichment ideas that could be exposed through external functions, see [OSINT Integration Scenarios for PentAGI Agents](../../examples/proposals/osint-integration-scenarios.md).
+For provider-neutral OSINT enrichment ideas that could be exposed through external functions, see [OSINT Integration Scenarios for Suricatoos Agents](../../examples/proposals/osint-integration-scenarios.md).
 
 | Field     | Type                 | Description                                                     |
 | --------- | -------------------- | --------------------------------------------------------------- |
@@ -1679,12 +1679,12 @@ The integration is designed to be non-blocking - if Graphiti operations fail, th
 
 The Graphiti integration is currently a beta feature. Operators should plan around the following constraints before enabling it in production:
 
-- **OpenAI-compatible LLM only.** Operators configure the endpoint through PentAGI's `.env` variables `OPEN_AI_KEY` and `OPEN_AI_SERVER_URL` (default `https://api.openai.com/v1`); `docker-compose-graphiti.yml` maps these into the bundled `vxcontrol/graphiti` container as `OPENAI_API_KEY` and `OPENAI_BASE_URL`, which it uses to drive entity extraction. Provider credentials configured elsewhere in PentAGI for Anthropic, Google AI (Gemini), AWS Bedrock, DeepSeek, GLM, Kimi, or Qwen are not consumed by Graphiti.
+- **OpenAI-compatible LLM only.** Operators configure the endpoint through Suricatoos's `.env` variables `OPEN_AI_KEY` and `OPEN_AI_SERVER_URL` (default `https://api.openai.com/v1`); `docker-compose-graphiti.yml` maps these into the bundled `vxcontrol/graphiti` container as `OPENAI_API_KEY` and `OPENAI_BASE_URL`, which it uses to drive entity extraction. Provider credentials configured elsewhere in Suricatoos for Anthropic, Google AI (Gemini), AWS Bedrock, DeepSeek, GLM, Kimi, or Qwen are not consumed by Graphiti.
 - **Single fixed model per deployment.** Graphiti uses one model name (`GRAPHITI_MODEL_NAME`, default `gpt-5-mini`) for all extractions; per-agent or per-flow selection is not supported.
 - **Independent billing.** Graphiti billing is tied to the configured OpenAI-compatible endpoint, even when the main flow runs against a non-OpenAI provider.
-- **No in-app graph explorer yet.** The captured graph is inspected through the Neo4j Browser at `http://localhost:7474` and the Graphiti Swagger UI at `http://localhost:8000/docs`; there is no PentAGI UI surface for it today.
+- **No in-app graph explorer yet.** The captured graph is inspected through the Neo4j Browser at `http://localhost:7474` and the Graphiti Swagger UI at `http://localhost:8000/docs`; there is no Suricatoos UI surface for it today.
 
-If your deployment cannot reach an OpenAI-compatible endpoint, set `GRAPHITI_ENABLED=false`. The rest of PentAGI continues to function without the knowledge graph.
+If your deployment cannot reach an OpenAI-compatible endpoint, set `GRAPHITI_ENABLED=false`. The rest of Suricatoos continues to function without the knowledge graph.
 
 ## Agent Supervision Settings
 

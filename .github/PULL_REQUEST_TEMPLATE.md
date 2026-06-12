@@ -1,5 +1,5 @@
 <!--
-Thank you for your contribution to PentAGI! Please fill out this template completely to help us review your changes effectively.
+Thank you for your contribution to Suricatoos! Please fill out this template completely to help us review your changes effectively.
 Any PR that does not include enough information may be closed at maintainers' discretion.
 -->
 
@@ -48,7 +48,7 @@ Please describe the tests that you ran to verify your changes and provide instru
 
 #### Test Configuration
 ```yaml
-PentAGI Version:
+Suricatoos Version:
 Docker Version:
 Host OS:
 LLM Provider:

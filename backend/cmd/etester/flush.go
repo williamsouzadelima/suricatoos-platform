@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"pentagi/pkg/terminal"
+	"suricatoos/pkg/terminal"
 )
 
 // flush deletes all documents from the embedding store

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/templates"
-	"pentagi/pkg/templates/validator"
+	"suricatoos/pkg/templates"
+	"suricatoos/pkg/templates/validator"
 )
 
 // TestPromptTemplatesIntegrity validates all prompt templates against their declared variables

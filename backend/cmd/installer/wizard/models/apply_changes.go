@@ -6,13 +6,13 @@ import (
 	"sort"
 	"strings"
 
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/processor"
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/terminal"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/processor"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/terminal"
+	"suricatoos/cmd/installer/wizard/window"
 
 	tea "github.com/charmbracelet/bubbletea"
 )

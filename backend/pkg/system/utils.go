@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"pentagi/pkg/config"
+	"suricatoos/pkg/config"
 )
 
 const (

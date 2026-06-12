@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/database"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/database"
 )
 
 func testSploitusConfig() *config.Config {

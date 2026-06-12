@@ -8,26 +8,26 @@ import (
 	"os"
 	"path/filepath"
 
-	"pentagi/cmd/installer/files"
+	"suricatoos/cmd/installer/files"
 
 	"gopkg.in/yaml.v3"
 )
 
 const (
 	observabilityDirectory        = "observability"
-	pentagiExampleCustomConfigLLM = "example.custom.provider.yml"
-	pentagiExampleOllamaConfigLLM = "example.ollama.provider.yml"
+	suricatoosExampleCustomConfigLLM = "example.custom.provider.yml"
+	suricatoosExampleOllamaConfigLLM = "example.ollama.provider.yml"
 )
 
 var filesToExcludeFromVerification = []string{
 	"observability/otel/config.yml",
 	"observability/grafana/config/grafana.ini",
-	pentagiExampleCustomConfigLLM,
-	pentagiExampleOllamaConfigLLM,
+	suricatoosExampleCustomConfigLLM,
+	suricatoosExampleOllamaConfigLLM,
 }
 
 var allStacks = []ProductStack{
-	ProductStackPentagi,
+	ProductStackSuricatoos,
 	ProductStackGraphiti,
 	ProductStackLangfuse,
 	ProductStackObservability,
@@ -46,10 +46,10 @@ func (fs *fileSystemOperationsImpl) ensureStackIntegrity(ctx context.Context, st
 	defer fs.processor.appendLog("", stack, state)
 
 	switch stack {
-	case ProductStackPentagi:
-		errCompose := fs.ensureFileFromEmbed(composeFilePentagi, state)
-		errCustom := fs.ensureFileFromEmbed(pentagiExampleCustomConfigLLM, state)
-		errOllama := fs.ensureFileFromEmbed(pentagiExampleOllamaConfigLLM, state)
+	case ProductStackSuricatoos:
+		errCompose := fs.ensureFileFromEmbed(composeFileSuricatoos, state)
+		errCustom := fs.ensureFileFromEmbed(suricatoosExampleCustomConfigLLM, state)
+		errOllama := fs.ensureFileFromEmbed(suricatoosExampleOllamaConfigLLM, state)
 		return errors.Join(errCompose, errCustom, errOllama)
 
 	case ProductStackGraphiti:
@@ -82,8 +82,8 @@ func (fs *fileSystemOperationsImpl) verifyStackIntegrity(ctx context.Context, st
 	defer fs.processor.appendLog("", stack, state)
 
 	switch stack {
-	case ProductStackPentagi:
-		return fs.verifyFileIntegrity(composeFilePentagi, state)
+	case ProductStackSuricatoos:
+		return fs.verifyFileIntegrity(composeFileSuricatoos, state)
 
 	case ProductStackGraphiti:
 		return fs.verifyFileIntegrity(composeFileGraphiti, state)
@@ -116,8 +116,8 @@ func (fs *fileSystemOperationsImpl) checkStackIntegrity(ctx context.Context, sta
 	result := make(FilesCheckResult)
 
 	switch stack {
-	case ProductStackPentagi:
-		result[composeFilePentagi] = fs.checkFileIntegrity(composeFilePentagi)
+	case ProductStackSuricatoos:
+		result[composeFileSuricatoos] = fs.checkFileIntegrity(composeFileSuricatoos)
 
 	case ProductStackGraphiti:
 		result[composeFileGraphiti] = fs.checkFileIntegrity(composeFileGraphiti)
@@ -158,10 +158,10 @@ func (fs *fileSystemOperationsImpl) cleanupStackFiles(ctx context.Context, stack
 	var filesToRemove []string
 
 	switch stack {
-	case ProductStackPentagi:
-		filesToRemove = append(filesToRemove, filepath.Join(workingDir, composeFilePentagi))
-		filesToRemove = append(filesToRemove, filepath.Join(workingDir, pentagiExampleCustomConfigLLM))
-		filesToRemove = append(filesToRemove, filepath.Join(workingDir, pentagiExampleOllamaConfigLLM))
+	case ProductStackSuricatoos:
+		filesToRemove = append(filesToRemove, filepath.Join(workingDir, composeFileSuricatoos))
+		filesToRemove = append(filesToRemove, filepath.Join(workingDir, suricatoosExampleCustomConfigLLM))
+		filesToRemove = append(filesToRemove, filepath.Join(workingDir, suricatoosExampleOllamaConfigLLM))
 
 	case ProductStackGraphiti:
 		filesToRemove = append(filesToRemove, filepath.Join(workingDir, composeFileGraphiti))

@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"pentagi/pkg/cast"
+	"suricatoos/pkg/cast"
 
 	lru "github.com/hashicorp/golang-lru/v2/expirable"
 	"github.com/stretchr/testify/assert"
@@ -1209,7 +1209,7 @@ func TestWrapToolCallIDTemplateError(t *testing.T) {
 			wantContains: []string{
 				"failed to determine tool call ID template",
 				"does not support tool/function calling",
-				"PentAGI requires",
+				"Suricatoos requires",
 				"flows and assistant sessions",
 				"metadata advertises tool/function calling",
 				"does not support tools",
@@ -1217,7 +1217,7 @@ func TestWrapToolCallIDTemplateError(t *testing.T) {
 			wantNotContain: []string{
 				// The hint must not name specific model tags as
 				// tool-capable, because Ollama model capabilities are
-				// not verified by PentAGI and any concrete list ages
+				// not verified by Suricatoos and any concrete list ages
 				// poorly.
 				"llama3.1",
 				"qwen2.5",

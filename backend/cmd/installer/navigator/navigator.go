@@ -3,10 +3,10 @@ package navigator
 import (
 	"strings"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/state"
-	"pentagi/cmd/installer/wizard/logger"
-	"pentagi/cmd/installer/wizard/models"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/state"
+	"suricatoos/cmd/installer/wizard/logger"
+	"suricatoos/cmd/installer/wizard/models"
 )
 
 type Navigator interface {

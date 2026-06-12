@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"pentagi/cmd/installer/loader"
-	"pentagi/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/loader"
+	"suricatoos/cmd/installer/wizard/controller"
 )
 
 var mockError = errors.New("mocked error")
@@ -764,7 +764,7 @@ func TestDoSyncNetworkSettings_EdgeCases(t *testing.T) {
 	}
 }
 
-// Test 6: DOCKER_CERT_PATH migration to PENTAGI_DOCKER_CERT_PATH
+// Test 6: DOCKER_CERT_PATH migration to SURICATOOS_DOCKER_CERT_PATH
 func TestDoSyncNetworkSettings_DockerCertPathMigration(t *testing.T) {
 	tests := []struct {
 		name            string
@@ -773,7 +773,7 @@ func TestDoSyncNetworkSettings_DockerCertPathMigration(t *testing.T) {
 		description     string
 	}{
 		{
-			name: "DOCKER_CERT_PATH with existing directory should migrate to PENTAGI_DOCKER_CERT_PATH",
+			name: "DOCKER_CERT_PATH with existing directory should migrate to SURICATOOS_DOCKER_CERT_PATH",
 			setupFunc: func(t *testing.T) (string, func()) {
 				tmpDir, err := os.MkdirTemp("", "docker-certs-*")
 				if err != nil {
@@ -846,12 +846,12 @@ func TestDoSyncNetworkSettings_DockerCertPathMigration(t *testing.T) {
 
 			// Verify migration results
 			if tt.expectMigration {
-				// Check PENTAGI_DOCKER_CERT_PATH was set to original path
-				pentagiVar, exists := mockSt.GetVar("PENTAGI_DOCKER_CERT_PATH")
+				// Check SURICATOOS_DOCKER_CERT_PATH was set to original path
+				suricatoosVar, exists := mockSt.GetVar("SURICATOOS_DOCKER_CERT_PATH")
 				if !exists {
-					t.Errorf("Expected PENTAGI_DOCKER_CERT_PATH to be set: %s", tt.description)
-				} else if pentagiVar.Value != dockerCertPath {
-					t.Errorf("Expected PENTAGI_DOCKER_CERT_PATH = %q, got %q: %s", dockerCertPath, pentagiVar.Value, tt.description)
+					t.Errorf("Expected SURICATOOS_DOCKER_CERT_PATH to be set: %s", tt.description)
+				} else if suricatoosVar.Value != dockerCertPath {
+					t.Errorf("Expected SURICATOOS_DOCKER_CERT_PATH = %q, got %q: %s", dockerCertPath, suricatoosVar.Value, tt.description)
 				}
 
 				// Check DOCKER_CERT_PATH was set to default container path
@@ -862,12 +862,12 @@ func TestDoSyncNetworkSettings_DockerCertPathMigration(t *testing.T) {
 					t.Errorf("Expected DOCKER_CERT_PATH = %q, got %q: %s", controller.DefaultDockerCertPath, dockerVar.Value, tt.description)
 				}
 			} else {
-				// Check PENTAGI_DOCKER_CERT_PATH was set but empty (migration did not occur)
-				pentagiVar, exists := mockSt.GetVar("PENTAGI_DOCKER_CERT_PATH")
+				// Check SURICATOOS_DOCKER_CERT_PATH was set but empty (migration did not occur)
+				suricatoosVar, exists := mockSt.GetVar("SURICATOOS_DOCKER_CERT_PATH")
 				if !exists {
-					t.Errorf("Expected PENTAGI_DOCKER_CERT_PATH to exist in state: %s", tt.description)
-				} else if pentagiVar.Value != "" {
-					t.Errorf("Expected PENTAGI_DOCKER_CERT_PATH to be empty, got %q: %s", pentagiVar.Value, tt.description)
+					t.Errorf("Expected SURICATOOS_DOCKER_CERT_PATH to exist in state: %s", tt.description)
+				} else if suricatoosVar.Value != "" {
+					t.Errorf("Expected SURICATOOS_DOCKER_CERT_PATH to be empty, got %q: %s", suricatoosVar.Value, tt.description)
 				}
 
 				// Check DOCKER_CERT_PATH was set to original value (not migrated)
@@ -933,15 +933,15 @@ func TestDoSyncNetworkSettings_PreventOverrideExistingSettings(t *testing.T) {
 			description: "State with DOCKER_CERT_PATH should prevent sync",
 		},
 		{
-			name: "existing PENTAGI_DOCKER_CERT_PATH in state prevents sync",
+			name: "existing SURICATOOS_DOCKER_CERT_PATH in state prevents sync",
 			existingStateVars: map[string]string{
-				"PENTAGI_DOCKER_CERT_PATH": "/existing/certs",
+				"SURICATOOS_DOCKER_CERT_PATH": "/existing/certs",
 			},
 			envVars: map[string]string{
 				"DOCKER_HOST": "tcp://new.example.com:2376",
 			},
 			expectSync:  false,
-			description: "State with PENTAGI_DOCKER_CERT_PATH should prevent sync",
+			description: "State with SURICATOOS_DOCKER_CERT_PATH should prevent sync",
 		},
 		{
 			name:              "empty state allows sync",

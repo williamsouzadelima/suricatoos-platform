@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"pentagi/pkg/csum"
+	"suricatoos/pkg/csum"
 )
 
 // ContextEstimate represents the estimated context size range

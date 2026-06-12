@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/terminal"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/terminal"
+	"suricatoos/pkg/tools"
 )
 
 type ProxyProviders interface {

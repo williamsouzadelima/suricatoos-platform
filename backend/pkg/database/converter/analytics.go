@@ -2,8 +2,8 @@ package converter
 
 import (
 	"math"
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
 	"sort"
 	"time"
 )

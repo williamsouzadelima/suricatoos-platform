@@ -1,13 +1,13 @@
 package registry
 
 import (
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/processor"
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/models"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/processor"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/models"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/window"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -95,17 +95,17 @@ func (r *registry) initScreens() {
 
 	// Processor Operation Forms
 	processorOperationForms := []models.ScreenID{
-		models.InstallPentagiScreen,
-		models.StartPentagiScreen,
-		models.StopPentagiScreen,
-		models.RestartPentagiScreen,
+		models.InstallSuricatoosScreen,
+		models.StartSuricatoosScreen,
+		models.StopSuricatoosScreen,
+		models.RestartSuricatoosScreen,
 		models.DownloadWorkerImageScreen,
 		models.UpdateWorkerImageScreen,
-		models.UpdatePentagiScreen,
+		models.UpdateSuricatoosScreen,
 		models.UpdateInstallerScreen,
 		models.FactoryResetScreen,
-		models.RemovePentagiScreen,
-		models.PurgePentagiScreen,
+		models.RemoveSuricatoosScreen,
+		models.PurgeSuricatoosScreen,
 	}
 	for _, id := range processorOperationForms {
 		r.screens[id] = r.initProcessorOperationForm(id)

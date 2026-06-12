@@ -3,10 +3,10 @@ package models
 import (
 	"strings"
 
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/window"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -37,22 +37,22 @@ func (h *MaintenanceHandler) LoadItems() []ListItem {
 
 	if showStart {
 		items = append(items, ListItem{
-			ID: StartPentagiScreen,
+			ID: StartSuricatoosScreen,
 		})
 	}
 
-	// stop PentAGI - show if any stack is running
+	// stop Suricatoos - show if any stack is running
 	showStop := checker.CanStopAll()
 	if showStop {
 		items = append(items, ListItem{
-			ID: StopPentagiScreen,
+			ID: StopSuricatoosScreen,
 		})
 	}
 
-	// restart PentAGI - show if any stack is running
+	// restart Suricatoos - show if any stack is running
 	if showStop {
 		items = append(items, ListItem{
-			ID: RestartPentagiScreen,
+			ID: RestartSuricatoosScreen,
 		})
 	}
 
@@ -71,12 +71,12 @@ func (h *MaintenanceHandler) LoadItems() []ListItem {
 		})
 	}
 
-	// update PentAGI - show if updates are available for any stack
-	showUpdatePentagi := checker.CanUpdateAll()
+	// update Suricatoos - show if updates are available for any stack
+	showUpdateSuricatoos := checker.CanUpdateAll()
 
-	if showUpdatePentagi {
+	if showUpdateSuricatoos {
 		items = append(items, ListItem{
-			ID:          UpdatePentagiScreen,
+			ID:          UpdateSuricatoosScreen,
 			Highlighted: true,
 		})
 	}
@@ -96,21 +96,21 @@ func (h *MaintenanceHandler) LoadItems() []ListItem {
 		})
 	}
 
-	// remove PentAGI - show if any stack is installed
+	// remove Suricatoos - show if any stack is installed
 	if checker.CanRemoveAll() {
 		items = append(items, ListItem{
-			ID: RemovePentagiScreen,
+			ID: RemoveSuricatoosScreen,
 		})
 	}
 
-	// purge PentAGI - show if any stack is installed
+	// purge Suricatoos - show if any stack is installed
 	if checker.CanPurgeAll() {
 		items = append(items, ListItem{
-			ID: PurgePentagiScreen,
+			ID: PurgeSuricatoosScreen,
 		})
 	}
 
-	// reset admin password - show if PentAGI is running
+	// reset admin password - show if Suricatoos is running
 	if checker.CanResetPassword() {
 		items = append(items, ListItem{
 			ID: ResetPasswordScreen,

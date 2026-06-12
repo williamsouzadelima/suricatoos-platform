@@ -5,11 +5,11 @@ import (
 	"embed"
 	"fmt"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/provider"
-	"pentagi/pkg/system"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/provider"
+	"suricatoos/pkg/system"
+	"suricatoos/pkg/templates"
 
 	"github.com/vxcontrol/langchaingo/llms"
 	"github.com/vxcontrol/langchaingo/llms/openai"

@@ -20,7 +20,7 @@ import (
 	"syscall"
 	"time"
 
-	"pentagi/cmd/installer/state"
+	"suricatoos/cmd/installer/state"
 
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/image"
@@ -42,9 +42,9 @@ type ImageInfo struct {
 type CheckUpdatesRequest struct {
 	InstallerOsType         string  `json:"installer_os_type"`
 	InstallerVersion        string  `json:"installer_version"`
-	PentagiImageName        *string `json:"pentagi_image_name,omitempty"`
-	PentagiImageTag         *string `json:"pentagi_image_tag,omitempty"`
-	PentagiImageHash        *string `json:"pentagi_image_hash,omitempty"`
+	SuricatoosImageName        *string `json:"suricatoos_image_name,omitempty"`
+	SuricatoosImageTag         *string `json:"suricatoos_image_tag,omitempty"`
+	SuricatoosImageHash        *string `json:"suricatoos_image_hash,omitempty"`
 	WorkerImageName         *string `json:"worker_image_name,omitempty"`
 	WorkerImageTag          *string `json:"worker_image_tag,omitempty"`
 	WorkerImageHash         *string `json:"worker_image_hash,omitempty"`
@@ -79,7 +79,7 @@ type CheckUpdatesRequest struct {
 
 type CheckUpdatesResponse struct {
 	InstallerIsUpToDate     bool `json:"installer_is_up_to_date"`
-	PentagiIsUpToDate       bool `json:"pentagi_is_up_to_date"`
+	SuricatoosIsUpToDate       bool `json:"suricatoos_is_up_to_date"`
 	GraphitiIsUpToDate      bool `json:"graphiti_is_up_to_date"`
 	LangfuseIsUpToDate      bool `json:"langfuse_is_up_to_date"`
 	ObservabilityIsUpToDate bool `json:"observability_is_up_to_date"`
@@ -103,7 +103,7 @@ func checkFileIsReadable(path string) bool {
 // checkDirIsWritable checks if we can write to a directory
 func checkDirIsWritable(dirPath string) bool {
 	// try to create a temporary file in the directory
-	tempFile, err := os.CreateTemp(dirPath, ".pentagi_test_*")
+	tempFile, err := os.CreateTemp(dirPath, ".suricatoos_test_*")
 	if err != nil {
 		return false
 	}
@@ -307,7 +307,7 @@ func checkContainerExists(ctx context.Context, cli *client.Client, name string) 
 }
 
 // checkVolumesExist checks if any of the specified volumes exist
-// it matches both exact names and volumes with compose project prefix (e.g., "pentagi_pentagi-data")
+// it matches both exact names and volumes with compose project prefix (e.g., "suricatoos_suricatoos-data")
 func checkVolumesExist(ctx context.Context, cli *client.Client, volumeNames []string) bool {
 	if cli == nil || len(volumeNames) == 0 {
 		return false
@@ -343,8 +343,8 @@ func checkCPUResources() bool {
 }
 
 // determineComponentNeeds checks which components need to be started based on their status
-func determineComponentNeeds(c *CheckResult) (needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability bool) {
-	needsForPentagi = !c.PentagiRunning
+func determineComponentNeeds(c *CheckResult) (needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability bool) {
+	needsForSuricatoos = !c.SuricatoosRunning
 	needsForGraphiti = c.GraphitiConnected && !c.GraphitiExternal && !c.GraphitiRunning
 	needsForLangfuse = c.LangfuseConnected && !c.LangfuseExternal && !c.LangfuseRunning
 	needsForObservability = c.ObservabilityConnected && !c.ObservabilityExternal && !c.ObservabilityRunning
@@ -352,10 +352,10 @@ func determineComponentNeeds(c *CheckResult) (needsForPentagi, needsForGraphiti,
 }
 
 // calculateRequiredMemoryGB calculates the total memory required based on which components need to be started
-func calculateRequiredMemoryGB(needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability bool) float64 {
+func calculateRequiredMemoryGB(needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability bool) float64 {
 	requiredGB := MinFreeMemGB
-	if needsForPentagi {
-		requiredGB += MinFreeMemGBForPentagi
+	if needsForSuricatoos {
+		requiredGB += MinFreeMemGBForSuricatoos
 	}
 	if needsForGraphiti {
 		requiredGB += MinFreeMemGBForGraphiti
@@ -369,12 +369,12 @@ func calculateRequiredMemoryGB(needsForPentagi, needsForGraphiti, needsForLangfu
 	return requiredGB
 }
 
-func checkMemoryResources(needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability bool) bool {
-	if !needsForPentagi && !needsForGraphiti && !needsForLangfuse && !needsForObservability {
+func checkMemoryResources(needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability bool) bool {
+	if !needsForSuricatoos && !needsForGraphiti && !needsForLangfuse && !needsForObservability {
 		return true
 	}
 
-	requiredGB := calculateRequiredMemoryGB(needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability)
+	requiredGB := calculateRequiredMemoryGB(needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability)
 
 	// check available memory using different methods depending on OS
 	switch runtime.GOOS {
@@ -597,13 +597,13 @@ func calculateRequiredDiskGB(workerImageExists bool, localComponents int) float6
 
 // countLocalComponentsToInstall counts how many components need to be installed locally
 func countLocalComponentsToInstall(
-	pentagiInstalled,
+	suricatoosInstalled,
 	graphitiConnected, graphitiExternal, graphitiInstalled,
 	langfuseConnected, langfuseExternal, langfuseInstalled,
 	obsConnected, obsExternal, obsInstalled bool,
 ) int {
 	localComponents := 0
-	if !pentagiInstalled {
+	if !suricatoosInstalled {
 		localComponents++
 	}
 	if graphitiConnected && !graphitiExternal && !graphitiInstalled {
@@ -620,14 +620,14 @@ func countLocalComponentsToInstall(
 
 func checkDiskSpaceWithContext(
 	ctx context.Context,
-	workerImageExists, pentagiInstalled,
+	workerImageExists, suricatoosInstalled,
 	graphitiConnected, graphitiExternal, graphitiInstalled,
 	langfuseConnected, langfuseExternal, langfuseInstalled,
 	obsConnected, obsExternal, obsInstalled bool,
 ) bool {
 	// determine required disk space based on what needs to be installed locally
 	localComponents := countLocalComponentsToInstall(
-		pentagiInstalled,
+		suricatoosInstalled,
 		graphitiConnected, graphitiExternal, graphitiInstalled,
 		langfuseConnected, langfuseExternal, langfuseInstalled,
 		obsConnected, obsExternal, obsInstalled,

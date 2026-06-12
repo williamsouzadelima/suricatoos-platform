@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/templates"
 )
 
 // fakeQuerier satisfies database.Querier by embedding the interface

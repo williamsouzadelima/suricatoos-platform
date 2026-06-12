@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/database"
+	"suricatoos/pkg/database"
 )
 
 // mockQuerier satisfies database.Querier by embedding the interface;

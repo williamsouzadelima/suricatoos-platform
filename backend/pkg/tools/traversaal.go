@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"strings"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/database"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
-	"pentagi/pkg/system"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/database"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
+	"suricatoos/pkg/system"
 
 	"github.com/sirupsen/logrus"
 )

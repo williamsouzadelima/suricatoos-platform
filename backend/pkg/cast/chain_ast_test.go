@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/templates"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/vxcontrol/langchaingo/llms"

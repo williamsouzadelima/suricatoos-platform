@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/queue"
+	"suricatoos/pkg/queue"
 )
 
 func TestQueue_StartStop(t *testing.T) {

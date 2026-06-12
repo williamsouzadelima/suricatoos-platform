@@ -8,15 +8,15 @@ import (
 	"runtime"
 	"sync"
 
-	"pentagi/cmd/installer/state"
-	"pentagi/pkg/version"
+	"suricatoos/cmd/installer/state"
+	"suricatoos/pkg/version"
 
 	"github.com/docker/docker/client"
 )
 
 var (
 	InstallerVersion = version.GetBinaryVersion()
-	UserAgent        = "PentAGI-Installer/" + InstallerVersion
+	UserAgent        = "Suricatoos-Installer/" + InstallerVersion
 )
 
 const (
@@ -26,8 +26,8 @@ const (
 	ObservabilityComposeFile     = "docker-compose-observability.yml"
 	ExampleCustomConfigLLMFile   = "example.custom.provider.yml"
 	ExampleOllamaConfigLLMFile   = "example.ollama.provider.yml"
-	PentagiScriptFile            = "/usr/local/bin/pentagi"
-	PentagiContainerName         = "pentagi"
+	SuricatoosScriptFile            = "/usr/local/bin/suricatoos"
+	SuricatoosContainerName         = "suricatoos"
 	GraphitiContainerName        = "graphiti"
 	Neo4jContainerName           = "neo4j"
 	LangfuseWorkerContainerName  = "langfuse-worker"
@@ -43,7 +43,7 @@ const (
 	DefaultUpdateServerEndpoint  = "https://update.pentagi.com"
 	UpdatesCheckEndpoint         = "/api/v1/updates/check"
 	MinFreeMemGB                 = 0.5
-	MinFreeMemGBForPentagi       = 0.5
+	MinFreeMemGBForSuricatoos       = 0.5
 	MinFreeMemGBForGraphiti      = 2.0
 	MinFreeMemGBForLangfuse      = 1.5
 	MinFreeMemGBForObservability = 1.5
@@ -69,11 +69,11 @@ type CheckResult struct {
 	DockerVersionOK         bool   `json:"docker_version_ok" yaml:"docker_version_ok"`
 	DockerComposeVersion    string `json:"docker_compose_version" yaml:"docker_compose_version"`
 	DockerComposeVersionOK  bool   `json:"docker_compose_version_ok" yaml:"docker_compose_version_ok"`
-	PentagiScriptInstalled  bool   `json:"pentagi_script_installed" yaml:"pentagi_script_installed"`
-	PentagiExtracted        bool   `json:"pentagi_extracted" yaml:"pentagi_extracted"`
-	PentagiInstalled        bool   `json:"pentagi_installed" yaml:"pentagi_installed"`
-	PentagiRunning          bool   `json:"pentagi_running" yaml:"pentagi_running"`
-	PentagiVolumesExist     bool   `json:"pentagi_volumes_exist" yaml:"pentagi_volumes_exist"`
+	SuricatoosScriptInstalled  bool   `json:"suricatoos_script_installed" yaml:"suricatoos_script_installed"`
+	SuricatoosExtracted        bool   `json:"suricatoos_extracted" yaml:"suricatoos_extracted"`
+	SuricatoosInstalled        bool   `json:"suricatoos_installed" yaml:"suricatoos_installed"`
+	SuricatoosRunning          bool   `json:"suricatoos_running" yaml:"suricatoos_running"`
+	SuricatoosVolumesExist     bool   `json:"suricatoos_volumes_exist" yaml:"suricatoos_volumes_exist"`
 	GraphitiConnected       bool   `json:"graphiti_connected" yaml:"graphiti_connected"`
 	GraphitiExternal        bool   `json:"graphiti_external" yaml:"graphiti_external"`
 	GraphitiExtracted       bool   `json:"graphiti_extracted" yaml:"graphiti_extracted"`
@@ -97,7 +97,7 @@ type CheckResult struct {
 	SysDiskFreeSpaceOK      bool   `json:"sys_disk_free_space_ok" yaml:"sys_disk_free_space_ok"`
 	UpdateServerAccessible  bool   `json:"update_server_accessible" yaml:"update_server_accessible"`
 	InstallerIsUpToDate     bool   `json:"installer_is_up_to_date" yaml:"installer_is_up_to_date"`
-	PentagiIsUpToDate       bool   `json:"pentagi_is_up_to_date" yaml:"pentagi_is_up_to_date"`
+	SuricatoosIsUpToDate       bool   `json:"suricatoos_is_up_to_date" yaml:"suricatoos_is_up_to_date"`
 	GraphitiIsUpToDate      bool   `json:"graphiti_is_up_to_date" yaml:"graphiti_is_up_to_date"`
 	LangfuseIsUpToDate      bool   `json:"langfuse_is_up_to_date" yaml:"langfuse_is_up_to_date"`
 	ObservabilityIsUpToDate bool   `json:"observability_is_up_to_date" yaml:"observability_is_up_to_date"`
@@ -122,7 +122,7 @@ type CheckHandler interface {
 	GatherAllInfo(ctx context.Context, c *CheckResult) error
 	GatherDockerInfo(ctx context.Context, c *CheckResult) error
 	GatherWorkerInfo(ctx context.Context, c *CheckResult) error
-	GatherPentagiInfo(ctx context.Context, c *CheckResult) error
+	GatherSuricatoosInfo(ctx context.Context, c *CheckResult) error
 	GatherGraphitiInfo(ctx context.Context, c *CheckResult) error
 	GatherLangfuseInfo(ctx context.Context, c *CheckResult) error
 	GatherObservabilityInfo(ctx context.Context, c *CheckResult) error
@@ -152,11 +152,11 @@ func (c *CheckResult) GatherWorkerInfo(ctx context.Context) error {
 	return c.handler.GatherWorkerInfo(ctx, c)
 }
 
-func (c *CheckResult) GatherPentagiInfo(ctx context.Context) error {
+func (c *CheckResult) GatherSuricatoosInfo(ctx context.Context) error {
 	if c.handler == nil {
 		return ErrHandlerNotInitialized
 	}
-	return c.handler.GatherPentagiInfo(ctx, c)
+	return c.handler.GatherSuricatoosInfo(ctx, c)
 }
 
 func (c *CheckResult) GatherGraphitiInfo(ctx context.Context) error {
@@ -213,7 +213,7 @@ func (c *CheckResult) IsReadyToContinue() bool {
 
 // CanStartAll returns true when at least one embedded stack is installed and not running
 func (c *CheckResult) CanStartAll() bool {
-	if c.PentagiInstalled && !c.PentagiRunning {
+	if c.SuricatoosInstalled && !c.SuricatoosRunning {
 		return true
 	}
 	if c.GraphitiConnected && !c.GraphitiExternal && c.GraphitiInstalled && !c.GraphitiRunning {
@@ -230,7 +230,7 @@ func (c *CheckResult) CanStartAll() bool {
 
 // CanStopAll returns true when any compose stack is running
 func (c *CheckResult) CanStopAll() bool {
-	return c.PentagiRunning || c.GraphitiRunning || c.LangfuseRunning || c.ObservabilityRunning
+	return c.SuricatoosRunning || c.GraphitiRunning || c.LangfuseRunning || c.ObservabilityRunning
 }
 
 // CanRestartAll mirrors stop logic (requires running services)
@@ -244,7 +244,7 @@ func (c *CheckResult) CanUpdateWorker() bool { return c.WorkerImageExists && !c.
 
 // CanUpdateAll returns true when any installed stack has updates available
 func (c *CheckResult) CanUpdateAll() bool {
-	if c.PentagiInstalled && !c.PentagiIsUpToDate {
+	if c.SuricatoosInstalled && !c.SuricatoosIsUpToDate {
 		return true
 	}
 	if c.GraphitiInstalled && !c.GraphitiIsUpToDate {
@@ -266,7 +266,7 @@ func (c *CheckResult) CanUpdateInstaller() bool {
 
 // CanFactoryReset returns true when any compose stack is installed
 func (c *CheckResult) CanFactoryReset() bool {
-	return c.PentagiInstalled || c.GraphitiInstalled || c.LangfuseInstalled || c.ObservabilityInstalled
+	return c.SuricatoosInstalled || c.GraphitiInstalled || c.LangfuseInstalled || c.ObservabilityInstalled
 }
 
 // CanRemoveAll returns true when any compose stack is installed
@@ -275,11 +275,11 @@ func (c *CheckResult) CanRemoveAll() bool { return c.CanFactoryReset() }
 // CanPurgeAll returns true when any compose stack is installed
 func (c *CheckResult) CanPurgeAll() bool { return c.CanFactoryReset() }
 
-// CanResetPassword returns true when PentAGI is running
-func (c *CheckResult) CanResetPassword() bool { return c.PentagiRunning }
+// CanResetPassword returns true when Suricatoos is running
+func (c *CheckResult) CanResetPassword() bool { return c.SuricatoosRunning }
 
 // CanInstallAll returns true when main stack is not installed yet
-func (c *CheckResult) CanInstallAll() bool { return !c.PentagiInstalled }
+func (c *CheckResult) CanInstallAll() bool { return !c.SuricatoosInstalled }
 
 // defaultCheckHandler provides the existing implementation of gathering logic
 type defaultCheckHandler struct {
@@ -306,7 +306,7 @@ func (h *defaultCheckHandler) GatherAllInfo(ctx context.Context, c *CheckResult)
 	if err := h.GatherWorkerInfo(ctx, c); err != nil {
 		return err
 	}
-	if err := h.GatherPentagiInfo(ctx, c); err != nil {
+	if err := h.GatherSuricatoosInfo(ctx, c); err != nil {
 		return err
 	}
 	if err := h.GatherGraphitiInfo(ctx, c); err != nil {
@@ -365,7 +365,7 @@ func (h *defaultCheckHandler) GatherWorkerInfo(ctx context.Context, c *CheckResu
 	defer h.mx.Unlock()
 
 	dockerHost := getEnvVar(h.appState, "DOCKER_HOST", "")
-	dockerCertPath := getEnvVar(h.appState, "PENTAGI_DOCKER_CERT_PATH", "")
+	dockerCertPath := getEnvVar(h.appState, "SURICATOOS_DOCKER_CERT_PATH", "")
 	dockerTLSVerify := getEnvVar(h.appState, "DOCKER_TLS_VERIFY", "") != ""
 
 	cli, err := createDockerClient(dockerHost, dockerCertPath, dockerTLSVerify)
@@ -391,25 +391,25 @@ func (h *defaultCheckHandler) GatherWorkerInfo(ctx context.Context, c *CheckResu
 	return nil
 }
 
-func (h *defaultCheckHandler) GatherPentagiInfo(ctx context.Context, c *CheckResult) error {
+func (h *defaultCheckHandler) GatherSuricatoosInfo(ctx context.Context, c *CheckResult) error {
 	h.mx.Lock()
 	defer h.mx.Unlock()
 
 	envDir := filepath.Dir(h.appState.GetEnvPath())
 	dockerComposeFile := filepath.Join(envDir, DockerComposeFile)
-	c.PentagiExtracted = checkFileExists(dockerComposeFile) &&
+	c.SuricatoosExtracted = checkFileExists(dockerComposeFile) &&
 		checkFileExists(ExampleCustomConfigLLMFile) &&
 		checkFileExists(ExampleOllamaConfigLLMFile)
-	c.PentagiScriptInstalled = checkFileExists(PentagiScriptFile)
+	c.SuricatoosScriptInstalled = checkFileExists(SuricatoosScriptFile)
 
 	if h.dockerClient != nil {
-		exists, running := checkContainerExists(ctx, h.dockerClient, PentagiContainerName)
-		c.PentagiInstalled = exists
-		c.PentagiRunning = running
+		exists, running := checkContainerExists(ctx, h.dockerClient, SuricatoosContainerName)
+		c.SuricatoosInstalled = exists
+		c.SuricatoosRunning = running
 
-		// check if pentagi-related volumes exist (indicates previous installation)
-		pentagiVolumes := []string{"pentagi-postgres-data", "pentagi-data", "pentagi-ssl", "scraper-ssl"}
-		c.PentagiVolumesExist = checkVolumesExist(ctx, h.dockerClient, pentagiVolumes)
+		// check if suricatoos-related volumes exist (indicates previous installation)
+		suricatoosVolumes := []string{"suricatoos-postgres-data", "suricatoos-data", "suricatoos-ssl", "scraper-ssl"}
+		c.SuricatoosVolumesExist = checkVolumesExist(ctx, h.dockerClient, suricatoosVolumes)
 	}
 
 	return nil
@@ -505,18 +505,18 @@ func (h *defaultCheckHandler) GatherSystemInfo(ctx context.Context, c *CheckResu
 	c.SysCPUOK = checkCPUResources()
 
 	// memory check and calculations
-	needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability := determineComponentNeeds(c)
+	needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability := determineComponentNeeds(c)
 
 	// calculate required memory using shared function
-	c.SysMemoryRequired = calculateRequiredMemoryGB(needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability)
+	c.SysMemoryRequired = calculateRequiredMemoryGB(needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability)
 
 	// get available memory and check if sufficient
 	c.SysMemoryAvailable = getAvailableMemoryGB()
-	c.SysMemoryOK = checkMemoryResources(needsForPentagi, needsForGraphiti, needsForLangfuse, needsForObservability)
+	c.SysMemoryOK = checkMemoryResources(needsForSuricatoos, needsForGraphiti, needsForLangfuse, needsForObservability)
 
 	// disk check and calculations
 	localComponents := countLocalComponentsToInstall(
-		c.PentagiInstalled,
+		c.SuricatoosInstalled,
 		c.GraphitiConnected, c.GraphitiExternal, c.GraphitiInstalled,
 		c.LangfuseConnected, c.LangfuseExternal, c.LangfuseInstalled,
 		c.ObservabilityConnected, c.ObservabilityExternal, c.ObservabilityInstalled,
@@ -530,7 +530,7 @@ func (h *defaultCheckHandler) GatherSystemInfo(ctx context.Context, c *CheckResu
 	c.SysDiskFreeSpaceOK = checkDiskSpaceWithContext(
 		ctx,
 		c.WorkerImageExists,
-		c.PentagiInstalled,
+		c.SuricatoosInstalled,
 		c.GraphitiConnected,
 		c.GraphitiExternal,
 		c.GraphitiInstalled,
@@ -571,12 +571,12 @@ func (h *defaultCheckHandler) GatherUpdatesInfo(ctx context.Context, c *CheckRes
 		ObservabilityInstalled: c.ObservabilityInstalled,
 	}
 
-	// get PentAGI container image info
-	if h.dockerClient != nil && c.PentagiInstalled {
-		if imageInfo := getContainerImageInfo(ctx, h.dockerClient, PentagiContainerName); imageInfo != nil {
-			request.PentagiImageName = &imageInfo.Name
-			request.PentagiImageTag = &imageInfo.Tag
-			request.PentagiImageHash = &imageInfo.Hash
+	// get Suricatoos container image info
+	if h.dockerClient != nil && c.SuricatoosInstalled {
+		if imageInfo := getContainerImageInfo(ctx, h.dockerClient, SuricatoosContainerName); imageInfo != nil {
+			request.SuricatoosImageName = &imageInfo.Name
+			request.SuricatoosImageTag = &imageInfo.Tag
+			request.SuricatoosImageHash = &imageInfo.Hash
 		}
 	}
 
@@ -636,7 +636,7 @@ func (h *defaultCheckHandler) GatherUpdatesInfo(ctx context.Context, c *CheckRes
 	if response != nil {
 		c.UpdateServerAccessible = true
 		c.InstallerIsUpToDate = response.InstallerIsUpToDate
-		c.PentagiIsUpToDate = response.PentagiIsUpToDate
+		c.SuricatoosIsUpToDate = response.SuricatoosIsUpToDate
 		c.GraphitiIsUpToDate = response.GraphitiIsUpToDate
 		c.LangfuseIsUpToDate = response.LangfuseIsUpToDate
 		c.ObservabilityIsUpToDate = response.ObservabilityIsUpToDate
@@ -644,7 +644,7 @@ func (h *defaultCheckHandler) GatherUpdatesInfo(ctx context.Context, c *CheckRes
 	} else {
 		c.UpdateServerAccessible = false
 		c.InstallerIsUpToDate = false
-		c.PentagiIsUpToDate = false
+		c.SuricatoosIsUpToDate = false
 		c.GraphitiIsUpToDate = false
 		c.LangfuseIsUpToDate = false
 		c.ObservabilityIsUpToDate = false

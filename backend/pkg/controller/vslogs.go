@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sync"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/subscriptions"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/subscriptions"
 )
 
 type VectorStoreLogController interface {

@@ -9,8 +9,8 @@ import (
 	"strings"
 	"sync"
 
-	"pentagi/pkg/cast"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/cast"
+	"suricatoos/pkg/tools"
 
 	"github.com/vxcontrol/langchaingo/llms"
 )

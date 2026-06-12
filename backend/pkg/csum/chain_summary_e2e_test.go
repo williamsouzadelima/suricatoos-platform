@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/cast"
+	"suricatoos/pkg/cast"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/vxcontrol/langchaingo/llms"

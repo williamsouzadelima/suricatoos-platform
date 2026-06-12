@@ -4,16 +4,16 @@ import (
 	"context"
 	"sync"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/state"
-	"pentagi/cmd/installer/wizard/terminal"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/state"
+	"suricatoos/cmd/installer/wizard/terminal"
 )
 
 type ProductStack string
 
 const (
-	ProductStackPentagi       ProductStack = "pentagi"
+	ProductStackSuricatoos       ProductStack = "suricatoos"
 	ProductStackGraphiti      ProductStack = "graphiti"
 	ProductStackLangfuse      ProductStack = "langfuse"
 	ProductStackObservability ProductStack = "observability"
@@ -43,7 +43,7 @@ const (
 type ProductDockerNetwork string
 
 const (
-	ProductDockerNetworkPentagi       ProductDockerNetwork = "pentagi-network"
+	ProductDockerNetworkSuricatoos       ProductDockerNetwork = "suricatoos-network"
 	ProductDockerNetworkObservability ProductDockerNetwork = "observability-network"
 	ProductDockerNetworkLangfuse      ProductDockerNetwork = "langfuse-network"
 )

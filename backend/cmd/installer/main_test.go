@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"pentagi/pkg/version"
+	"suricatoos/pkg/version"
 )
 
 func TestParseFlags(t *testing.T) {
@@ -144,7 +144,7 @@ func TestCreateEmptyEnvFile(t *testing.T) {
 	}
 
 	contentStr := string(content)
-	if !containsString(contentStr, "PentAGI Environment Configuration") {
+	if !containsString(contentStr, "Suricatoos Environment Configuration") {
 		t.Error("Expected file to contain header comment")
 	}
 	if !containsString(contentStr, version.GetBinaryVersion()) {

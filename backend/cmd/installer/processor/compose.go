@@ -10,19 +10,19 @@ import (
 )
 
 const (
-	composeFilePentagi       = "docker-compose.yml"
+	composeFileSuricatoos       = "docker-compose.yml"
 	composeFileGraphiti      = "docker-compose-graphiti.yml"
 	composeFileLangfuse      = "docker-compose-langfuse.yml"
 	composeFileObservability = "docker-compose-observability.yml"
 )
 
 var composeOperationAllStacksOrder = map[ProcessorOperation][]ProductStack{
-	ProcessorOperationStart:    {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi},
-	ProcessorOperationStop:     {ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability},
-	ProcessorOperationUpdate:   {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi},
-	ProcessorOperationDownload: {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi},
-	ProcessorOperationRemove:   {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi},
-	ProcessorOperationPurge:    {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi},
+	ProcessorOperationStart:    {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos},
+	ProcessorOperationStop:     {ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability},
+	ProcessorOperationUpdate:   {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos},
+	ProcessorOperationDownload: {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos},
+	ProcessorOperationRemove:   {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos},
+	ProcessorOperationPurge:    {ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos},
 }
 
 type composeOperationsImpl struct {
@@ -85,7 +85,7 @@ func (c *composeOperationsImpl) performStackOperation(
 	ctx context.Context, stack ProductStack, state *operationState, operation ProcessorOperation, args ...string,
 ) error {
 	switch stack {
-	case ProductStackPentagi:
+	case ProductStackSuricatoos:
 		// destructive operations cannot run without the compose file and have
 		// nothing to act on when the stack was never extracted
 		if isDestructiveComposeOperation(operation) && !c.composeFileExists(stack) {
@@ -197,8 +197,8 @@ func (c *composeOperationsImpl) composeFileExists(stack ProductStack) bool {
 
 func (c *composeOperationsImpl) determineComposeFile(stack ProductStack) (string, error) {
 	switch stack {
-	case ProductStackPentagi:
-		return composeFilePentagi, nil
+	case ProductStackSuricatoos:
+		return composeFileSuricatoos, nil
 	case ProductStackGraphiti:
 		return composeFileGraphiti, nil
 	case ProductStackLangfuse:

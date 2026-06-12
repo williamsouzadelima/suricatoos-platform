@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"strings"
 
-	"pentagi/pkg/observability/langfuse/api/core"
+	"suricatoos/pkg/observability/langfuse/api/core"
 )
 
 const (

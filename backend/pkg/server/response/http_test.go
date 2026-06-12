@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"pentagi/pkg/version"
+	"suricatoos/pkg/version"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

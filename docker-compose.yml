@@ -1,19 +1,19 @@
 volumes:
-  pentagi-data:
+  suricatoos-data:
     driver: local
-  pentagi-ssl:
+  suricatoos-ssl:
     driver: local
-  pentagi-ollama:
+  suricatoos-ollama:
     driver: local
   scraper-ssl:
     driver: local
-  pentagi-postgres-data:
+  suricatoos-postgres-data:
     driver: local
 
 networks:
-  pentagi-network:
+  suricatoos-network:
     driver: bridge
-    name: pentagi-network
+    name: suricatoos-network
   observability-network:
     driver: bridge
     name: observability-network
@@ -22,15 +22,15 @@ networks:
     name: langfuse-network
 
 services:
-  pentagi:
-    image: ${PENTAGI_IMAGE:-vxcontrol/pentagi:latest}
+  suricatoos:
+    image: ${SURICATOOS_IMAGE:-suricatoos:latest}
     restart: unless-stopped
-    container_name: pentagi
-    hostname: pentagi
+    container_name: suricatoos
+    hostname: suricatoos
     expose:
       - 8443/tcp
     ports:
-      - ${PENTAGI_LISTEN_IP:-127.0.0.1}:${PENTAGI_LISTEN_PORT:-8443}:8443
+      - ${SURICATOOS_LISTEN_IP:-127.0.0.1}:${SURICATOOS_LISTEN_PORT:-8443}:8443
     depends_on:
       pgvector:
         condition: service_healthy
@@ -131,7 +131,7 @@ services:
       - OAUTH_GOOGLE_CLIENT_SECRET=${OAUTH_GOOGLE_CLIENT_SECRET:-}
       - OAUTH_GITHUB_CLIENT_ID=${OAUTH_GITHUB_CLIENT_ID:-}
       - OAUTH_GITHUB_CLIENT_SECRET=${OAUTH_GITHUB_CLIENT_SECRET:-}
-      - DATABASE_URL=postgres://${PENTAGI_POSTGRES_USER:-postgres}:${PENTAGI_POSTGRES_PASSWORD:-postgres}@pgvector:5432/${PENTAGI_POSTGRES_DB:-pentagidb}?sslmode=disable
+      - DATABASE_URL=postgres://${SURICATOOS_POSTGRES_USER:-postgres}:${SURICATOOS_POSTGRES_PASSWORD:-postgres}@pgvector:5432/${SURICATOOS_POSTGRES_DB:-suricatoosdb}?sslmode=disable
       - DATABASE_MAX_OPEN_CONNS=${DATABASE_MAX_OPEN_CONNS:-}
       - DATABASE_MAX_IDLE_CONNS=${DATABASE_MAX_IDLE_CONNS:-}
       - DATABASE_VECTOR_MAX_CONNS=${DATABASE_VECTOR_MAX_CONNS:-}
@@ -175,16 +175,16 @@ services:
         max-size: 50m
         max-file: "7"
     volumes:
-      - ${PENTAGI_DATA_DIR:-pentagi-data}:/opt/pentagi/data
-      - ${PENTAGI_SSL_DIR:-pentagi-ssl}:/opt/pentagi/ssl
-      - ${PENTAGI_OLLAMA_DIR:-pentagi-ollama}:/root/.ollama
-      - ${PENTAGI_DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock
-      - ${PENTAGI_LLM_SERVER_CONFIG_PATH:-./example.custom.provider.yml}:/opt/pentagi/conf/custom.provider.yml
-      - ${PENTAGI_OLLAMA_SERVER_CONFIG_PATH:-./example.ollama.provider.yml}:/opt/pentagi/conf/ollama.provider.yml
-      - ${PENTAGI_DOCKER_CERT_PATH:-./docker-ssl}:/opt/pentagi/docker/ssl
+      - ${SURICATOOS_DATA_DIR:-suricatoos-data}:/opt/suricatoos/data
+      - ${SURICATOOS_SSL_DIR:-suricatoos-ssl}:/opt/suricatoos/ssl
+      - ${SURICATOOS_OLLAMA_DIR:-suricatoos-ollama}:/root/.ollama
+      - ${SURICATOOS_DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock
+      - ${SURICATOOS_LLM_SERVER_CONFIG_PATH:-./example.custom.provider.yml}:/opt/suricatoos/conf/custom.provider.yml
+      - ${SURICATOOS_OLLAMA_SERVER_CONFIG_PATH:-./example.ollama.provider.yml}:/opt/suricatoos/conf/ollama.provider.yml
+      - ${SURICATOOS_DOCKER_CERT_PATH:-./docker-ssl}:/opt/suricatoos/docker/ssl
     user: root:root # while using docker.sock
     networks:
-      - pentagi-network
+      - suricatoos-network
       - observability-network
       - langfuse-network
 
@@ -198,23 +198,23 @@ services:
     ports:
       - ${PGVECTOR_LISTEN_IP:-127.0.0.1}:${PGVECTOR_LISTEN_PORT:-5432}:5432
     environment:
-      POSTGRES_USER: ${PENTAGI_POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${PENTAGI_POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${PENTAGI_POSTGRES_DB:-pentagidb}
+      POSTGRES_USER: ${SURICATOOS_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${SURICATOOS_POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${SURICATOOS_POSTGRES_DB:-suricatoosdb}
     logging:
       options:
         max-size: 50m
         max-file: "7"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${PENTAGI_POSTGRES_USER:-postgres}"]
+      test: ["CMD-SHELL", "pg_isready -U $${SURICATOOS_POSTGRES_USER:-postgres}"]
       interval: 3s
       timeout: 3s
       retries: 10
       start_period: 5s
     volumes:
-      - pentagi-postgres-data:/var/lib/postgresql/data
+      - suricatoos-postgres-data:/var/lib/postgresql/data
     networks:
-      - pentagi-network
+      - suricatoos-network
 
   pgexporter:
     image: quay.io/prometheuscommunity/postgres-exporter:v0.16.0
@@ -229,13 +229,13 @@ services:
     ports:
       - ${POSTGRES_EXPORTER_LISTEN_IP:-127.0.0.1}:${POSTGRES_EXPORTER_LISTEN_PORT:-9187}:9187
     environment:
-      - DATA_SOURCE_NAME=postgresql://${PENTAGI_POSTGRES_USER:-postgres}:${PENTAGI_POSTGRES_PASSWORD:-postgres}@pgvector:5432/${PENTAGI_POSTGRES_DB:-pentagidb}?sslmode=disable
+      - DATA_SOURCE_NAME=postgresql://${SURICATOOS_POSTGRES_USER:-postgres}:${SURICATOOS_POSTGRES_PASSWORD:-postgres}@pgvector:5432/${SURICATOOS_POSTGRES_DB:-suricatoosdb}?sslmode=disable
     logging:
       options:
         max-size: 50m
         max-file: "7"
     networks:
-      - pentagi-network
+      - suricatoos-network
 
   scraper:
     image: vxcontrol/scraper:latest
@@ -257,5 +257,5 @@ services:
     volumes:
       - scraper-ssl:/usr/src/app/ssl
     networks:
-      - pentagi-network
+      - suricatoos-network
     shm_size: 2g

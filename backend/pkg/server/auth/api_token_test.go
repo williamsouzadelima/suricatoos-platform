@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/server/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

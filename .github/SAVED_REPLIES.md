@@ -1,6 +1,6 @@
 # Saved Replies
 
-These are standardized responses for the PentAGI Development Team to use when responding to Issues and Pull Requests. Using these templates helps maintain consistency in our communications and saves time.
+These are standardized responses for the Suricatoos Development Team to use when responding to Issues and Pull Requests. Using these templates helps maintain consistency in our communications and saves time.
 
 Since GitHub currently does not support repository-wide saved replies, team members should maintain these individually. All responses are versioned for easier updates.
 
@@ -16,11 +16,11 @@ You can add these saved replies to [your personal GitHub account here](https://g
 
 ### Issue: Already Fixed (v1)
 ```
-Thank you for reporting this issue! This has been resolved in a recent release. Please update to the latest version (see our [releases page](https://github.com/vxcontrol/pentagi/releases)) and verify if the issue persists.
+Thank you for reporting this issue! This has been resolved in a recent release. Please update to the latest version (see our [releases page](https://github.com/vxcontrol/suricatoos/releases)) and verify if the issue persists.
 
 If you continue experiencing problems after updating, please:
 1. Check your configuration against our documentation
-2. Provide logs from both PentAGI and monitoring systems (Grafana/Langfuse)
+2. Provide logs from both Suricatoos and monitoring systems (Grafana/Langfuse)
 3. Include details about your environment and enabled features
 ```
 
@@ -28,7 +28,7 @@ If you continue experiencing problems after updating, please:
 ```
 Thank you for your report! To help us better understand and address your issue, please provide additional information:
 
-1. PentAGI version and deployment method (Docker Compose/Custom)
+1. Suricatoos version and deployment method (Docker Compose/Custom)
 2. Relevant logs from:
    - Docker containers
    - Grafana dashboards (if enabled)
@@ -63,15 +63,15 @@ If you believe this behavior should be different, please:
 2. Explain why the current behavior doesn't meet your needs
 3. Suggest alternative behavior that would work better
 
-We're always open to improving PentAGI's functionality.
+We're always open to improving Suricatoos's functionality.
 ```
 
 ### Issue: Missing Template (v1)
 ```
 Thank you for reporting this! To help us process your issue efficiently, please use our issue templates:
 
-- [Bug Report Template](https://github.com/vxcontrol/pentagi/blob/master/.github/ISSUE_TEMPLATE/1-bug-report.md) for problems
-- [Enhancement Template](https://github.com/vxcontrol/pentagi/blob/master/.github/ISSUE_TEMPLATE/2-enhancement.md) for suggestions
+- [Bug Report Template](https://github.com/vxcontrol/suricatoos/blob/master/.github/ISSUE_TEMPLATE/1-bug-report.md) for problems
+- [Enhancement Template](https://github.com/vxcontrol/suricatoos/blob/master/.github/ISSUE_TEMPLATE/2-enhancement.md) for suggestions
 
 Please edit your issue to include the template information. This helps ensure we have all necessary details to assist you.
 ```
@@ -97,10 +97,10 @@ Feel free to ask questions if you need guidance. We're here to help!
 Excellent work! This PR meets our quality standards and I'll proceed with merging it.
 
 If you're interested in further contributions, check our:
-- [Help Wanted Issues](https://github.com/vxcontrol/pentagi/labels/help-wanted)
-- [Good First Issues](https://github.com/vxcontrol/pentagi/labels/good-first-issue)
+- [Help Wanted Issues](https://github.com/vxcontrol/suricatoos/labels/help-wanted)
+- [Good First Issues](https://github.com/vxcontrol/suricatoos/labels/good-first-issue)
 
-Thank you for improving PentAGI!
+Thank you for improving Suricatoos!
 ```
 
 ### PR: Needs Work (v1)
@@ -121,7 +121,7 @@ Please update your PR addressing these points. Let us know if you need any clari
 
 ### PR: Missing Template (v1)
 ```
-Thank you for your contribution! Please update your PR to use our [PR template](https://github.com/vxcontrol/pentagi/blob/master/.github/PULL_REQUEST_TEMPLATE.md).
+Thank you for your contribution! Please update your PR to use our [PR template](https://github.com/vxcontrol/suricatoos/blob/master/.github/PULL_REQUEST_TEMPLATE.md).
 
 The template helps ensure we have:
 - Clear description of changes
@@ -141,7 +141,7 @@ Thank you for your contribution! We require an associated issue for each PR to:
 - Maintain clear project history
 
 Please:
-1. [Create an issue](https://github.com/vxcontrol/pentagi/issues/new/choose)
+1. [Create an issue](https://github.com/vxcontrol/suricatoos/issues/new/choose)
 2. Link it to this PR
 3. Update the PR description with the issue reference
 

@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/providers/pconfig"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/providers/pconfig"
 )
 
 const (

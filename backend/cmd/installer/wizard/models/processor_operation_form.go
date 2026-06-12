@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"strings"
 
-	"pentagi/cmd/installer/processor"
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/terminal"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/processor"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/terminal"
+	"suricatoos/cmd/installer/wizard/window"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -207,21 +207,21 @@ func (m *ProcessorOperationFormModel) getOperationInfo() *processorOperationInfo
 	// determine title and description based on operation and stack
 	switch m.operation {
 	case processor.ProcessorOperationStart:
-		info.title = locale.MaintenanceStartPentagi
-		info.description = locale.MaintenanceStartPentagiDesc
-		info.help = locale.ProcessorHelpStartPentagi
+		info.title = locale.MaintenanceStartSuricatoos
+		info.description = locale.MaintenanceStartSuricatoosDesc
+		info.help = locale.ProcessorHelpStartSuricatoos
 		info.progressMessage = locale.ProcessorOperationStarting
 
 	case processor.ProcessorOperationStop:
-		info.title = locale.MaintenanceStopPentagi
-		info.description = locale.MaintenanceStopPentagiDesc
-		info.help = locale.ProcessorHelpStopPentagi
+		info.title = locale.MaintenanceStopSuricatoos
+		info.description = locale.MaintenanceStopSuricatoosDesc
+		info.help = locale.ProcessorHelpStopSuricatoos
 		info.progressMessage = locale.ProcessorOperationStopping
 
 	case processor.ProcessorOperationRestart:
-		info.title = locale.MaintenanceRestartPentagi
-		info.description = locale.MaintenanceRestartPentagiDesc
-		info.help = locale.ProcessorHelpRestartPentagi
+		info.title = locale.MaintenanceRestartSuricatoos
+		info.description = locale.MaintenanceRestartSuricatoosDesc
+		info.help = locale.ProcessorHelpRestartSuricatoos
 		info.progressMessage = locale.ProcessorOperationRestarting
 
 	case processor.ProcessorOperationDownload:
@@ -248,9 +248,9 @@ func (m *ProcessorOperationFormModel) getOperationInfo() *processorOperationInfo
 			info.help = locale.ProcessorHelpUpdateInstaller
 			info.requiresConfirmation = true
 		case processor.ProductStackAll, processor.ProductStackCompose:
-			info.title = locale.MaintenanceUpdatePentagi
-			info.description = locale.MaintenanceUpdatePentagiDesc
-			info.help = locale.ProcessorHelpUpdatePentagi
+			info.title = locale.MaintenanceUpdateSuricatoos
+			info.description = locale.MaintenanceUpdateSuricatoosDesc
+			info.help = locale.ProcessorHelpUpdateSuricatoos
 			info.requiresConfirmation = true
 		default:
 			info.title = fmt.Sprintf(locale.OperationTitleUpdate, string(m.stack))
@@ -267,22 +267,22 @@ func (m *ProcessorOperationFormModel) getOperationInfo() *processorOperationInfo
 		info.requiresConfirmation = true
 
 	case processor.ProcessorOperationRemove:
-		info.title = locale.MaintenanceRemovePentagi
-		info.description = locale.MaintenanceRemovePentagiDesc
-		info.help = locale.ProcessorHelpRemovePentagi
+		info.title = locale.MaintenanceRemoveSuricatoos
+		info.description = locale.MaintenanceRemoveSuricatoosDesc
+		info.help = locale.ProcessorHelpRemoveSuricatoos
 		info.progressMessage = locale.ProcessorOperationRemoving
 
 	case processor.ProcessorOperationPurge:
-		info.title = locale.MaintenancePurgePentagi
-		info.description = locale.MaintenancePurgePentagiDesc
-		info.help = locale.ProcessorHelpPurgePentagi
+		info.title = locale.MaintenancePurgeSuricatoos
+		info.description = locale.MaintenancePurgeSuricatoosDesc
+		info.help = locale.ProcessorHelpPurgeSuricatoos
 		info.progressMessage = locale.ProcessorOperationPurging
 		info.requiresConfirmation = true
 
 	case processor.ProcessorOperationInstall:
-		info.title = locale.OperationTitleInstallPentagi
-		info.description = locale.OperationDescInstallPentagi
-		info.help = locale.ProcessorHelpInstallPentagi
+		info.title = locale.OperationTitleInstallSuricatoos
+		info.description = locale.OperationDescInstallSuricatoos
+		info.help = locale.ProcessorHelpInstallSuricatoos
 		info.progressMessage = locale.ProcessorOperationInstalling
 		info.requiresConfirmation = false
 
@@ -585,7 +585,7 @@ func (m *ProcessorOperationFormModel) renderCurrentStateSummary() string {
 		return "• " + label + ": " + strings.Join(states, ", ")
 	}
 
-	lines = append(lines, comp(locale.ProcessorComponentPentagi, c.PentagiInstalled, c.PentagiRunning, true, true, false))
+	lines = append(lines, comp(locale.ProcessorComponentSuricatoos, c.SuricatoosInstalled, c.SuricatoosRunning, true, true, false))
 	lines = append(lines, comp(locale.ProcessorComponentLangfuse, c.LangfuseInstalled, c.LangfuseRunning, !c.LangfuseExternal, c.LangfuseConnected, c.LangfuseExternal))
 	lines = append(lines, comp(locale.ProcessorComponentObservability, c.ObservabilityInstalled, c.ObservabilityRunning, !c.ObservabilityExternal, c.ObservabilityConnected, c.ObservabilityExternal))
 
@@ -607,20 +607,20 @@ func (m *ProcessorOperationFormModel) renderPlannedActions() string {
 	case processor.ProcessorOperationStart:
 		add(locale.PlannedWillStart, locale.ProcessorComponentObservability, c.CanStartAll() && !c.ObservabilityRunning)
 		add(locale.PlannedWillStart, locale.ProcessorComponentLangfuse, c.CanStartAll() && !c.LangfuseRunning)
-		add(locale.PlannedWillStart, locale.ProcessorComponentPentagi, c.CanStartAll() && !c.PentagiRunning)
+		add(locale.PlannedWillStart, locale.ProcessorComponentSuricatoos, c.CanStartAll() && !c.SuricatoosRunning)
 	case processor.ProcessorOperationStop:
-		add(locale.PlannedWillStop, locale.ProcessorComponentPentagi, c.PentagiRunning)
+		add(locale.PlannedWillStop, locale.ProcessorComponentSuricatoos, c.SuricatoosRunning)
 		add(locale.PlannedWillStop, locale.ProcessorComponentLangfuse, c.LangfuseRunning)
 		add(locale.PlannedWillStop, locale.ProcessorComponentObservability, c.ObservabilityRunning)
 	case processor.ProcessorOperationRestart:
-		add(locale.PlannedWillRestart, locale.ProcessorComponentPentagi, c.PentagiRunning)
+		add(locale.PlannedWillRestart, locale.ProcessorComponentSuricatoos, c.SuricatoosRunning)
 		add(locale.PlannedWillRestart, locale.ProcessorComponentLangfuse, c.LangfuseRunning)
 		add(locale.PlannedWillRestart, locale.ProcessorComponentObservability, c.ObservabilityRunning)
 	case processor.ProcessorOperationUpdate:
 		add(locale.PlannedWillUpdate, locale.ProcessorComponentObservability, c.ObservabilityInstalled && !c.ObservabilityIsUpToDate)
 		add(locale.PlannedWillUpdate, locale.ProcessorComponentLangfuse, c.LangfuseInstalled && !c.LangfuseIsUpToDate)
-		add(locale.PlannedWillUpdate, locale.ProcessorComponentPentagi, c.PentagiInstalled && !c.PentagiIsUpToDate)
-		if !(c.PentagiInstalled || c.LangfuseInstalled || c.ObservabilityInstalled) {
+		add(locale.PlannedWillUpdate, locale.ProcessorComponentSuricatoos, c.SuricatoosInstalled && !c.SuricatoosIsUpToDate)
+		if !(c.SuricatoosInstalled || c.LangfuseInstalled || c.ObservabilityInstalled) {
 			return "" // nothing to show
 		}
 	case processor.ProcessorOperationDownload:
@@ -634,7 +634,7 @@ func (m *ProcessorOperationFormModel) renderPlannedActions() string {
 		add(locale.PlannedWillPurge, locale.ProcessorItemComposeStacksImagesVolumes, c.CanPurgeAll())
 	case processor.ProcessorOperationInstall:
 		add(locale.PlannedWillDownload, locale.ProcessorItemComposeFiles, c.CanInstallAll())
-		add(locale.PlannedWillStart, locale.ProcessorComponentPentagi, true)
+		add(locale.PlannedWillStart, locale.ProcessorComponentSuricatoos, true)
 	}
 
 	return strings.Join(lines, "\n")

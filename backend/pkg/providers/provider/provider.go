@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/templates"
 
 	"github.com/vxcontrol/langchaingo/llms"
 	"github.com/vxcontrol/langchaingo/llms/streaming"

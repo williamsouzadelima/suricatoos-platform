@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/server/models"
 
 	"github.com/jinzhu/gorm"
 	"github.com/stretchr/testify/assert"

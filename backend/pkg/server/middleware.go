@@ -1,8 +1,8 @@
 package router
 
 import (
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"

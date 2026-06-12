@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	gqlmodel "pentagi/pkg/graph/model"
+	gqlmodel "suricatoos/pkg/graph/model"
 )
 
 // knowledgeRawMeta mirrors the flat JSON stored in langchain_pg_embedding.cmetadata.

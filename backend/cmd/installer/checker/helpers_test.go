@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/cmd/installer/loader"
-	"pentagi/cmd/installer/state"
+	"suricatoos/cmd/installer/loader"
+	"suricatoos/cmd/installer/state"
 )
 
 type mockState struct {
@@ -313,7 +313,7 @@ func TestCheckCPUResources(t *testing.T) {
 func TestCheckMemoryResources(t *testing.T) {
 	tests := []struct {
 		name                     string
-		needsForPentagi          bool
+		needsForSuricatoos          bool
 		needsForGraphiti         bool
 		needsForLangfuse         bool
 		needsForObservability    bool
@@ -321,15 +321,15 @@ func TestCheckMemoryResources(t *testing.T) {
 	}{
 		{
 			name:                     "no components needed",
-			needsForPentagi:          false,
+			needsForSuricatoos:          false,
 			needsForGraphiti:         false,
 			needsForLangfuse:         false,
 			needsForObservability:    false,
 			expectMinimumRequirement: true,
 		},
 		{
-			name:                     "pentagi only",
-			needsForPentagi:          true,
+			name:                     "suricatoos only",
+			needsForSuricatoos:          true,
 			needsForGraphiti:         false,
 			needsForLangfuse:         false,
 			needsForObservability:    false,
@@ -337,7 +337,7 @@ func TestCheckMemoryResources(t *testing.T) {
 		},
 		{
 			name:                     "all components",
-			needsForPentagi:          true,
+			needsForSuricatoos:          true,
 			needsForGraphiti:         true,
 			needsForLangfuse:         true,
 			needsForObservability:    true,
@@ -347,7 +347,7 @@ func TestCheckMemoryResources(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := checkMemoryResources(tt.needsForPentagi, tt.needsForGraphiti, tt.needsForLangfuse, tt.needsForObservability)
+			result := checkMemoryResources(tt.needsForSuricatoos, tt.needsForGraphiti, tt.needsForLangfuse, tt.needsForObservability)
 			if tt.expectMinimumRequirement && !result {
 				t.Errorf("checkMemoryResources() should return true when no components are needed")
 			}
@@ -363,7 +363,7 @@ func TestCheckDiskSpaceWithContext(t *testing.T) {
 	tests := []struct {
 		name              string
 		workerImageExists bool
-		pentagiInstalled  bool
+		suricatoosInstalled  bool
 		graphitiConnected bool
 		graphitiExternal  bool
 		graphitiInstalled bool
@@ -378,7 +378,7 @@ func TestCheckDiskSpaceWithContext(t *testing.T) {
 		{
 			name:              "all installed and running",
 			workerImageExists: true,
-			pentagiInstalled:  true,
+			suricatoosInstalled:  true,
 			graphitiConnected: true,
 			graphitiExternal:  false,
 			graphitiInstalled: true,
@@ -393,19 +393,19 @@ func TestCheckDiskSpaceWithContext(t *testing.T) {
 		{
 			name:              "no worker images",
 			workerImageExists: false,
-			pentagiInstalled:  true,
+			suricatoosInstalled:  true,
 			expectHighSpace:   true, // needs to download images
 		},
 		{
-			name:              "pentagi not installed",
+			name:              "suricatoos not installed",
 			workerImageExists: true,
-			pentagiInstalled:  false,
+			suricatoosInstalled:  false,
 			expectHighSpace:   false, // moderate space for components
 		},
 		{
 			name:              "langfuse local not installed",
 			workerImageExists: true,
-			pentagiInstalled:  true,
+			suricatoosInstalled:  true,
 			langfuseConnected: true,
 			langfuseExternal:  false,
 			langfuseInstalled: false,
@@ -418,7 +418,7 @@ func TestCheckDiskSpaceWithContext(t *testing.T) {
 			result := checkDiskSpaceWithContext(
 				ctx,
 				tt.workerImageExists,
-				tt.pentagiInstalled,
+				tt.suricatoosInstalled,
 				tt.graphitiConnected,
 				tt.graphitiExternal,
 				tt.graphitiInstalled,
@@ -456,7 +456,7 @@ func TestCheckUpdatesServer(t *testing.T) {
 			w.Header().Set("Content-Type", "application/json")
 			fmt.Fprintf(w, `{
 				"installer_is_up_to_date": true,
-				"pentagi_is_up_to_date": false,
+				"suricatoos_is_up_to_date": false,
 				"langfuse_is_up_to_date": true,
 				"observability_is_up_to_date": false,
 				"worker_is_up_to_date": true
@@ -477,8 +477,8 @@ func TestCheckUpdatesServer(t *testing.T) {
 		if !response.InstallerIsUpToDate {
 			t.Error("expected installer to be up to date")
 		}
-		if response.PentagiIsUpToDate {
-			t.Error("expected pentagi to not be up to date")
+		if response.SuricatoosIsUpToDate {
+			t.Error("expected suricatoos to not be up to date")
 		}
 		if !response.LangfuseIsUpToDate {
 			t.Error("expected langfuse to be up to date")
@@ -547,7 +547,7 @@ func TestCheckUpdatesServer(t *testing.T) {
 		// create a proxy server that just forwards requests
 		proxyTs := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "application/json")
-			fmt.Fprintf(w, `{"installer_is_up_to_date": true, "pentagi_is_up_to_date": true, "langfuse_is_up_to_date": true, "observability_is_up_to_date": true}`)
+			fmt.Fprintf(w, `{"installer_is_up_to_date": true, "suricatoos_is_up_to_date": true, "langfuse_is_up_to_date": true, "observability_is_up_to_date": true}`)
 		}))
 		defer proxyTs.Close()
 
@@ -619,8 +619,8 @@ func TestConstants(t *testing.T) {
 	if MinFreeMemGB <= 0 {
 		t.Error("MinFreeMemGB should be positive")
 	}
-	if MinFreeMemGBForPentagi <= 0 {
-		t.Error("MinFreeMemGBForPentagi should be positive")
+	if MinFreeMemGBForSuricatoos <= 0 {
+		t.Error("MinFreeMemGBForSuricatoos should be positive")
 	}
 	if MinFreeDiskGB <= 0 {
 		t.Error("MinFreeDiskGB should be positive")
@@ -678,9 +678,9 @@ func TestCheckUpdatesRequestStructure(t *testing.T) {
 	imageTag := "latest"
 	imageHash := "sha256:abc123"
 
-	request.PentagiImageName = &imageName
-	request.PentagiImageTag = &imageTag
-	request.PentagiImageHash = &imageHash
+	request.SuricatoosImageName = &imageName
+	request.SuricatoosImageTag = &imageTag
+	request.SuricatoosImageHash = &imageHash
 
 	result = fmt.Sprintf("%+v", request)
 	if result == "" {
@@ -734,9 +734,9 @@ func TestCheckVolumesExist(t *testing.T) {
 
 	// note: testing actual volume matching requires Docker integration tests
 	// the function logic handles:
-	// 1. Exact match: "pentagi-data" matches "pentagi-data"
-	// 2. Compose prefix match: "pentagi-data" matches "pentagi_pentagi-data"
-	// 3. Compose prefix match: "pentagi-postgres-data" matches "myproject_pentagi-postgres-data"
+	// 1. Exact match: "suricatoos-data" matches "suricatoos-data"
+	// 2. Compose prefix match: "suricatoos-data" matches "suricatoos_suricatoos-data"
+	// 3. Compose prefix match: "suricatoos-postgres-data" matches "myproject_suricatoos-postgres-data"
 	//
 	// This ensures compatibility with Docker Compose project prefixes
 }
@@ -759,57 +759,57 @@ func TestCheckVolumesExist_MatchingLogic(t *testing.T) {
 	}{
 		{
 			name:            "exact match",
-			existingVolumes: []string{"pentagi-data", "other-volume"},
-			searchVolumes:   []string{"pentagi-data"},
+			existingVolumes: []string{"suricatoos-data", "other-volume"},
+			searchVolumes:   []string{"suricatoos-data"},
 			expected:        true,
 			description:     "should match exact volume name",
 		},
 		{
 			name:            "compose prefix match",
-			existingVolumes: []string{"pentagi_pentagi-data", "pentagi_pentagi-ssl"},
-			searchVolumes:   []string{"pentagi-data"},
+			existingVolumes: []string{"suricatoos_suricatoos-data", "suricatoos_suricatoos-ssl"},
+			searchVolumes:   []string{"suricatoos-data"},
 			expected:        true,
 			description:     "should match volume with compose project prefix",
 		},
 		{
 			name:            "arbitrary prefix match",
-			existingVolumes: []string{"myproject_pentagi-postgres-data", "other_volume"},
-			searchVolumes:   []string{"pentagi-postgres-data"},
+			existingVolumes: []string{"myproject_suricatoos-postgres-data", "other_volume"},
+			searchVolumes:   []string{"suricatoos-postgres-data"},
 			expected:        true,
 			description:     "should match volume with any compose prefix",
 		},
 		{
 			name:            "no match",
 			existingVolumes: []string{"other-volume", "another-volume"},
-			searchVolumes:   []string{"pentagi-data"},
+			searchVolumes:   []string{"suricatoos-data"},
 			expected:        false,
 			description:     "should not match when volume doesn't exist",
 		},
 		{
 			name:            "partial name should not match",
-			existingVolumes: []string{"pentagi-data-backup", "my-pentagi-data"},
-			searchVolumes:   []string{"pentagi-data"},
+			existingVolumes: []string{"suricatoos-data-backup", "my-suricatoos-data"},
+			searchVolumes:   []string{"suricatoos-data"},
 			expected:        false,
 			description:     "should not match partial names without underscore separator",
 		},
 		{
 			name:            "match multiple search volumes",
-			existingVolumes: []string{"proj_pentagi-data", "langfuse-data"},
-			searchVolumes:   []string{"pentagi-data", "langfuse-data", "missing-volume"},
+			existingVolumes: []string{"proj_suricatoos-data", "langfuse-data"},
+			searchVolumes:   []string{"suricatoos-data", "langfuse-data", "missing-volume"},
 			expected:        true,
 			description:     "should return true if any search volume matches",
 		},
 		{
 			name:            "empty existing volumes",
 			existingVolumes: []string{},
-			searchVolumes:   []string{"pentagi-data"},
+			searchVolumes:   []string{"suricatoos-data"},
 			expected:        false,
 			description:     "should return false when no volumes exist",
 		},
 		{
 			name:            "multiple compose prefixes",
-			existingVolumes: []string{"proj1_vol1", "proj2_vol2", "pentagi_pentagi-ssl"},
-			searchVolumes:   []string{"pentagi-ssl"},
+			existingVolumes: []string{"proj1_vol1", "proj2_vol2", "suricatoos_suricatoos-ssl"},
+			searchVolumes:   []string{"suricatoos-ssl"},
 			expected:        true,
 			description:     "should find volume among multiple compose projects",
 		},

@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/providers/embeddings"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/providers/embeddings"
 
 	"github.com/google/uuid"
 )

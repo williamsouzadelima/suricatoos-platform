@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	"pentagi/pkg/flowfiles"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	"suricatoos/pkg/flowfiles"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"

@@ -10,10 +10,10 @@ import (
 	"text/template"
 	"time"
 
-	"pentagi/pkg/database"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
-	"pentagi/pkg/schema"
+	"suricatoos/pkg/database"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
+	"suricatoos/pkg/schema"
 
 	"github.com/vxcontrol/langchaingo/documentloaders"
 	"github.com/vxcontrol/langchaingo/llms"

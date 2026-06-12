@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/database"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/database"
 )
 
 const testTraversaalAPIKey = "test-key"

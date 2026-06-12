@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"testing"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/graph/subscriptions"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/graph/subscriptions"
 
 	"github.com/vxcontrol/langchaingo/schema"
 	"github.com/vxcontrol/langchaingo/vectorstores"

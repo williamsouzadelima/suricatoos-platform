@@ -7,9 +7,9 @@ import (
 	"regexp"
 	"slices"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/flowfiles"
-	"pentagi/pkg/graph/model"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/flowfiles"
+	"suricatoos/pkg/graph/model"
 )
 
 // This file will not be regenerated automatically.

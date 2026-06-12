@@ -10,10 +10,10 @@ import (
 	"reflect"
 	"sync"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/provider"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/provider"
+	"suricatoos/pkg/templates"
 
 	bconfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"

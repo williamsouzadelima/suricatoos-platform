@@ -8,7 +8,7 @@ import (
 	"maps"
 	"time"
 
-	"pentagi/pkg/observability/langfuse/api"
+	"suricatoos/pkg/observability/langfuse/api"
 
 	"github.com/vxcontrol/langchaingo/llms"
 )

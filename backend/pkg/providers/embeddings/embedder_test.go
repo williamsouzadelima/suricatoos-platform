@@ -3,7 +3,7 @@ package embeddings
 import (
 	"testing"
 
-	"pentagi/pkg/config"
+	"suricatoos/pkg/config"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

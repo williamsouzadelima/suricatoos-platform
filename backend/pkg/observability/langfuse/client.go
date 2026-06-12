@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/observability/langfuse/api"
-	"pentagi/pkg/observability/langfuse/api/client"
-	"pentagi/pkg/observability/langfuse/api/option"
+	"suricatoos/pkg/observability/langfuse/api"
+	"suricatoos/pkg/observability/langfuse/api/client"
+	"suricatoos/pkg/observability/langfuse/api/option"
 )
 
 const InstrumentationVersion = "2.0.0"

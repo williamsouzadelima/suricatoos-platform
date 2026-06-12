@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/response"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/response"
+	"suricatoos/pkg/tools"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

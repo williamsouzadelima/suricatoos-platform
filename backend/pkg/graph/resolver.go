@@ -1,14 +1,14 @@
 package graph
 
 import (
-	"pentagi/pkg/config"
-	"pentagi/pkg/controller"
-	"pentagi/pkg/database"
-	"pentagi/pkg/database/knowledge"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/providers"
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/controller"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/database/knowledge"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/providers"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/templates"
 
 	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/cloud/anonymizer"

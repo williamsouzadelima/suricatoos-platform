@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/providers/embeddings"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/providers/embeddings"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )

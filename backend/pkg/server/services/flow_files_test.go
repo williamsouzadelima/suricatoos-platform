@@ -23,14 +23,14 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	"pentagi/pkg/flowfiles"
-	graphmodel "pentagi/pkg/graph/model"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/resources"
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	"suricatoos/pkg/flowfiles"
+	graphmodel "suricatoos/pkg/graph/model"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/resources"
+	"suricatoos/pkg/server/models"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -496,7 +496,7 @@ func TestZipDirectory_ExcludesSymlinks(t *testing.T) {
 // ── primaryContainerName ─────────────────────────────────────────────────────
 
 func TestPrimaryContainerName(t *testing.T) {
-	assert.Equal(t, "pentagi-terminal-42", primaryContainerName(42))
+	assert.Equal(t, "suricatoos-terminal-42", primaryContainerName(42))
 }
 
 // ── sorting ───────────────────────────────────────────────────────────────────

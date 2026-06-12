@@ -14,19 +14,19 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/controller"
-	"pentagi/pkg/database"
-	"pentagi/pkg/database/knowledge"
-	"pentagi/pkg/docker"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/providers"
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/oauth"
-	"pentagi/pkg/server/services"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/controller"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/database/knowledge"
+	"suricatoos/pkg/docker"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/providers"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/oauth"
+	"suricatoos/pkg/server/services"
 
-	_ "pentagi/pkg/server/docs" // swagger docs
+	_ "suricatoos/pkg/server/docs" // swagger docs
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
@@ -60,14 +60,14 @@ var frontendRoutes = []string{
 	"/dashboard",
 }
 
-// @title PentAGI Swagger API
+// @title Suricatoos Swagger API
 // @version 1.0
-// @description Swagger API for Penetration Testing Advanced General Intelligence PentAGI.
+// @description Swagger API for Penetration Testing Advanced General Intelligence Suricatoos.
 // @termsOfService http://swagger.io/terms/
 
-// @contact.url https://pentagi.com
-// @contact.name PentAGI Development Team
-// @contact.email team@pentagi.com
+// @contact.url https://suricatoos.com
+// @contact.name Suricatoos Development Team
+// @contact.email team@suricatoos.com
 
 // @license.name MIT
 // @license.url https://opensource.org/license/mit
@@ -236,7 +236,7 @@ func NewRouter(
 	}
 
 	router.Use(gin.Recovery())
-	router.Use(logger.WithGinLogger("pentagi-api"))
+	router.Use(logger.WithGinLogger("suricatoos-api"))
 
 	cookieStore := cookie.NewStore(auth.MakeCookieStoreKey(cfg.CookieSigningSalt)...)
 	router.Use(sessions.Sessions("auth", cookieStore))

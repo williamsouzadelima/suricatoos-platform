@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/observability/langfuse"
-	"pentagi/pkg/system"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/observability/langfuse"
+	"suricatoos/pkg/system"
 
 	"github.com/vxcontrol/langchaingo/embeddings"
 	"github.com/vxcontrol/langchaingo/embeddings/huggingface"

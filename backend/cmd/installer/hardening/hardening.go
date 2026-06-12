@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/loader"
-	"pentagi/cmd/installer/state"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/loader"
+	"suricatoos/cmd/installer/state"
 
 	"github.com/google/uuid"
 	"github.com/vxcontrol/cloud/sdk"
@@ -18,7 +18,7 @@ import (
 type HardeningArea string
 
 const (
-	HardeningAreaPentagi  HardeningArea = "pentagi"
+	HardeningAreaSuricatoos  HardeningArea = "suricatoos"
 	HardeningAreaLangfuse HardeningArea = "langfuse"
 	HardeningAreaGraphiti HardeningArea = "graphiti"
 )
@@ -40,9 +40,9 @@ type HardeningPolicy struct {
 }
 
 var varsForHardening = map[HardeningArea][]string{
-	HardeningAreaPentagi: {
+	HardeningAreaSuricatoos: {
 		"COOKIE_SIGNING_SALT",
-		"PENTAGI_POSTGRES_PASSWORD",
+		"SURICATOOS_POSTGRES_PASSWORD",
 		"LOCAL_SCRAPER_USERNAME",
 		"LOCAL_SCRAPER_PASSWORD",
 		"SCRAPER_PRIVATE_URL",
@@ -71,7 +71,7 @@ var varsForHardening = map[HardeningArea][]string{
 
 var varsForHardeningDefault = map[string]string{
 	"COOKIE_SIGNING_SALT":              "salt",
-	"PENTAGI_POSTGRES_PASSWORD":        "postgres",
+	"SURICATOOS_POSTGRES_PASSWORD":        "postgres",
 	"NEO4J_PASSWORD":                   "devpassword",
 	"LOCAL_SCRAPER_USERNAME":           "someuser",
 	"LOCAL_SCRAPER_PASSWORD":           "somepass",
@@ -100,9 +100,9 @@ var varsHardeningSyncLangfuse = map[string]string{
 }
 
 var varsHardeningPolicies = map[HardeningArea]map[string]HardeningPolicy{
-	HardeningAreaPentagi: {
+	HardeningAreaSuricatoos: {
 		"COOKIE_SIGNING_SALT":       {Type: HardeningPolicyTypeHex, Length: 32},
-		"PENTAGI_POSTGRES_PASSWORD": {Type: HardeningPolicyTypeDefault, Length: 18},
+		"SURICATOOS_POSTGRES_PASSWORD": {Type: HardeningPolicyTypeDefault, Length: 18},
 		"LOCAL_SCRAPER_USERNAME":    {Type: HardeningPolicyTypeDefault, Length: 10},
 		"LOCAL_SCRAPER_PASSWORD":    {Type: HardeningPolicyTypeDefault, Length: 12},
 		// SCRAPER_PRIVATE_URL is handled specially in DoHardening logic
@@ -179,13 +179,13 @@ func DoHardening(s state.State, c checker.CheckResult) error {
 		}
 	}
 
-	// harden pentagi vars only if neither containers nor volumes exist
+	// harden suricatoos vars only if neither containers nor volumes exist
 	// this prevents password changes when volumes with existing credentials are present
-	if vars, _ := s.GetVars(varsForHardening[HardeningAreaPentagi]); !c.PentagiInstalled && !c.PentagiVolumesExist {
+	if vars, _ := s.GetVars(varsForHardening[HardeningAreaSuricatoos]); !c.SuricatoosInstalled && !c.SuricatoosVolumesExist {
 		updateDefaultValues(vars)
 
-		if isChanged, err := replaceDefaultValues(s, vars, varsHardeningPolicies[HardeningAreaPentagi]); err != nil {
-			return fmt.Errorf("failed to replace default values for pentagi: %w", err)
+		if isChanged, err := replaceDefaultValues(s, vars, varsHardeningPolicies[HardeningAreaSuricatoos]); err != nil {
+			return fmt.Errorf("failed to replace default values for suricatoos: %w", err)
 		} else if isChanged {
 			haveToCommit = true
 		}

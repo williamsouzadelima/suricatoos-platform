@@ -2,8 +2,8 @@
 
 ## Summary
 
-Issue [#296](https://github.com/vxcontrol/pentagi/issues/296) proposes that
-PentAGI add a generic Model Context Protocol (MCP) client so agents can use
+Issue [#296](https://github.com/vxcontrol/suricatoos/issues/296) proposes that
+Suricatoos add a generic Model Context Protocol (MCP) client so agents can use
 external MCP-compatible security tools as first-class tools, with Burp Suite
 Pro as the concrete motivating example. This RFC sketches a possible design
 direction for that capability.
@@ -18,7 +18,7 @@ The RFC is intentionally staged. MCP is powerful, and the issue's most
 direct reading -- auto-discover every MCP tool from every configured
 server and expose all of them to every agent -- would land near the
 patterns that were pushed back on during PR
-[#268](https://github.com/vxcontrol/pentagi/pull/268) review: implicit
+[#268](https://github.com/vxcontrol/suricatoos/pull/268) review: implicit
 lifecycle state, weak operator visibility, and weak operator control.
 The proposed v1 below is narrower on purpose so a later implementation
 PR can be reviewed in small slices.
@@ -28,9 +28,9 @@ PR can be reviewed in small slices.
 - Connect configured MCP servers as explicit external tool sources.
 - Discover tools from allowlisted MCP servers via the standard MCP
   `tools/list` method.
-- Expose only approved MCP tools to agents, alongside native PentAGI
+- Expose only approved MCP tools to agents, alongside native Suricatoos
   tools, with a stable namespace.
-- Preserve PentAGI's existing tool visibility and auditability
+- Preserve Suricatoos's existing tool visibility and auditability
   expectations: operators can see which tools exist, which agent invoked
   which tool, with what inputs and what result.
 - Support a staged implementation path that starts with a narrow,
@@ -49,7 +49,7 @@ PR can be reviewed in small slices.
   calls. Calls happen inside the same agent loop and are visible the
   same way native tool calls are. This carries forward the explicit
   lessons from PR
-  [#268](https://github.com/vxcontrol/pentagi/pull/268) review: no
+  [#268](https://github.com/vxcontrol/suricatoos/pull/268) review: no
   hidden in-memory queues, no implicit lifecycle state, no invisible
   background behavior.
 - This RFC does not propose a hidden queue, retry buffer, or implicit
@@ -82,7 +82,7 @@ PR can be reviewed in small slices.
   arguments that look like secrets are never echoed to prompts, logs,
   or UI surfaces.
 - **Container and host network boundary clarity.** It is explicit per
-  server whether the MCP endpoint sits inside the PentAGI compose
+  server whether the MCP endpoint sits inside the Suricatoos compose
   network, on the host (for example via `host.docker.internal`), or on
   a remote network the operator has chosen to expose.
 - **Failure isolation.** A broken or unreachable MCP server surfaces as
@@ -121,13 +121,13 @@ and that secrets must not leak into prompts, logs, or UI surfaces.
 The MCP ecosystem currently uses three primary transports: HTTP, SSE,
 and stdio. They have very different operational profiles:
 
-- **HTTP and SSE** are remote-friendly. They fit the existing PentAGI
+- **HTTP and SSE** are remote-friendly. They fit the existing Suricatoos
   deployment shape (containerized backend reaching a service over the
   network) and can target either a host-side endpoint via
   `host.docker.internal` or a remote endpoint chosen by the operator.
   These are the proposed first-class transports for v1.
 - **stdio** assumes the MCP client can spawn a child process and pipe
-  JSON-RPC over its stdin and stdout. In a containerized PentAGI
+  JSON-RPC over its stdin and stdout. In a containerized Suricatoos
   deployment the question of *which* container that child runs in,
   with *which* binaries on PATH, and with *which* network egress, is
   non-trivial. v1 should not promise stdio support beyond the narrow
@@ -160,7 +160,7 @@ tool to that server's allowlist. The default allowlist is empty.
 
 Per-server and per-tool metadata -- name, description, input schema,
 last discovery time, allowlist status, last invocation, last error --
-should be visible to operators in whatever surface PentAGI uses for
+should be visible to operators in whatever surface Suricatoos uses for
 existing tool and provider configuration. The exact UI surface is
 left to the implementation PR; this RFC only asserts that the
 information must be visible somewhere operators already look.
@@ -197,7 +197,7 @@ see that the agent did not receive the full payload.
 ### Secrets
 
 Server credentials, headers, tokens, and MCP tool arguments that match
-known secret patterns must be sourced from existing PentAGI secret
+known secret patterns must be sourced from existing Suricatoos secret
 storage where possible and must never appear verbatim in prompts,
 agent context, audit logs displayed in the UI, or error messages
 surfaced to agents. The exact secret-storage choice (existing env
@@ -215,7 +215,7 @@ migration.
 
 ## Burp Suite MCP Example
 
-This section is illustrative. PentAGI does not implement Burp Suite
+This section is illustrative. Suricatoos does not implement Burp Suite
 MCP support today, and shipping this RFC does not change that. The
 example exists to make the v1 design concrete against a real MCP
 server.
@@ -229,7 +229,7 @@ which the issue body references as the motivating use case.
 A pentester running Burp Suite Pro on their own analyst workstation,
 or on a controlled internal host, enables the Burp MCP extension. The
 extension exposes an MCP endpoint over HTTP on localhost. From a
-PentAGI compose deployment running on the same workstation, that
+Suricatoos compose deployment running on the same workstation, that
 endpoint can be reached at `http://host.docker.internal:<port>` from
 the backend container -- but this name is not universally available.
 Docker Desktop on macOS and Windows commonly resolves
@@ -251,7 +251,7 @@ of this safe initial setup and is described separately below.
 
 The Burp MCP server, depending on version and configured access, can
 expose a range of capabilities. From the issue's framing, useful
-read-only categories for PentAGI agents would include:
+read-only categories for Suricatoos agents would include:
 
 - reading the current Burp sitemap or list of discovered URLs;
 - retrieving structured findings (vulnerability type, severity,
@@ -259,7 +259,7 @@ read-only categories for PentAGI agents would include:
   reasoning and reports;
 - retrieving Collaborator or other out-of-band events, if the MCP
   server exposes them, to detect blind classes of vulnerabilities
-  that PentAGI's CLI-only toolset cannot detect today.
+  that Suricatoos's CLI-only toolset cannot detect today.
 
 Active capabilities -- in particular starting an active scan against
 a specific in-scope URL -- are higher risk and intentionally **not**
@@ -274,10 +274,10 @@ and can be destructive against fragile targets. They must be:
 - explicitly allowlisted per server;
 - only invoked against targets the operator has already declared as
   in scope for the engagement;
-- bounded by the same scope and approval mindset PentAGI applies to
+- bounded by the same scope and approval mindset Suricatoos applies to
   other intrusive tools.
 
-It should not be inferred from this RFC that PentAGI can freely scan
+It should not be inferred from this RFC that Suricatoos can freely scan
 arbitrary targets once Burp MCP is wired in. The agent only ever
 invokes a Burp MCP tool that an operator has both configured and
 allowlisted, against a target that already exists inside the
@@ -314,7 +314,7 @@ mcp:
 
 ## Security and Safety
 
-MCP support meaningfully expands PentAGI's attack surface and the
+MCP support meaningfully expands Suricatoos's attack surface and the
 agent's reach. The following risks should be addressed by the v1
 design rather than left for "later":
 
@@ -347,7 +347,7 @@ design rather than left for "later":
   parameters, or tool arguments.
 - **Scope enforcement for scan targets.** When an MCP tool takes a
   target URL, hostname, or IP, the implementation should be able to
-  reuse PentAGI's existing scope notion (target derived from the flow
+  reuse Suricatoos's existing scope notion (target derived from the flow
   or engagement) to refuse out-of-scope inputs, rather than relying
   on the agent to self-police. The exact mechanism is open (see Open
   Questions).
@@ -391,7 +391,7 @@ MCP tool outputs should map into the existing flow / task / subtask
 context the same way native tool outputs do, so that downstream
 reporting can treat them uniformly. Future alignment with the evidence
 and reporting direction discussed in
-[issue #235](https://github.com/vxcontrol/pentagi/issues/235) (see
+[issue #235](https://github.com/vxcontrol/suricatoos/issues/235) (see
 also the existing `examples/proposals/evidence_chain.md`) is desirable
 but should not be a hard dependency for shipping the first MCP
 milestone.
@@ -410,7 +410,7 @@ milestone.
 - How should MCP tool output be summarized or truncated when it
   exceeds the response-size cap, both in the agent loop and in the
   audit log?
-- How should MCP tool calls fit with PentAGI's existing permission
+- How should MCP tool calls fit with Suricatoos's existing permission
   and scope controls -- particularly target scope for scan-style
   tools? Should scope checks be enforced by the MCP layer, by the
   tool registry, or by a shared scope service?
@@ -419,7 +419,7 @@ milestone.
   overlaps with the evidence-chain RFC but does not have to be solved
   in the first milestone.
 - How should Burp-specific scope (Burp's own in-scope and
-  out-of-scope configuration) be represented to PentAGI without
+  out-of-scope configuration) be represented to Suricatoos without
   hard-coding Burp semantics into core? A generic "scope hint"
   attached to MCP tools is one possibility; a Burp-specific guide is
   another.
@@ -450,5 +450,5 @@ lifecycle change is small enough to review in isolation:
    bespoke integration.
 
 Each milestone is intentionally self-contained: a maintainer can stop
-the work after any step without leaving PentAGI in a half-shipped
+the work after any step without leaving Suricatoos in a half-shipped
 state.

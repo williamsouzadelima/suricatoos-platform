@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"net/url"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/provider"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/provider"
+	"suricatoos/pkg/templates"
 
 	"github.com/vxcontrol/langchaingo/httputil"
 	"github.com/vxcontrol/langchaingo/llms"

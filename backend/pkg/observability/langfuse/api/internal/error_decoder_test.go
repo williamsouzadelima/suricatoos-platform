@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"testing"
 
-    "pentagi/pkg/observability/langfuse/api/core"
+    "suricatoos/pkg/observability/langfuse/api/core"
 	"github.com/stretchr/testify/assert"
 )
 

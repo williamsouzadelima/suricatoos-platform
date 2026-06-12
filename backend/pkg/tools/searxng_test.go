@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/database"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/database"
 )
 
 const testSearxngURL = "http://searxng.example.com"
@@ -94,8 +94,8 @@ func TestSearxngHandle(t *testing.T) {
 	if receivedMethod != http.MethodGet {
 		t.Errorf("request method = %q, want GET", receivedMethod)
 	}
-	if receivedUserAgent != "PentAGI/1.0" {
-		t.Errorf("User-Agent = %q, want PentAGI/1.0", receivedUserAgent)
+	if receivedUserAgent != "Suricatoos/1.0" {
+		t.Errorf("User-Agent = %q, want Suricatoos/1.0", receivedUserAgent)
 	}
 	if receivedQuery != "test query" {
 		t.Errorf("query param q = %q, want %q", receivedQuery, "test query")

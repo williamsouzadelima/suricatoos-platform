@@ -7,13 +7,13 @@ import (
 	"sort"
 	"sync"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/providers"
-	"pentagi/pkg/providers/provider"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/providers"
+	"suricatoos/pkg/providers/provider"
+	"suricatoos/pkg/tools"
 
 	"github.com/sirupsen/logrus"
 )

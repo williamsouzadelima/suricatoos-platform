@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"pentagi/pkg/database"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
+	"suricatoos/pkg/database"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
 
 	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/langchaingo/schema"

@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/loader"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/loader"
 )
 
 // mockState implements state.State interface for testing
@@ -26,7 +26,7 @@ type mockState struct {
 }
 
 func newMockState() *mockState {
-	dir, err := os.MkdirTemp("", "pentagi-test")
+	dir, err := os.MkdirTemp("", "suricatoos-test")
 	if err != nil {
 		panic(err)
 	}
@@ -610,7 +610,7 @@ func testState(t *testing.T) *mockState {
 	envPath := mockState.GetEnvPath()
 	_ = os.MkdirAll(filepath.Dir(envPath), 0o755)
 	if _, err := os.Stat(envPath); os.IsNotExist(err) {
-		if err := os.WriteFile(envPath, []byte("PENTAGI_VERSION=1.0.0\n"), 0o644); err != nil {
+		if err := os.WriteFile(envPath, []byte("SURICATOOS_VERSION=1.0.0\n"), 0o644); err != nil {
 			t.Fatalf("failed to create env file: %v", err)
 		}
 	}
@@ -623,9 +623,9 @@ func defaultCheckResult() *checker.CheckResult {
 	handler := newMockCheckHandler()
 
 	// Configure the default state we want for tests
-	handler.config.PentagiExtracted = false
-	handler.config.PentagiInstalled = false
-	handler.config.PentagiRunning = false
+	handler.config.SuricatoosExtracted = false
+	handler.config.SuricatoosInstalled = false
+	handler.config.SuricatoosRunning = false
 	handler.config.GraphitiConnected = false
 	handler.config.GraphitiExternal = false
 	handler.config.GraphitiExtracted = false
@@ -642,7 +642,7 @@ func defaultCheckResult() *checker.CheckResult {
 	handler.config.ObservabilityInstalled = false
 	handler.config.ObservabilityRunning = false
 	handler.config.WorkerImageExists = false
-	handler.config.PentagiIsUpToDate = true
+	handler.config.SuricatoosIsUpToDate = true
 	handler.config.GraphitiIsUpToDate = true
 	handler.config.LangfuseIsUpToDate = true
 	handler.config.ObservabilityIsUpToDate = true
@@ -692,9 +692,9 @@ func (h *defaultStateHandler) GatherWorkerInfo(ctx context.Context, c *checker.C
 	return nil
 }
 
-func (h *defaultStateHandler) GatherPentagiInfo(ctx context.Context, c *checker.CheckResult) error {
+func (h *defaultStateHandler) GatherSuricatoosInfo(ctx context.Context, c *checker.CheckResult) error {
 	if !h.initialized {
-		return h.mockHandler.GatherPentagiInfo(ctx, c)
+		return h.mockHandler.GatherSuricatoosInfo(ctx, c)
 	}
 	return nil
 }
@@ -761,7 +761,7 @@ func createProcessorWithState(state *mockState, checkResult *checker.CheckResult
 var (
 	// standard stacks for testing stack operations
 	standardStacks = []ProductStack{
-		ProductStackPentagi,
+		ProductStackSuricatoos,
 		ProductStackLangfuse,
 		ProductStackObservability,
 		ProductStackCompose,
@@ -883,11 +883,11 @@ type mockCheckConfig struct {
 	DockerVersion          string
 	DockerComposeVersion   string
 
-	// PentAGI states
-	PentagiScriptInstalled bool
-	PentagiExtracted       bool
-	PentagiInstalled       bool
-	PentagiRunning         bool
+	// Suricatoos states
+	SuricatoosScriptInstalled bool
+	SuricatoosExtracted       bool
+	SuricatoosInstalled       bool
+	SuricatoosRunning         bool
 
 	// Graphiti states
 	GraphitiConnected bool
@@ -919,7 +919,7 @@ type mockCheckConfig struct {
 	// Update states
 	UpdateServerAccessible  bool
 	InstallerIsUpToDate     bool
-	PentagiIsUpToDate       bool
+	SuricatoosIsUpToDate       bool
 	GraphitiIsUpToDate      bool
 	LangfuseIsUpToDate      bool
 	ObservabilityIsUpToDate bool
@@ -945,7 +945,7 @@ func newMockCheckHandler() *mockCheckHandler {
 			SysDiskFreeSpaceOK:      true,
 			UpdateServerAccessible:  true,
 			InstallerIsUpToDate:     true,
-			PentagiIsUpToDate:       true,
+			SuricatoosIsUpToDate:       true,
 			GraphitiIsUpToDate:      true,
 			LangfuseIsUpToDate:      true,
 			ObservabilityIsUpToDate: true,
@@ -992,7 +992,7 @@ func (m *mockCheckHandler) GatherAllInfo(ctx context.Context, c *checker.CheckRe
 	if err := m.GatherWorkerInfo(ctx, c); err != nil {
 		return err
 	}
-	if err := m.GatherPentagiInfo(ctx, c); err != nil {
+	if err := m.GatherSuricatoosInfo(ctx, c); err != nil {
 		return err
 	}
 	if err := m.GatherGraphitiInfo(ctx, c); err != nil {
@@ -1050,8 +1050,8 @@ func (m *mockCheckHandler) GatherWorkerInfo(ctx context.Context, c *checker.Chec
 	return nil
 }
 
-func (m *mockCheckHandler) GatherPentagiInfo(ctx context.Context, c *checker.CheckResult) error {
-	m.recordCall("GatherPentagiInfo")
+func (m *mockCheckHandler) GatherSuricatoosInfo(ctx context.Context, c *checker.CheckResult) error {
+	m.recordCall("GatherSuricatoosInfo")
 	if m.gatherError != nil {
 		return m.gatherError
 	}
@@ -1059,10 +1059,10 @@ func (m *mockCheckHandler) GatherPentagiInfo(ctx context.Context, c *checker.Che
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	c.PentagiScriptInstalled = m.config.PentagiScriptInstalled
-	c.PentagiExtracted = m.config.PentagiExtracted
-	c.PentagiInstalled = m.config.PentagiInstalled
-	c.PentagiRunning = m.config.PentagiRunning
+	c.SuricatoosScriptInstalled = m.config.SuricatoosScriptInstalled
+	c.SuricatoosExtracted = m.config.SuricatoosExtracted
+	c.SuricatoosInstalled = m.config.SuricatoosInstalled
+	c.SuricatoosRunning = m.config.SuricatoosRunning
 
 	return nil
 }
@@ -1149,7 +1149,7 @@ func (m *mockCheckHandler) GatherUpdatesInfo(ctx context.Context, c *checker.Che
 
 	c.UpdateServerAccessible = m.config.UpdateServerAccessible
 	c.InstallerIsUpToDate = m.config.InstallerIsUpToDate
-	c.PentagiIsUpToDate = m.config.PentagiIsUpToDate
+	c.SuricatoosIsUpToDate = m.config.SuricatoosIsUpToDate
 	c.GraphitiIsUpToDate = m.config.GraphitiIsUpToDate
 	c.LangfuseIsUpToDate = m.config.LangfuseIsUpToDate
 	c.ObservabilityIsUpToDate = m.config.ObservabilityIsUpToDate
@@ -1172,12 +1172,12 @@ func TestMockCheckHandler_BasicFunctionality(t *testing.T) {
 	err = handler.GatherWorkerInfo(ctx, result)
 	assertNoError(t, err)
 
-	err = handler.GatherPentagiInfo(ctx, result)
+	err = handler.GatherSuricatoosInfo(ctx, result)
 	assertNoError(t, err)
 
 	// Verify calls were recorded
 	calls := handler.getCalls()
-	expectedCalls := []string{"GatherDockerInfo", "GatherWorkerInfo", "GatherPentagiInfo"}
+	expectedCalls := []string{"GatherDockerInfo", "GatherWorkerInfo", "GatherSuricatoosInfo"}
 
 	if len(calls) != len(expectedCalls) {
 		t.Fatalf("expected %d calls, got %d", len(expectedCalls), len(calls))
@@ -1204,9 +1204,9 @@ func TestMockCheckHandler_CustomConfiguration(t *testing.T) {
 
 	// Set custom configuration
 	customConfig := mockCheckConfig{
-		PentagiExtracted:       false,
-		PentagiInstalled:       true,
-		PentagiRunning:         false,
+		SuricatoosExtracted:       false,
+		SuricatoosInstalled:       true,
+		SuricatoosRunning:         false,
 		LangfuseConnected:      true,
 		LangfuseExternal:       true,
 		ObservabilityConnected: false,
@@ -1215,16 +1215,16 @@ func TestMockCheckHandler_CustomConfiguration(t *testing.T) {
 
 	// Gather info
 	ctx := context.Background()
-	_ = handler.GatherPentagiInfo(ctx, result)
+	_ = handler.GatherSuricatoosInfo(ctx, result)
 	_ = handler.GatherLangfuseInfo(ctx, result)
 	_ = handler.GatherObservabilityInfo(ctx, result)
 
 	// Verify custom values were applied
-	if result.PentagiExtracted != false {
-		t.Error("expected PentagiExtracted to be false")
+	if result.SuricatoosExtracted != false {
+		t.Error("expected SuricatoosExtracted to be false")
 	}
-	if result.PentagiInstalled != true {
-		t.Error("expected PentagiInstalled to be true")
+	if result.SuricatoosInstalled != true {
+		t.Error("expected SuricatoosInstalled to be true")
 	}
 	if result.LangfuseExternal != true {
 		t.Error("expected LangfuseExternal to be true")
@@ -1267,7 +1267,7 @@ func TestMockCheckHandler_GatherAllInfo(t *testing.T) {
 	result := &checker.CheckResult{}
 
 	// Set specific configuration
-	handler.config.PentagiExtracted = false
+	handler.config.SuricatoosExtracted = false
 	handler.config.LangfuseConnected = true
 	handler.config.ObservabilityExternal = true
 
@@ -1282,7 +1282,7 @@ func TestMockCheckHandler_GatherAllInfo(t *testing.T) {
 		"GatherAllInfo",
 		"GatherDockerInfo",
 		"GatherWorkerInfo",
-		"GatherPentagiInfo",
+		"GatherSuricatoosInfo",
 		"GatherGraphitiInfo",
 		"GatherLangfuseInfo",
 		"GatherObservabilityInfo",
@@ -1301,8 +1301,8 @@ func TestMockCheckHandler_GatherAllInfo(t *testing.T) {
 	}
 
 	// Verify configuration was applied
-	if result.PentagiExtracted != false {
-		t.Error("expected PentagiExtracted to be false")
+	if result.SuricatoosExtracted != false {
+		t.Error("expected SuricatoosExtracted to be false")
 	}
 	if result.LangfuseConnected != true {
 		t.Error("expected LangfuseConnected to be true")
@@ -1320,7 +1320,7 @@ func TestMockOperations_CallAccumulation(t *testing.T) {
 		state := testOperationState(t)
 
 		// make multiple calls
-		_ = mock.ensureStackIntegrity(t.Context(), ProductStackPentagi, state)
+		_ = mock.ensureStackIntegrity(t.Context(), ProductStackSuricatoos, state)
 		_ = mock.verifyStackIntegrity(t.Context(), ProductStackLangfuse, state)
 		_ = mock.cleanupStackFiles(t.Context(), ProductStackObservability, state)
 		_ = mock.ensureStackIntegrity(t.Context(), ProductStackCompose, state)
@@ -1336,7 +1336,7 @@ func TestMockOperations_CallAccumulation(t *testing.T) {
 			method string
 			stack  ProductStack
 		}{
-			{"ensureStackIntegrity", ProductStackPentagi},
+			{"ensureStackIntegrity", ProductStackSuricatoos},
 			{"verifyStackIntegrity", ProductStackLangfuse},
 			{"cleanupStackFiles", ProductStackObservability},
 			{"ensureStackIntegrity", ProductStackCompose},
@@ -1379,12 +1379,12 @@ func TestMockOperations_ErrorIsolation(t *testing.T) {
 		state := testOperationState(t)
 
 		// set error for specific stack+method combination
-		mock.errOn["ensureStackIntegrity_"+string(ProductStackPentagi)] = fmt.Errorf("pentagi-specific error")
+		mock.errOn["ensureStackIntegrity_"+string(ProductStackSuricatoos)] = fmt.Errorf("suricatoos-specific error")
 
-		// pentagi should fail
-		err := mock.ensureStackIntegrity(t.Context(), ProductStackPentagi, state)
-		if err == nil || err.Error() != "pentagi-specific error" {
-			t.Errorf("expected pentagi-specific error, got %v", err)
+		// suricatoos should fail
+		err := mock.ensureStackIntegrity(t.Context(), ProductStackSuricatoos, state)
+		if err == nil || err.Error() != "suricatoos-specific error" {
+			t.Errorf("expected suricatoos-specific error, got %v", err)
 		}
 
 		// langfuse should succeed
@@ -1465,7 +1465,7 @@ func TestMockState_ComplexOperations(t *testing.T) {
 	})
 
 	t.Run("StackManagement", func(t *testing.T) {
-		stack := []string{"pentagi", "langfuse", "observability"}
+		stack := []string{"suricatoos", "langfuse", "observability"}
 		err := state.SetStack(stack)
 		assertNoError(t, err)
 
@@ -1757,8 +1757,8 @@ func TestMockCheckHandler_CompleteScenarios(t *testing.T) {
 		// configure all systems as healthy
 		handler.config.DockerApiAccessible = true
 		handler.config.WorkerImageExists = true
-		handler.config.PentagiInstalled = true
-		handler.config.PentagiRunning = true
+		handler.config.SuricatoosInstalled = true
+		handler.config.SuricatoosRunning = true
 		handler.config.LangfuseInstalled = true
 		handler.config.LangfuseRunning = true
 		handler.config.ObservabilityInstalled = true
@@ -1768,7 +1768,7 @@ func TestMockCheckHandler_CompleteScenarios(t *testing.T) {
 		handler.config.SysMemoryOK = true
 		handler.config.SysDiskFreeSpaceOK = true
 		handler.config.InstallerIsUpToDate = true
-		handler.config.PentagiIsUpToDate = true
+		handler.config.SuricatoosIsUpToDate = true
 		handler.config.LangfuseIsUpToDate = true
 		handler.config.ObservabilityIsUpToDate = true
 
@@ -1777,7 +1777,7 @@ func TestMockCheckHandler_CompleteScenarios(t *testing.T) {
 
 		// verify all systems report as healthy
 		if !result.DockerApiAccessible || !result.WorkerImageExists ||
-			!result.PentagiRunning || !result.LangfuseRunning ||
+			!result.SuricatoosRunning || !result.LangfuseRunning ||
 			!result.ObservabilityRunning || !result.SysNetworkOK ||
 			!result.InstallerIsUpToDate {
 			t.Error("expected all systems to be healthy")
@@ -1790,7 +1790,7 @@ func TestMockCheckHandler_CompleteScenarios(t *testing.T) {
 
 		// configure partial failures
 		handler.config.DockerApiAccessible = true
-		handler.config.PentagiInstalled = false
+		handler.config.SuricatoosInstalled = false
 		handler.config.LangfuseRunning = true
 		handler.config.ObservabilityRunning = false
 		handler.config.SysMemoryOK = false
@@ -1803,8 +1803,8 @@ func TestMockCheckHandler_CompleteScenarios(t *testing.T) {
 		if !result.DockerApiAccessible {
 			t.Error("expected Docker API to be accessible")
 		}
-		if result.PentagiInstalled {
-			t.Error("expected PentAGI not to be installed")
+		if result.SuricatoosInstalled {
+			t.Error("expected Suricatoos not to be installed")
 		}
 		if !result.LangfuseRunning {
 			t.Error("expected Langfuse to be running")
@@ -1840,17 +1840,17 @@ func TestBaseMockFileSystemOperations(t *testing.T) {
 		{
 			handler:  mock.ensureStackIntegrity,
 			funcName: "ensureStackIntegrity",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 		{
 			handler:  mock.verifyStackIntegrity,
 			funcName: "verifyStackIntegrity",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 		{
 			handler:  mock.cleanupStackFiles,
 			funcName: "cleanupStackFiles",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 	}
 
@@ -1991,7 +1991,7 @@ func TestBaseMockComposeOperations(t *testing.T) {
 		{
 			handler:  mock.startStack,
 			funcName: "startStack",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 		{
 			handler:  mock.stopStack,
@@ -2006,7 +2006,7 @@ func TestBaseMockComposeOperations(t *testing.T) {
 		{
 			handler:  mock.updateStack,
 			funcName: "updateStack",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 		{
 			handler:  mock.downloadStack,
@@ -2021,7 +2021,7 @@ func TestBaseMockComposeOperations(t *testing.T) {
 		{
 			handler:  mock.purgeStack,
 			funcName: "purgeStack",
-			stack:    ProductStackPentagi,
+			stack:    ProductStackSuricatoos,
 		},
 		{
 			handler:  mock.purgeImagesStack,
@@ -2063,21 +2063,21 @@ func TestBaseMockComposeOperations_SpecialMethods(t *testing.T) {
 
 	t.Run("determineComposeFile", func(t *testing.T) {
 		// test successful case
-		file, err := mock.determineComposeFile(ProductStackPentagi)
+		file, err := mock.determineComposeFile(ProductStackSuricatoos)
 		assertNoError(t, err)
 		if file != "test-compose.yml" {
 			t.Errorf("expected test-compose.yml, got %s", file)
 		}
 
 		calls := mock.getCalls()
-		if len(calls) != 1 || calls[0].Method != "determineComposeFile" || calls[0].Stack != ProductStackPentagi {
+		if len(calls) != 1 || calls[0].Method != "determineComposeFile" || calls[0].Stack != ProductStackSuricatoos {
 			t.Fatalf("unexpected calls: %+v", calls)
 		}
 
 		// test error injection
 		testErr := fmt.Errorf("compose file error")
 		mock.setError("determineComposeFile", testErr)
-		file, err = mock.determineComposeFile(ProductStackPentagi)
+		file, err = mock.determineComposeFile(ProductStackSuricatoos)
 		if err != testErr {
 			t.Errorf("expected error %v, got %v", testErr, err)
 		}
@@ -2088,19 +2088,19 @@ func TestBaseMockComposeOperations_SpecialMethods(t *testing.T) {
 
 	t.Run("performStackCommand", func(t *testing.T) {
 		args := []string{"up", "-d", "--remove-orphans"}
-		err := mock.performStackCommand(t.Context(), ProductStackPentagi, state, args...)
+		err := mock.performStackCommand(t.Context(), ProductStackSuricatoos, state, args...)
 		assertNoError(t, err)
 
 		calls := mock.getCalls()
 		// offset by 2 due to previous test
-		if len(calls) != 3 || calls[2].Method != "performStackCommand" || calls[2].Stack != ProductStackPentagi {
+		if len(calls) != 3 || calls[2].Method != "performStackCommand" || calls[2].Stack != ProductStackSuricatoos {
 			t.Fatalf("unexpected calls: %+v", calls)
 		}
 
 		// test error injection
 		testErr := fmt.Errorf("command execution error")
 		mock.setError("performStackCommand", testErr)
-		err = mock.performStackCommand(t.Context(), ProductStackPentagi, state, args...)
+		err = mock.performStackCommand(t.Context(), ProductStackSuricatoos, state, args...)
 		if err != testErr {
 			t.Errorf("expected error %v, got %v", testErr, err)
 		}

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/database"
+	"suricatoos/pkg/database"
 )
 
 // flowStatusTool implements get_flow_status — reads flow/task/subtask state from DB.

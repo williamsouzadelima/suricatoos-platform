@@ -12,24 +12,24 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
 
 	"github.com/docker/docker/api/types/container"
 	"github.com/sirupsen/logrus"
 )
 
 // PrimaryTerminalNamePrefix is the prefix used for all primary terminal container names.
-const PrimaryTerminalNamePrefix = "pentagi-terminal-"
+const PrimaryTerminalNamePrefix = "suricatoos-terminal-"
 
 const (
 	maxExplicitExecCommandTimeout = 3 * time.Hour
 	defaultExtraExecTimeout       = 5 * time.Second
 	defaultQuickCheckTimeout      = 500 * time.Millisecond
 
-	// ANSI terminal color codes (aligned with PentAGI UI palette)
+	// ANSI terminal color codes (aligned with Suricatoos UI palette)
 	ansiColorInputCmd  = "\033[96m" // Bright Cyan - matches UI blue accents
 	ansiColorSystemMsg = "\033[92m" // Bright Green - universal success/info
 	ansiColorReset     = "\033[0m"  // Reset to default

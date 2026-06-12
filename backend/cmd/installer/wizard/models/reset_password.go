@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"strings"
 
-	"pentagi/cmd/installer/loader"
-	"pentagi/cmd/installer/processor"
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/loader"
+	"suricatoos/cmd/installer/processor"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/window"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -181,7 +181,7 @@ func (m *ResetPasswordModel) GetFormOverview() string {
 // GetCurrentConfiguration returns current configuration status
 func (m *ResetPasswordModel) GetCurrentConfiguration() string {
 	checker := m.GetController().GetChecker()
-	if !checker.PentagiRunning {
+	if !checker.SuricatoosRunning {
 		return locale.ResetPasswordNotAvailable
 	}
 	return locale.ResetPasswordAvailable
@@ -190,7 +190,7 @@ func (m *ResetPasswordModel) GetCurrentConfiguration() string {
 // IsConfigured returns true if password reset is available
 func (m *ResetPasswordModel) IsConfigured() bool {
 	checker := m.GetController().GetChecker()
-	return checker.PentagiRunning
+	return checker.SuricatoosRunning
 }
 
 // Update handles screen updates including processor messages
@@ -270,7 +270,7 @@ func (m *ResetPasswordModel) executePasswordReset(newPassword string, closeOnSuc
 
 	return m.processor.ResetPassword(
 		context.Background(),
-		processor.ProductStackPentagi,
+		processor.ProductStackSuricatoos,
 		processor.WithPasswordValue(newPassword),
 	)
 }

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/cmd/installer/loader"
-	"pentagi/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/loader"
+	"suricatoos/cmd/installer/wizard/controller"
 )
 
 // Test 1: Successful migrations for all variables
@@ -16,14 +16,14 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 		name            string
 		setupFunc       func(*testing.T) (string, func())
 		varName         string
-		pentagiVarName  string
+		suricatoosVarName  string
 		defaultPath     string
 		pathType        checkPathType
 		customPath      string
 		expectMigration bool
 	}{
 		{
-			name: "migrate DOCKER_CERT_PATH to PENTAGI_DOCKER_CERT_PATH",
+			name: "migrate DOCKER_CERT_PATH to SURICATOOS_DOCKER_CERT_PATH",
 			setupFunc: func(t *testing.T) (string, func()) {
 				tmpDir, err := os.MkdirTemp("", "docker-certs-*")
 				if err != nil {
@@ -32,13 +32,13 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 				return tmpDir, func() { os.RemoveAll(tmpDir) }
 			},
 			varName:         "DOCKER_CERT_PATH",
-			pentagiVarName:  "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName:  "SURICATOOS_DOCKER_CERT_PATH",
 			defaultPath:     controller.DefaultDockerCertPath,
 			pathType:        directory,
 			expectMigration: true,
 		},
 		{
-			name: "migrate LLM_SERVER_CONFIG_PATH to PENTAGI_LLM_SERVER_CONFIG_PATH",
+			name: "migrate LLM_SERVER_CONFIG_PATH to SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			setupFunc: func(t *testing.T) (string, func()) {
 				tmpFile, err := os.CreateTemp("", "custom-*.yml")
 				if err != nil {
@@ -48,13 +48,13 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 				return tmpFile.Name(), func() { os.Remove(tmpFile.Name()) }
 			},
 			varName:         "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName:  "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName:  "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			defaultPath:     controller.DefaultCustomConfigsPath,
 			pathType:        file,
 			expectMigration: true,
 		},
 		{
-			name: "migrate OLLAMA_SERVER_CONFIG_PATH to PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			name: "migrate OLLAMA_SERVER_CONFIG_PATH to SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			setupFunc: func(t *testing.T) (string, func()) {
 				tmpFile, err := os.CreateTemp("", "ollama-*.yml")
 				if err != nil {
@@ -64,7 +64,7 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 				return tmpFile.Name(), func() { os.Remove(tmpFile.Name()) }
 			},
 			varName:         "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName:  "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName:  "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			defaultPath:     controller.DefaultOllamaConfigsPath,
 			pathType:        file,
 			expectMigration: true,
@@ -97,12 +97,12 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 
 			// verify migration occurred
 			if tt.expectMigration {
-				// check that PENTAGI_* variable was set to custom path
-				pentagiVar, exists := mockSt.GetVar(tt.pentagiVarName)
+				// check that SURICATOOS_* variable was set to custom path
+				suricatoosVar, exists := mockSt.GetVar(tt.suricatoosVarName)
 				if !exists {
-					t.Errorf("Expected %s to be set", tt.pentagiVarName)
-				} else if pentagiVar.Value != customPath {
-					t.Errorf("Expected %s = %q, got %q", tt.pentagiVarName, customPath, pentagiVar.Value)
+					t.Errorf("Expected %s to be set", tt.suricatoosVarName)
+				} else if suricatoosVar.Value != customPath {
+					t.Errorf("Expected %s = %q, got %q", tt.suricatoosVarName, customPath, suricatoosVar.Value)
 				}
 
 				// check that original variable was set to default path
@@ -121,19 +121,19 @@ func TestDoMigrateSettings_SuccessfulMigrations(t *testing.T) {
 func TestDoMigrateSettings_VariableNotSet(t *testing.T) {
 	tests := []struct {
 		name           string
-		pentagiVarName string
+		suricatoosVarName string
 	}{
 		{
 			name:           "DOCKER_CERT_PATH not set",
-			pentagiVarName: "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName: "SURICATOOS_DOCKER_CERT_PATH",
 		},
 		{
 			name:           "LLM_SERVER_CONFIG_PATH not set",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 		},
 		{
 			name:           "OLLAMA_SERVER_CONFIG_PATH not set",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 		},
 	}
 
@@ -151,9 +151,9 @@ func TestDoMigrateSettings_VariableNotSet(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			_, exists := mockSt.GetVar(tt.pentagiVarName)
+			_, exists := mockSt.GetVar(tt.suricatoosVarName)
 			if exists {
-				t.Errorf("Expected %s to not be set", tt.pentagiVarName)
+				t.Errorf("Expected %s to not be set", tt.suricatoosVarName)
 			}
 		})
 	}
@@ -164,22 +164,22 @@ func TestDoMigrateSettings_EmptyVariable(t *testing.T) {
 	tests := []struct {
 		name           string
 		varName        string
-		pentagiVarName string
+		suricatoosVarName string
 	}{
 		{
 			name:           "DOCKER_CERT_PATH is empty",
 			varName:        "DOCKER_CERT_PATH",
-			pentagiVarName: "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName: "SURICATOOS_DOCKER_CERT_PATH",
 		},
 		{
 			name:           "LLM_SERVER_CONFIG_PATH is empty",
 			varName:        "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 		},
 		{
 			name:           "OLLAMA_SERVER_CONFIG_PATH is empty",
 			varName:        "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 		},
 	}
 
@@ -204,9 +204,9 @@ func TestDoMigrateSettings_EmptyVariable(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			_, exists := mockSt.GetVar(tt.pentagiVarName)
+			_, exists := mockSt.GetVar(tt.suricatoosVarName)
 			if exists {
-				t.Errorf("Expected %s to not be set", tt.pentagiVarName)
+				t.Errorf("Expected %s to not be set", tt.suricatoosVarName)
 			}
 		})
 	}
@@ -217,25 +217,25 @@ func TestDoMigrateSettings_PathNotExist(t *testing.T) {
 	tests := []struct {
 		name           string
 		varName        string
-		pentagiVarName string
+		suricatoosVarName string
 		nonExistPath   string
 	}{
 		{
 			name:           "DOCKER_CERT_PATH points to non-existing directory",
 			varName:        "DOCKER_CERT_PATH",
-			pentagiVarName: "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName: "SURICATOOS_DOCKER_CERT_PATH",
 			nonExistPath:   "/nonexistent/docker/certs",
 		},
 		{
 			name:           "LLM_SERVER_CONFIG_PATH points to non-existing file",
 			varName:        "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			nonExistPath:   "/nonexistent/custom.provider.yml",
 		},
 		{
 			name:           "OLLAMA_SERVER_CONFIG_PATH points to non-existing file",
 			varName:        "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			nonExistPath:   "/nonexistent/ollama.provider.yml",
 		},
 	}
@@ -261,9 +261,9 @@ func TestDoMigrateSettings_PathNotExist(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			_, exists := mockSt.GetVar(tt.pentagiVarName)
+			_, exists := mockSt.GetVar(tt.suricatoosVarName)
 			if exists {
-				t.Errorf("Expected %s to not be set for non-existing path", tt.pentagiVarName)
+				t.Errorf("Expected %s to not be set for non-existing path", tt.suricatoosVarName)
 			}
 		})
 	}
@@ -274,28 +274,28 @@ func TestDoMigrateSettings_AlreadyDefaultValue(t *testing.T) {
 	tests := []struct {
 		name           string
 		varName        string
-		pentagiVarName string
+		suricatoosVarName string
 		defaultPath    string
 		description    string
 	}{
 		{
 			name:           "DOCKER_CERT_PATH already has default container path",
 			varName:        "DOCKER_CERT_PATH",
-			pentagiVarName: "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName: "SURICATOOS_DOCKER_CERT_PATH",
 			defaultPath:    controller.DefaultDockerCertPath,
 			description:    "Default container path should not be migrated",
 		},
 		{
 			name:           "LLM_SERVER_CONFIG_PATH already has default container path",
 			varName:        "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			defaultPath:    controller.DefaultCustomConfigsPath,
 			description:    "Default container path should not be migrated",
 		},
 		{
 			name:           "OLLAMA_SERVER_CONFIG_PATH already has default container path",
 			varName:        "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			defaultPath:    controller.DefaultOllamaConfigsPath,
 			description:    "Default container path should not be migrated",
 		},
@@ -322,9 +322,9 @@ func TestDoMigrateSettings_AlreadyDefaultValue(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			_, exists := mockSt.GetVar(tt.pentagiVarName)
+			_, exists := mockSt.GetVar(tt.suricatoosVarName)
 			if exists {
-				t.Errorf("Expected %s to not be set when already using default", tt.pentagiVarName)
+				t.Errorf("Expected %s to not be set when already using default", tt.suricatoosVarName)
 			}
 
 			// verify original variable was not changed
@@ -343,22 +343,22 @@ func TestDoMigrateSettings_EmbeddedConfigs(t *testing.T) {
 	tests := []struct {
 		name           string
 		varName        string
-		pentagiVarName string
+		suricatoosVarName string
 		embeddedPath   string
 		description    string
 	}{
 		{
 			name:           "LLM_SERVER_CONFIG_PATH with embedded config should not migrate",
 			varName:        "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
-			embeddedPath:   "/opt/pentagi/conf/llms/openai.yml",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
+			embeddedPath:   "/opt/suricatoos/conf/llms/openai.yml",
 			description:    "Embedded configs are inside docker image, no migration needed",
 		},
 		{
 			name:           "OLLAMA_SERVER_CONFIG_PATH with embedded config should not migrate",
 			varName:        "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
-			embeddedPath:   "/opt/pentagi/conf/llms/llama3.yml",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
+			embeddedPath:   "/opt/suricatoos/conf/llms/llama3.yml",
 			description:    "Embedded configs are inside docker image, no migration needed",
 		},
 	}
@@ -384,9 +384,9 @@ func TestDoMigrateSettings_EmbeddedConfigs(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			pentagiVar, exists := mockSt.GetVar(tt.pentagiVarName)
-			if exists && pentagiVar.Value != "" {
-				t.Errorf("Expected %s to not be set for embedded config: %s", tt.pentagiVarName, tt.description)
+			suricatoosVar, exists := mockSt.GetVar(tt.suricatoosVarName)
+			if exists && suricatoosVar.Value != "" {
+				t.Errorf("Expected %s to not be set for embedded config: %s", tt.suricatoosVarName, tt.description)
 			}
 
 			// verify original variable was not changed
@@ -406,7 +406,7 @@ func TestDoMigrateSettings_WrongPathType(t *testing.T) {
 		name           string
 		setupFunc      func(*testing.T) (string, func())
 		varName        string
-		pentagiVarName string
+		suricatoosVarName string
 		description    string
 	}{
 		{
@@ -420,7 +420,7 @@ func TestDoMigrateSettings_WrongPathType(t *testing.T) {
 				return tmpFile.Name(), func() { os.Remove(tmpFile.Name()) }
 			},
 			varName:        "DOCKER_CERT_PATH",
-			pentagiVarName: "PENTAGI_DOCKER_CERT_PATH",
+			suricatoosVarName: "SURICATOOS_DOCKER_CERT_PATH",
 			description:    "File provided when directory expected",
 		},
 		{
@@ -433,7 +433,7 @@ func TestDoMigrateSettings_WrongPathType(t *testing.T) {
 				return tmpDir, func() { os.RemoveAll(tmpDir) }
 			},
 			varName:        "LLM_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_LLM_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			description:    "Directory provided when file expected",
 		},
 		{
@@ -446,7 +446,7 @@ func TestDoMigrateSettings_WrongPathType(t *testing.T) {
 				return tmpDir, func() { os.RemoveAll(tmpDir) }
 			},
 			varName:        "OLLAMA_SERVER_CONFIG_PATH",
-			pentagiVarName: "PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			suricatoosVarName: "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			description:    "Directory provided when file expected",
 		},
 	}
@@ -476,9 +476,9 @@ func TestDoMigrateSettings_WrongPathType(t *testing.T) {
 			}
 
 			// verify no migration occurred
-			_, exists := mockSt.GetVar(tt.pentagiVarName)
+			_, exists := mockSt.GetVar(tt.suricatoosVarName)
 			if exists {
-				t.Errorf("Expected %s to not be set for wrong path type: %s", tt.pentagiVarName, tt.description)
+				t.Errorf("Expected %s to not be set for wrong path type: %s", tt.suricatoosVarName, tt.description)
 			}
 		})
 	}
@@ -492,7 +492,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 		expectedError string
 	}{
 		{
-			name: "SetVar error for PENTAGI_DOCKER_CERT_PATH",
+			name: "SetVar error for SURICATOOS_DOCKER_CERT_PATH",
 			setupFunc: func(t *testing.T) (*mockStateWithErrors, string, func()) {
 				tmpDir, err := os.MkdirTemp("", "docker-certs-*")
 				if err != nil {
@@ -507,7 +507,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 						},
 					},
 					setVarError: map[string]error{
-						"PENTAGI_DOCKER_CERT_PATH": mockError,
+						"SURICATOOS_DOCKER_CERT_PATH": mockError,
 					},
 				}
 				return mockSt, tmpDir, func() { os.RemoveAll(tmpDir) }
@@ -538,7 +538,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 			expectedError: "mocked error",
 		},
 		{
-			name: "SetVar error for PENTAGI_LLM_SERVER_CONFIG_PATH",
+			name: "SetVar error for SURICATOOS_LLM_SERVER_CONFIG_PATH",
 			setupFunc: func(t *testing.T) (*mockStateWithErrors, string, func()) {
 				tmpFile, err := os.CreateTemp("", "custom-*.yml")
 				if err != nil {
@@ -554,7 +554,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 						},
 					},
 					setVarError: map[string]error{
-						"PENTAGI_LLM_SERVER_CONFIG_PATH": mockError,
+						"SURICATOOS_LLM_SERVER_CONFIG_PATH": mockError,
 					},
 				}
 				return mockSt, tmpFile.Name(), func() { os.Remove(tmpFile.Name()) }
@@ -562,7 +562,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 			expectedError: "mocked error",
 		},
 		{
-			name: "SetVar error for PENTAGI_OLLAMA_SERVER_CONFIG_PATH",
+			name: "SetVar error for SURICATOOS_OLLAMA_SERVER_CONFIG_PATH",
 			setupFunc: func(t *testing.T) (*mockStateWithErrors, string, func()) {
 				tmpFile, err := os.CreateTemp("", "ollama-*.yml")
 				if err != nil {
@@ -578,7 +578,7 @@ func TestDoMigrateSettings_ErrorHandling(t *testing.T) {
 						},
 					},
 					setVarError: map[string]error{
-						"PENTAGI_OLLAMA_SERVER_CONFIG_PATH": mockError,
+						"SURICATOOS_OLLAMA_SERVER_CONFIG_PATH": mockError,
 					},
 				}
 				return mockSt, tmpFile.Name(), func() { os.Remove(tmpFile.Name()) }
@@ -658,7 +658,7 @@ func TestDoMigrateSettings_CombinedMigrations(t *testing.T) {
 				"DOCKER_CERT_PATH":          controller.DefaultDockerCertPath,
 				"LLM_SERVER_CONFIG_PATH":    controller.DefaultCustomConfigsPath,
 				"OLLAMA_SERVER_CONFIG_PATH": controller.DefaultOllamaConfigsPath,
-				// PENTAGI_* vars will be checked separately as they contain dynamic temp paths
+				// SURICATOOS_* vars will be checked separately as they contain dynamic temp paths
 			},
 			description: "All three migrations should complete successfully",
 		},
@@ -738,8 +738,8 @@ func TestDoMigrateSettings_CombinedMigrations(t *testing.T) {
 
 				paths := map[string]string{
 					"DOCKER_CERT_PATH":          dockerCertDir,
-					"LLM_SERVER_CONFIG_PATH":    "/opt/pentagi/conf/llms/openai.yml", // embedded config
-					"OLLAMA_SERVER_CONFIG_PATH": "/opt/pentagi/conf/llms/llama3.yml", // embedded config
+					"LLM_SERVER_CONFIG_PATH":    "/opt/suricatoos/conf/llms/openai.yml", // embedded config
+					"OLLAMA_SERVER_CONFIG_PATH": "/opt/suricatoos/conf/llms/llama3.yml", // embedded config
 				}
 
 				cleanup := func() {
@@ -750,8 +750,8 @@ func TestDoMigrateSettings_CombinedMigrations(t *testing.T) {
 			},
 			expectedVars: map[string]string{
 				"DOCKER_CERT_PATH":          controller.DefaultDockerCertPath,
-				"LLM_SERVER_CONFIG_PATH":    "/opt/pentagi/conf/llms/openai.yml", // should not change
-				"OLLAMA_SERVER_CONFIG_PATH": "/opt/pentagi/conf/llms/llama3.yml", // should not change
+				"LLM_SERVER_CONFIG_PATH":    "/opt/suricatoos/conf/llms/openai.yml", // should not change
+				"OLLAMA_SERVER_CONFIG_PATH": "/opt/suricatoos/conf/llms/llama3.yml", // should not change
 			},
 			description: "Embedded configs should not be migrated, only DOCKER_CERT_PATH",
 		},
@@ -793,26 +793,26 @@ func TestDoMigrateSettings_CombinedMigrations(t *testing.T) {
 				}
 			}
 
-			// verify PENTAGI_* variables were set correctly for non-default and non-embedded values
+			// verify SURICATOOS_* variables were set correctly for non-default and non-embedded values
 			for varName, originalValue := range paths {
-				pentagiVarName := ""
+				suricatoosVarName := ""
 				defaultValue := ""
 				isEmbedded := false
 
 				switch varName {
 				case "DOCKER_CERT_PATH":
-					pentagiVarName = "PENTAGI_DOCKER_CERT_PATH"
+					suricatoosVarName = "SURICATOOS_DOCKER_CERT_PATH"
 					defaultValue = controller.DefaultDockerCertPath
 				case "LLM_SERVER_CONFIG_PATH":
-					pentagiVarName = "PENTAGI_LLM_SERVER_CONFIG_PATH"
+					suricatoosVarName = "SURICATOOS_LLM_SERVER_CONFIG_PATH"
 					defaultValue = controller.DefaultCustomConfigsPath
 					// check if it's an embedded config path
-					isEmbedded = strings.HasPrefix(originalValue, "/opt/pentagi/conf/llms/")
+					isEmbedded = strings.HasPrefix(originalValue, "/opt/suricatoos/conf/llms/")
 				case "OLLAMA_SERVER_CONFIG_PATH":
-					pentagiVarName = "PENTAGI_OLLAMA_SERVER_CONFIG_PATH"
+					suricatoosVarName = "SURICATOOS_OLLAMA_SERVER_CONFIG_PATH"
 					defaultValue = controller.DefaultOllamaConfigsPath
 					// check if it's an embedded config path
-					isEmbedded = strings.HasPrefix(originalValue, "/opt/pentagi/conf/llms/")
+					isEmbedded = strings.HasPrefix(originalValue, "/opt/suricatoos/conf/llms/")
 				}
 
 				// migration should only occur for non-default, non-embedded, existing files
@@ -823,18 +823,18 @@ func TestDoMigrateSettings_CombinedMigrations(t *testing.T) {
 					_, err := os.Stat(originalValue)
 					if err == nil {
 						// migration should have occurred
-						pentagiVar, exists := mockSt.GetVar(pentagiVarName)
+						suricatoosVar, exists := mockSt.GetVar(suricatoosVarName)
 						if !exists {
-							t.Errorf("Expected %s to be set for non-default value", pentagiVarName)
-						} else if pentagiVar.Value != originalValue {
-							t.Errorf("Expected %s = %q, got %q", pentagiVarName, originalValue, pentagiVar.Value)
+							t.Errorf("Expected %s to be set for non-default value", suricatoosVarName)
+						} else if suricatoosVar.Value != originalValue {
+							t.Errorf("Expected %s = %q, got %q", suricatoosVarName, originalValue, suricatoosVar.Value)
 						}
 					}
 				} else {
 					// migration should not have occurred
-					pentagiVar, exists := mockSt.GetVar(pentagiVarName)
-					if exists && pentagiVar.Value != "" {
-						t.Errorf("Expected %s to not be set for default/embedded value, but got %q", pentagiVarName, pentagiVar.Value)
+					suricatoosVar, exists := mockSt.GetVar(suricatoosVarName)
+					if exists && suricatoosVar.Value != "" {
+						t.Errorf("Expected %s to not be set for default/embedded value, but got %q", suricatoosVarName, suricatoosVar.Value)
 					}
 				}
 			}

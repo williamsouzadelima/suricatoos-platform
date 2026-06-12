@@ -6,11 +6,11 @@ import (
 	"slices"
 	"strings"
 
-	"pentagi/cmd/installer/wizard/controller"
-	"pentagi/cmd/installer/wizard/locale"
-	"pentagi/cmd/installer/wizard/logger"
-	"pentagi/cmd/installer/wizard/styles"
-	"pentagi/cmd/installer/wizard/window"
+	"suricatoos/cmd/installer/wizard/controller"
+	"suricatoos/cmd/installer/wizard/locale"
+	"suricatoos/cmd/installer/wizard/logger"
+	"suricatoos/cmd/installer/wizard/styles"
+	"suricatoos/cmd/installer/wizard/window"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -220,7 +220,7 @@ func (m *LLMProviderFormModel) createModelField(config *controller.LLMProviderCo
 func (m *LLMProviderFormModel) createConfigPathField(config *controller.LLMProviderConfig) FormField {
 	input := NewTextInput(m.GetStyles(), m.GetWindow(), config.HostConfigPath)
 	if config.HostConfigPath.Default == "" {
-		input.Placeholder = "/opt/pentagi/conf/config.yml"
+		input.Placeholder = "/opt/suricatoos/conf/config.yml"
 	}
 
 	return FormField{

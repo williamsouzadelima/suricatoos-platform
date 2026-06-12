@@ -30,9 +30,9 @@ Instantiate and use the client with the following:
 package example
 
 import (
-    client "pentagi/pkg/observability/langfuse/api/client"
-    option "pentagi/pkg/observability/langfuse/api/option"
-    api "pentagi/pkg/observability/langfuse/api"
+    client "suricatoos/pkg/observability/langfuse/api/client"
+    option "suricatoos/pkg/observability/langfuse/api/option"
+    api "suricatoos/pkg/observability/langfuse/api"
     context "context"
 )
 

@@ -7,11 +7,11 @@ import (
 	"maps"
 	"strings"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
-	"pentagi/pkg/providers/embeddings"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
+	"suricatoos/pkg/providers/embeddings"
 
 	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/cloud/anonymizer"

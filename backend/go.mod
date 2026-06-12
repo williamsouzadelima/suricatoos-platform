@@ -1,4 +1,4 @@
-module pentagi
+module suricatoos
 
 go 1.24.1
 

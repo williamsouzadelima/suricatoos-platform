@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"slices"
 
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/rdb"
-	"pentagi/pkg/server/response"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/rdb"
+	"suricatoos/pkg/server/response"
+	"suricatoos/pkg/templates"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

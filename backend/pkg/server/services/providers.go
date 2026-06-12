@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"slices"
 
-	"pentagi/pkg/providers"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/provider"
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/providers"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/provider"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-gonic/gin"
 )

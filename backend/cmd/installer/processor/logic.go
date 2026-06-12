@@ -10,9 +10,9 @@ import (
 	"runtime"
 	"sync"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/files"
-	"pentagi/cmd/installer/wizard/logger"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/cmd/installer/wizard/logger"
 )
 
 const (
@@ -36,8 +36,8 @@ func (p *processor) validateOperation(stack ProductStack, operation ProcessorOpe
 		}
 
 	case ProcessorOperationResetPassword:
-		if stack != ProductStackPentagi {
-			return fmt.Errorf("operation %s only applicable for PentAGI stack", operation)
+		if stack != ProductStackSuricatoos {
+			return fmt.Errorf("operation %s only applicable for Suricatoos stack", operation)
 		}
 	}
 
@@ -79,7 +79,7 @@ func (p *processor) isEmbeddedDeployment(stack ProductStack) bool {
 
 		return false
 
-	case ProductStackPentagi, ProductStackWorker, ProductStackInstaller:
+	case ProductStackSuricatoos, ProductStackWorker, ProductStackInstaller:
 		return true
 
 	default:
@@ -191,9 +191,9 @@ func (p *processor) applyChanges(ctx context.Context, state *operationState) (er
 		return fmt.Errorf("failed to apply graphiti changes: %w", err)
 	}
 
-	// phase 4: PentAGI Stack Management (always embedded, always required)
-	if err := p.applyPentagiChanges(ctx, state); err != nil {
-		return fmt.Errorf("failed to apply pentagi changes: %w", err)
+	// phase 4: Suricatoos Stack Management (always embedded, always required)
+	if err := p.applySuricatoosChanges(ctx, state); err != nil {
+		return fmt.Errorf("failed to apply suricatoos changes: %w", err)
 	}
 
 	return nil
@@ -310,28 +310,28 @@ func (p *processor) applyGraphitiChanges(ctx context.Context, state *operationSt
 	return nil
 }
 
-func (p *processor) applyPentagiChanges(ctx context.Context, state *operationState) error {
-	// PentAGI is always embedded, always required
-	if !p.checker.PentagiExtracted {
+func (p *processor) applySuricatoosChanges(ctx context.Context, state *operationState) error {
+	// Suricatoos is always embedded, always required
+	if !p.checker.SuricatoosExtracted {
 		// fresh installation - extract compose file
-		if err := p.fsOps.ensureStackIntegrity(ctx, ProductStackPentagi, state); err != nil {
-			return fmt.Errorf("failed to ensure pentagi integrity: %w", err)
+		if err := p.fsOps.ensureStackIntegrity(ctx, ProductStackSuricatoos, state); err != nil {
+			return fmt.Errorf("failed to ensure suricatoos integrity: %w", err)
 		}
 	} else {
 		// file exists - verify integrity, update if force=true
-		if err := p.fsOps.verifyStackIntegrity(ctx, ProductStackPentagi, state); err != nil {
-			return fmt.Errorf("failed to verify pentagi integrity: %w", err)
+		if err := p.fsOps.verifyStackIntegrity(ctx, ProductStackSuricatoos, state); err != nil {
+			return fmt.Errorf("failed to verify suricatoos integrity: %w", err)
 		}
 	}
 
 	// update/start containers
-	if err := p.composeOps.updateStack(ctx, ProductStackPentagi, state); err != nil {
-		return fmt.Errorf("failed to update pentagi stack: %w", err)
+	if err := p.composeOps.updateStack(ctx, ProductStackSuricatoos, state); err != nil {
+		return fmt.Errorf("failed to update suricatoos stack: %w", err)
 	}
 
 	// refresh state to verify operation success
-	if err := p.checker.GatherPentagiInfo(ctx); err != nil {
-		return fmt.Errorf("failed to gather pentagi info: %w", err)
+	if err := p.checker.GatherSuricatoosInfo(ctx); err != nil {
+		return fmt.Errorf("failed to gather suricatoos info: %w", err)
 	}
 
 	return nil
@@ -354,7 +354,7 @@ func (p *processor) checkFiles(
 	}
 
 	switch stack {
-	case ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
+	case ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
 		if !p.isEmbeddedDeployment(stack) {
 			return map[string]files.FileStatus{}, nil
 		}
@@ -405,7 +405,7 @@ func (p *processor) factoryReset(ctx context.Context, state *operationState) (er
 	}
 
 	// step 3: remove main networks
-	_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkPentagi))
+	_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkSuricatoos))
 	_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkObservability))
 	_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkLangfuse))
 
@@ -481,10 +481,10 @@ func (p *processor) install(ctx context.Context, state *operationState) (err err
 		}
 	}
 
-	// phase 4: PentAGI Stack Management (always embedded, always required)
-	if !p.checker.PentagiInstalled {
-		if err := p.applyPentagiChanges(ctx, state); err != nil {
-			return fmt.Errorf("failed to apply pentagi changes: %w", err)
+	// phase 4: Suricatoos Stack Management (always embedded, always required)
+	if !p.checker.SuricatoosInstalled {
+		if err := p.applySuricatoosChanges(ctx, state); err != nil {
+			return fmt.Errorf("failed to apply suricatoos changes: %w", err)
 		}
 	}
 
@@ -510,13 +510,13 @@ func (p *processor) update(ctx context.Context, stack ProductStack, state *opera
 	)
 
 	composeStacksUpToDate := map[ProductStack]bool{
-		ProductStackPentagi:       p.checker.PentagiIsUpToDate,
+		ProductStackSuricatoos:       p.checker.SuricatoosIsUpToDate,
 		ProductStackGraphiti:      p.checker.GraphitiIsUpToDate,
 		ProductStackLangfuse:      p.checker.LangfuseIsUpToDate,
 		ProductStackObservability: p.checker.ObservabilityIsUpToDate,
 	}
 	composeStacksGatherInfo := map[ProductStack]func(ctx context.Context) error{
-		ProductStackPentagi:       p.checker.GatherPentagiInfo,
+		ProductStackSuricatoos:       p.checker.GatherSuricatoosInfo,
 		ProductStackGraphiti:      p.checker.GatherGraphitiInfo,
 		ProductStackLangfuse:      p.checker.GatherLangfuseInfo,
 		ProductStackObservability: p.checker.GatherObservabilityInfo,
@@ -527,7 +527,7 @@ func (p *processor) update(ctx context.Context, stack ProductStack, state *opera
 	}
 
 	switch stack {
-	case ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
+	case ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
 		if composeStacksUpToDate[stack] {
 			return nil
 		}
@@ -602,7 +602,7 @@ func (p *processor) download(ctx context.Context, stack ProductStack, state *ope
 	}
 
 	switch stack {
-	case ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
+	case ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
 		// docker compose pull equivalent for all images
 		if err := p.composeOps.downloadStack(ctx, stack, state); err != nil {
 			return fmt.Errorf("failed to download stack: %w", err)
@@ -664,7 +664,7 @@ func (p *processor) remove(ctx context.Context, stack ProductStack, state *opera
 	)
 
 	composeStacksGatherInfo := map[ProductStack]func(ctx context.Context) error{
-		ProductStackPentagi:       p.checker.GatherPentagiInfo,
+		ProductStackSuricatoos:       p.checker.GatherSuricatoosInfo,
 		ProductStackGraphiti:      p.checker.GatherGraphitiInfo,
 		ProductStackLangfuse:      p.checker.GatherLangfuseInfo,
 		ProductStackObservability: p.checker.GatherObservabilityInfo,
@@ -675,7 +675,7 @@ func (p *processor) remove(ctx context.Context, stack ProductStack, state *opera
 	}
 
 	switch stack {
-	case ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
+	case ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
 		if err := p.composeOps.removeStack(ctx, stack, state); err != nil {
 			return fmt.Errorf("failed to remove stack: %w", err)
 		}
@@ -744,7 +744,7 @@ func (p *processor) purge(ctx context.Context, stack ProductStack, state *operat
 	)
 
 	composeStacksGatherInfo := map[ProductStack]func(ctx context.Context) error{
-		ProductStackPentagi:       p.checker.GatherPentagiInfo,
+		ProductStackSuricatoos:       p.checker.GatherSuricatoosInfo,
 		ProductStackGraphiti:      p.checker.GatherGraphitiInfo,
 		ProductStackLangfuse:      p.checker.GatherLangfuseInfo,
 		ProductStackObservability: p.checker.GatherObservabilityInfo,
@@ -755,7 +755,7 @@ func (p *processor) purge(ctx context.Context, stack ProductStack, state *operat
 	}
 
 	switch stack {
-	case ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
+	case ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability:
 		if err := p.composeOps.purgeImagesStack(ctx, stack, state); err != nil {
 			return fmt.Errorf("failed to purge with images stack: %w", err)
 		}
@@ -799,7 +799,7 @@ func (p *processor) purge(ctx context.Context, stack ProductStack, state *operat
 		}
 
 		// remove custom networks
-		_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkPentagi))
+		_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkSuricatoos))
 		_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkObservability))
 		_ = p.dockerOps.removeMainDockerNetwork(ctx, state, string(ProductDockerNetworkLangfuse))
 
@@ -875,12 +875,12 @@ func (p *processor) resetPassword(ctx context.Context, stack ProductStack, state
 		return err
 	}
 
-	if stack != ProductStackPentagi {
-		return fmt.Errorf("reset password operation only supported for PentAGI stack")
+	if stack != ProductStackSuricatoos {
+		return fmt.Errorf("reset password operation only supported for Suricatoos stack")
 	}
 
-	if !p.checker.PentagiRunning {
-		return fmt.Errorf("PentAGI must be running to reset password")
+	if !p.checker.SuricatoosRunning {
+		return fmt.Errorf("Suricatoos must be running to reset password")
 	}
 
 	if state.passwordValue == "" {

@@ -11,8 +11,8 @@ import (
 	"runtime"
 	"time"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/pkg/version"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/pkg/version"
 )
 
 const updateServerURL = "https://update.pentagi.com"
@@ -104,7 +104,7 @@ func (u *updateOperationsImpl) removeInstaller(ctx context.Context, state *opera
 
 func (u *updateOperationsImpl) buildUpdateCheckRequest() checker.CheckUpdatesRequest {
 	currentVersion := version.GetBinaryVersion()
-	if versionVar, exists := u.processor.state.GetVar("PENTAGI_VERSION"); exists {
+	if versionVar, exists := u.processor.state.GetVar("SURICATOOS_VERSION"); exists {
 		currentVersion = versionVar.Value
 	}
 
@@ -172,7 +172,7 @@ func (u *updateOperationsImpl) downloadBinaryToTemp(ctx context.Context, downloa
 		return "", fmt.Errorf("download failed with status: %s", resp.Status)
 	}
 
-	tempFile, err := os.CreateTemp("", "pentagi-update-*.bin")
+	tempFile, err := os.CreateTemp("", "suricatoos-update-*.bin")
 	if err != nil {
 		return "", fmt.Errorf("failed to create temp file: %w", err)
 	}
@@ -269,7 +269,7 @@ func (u *updateOperationsImpl) callExistingUpdateChecker(
 ) (*checker.CheckUpdatesResponse, error) {
 	return &checker.CheckUpdatesResponse{
 		InstallerIsUpToDate:     true,
-		PentagiIsUpToDate:       true,
+		SuricatoosIsUpToDate:       true,
 		GraphitiIsUpToDate:      true,
 		LangfuseIsUpToDate:      true,
 		ObservabilityIsUpToDate: true,

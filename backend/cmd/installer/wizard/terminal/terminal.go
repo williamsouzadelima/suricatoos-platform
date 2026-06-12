@@ -10,8 +10,8 @@ import (
 	"strings"
 	"sync"
 
-	"pentagi/cmd/installer/wizard/logger"
-	"pentagi/cmd/installer/wizard/terminal/vt"
+	"suricatoos/cmd/installer/wizard/logger"
+	"suricatoos/cmd/installer/wizard/terminal/vt"
 
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"

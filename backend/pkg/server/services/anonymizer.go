@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"slices"
 
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/vxcontrol/cloud/anonymizer"

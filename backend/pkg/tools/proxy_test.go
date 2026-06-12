@@ -24,7 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"pentagi/pkg/database"
+	"suricatoos/pkg/database"
 )
 
 var _ SummarizeHandler = testSummarizerHandler

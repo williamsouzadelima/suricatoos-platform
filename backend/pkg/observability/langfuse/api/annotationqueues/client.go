@@ -3,11 +3,11 @@
 package annotationqueues
 
 import (
-    core "pentagi/pkg/observability/langfuse/api/core"
-    internal "pentagi/pkg/observability/langfuse/api/internal"
+    core "suricatoos/pkg/observability/langfuse/api/core"
+    internal "suricatoos/pkg/observability/langfuse/api/internal"
     context "context"
-    api "pentagi/pkg/observability/langfuse/api"
-    option "pentagi/pkg/observability/langfuse/api/option"
+    api "suricatoos/pkg/observability/langfuse/api"
+    option "suricatoos/pkg/observability/langfuse/api/option"
 )
 
 

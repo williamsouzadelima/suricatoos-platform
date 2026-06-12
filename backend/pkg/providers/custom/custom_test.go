@@ -6,9 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"pentagi/pkg/config"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/provider"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/provider"
 )
 
 func TestConfigLoading(t *testing.T) {

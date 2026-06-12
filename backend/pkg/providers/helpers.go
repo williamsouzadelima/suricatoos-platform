@@ -11,15 +11,15 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/cast"
-	"pentagi/pkg/csum"
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/templates"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/cast"
+	"suricatoos/pkg/csum"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/templates"
+	"suricatoos/pkg/tools"
 
 	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/langchaingo/llms"
@@ -62,7 +62,7 @@ func wrapToolCallIDTemplateError(err error) error {
 	if strings.Contains(err.Error(), "does not support tools") {
 		return fmt.Errorf(
 			"failed to determine tool call ID template: the selected model "+
-				"does not support tool/function calling, which PentAGI requires "+
+				"does not support tool/function calling, which Suricatoos requires "+
 				"for tool execution in flows and assistant sessions; select an "+
 				"Ollama model whose metadata advertises tool/function calling "+
 				"support and update the provider configuration: %w",

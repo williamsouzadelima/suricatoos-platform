@@ -14,12 +14,12 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/resources"
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/resources"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

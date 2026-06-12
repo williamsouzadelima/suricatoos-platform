@@ -3,7 +3,7 @@ package provider
 import (
 	"testing"
 
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/templates"
 )
 
 func TestFallbackHeuristicDetection(t *testing.T) {

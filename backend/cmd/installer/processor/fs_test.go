@@ -7,7 +7,7 @@ import (
 	"sync"
 	"testing"
 
-	"pentagi/cmd/installer/files"
+	"suricatoos/cmd/installer/files"
 )
 
 // testStackIntegrityOperation is a helper for testing stack integrity operations
@@ -19,7 +19,7 @@ func testStackIntegrityOperation(t *testing.T, operation func(*fileSystemOperati
 		stack     ProductStack
 		expectErr bool
 	}{
-		{"ProductStackPentagi", ProductStackPentagi, false},
+		{"ProductStackSuricatoos", ProductStackSuricatoos, false},
 		{"ProductStackLangfuse", ProductStackLangfuse, false},
 		{"ProductStackObservability", ProductStackObservability, false},
 		{"ProductStackCompose", ProductStackCompose, false},
@@ -468,13 +468,13 @@ func TestCheckStackIntegrity(t *testing.T) {
 		expected map[string]files.FileStatus
 	}{
 		{
-			name:  "pentagi_stack_all_files_ok",
-			stack: ProductStackPentagi,
+			name:  "suricatoos_stack_all_files_ok",
+			stack: ProductStackSuricatoos,
 			setup: func(m *mockFiles) {
-				m.statuses[composeFilePentagi] = files.FileStatusOK
+				m.statuses[composeFileSuricatoos] = files.FileStatusOK
 			},
 			expected: map[string]files.FileStatus{
-				composeFilePentagi: files.FileStatusOK,
+				composeFileSuricatoos: files.FileStatusOK,
 			},
 		},
 		{
@@ -512,8 +512,8 @@ func TestCheckStackIntegrity(t *testing.T) {
 			name:  "compose_stacks_combined",
 			stack: ProductStackCompose,
 			setup: func(m *mockFiles) {
-				// pentagi
-				m.statuses[composeFilePentagi] = files.FileStatusOK
+				// suricatoos
+				m.statuses[composeFileSuricatoos] = files.FileStatusOK
 				// graphiti
 				m.statuses[composeFileGraphiti] = files.FileStatusOK
 				// langfuse
@@ -526,7 +526,7 @@ func TestCheckStackIntegrity(t *testing.T) {
 				m.statuses["observability/config.yml"] = files.FileStatusOK
 			},
 			expected: map[string]files.FileStatus{
-				composeFilePentagi:         files.FileStatusOK,
+				composeFileSuricatoos:         files.FileStatusOK,
 				composeFileGraphiti:        files.FileStatusOK,
 				composeFileLangfuse:        files.FileStatusModified,
 				composeFileObservability:   files.FileStatusMissing,
@@ -537,8 +537,8 @@ func TestCheckStackIntegrity(t *testing.T) {
 			name:  "all_stacks_combined",
 			stack: ProductStackAll,
 			setup: func(m *mockFiles) {
-				// pentagi
-				m.statuses[composeFilePentagi] = files.FileStatusOK
+				// suricatoos
+				m.statuses[composeFileSuricatoos] = files.FileStatusOK
 				// graphiti
 				m.statuses[composeFileGraphiti] = files.FileStatusOK
 				// langfuse
@@ -551,7 +551,7 @@ func TestCheckStackIntegrity(t *testing.T) {
 				m.statuses["observability/config.yml"] = files.FileStatusOK
 			},
 			expected: map[string]files.FileStatus{
-				composeFilePentagi:         files.FileStatusOK,
+				composeFileSuricatoos:         files.FileStatusOK,
 				composeFileGraphiti:        files.FileStatusOK,
 				composeFileLangfuse:        files.FileStatusModified,
 				composeFileObservability:   files.FileStatusMissing,
@@ -613,7 +613,7 @@ func TestCheckStackIntegrity_RealFiles(t *testing.T) {
 		mockFiles := newMockFiles()
 
 		// Setup comprehensive test scenario
-		mockFiles.statuses[composeFilePentagi] = files.FileStatusOK
+		mockFiles.statuses[composeFileSuricatoos] = files.FileStatusOK
 		mockFiles.statuses[composeFileGraphiti] = files.FileStatusOK
 		mockFiles.statuses[composeFileLangfuse] = files.FileStatusModified
 		mockFiles.statuses[composeFileObservability] = files.FileStatusMissing
@@ -652,20 +652,20 @@ func TestFileSystemOperations_IntegrityWithForceMode(t *testing.T) {
 		mockFiles := processor.files.(*mockFiles)
 
 		// Setup files
-		mockFiles.statuses[composeFilePentagi] = files.FileStatusModified
-		mockFiles.AddFile(composeFilePentagi, []byte("embedded content"))
+		mockFiles.statuses[composeFileSuricatoos] = files.FileStatusModified
+		mockFiles.AddFile(composeFileSuricatoos, []byte("embedded content"))
 
 		fsOps := newFileSystemOperations(processor).(*fileSystemOperationsImpl)
 
 		// First without force - should not overwrite
 		state := &operationState{force: false, mx: &sync.Mutex{}, ctx: t.Context()}
-		err := fsOps.ensureStackIntegrity(t.Context(), ProductStackPentagi, state)
+		err := fsOps.ensureStackIntegrity(t.Context(), ProductStackSuricatoos, state)
 		assertNoError(t, err)
 
 		// Check that file was not copied (force=false with existing file)
 		copyCount := 0
 		for _, copy := range mockFiles.copies {
-			if copy.Src == composeFilePentagi {
+			if copy.Src == composeFileSuricatoos {
 				copyCount++
 			}
 		}
@@ -674,7 +674,7 @@ func TestFileSystemOperations_IntegrityWithForceMode(t *testing.T) {
 
 		// Now with force - should overwrite
 		state.force = true
-		err = fsOps.ensureStackIntegrity(t.Context(), ProductStackPentagi, state)
+		err = fsOps.ensureStackIntegrity(t.Context(), ProductStackSuricatoos, state)
 		assertNoError(t, err)
 	})
 }

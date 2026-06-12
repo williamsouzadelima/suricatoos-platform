@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/server/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

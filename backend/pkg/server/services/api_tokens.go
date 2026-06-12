@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"time"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/server/auth"
-	"pentagi/pkg/server/logger"
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/server/auth"
+	"suricatoos/pkg/server/logger"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

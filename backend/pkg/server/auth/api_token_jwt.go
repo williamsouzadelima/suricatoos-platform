@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/server/models"
 
 	"github.com/golang-jwt/jwt/v5"
 )

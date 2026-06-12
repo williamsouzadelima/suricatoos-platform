@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"pentagi/pkg/server/models"
-	"pentagi/pkg/server/rdb"
-	"pentagi/pkg/server/response"
+	"suricatoos/pkg/server/models"
+	"suricatoos/pkg/server/rdb"
+	"suricatoos/pkg/server/response"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -159,7 +159,7 @@ func (p *AuthMiddleware) tryUserCookieAuthentication(c *gin.Context) (authResult
 	return authResultOk, nil
 }
 
-const PrivilegeAutomation = "pentagi.automation"
+const PrivilegeAutomation = "suricatoos.automation"
 
 func (p *AuthMiddleware) tryProtoTokenAuthentication(c *gin.Context) (authResult, error) {
 	authHeader := c.Request.Header.Get("Authorization")

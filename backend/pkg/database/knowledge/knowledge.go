@@ -9,10 +9,10 @@ import (
 	"strconv"
 	"strings"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/providers/embeddings"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/providers/embeddings"
 
 	"github.com/google/uuid"
 	"github.com/sqlc-dev/pqtype"

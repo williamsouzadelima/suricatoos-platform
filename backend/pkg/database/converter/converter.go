@@ -3,13 +3,13 @@ package converter
 import (
 	"encoding/json"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/graph/model"
-	"pentagi/pkg/providers/pconfig"
-	"pentagi/pkg/providers/tester"
-	"pentagi/pkg/providers/tester/testdata"
-	"pentagi/pkg/templates"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/graph/model"
+	"suricatoos/pkg/providers/pconfig"
+	"suricatoos/pkg/providers/tester"
+	"suricatoos/pkg/providers/tester/testdata"
+	"suricatoos/pkg/templates"
+	"suricatoos/pkg/tools"
 
 	"github.com/vxcontrol/langchaingo/llms"
 )

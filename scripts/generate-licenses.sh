@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Generate license reports for PentAGI dependencies
+# Generate license reports for Suricatoos dependencies
 #
 
 set -e
@@ -22,7 +22,7 @@ go list -m all > "../$LICENSES_DIR/backend-dependencies.txt"
 # Generate detailed license report using go-licenses
 if command -v go-licenses &> /dev/null; then
     echo "  Generating detailed license report with go-licenses..."
-    GOROOT=$(go env GOROOT) GOTOOLCHAIN=auto go-licenses csv ./cmd/pentagi > "../$LICENSES_DIR/backend-licenses.csv" 2>/dev/null || {
+    GOROOT=$(go env GOROOT) GOTOOLCHAIN=auto go-licenses csv ./cmd/suricatoos > "../$LICENSES_DIR/backend-licenses.csv" 2>/dev/null || {
         echo "  go-licenses failed, install it with: go install github.com/google/go-licenses@latest"
     }
 else

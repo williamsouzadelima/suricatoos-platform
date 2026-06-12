@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `checker` package is responsible for gathering system facts and verifying installation prerequisites for PentAGI. It performs comprehensive system analysis to determine the current state of the installation and what operations are available.
+The `checker` package is responsible for gathering system facts and verifying installation prerequisites for Suricatoos. It performs comprehensive system analysis to determine the current state of the installation and what operations are available.
 
 ## Architecture
 
@@ -17,7 +17,7 @@ The `checker` package is responsible for gathering system facts and verifying in
 
 #### CheckResult Structure
 Central data structure that holds all system check results:
-- Installation status for each component (PentAGI, Langfuse, Observability)
+- Installation status for each component (Suricatoos, Langfuse, Observability)
 - System resource availability (CPU, memory, disk)
 - Docker environment status
 - Network connectivity status
@@ -36,7 +36,7 @@ type CheckHandler interface {
     GatherAllInfo(ctx context.Context, c *CheckResult) error
     GatherDockerInfo(ctx context.Context, c *CheckResult) error
     GatherWorkerInfo(ctx context.Context, c *CheckResult) error
-    GatherPentagiInfo(ctx context.Context, c *CheckResult) error
+    GatherSuricatoosInfo(ctx context.Context, c *CheckResult) error
     GatherLangfuseInfo(ctx context.Context, c *CheckResult) error
     GatherObservabilityInfo(ctx context.Context, c *CheckResult) error
     GatherSystemInfo(ctx context.Context, c *CheckResult) error
@@ -56,14 +56,14 @@ type CheckHandler interface {
 ### 2. Component Installation Checks
 - **File Existence**: Verifies presence of docker-compose files
 - **Container Status**: Checks if containers exist and their running state
-- **Script Installation**: Verifies PentAGI CLI script in /usr/local/bin
+- **Script Installation**: Verifies Suricatoos CLI script in /usr/local/bin
 
 ### 3. System Resource Checks
 - **Write Permissions**: Verifies write access to configuration directory
 - **CPU**: Minimum 2 CPU cores required
 - **Memory**: Dynamic calculation based on components to be installed
   - Base: 0.5GB free
-  - PentAGI: +0.5GB
+  - Suricatoos: +0.5GB
   - Langfuse: +1.5GB
   - Observability: +1.5GB
 - **Disk Space**: Context-aware requirements
@@ -84,11 +84,11 @@ The current checker validates Docker Hub reachability by resolving `docker.io`, 
 Recommended remediation order:
 
 1. Confirm general internet access and DNS resolution for `docker.io`
-2. If your environment requires an outbound proxy for installer or PentAGI HTTP traffic, set the `PROXY_URL` environment variable. To route Docker image pulls through a proxy, configure the Docker daemon or Docker Desktop proxy separately — Docker does not use `PROXY_URL` for registry access.
+2. If your environment requires an outbound proxy for installer or Suricatoos HTTP traffic, set the `PROXY_URL` environment variable. To route Docker image pulls through a proxy, configure the Docker daemon or Docker Desktop proxy separately — Docker does not use `PROXY_URL` for registry access.
 3. If Docker Hub is blocked or rate-limited, configure an organization-approved Docker registry mirror or registry proxy at the Docker daemon / Docker Desktop level
 4. Restart Docker and rerun the installer checks
 
-PentAGI variables such as `PENTAGI_IMAGE`, `DOCKER_DEFAULT_IMAGE`, and `DOCKER_DEFAULT_IMAGE_FOR_PENTEST` do not replace Docker daemon registry configuration. They only influence the PentAGI application image or worker image selection after Docker is already able to pull the required images. Note that the main Compose stack already includes a service from `quay.io` (`postgres-exporter`), and the optional observability stack includes an image from `gcr.io`. A Docker Hub mirror alone is therefore not sufficient for a full deployment — those registries also need to be reachable or individually mirrored.
+Suricatoos variables such as `SURICATOOS_IMAGE`, `DOCKER_DEFAULT_IMAGE`, and `DOCKER_DEFAULT_IMAGE_FOR_PENTEST` do not replace Docker daemon registry configuration. They only influence the Suricatoos application image or worker image selection after Docker is already able to pull the required images. Note that the main Compose stack already includes a service from `quay.io` (`postgres-exporter`), and the optional observability stack includes an image from `gcr.io`. A Docker Hub mirror alone is therefore not sufficient for a full deployment — those registries also need to be reachable or individually mirrored.
 
 See Docker's official documentation for [registry mirrors](https://docs.docker.com/docker-hub/image-library/mirror/) and [daemon proxy configuration](https://docs.docker.com/engine/daemon/proxy/).
 
@@ -96,7 +96,7 @@ See Docker's official documentation for [registry mirrors](https://docs.docker.c
 - Communicates with update server to check latest versions
 - Sends current component versions and configuration
 - Supports proxy configuration
-- Checks updates for: Installer, PentAGI, Langfuse, Observability, Worker images
+- Checks updates for: Installer, Suricatoos, Langfuse, Observability, Worker images
 
 ## Public API
 

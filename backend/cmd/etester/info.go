@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"pentagi/pkg/terminal"
+	"suricatoos/pkg/terminal"
 )
 
 // info displays statistics about the embedding database

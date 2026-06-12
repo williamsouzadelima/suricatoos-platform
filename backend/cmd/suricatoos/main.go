@@ -13,17 +13,17 @@ import (
 	"syscall"
 	"time"
 
-	"pentagi/migrations"
-	"pentagi/pkg/config"
-	"pentagi/pkg/controller"
-	"pentagi/pkg/database"
-	"pentagi/pkg/docker"
-	"pentagi/pkg/graph/subscriptions"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/profiling"
-	"pentagi/pkg/providers"
-	router "pentagi/pkg/server"
-	"pentagi/pkg/version"
+	"suricatoos/migrations"
+	"suricatoos/pkg/config"
+	"suricatoos/pkg/controller"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/docker"
+	"suricatoos/pkg/graph/subscriptions"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/profiling"
+	"suricatoos/pkg/providers"
+	router "suricatoos/pkg/server"
+	"suricatoos/pkg/version"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq"
@@ -42,7 +42,7 @@ func main() {
 	)
 	defer cancelOnSignal()
 
-	logrus.Infof("Starting PentAGI %s", version.GetBinaryVersion())
+	logrus.Infof("Starting Suricatoos %s", version.GetBinaryVersion())
 
 	cfg, err := config.NewConfig()
 	if err != nil {

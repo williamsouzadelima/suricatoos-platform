@@ -87,38 +87,38 @@ RUN --mount=type=cache,target=/go/pkg/mod \
 # Generate license reports for backend dependencies
 RUN mkdir -p /licenses/backend && \
     go list -m all > /licenses/backend/dependencies.txt && \
-    GOROOT=$(go env GOROOT) GOTOOLCHAIN=auto go-licenses csv ./cmd/pentagi > /licenses/backend/licenses.csv 2>/dev/null || true
+    GOROOT=$(go env GOROOT) GOTOOLCHAIN=auto go-licenses csv ./cmd/suricatoos > /licenses/backend/licenses.csv 2>/dev/null || true
 
 # Compile main application binary with embedded version metadata
 RUN go build -trimpath \
     -ldflags "\
-        -X pentagi/pkg/version.PackageName=pentagi \
-        -X pentagi/pkg/version.PackageVer=${PACKAGE_VER} \
-        -X pentagi/pkg/version.PackageRev=${PACKAGE_REV}" \
-    -o /pentagi ./cmd/pentagi
+        -X suricatoos/pkg/version.PackageName=suricatoos \
+        -X suricatoos/pkg/version.PackageVer=${PACKAGE_VER} \
+        -X suricatoos/pkg/version.PackageRev=${PACKAGE_REV}" \
+    -o /suricatoos ./cmd/suricatoos
 
 # Build ctester utility
 RUN go build -trimpath \
     -ldflags "\
-        -X pentagi/pkg/version.PackageName=ctester \
-        -X pentagi/pkg/version.PackageVer=${PACKAGE_VER} \
-        -X pentagi/pkg/version.PackageRev=${PACKAGE_REV}" \
+        -X suricatoos/pkg/version.PackageName=ctester \
+        -X suricatoos/pkg/version.PackageVer=${PACKAGE_VER} \
+        -X suricatoos/pkg/version.PackageRev=${PACKAGE_REV}" \
     -o /ctester ./cmd/ctester
 
 # Build ftester utility
 RUN go build -trimpath \
     -ldflags "\
-        -X pentagi/pkg/version.PackageName=ftester \
-        -X pentagi/pkg/version.PackageVer=${PACKAGE_VER} \
-        -X pentagi/pkg/version.PackageRev=${PACKAGE_REV}" \
+        -X suricatoos/pkg/version.PackageName=ftester \
+        -X suricatoos/pkg/version.PackageVer=${PACKAGE_VER} \
+        -X suricatoos/pkg/version.PackageRev=${PACKAGE_REV}" \
     -o /ftester ./cmd/ftester
 
 # Build etester utility
 RUN go build -trimpath \
     -ldflags "\
-        -X pentagi/pkg/version.PackageName=etester \
-        -X pentagi/pkg/version.PackageVer=${PACKAGE_VER} \
-        -X pentagi/pkg/version.PackageRev=${PACKAGE_REV}" \
+        -X suricatoos/pkg/version.PackageName=etester \
+        -X suricatoos/pkg/version.PackageVer=${PACKAGE_VER} \
+        -X suricatoos/pkg/version.PackageRev=${PACKAGE_REV}" \
     -o /etester ./cmd/etester
 
 # ========================================
@@ -128,72 +128,72 @@ FROM alpine:3.23.3
 
 # Establish non-privileged execution context with docker socket access
 RUN addgroup -g 998 docker && \
-    addgroup -S pentagi && \
-    adduser -S pentagi -G pentagi && \
-    addgroup pentagi docker
+    addgroup -S suricatoos && \
+    adduser -S suricatoos -G suricatoos && \
+    addgroup suricatoos docker
 
 # Install required packages
 RUN apk --no-cache add ca-certificates openssl openssh-keygen shadow
 
-ADD scripts/entrypoint.sh /opt/pentagi/bin/
+ADD scripts/entrypoint.sh /opt/suricatoos/bin/
 
-RUN sed -i 's/\r//' /opt/pentagi/bin/entrypoint.sh && \
-    chmod +x /opt/pentagi/bin/entrypoint.sh
+RUN sed -i 's/\r//' /opt/suricatoos/bin/entrypoint.sh && \
+    chmod +x /opt/suricatoos/bin/entrypoint.sh
 
 RUN mkdir -p \
     /root/.ollama \
-    /opt/pentagi/bin \
-    /opt/pentagi/ssl \
-    /opt/pentagi/fe \
-    /opt/pentagi/logs \
-    /opt/pentagi/data \
-    /opt/pentagi/conf && \
+    /opt/suricatoos/bin \
+    /opt/suricatoos/ssl \
+    /opt/suricatoos/fe \
+    /opt/suricatoos/logs \
+    /opt/suricatoos/data \
+    /opt/suricatoos/conf && \
     chmod 777 /root/.ollama
 
-COPY --from=api-builder /pentagi /opt/pentagi/bin/pentagi
-COPY --from=api-builder /ctester /opt/pentagi/bin/ctester
-COPY --from=api-builder /ftester /opt/pentagi/bin/ftester
-COPY --from=api-builder /etester /opt/pentagi/bin/etester
-COPY --from=frontend-compiler /app/ui/dist /opt/pentagi/fe
-COPY --from=api-builder /licenses/backend /opt/pentagi/licenses/backend
-COPY --from=frontend-compiler /licenses/frontend /opt/pentagi/licenses/frontend
+COPY --from=api-builder /suricatoos /opt/suricatoos/bin/suricatoos
+COPY --from=api-builder /ctester /opt/suricatoos/bin/ctester
+COPY --from=api-builder /ftester /opt/suricatoos/bin/ftester
+COPY --from=api-builder /etester /opt/suricatoos/bin/etester
+COPY --from=frontend-compiler /app/ui/dist /opt/suricatoos/fe
+COPY --from=api-builder /licenses/backend /opt/suricatoos/licenses/backend
+COPY --from=frontend-compiler /licenses/frontend /opt/suricatoos/licenses/frontend
 
 # Copy provider configuration files
-COPY examples/configs/azure-openai.provider.yml /opt/pentagi/conf/
-COPY examples/configs/custom-openai.provider.yml /opt/pentagi/conf/
-COPY examples/configs/deepinfra.provider.yml /opt/pentagi/conf/
-COPY examples/configs/deepseek.provider.yml /opt/pentagi/conf/
-COPY examples/configs/moonshot.provider.yml /opt/pentagi/conf/
-COPY examples/configs/ollama-cloud.provider.yml /opt/pentagi/conf/
-COPY examples/configs/ollama-llama318b-instruct.provider.yml /opt/pentagi/conf/
-COPY examples/configs/ollama-llama318b.provider.yml /opt/pentagi/conf/
-COPY examples/configs/ollama-qwen332b-fp16-tc.provider.yml /opt/pentagi/conf/
-COPY examples/configs/ollama-qwq32b-fp16-tc.provider.yml /opt/pentagi/conf/
-COPY examples/configs/openrouter.provider.yml /opt/pentagi/conf/
-COPY examples/configs/novita.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.5-27b-fp8-no-think.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.5-27b-fp8.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.6-27b-fp8-no-think.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.6-27b-fp8.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.6-35b-a3b-fp8-no-think.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen3.6-35b-a3b-fp8.provider.yml /opt/pentagi/conf/
-COPY examples/configs/vllm-qwen332b-fp16.provider.yml /opt/pentagi/conf/
+COPY examples/configs/azure-openai.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/custom-openai.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/deepinfra.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/deepseek.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/moonshot.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/ollama-cloud.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/ollama-llama318b-instruct.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/ollama-llama318b.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/ollama-qwen332b-fp16-tc.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/ollama-qwq32b-fp16-tc.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/openrouter.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/novita.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.5-27b-fp8-no-think.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.5-27b-fp8.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.6-27b-fp8-no-think.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.6-27b-fp8.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.6-35b-a3b-fp8-no-think.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen3.6-35b-a3b-fp8.provider.yml /opt/suricatoos/conf/
+COPY examples/configs/vllm-qwen332b-fp16.provider.yml /opt/suricatoos/conf/
 
-COPY LICENSE /opt/pentagi/LICENSE
-COPY NOTICE /opt/pentagi/NOTICE
-COPY EULA.md /opt/pentagi/EULA
-COPY EULA.md /opt/pentagi/fe/EULA.md
+COPY LICENSE /opt/suricatoos/LICENSE
+COPY NOTICE /opt/suricatoos/NOTICE
+COPY EULA.md /opt/suricatoos/EULA
+COPY EULA.md /opt/suricatoos/fe/EULA.md
 
-RUN chown -R pentagi:pentagi /opt/pentagi
+RUN chown -R suricatoos:suricatoos /opt/suricatoos
 
-WORKDIR /opt/pentagi
+WORKDIR /opt/suricatoos
 
-USER pentagi
+USER suricatoos
 
-ENTRYPOINT ["/opt/pentagi/bin/entrypoint.sh", "/opt/pentagi/bin/pentagi"]
+ENTRYPOINT ["/opt/suricatoos/bin/entrypoint.sh", "/opt/suricatoos/bin/suricatoos"]
 
 # Image Metadata
-LABEL org.opencontainers.image.source="https://github.com/vxcontrol/pentagi"
+LABEL org.opencontainers.image.source="https://github.com/vxcontrol/suricatoos"
 LABEL org.opencontainers.image.description="Fully autonomous AI Agents system capable of performing complex penetration testing tasks"
-LABEL org.opencontainers.image.authors="PentAGI Development Team"
+LABEL org.opencontainers.image.authors="Suricatoos Development Team"
 LABEL org.opencontainers.image.licenses="MIT License"

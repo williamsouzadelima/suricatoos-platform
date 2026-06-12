@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"pentagi/pkg/database"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/database"
+	"suricatoos/pkg/templates"
 )
 
 // newUserPrompter loads the user's custom prompts from the database and

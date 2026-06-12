@@ -1,12 +1,12 @@
 # RFC: Native Flow Queue and Completion Webhooks
 
-Issue [#298](https://github.com/vxcontrol/pentagi/issues/298) proposes a native queue with a configurable concurrency cap and a completion webhook so external orchestrators can run many flows against PentAGI without spawning all containers at once and without writing custom polling loops. This RFC captures one possible design direction without committing the project to an implementation.
+Issue [#298](https://github.com/vxcontrol/suricatoos/issues/298) proposes a native queue with a configurable concurrency cap and a completion webhook so external orchestrators can run many flows against Suricatoos without spawning all containers at once and without writing custom polling loops. This RFC captures one possible design direction without committing the project to an implementation.
 
 ## Context and Constraints
 
-PentAGI today exposes flows through GraphQL and REST. There is no built-in concurrency control: every accepted `createFlow` request starts a Kali container and a flow runner immediately. There is also no native completion notification, so external schedulers poll `GET /api/v1/flows/{id}` until the status changes.
+Suricatoos today exposes flows through GraphQL and REST. There is no built-in concurrency control: every accepted `createFlow` request starts a Kali container and a flow runner immediately. There is also no native completion notification, so external schedulers poll `GET /api/v1/flows/{id}` until the status changes.
 
-This RFC is shaped by lessons from PR [#268](https://github.com/vxcontrol/pentagi/pull/268), which added an in-memory input queue for running flows and was rejected because the queue was hidden lifecycle state: not persisted, not visible in UI/API/DB, not cancelable, and not durable across restarts.
+This RFC is shaped by lessons from PR [#268](https://github.com/vxcontrol/suricatoos/pull/268), which added an in-memory input queue for running flows and was rejected because the queue was hidden lifecycle state: not persisted, not visible in UI/API/DB, not cancelable, and not durable across restarts.
 
 The same anti-patterns must be avoided here. Any flow queue must be:
 
@@ -133,12 +133,12 @@ A failed flow uses the same envelope with `event` set to `flow.failed` and `flow
 
 ## Safety and Security
 
-- Sign each delivery with HMAC-SHA256 using a shared secret (for example `FLOW_WEBHOOK_SECRET`) and place the signature in an `X-PentAGI-Signature` header. Verification is the receiver's responsibility.
+- Sign each delivery with HMAC-SHA256 using a shared secret (for example `FLOW_WEBHOOK_SECRET`) and place the signature in an `X-Suricatoos-Signature` header. Verification is the receiver's responsibility.
 - Send a stable `delivery_id` so receivers can deduplicate retries.
 - Validate outbound URLs at config load. Forbid unspecified, link-local, and loopback addresses by default to limit accidental SSRF surfaces; allow opt-in via an explicit allowlist.
 - Reject webhook URLs whose hostnames resolve into reserved or private ranges, evaluated at delivery time, not just at config time, to defend against late-binding DNS rebinding.
 - Treat webhook URLs and secrets as sensitive material in logs and audit trails; redact them in error messages and failure surfaces.
-- Bound retry attempts and backoff so a misbehaving receiver cannot drive unbounded outbound load from PentAGI.
+- Bound retry attempts and backoff so a misbehaving receiver cannot drive unbounded outbound load from Suricatoos.
 - Do not retry on 4xx responses other than 408/429; retry on 5xx and on transport errors. This avoids amplifying receiver-side bugs into traffic floods.
 
 ### Delivery durability
@@ -165,12 +165,12 @@ No new column is added to support hidden background state.
 
 ## Open Questions
 
-- Does PentAGI need per-user concurrency limits in addition to a global cap? If yes, where do they live (user table, role, configuration)?
+- Does Suricatoos need per-user concurrency limits in addition to a global cap? If yes, where do they live (user table, role, configuration)?
 - Should queued flows be canceled automatically on long-running shutdowns, or always preserved?
 - Should `createFlow` block synchronously while queued, or always return immediately with the queued ID?
 - Should the webhook fire only on terminal transitions, or also on `running -> waiting` for human-in-the-loop checkpoints?
 - Should the per-flow webhook URL be plaintext on the flow row, or referenced through a stored credential record?
-- Is HMAC-SHA256 sufficient, or should the signature scheme align with the receipt signing direction in [#235](https://github.com/vxcontrol/pentagi/issues/235)?
+- Is HMAC-SHA256 sufficient, or should the signature scheme align with the receipt signing direction in [#235](https://github.com/vxcontrol/suricatoos/issues/235)?
 - Should `queued` flows reserve container CPU/memory budget, or only count against a slot count?
 - How should resources, file uploads, and assistant messages be handled if they arrive against a queued flow before promotion?
 

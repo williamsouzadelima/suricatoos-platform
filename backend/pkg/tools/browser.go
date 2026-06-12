@@ -15,8 +15,8 @@ import (
 	"sync"
 	"time"
 
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/observability/langfuse"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/observability/langfuse"
 
 	"github.com/sirupsen/logrus"
 )

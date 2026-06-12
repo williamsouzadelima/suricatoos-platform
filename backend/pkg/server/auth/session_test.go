@@ -1,7 +1,7 @@
 package auth_test
 
 import (
-	"pentagi/pkg/server/auth"
+	"suricatoos/pkg/server/auth"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

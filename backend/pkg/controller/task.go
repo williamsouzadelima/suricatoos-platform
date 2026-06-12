@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"pentagi/pkg/database"
-	obs "pentagi/pkg/observability"
-	"pentagi/pkg/providers"
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/database"
+	obs "suricatoos/pkg/observability"
+	"suricatoos/pkg/providers"
+	"suricatoos/pkg/tools"
 
 	"github.com/sirupsen/logrus"
 )

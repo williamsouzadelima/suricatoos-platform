@@ -18,12 +18,12 @@ import (
 
 type Config struct {
 	// === Core System Configuration ===
-	DatabaseURL string `env:"DATABASE_URL" envDefault:"postgres://pentagiuser:pentagipass@pgvector:5432/pentagidb?sslmode=disable"`
+	DatabaseURL string `env:"DATABASE_URL" envDefault:"postgres://suricatoosuser:suricatoospass@pgvector:5432/suricatoosdb?sslmode=disable"`
 	Debug       bool   `env:"DEBUG" envDefault:"false"`
 	DataDir     string `env:"DATA_DIR" envDefault:"./data"`
 	AskUser     bool   `env:"ASK_USER" envDefault:"false"`
 
-	// === PentAGI Cloud Service Integration ===
+	// === Suricatoos Cloud Service Integration ===
 	InstallationID string `env:"INSTALLATION_ID"`
 	LicenseKey     string `env:"LICENSE_KEY"`
 

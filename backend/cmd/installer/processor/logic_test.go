@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/files"
-	"pentagi/pkg/version"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/files"
+	"suricatoos/pkg/version"
 )
 
 // newProcessorForLogicTests creates a processor with recording mocks and mock checker
@@ -87,14 +87,14 @@ func testStackOperation(t *testing.T,
 	t.Run("delegates_to_compose", func(t *testing.T) {
 		p, composeOps, _, _ := newProcessorForLogicTests(t)
 
-		err := operation(p, t.Context(), ProductStackPentagi, testOperationState(t))
+		err := operation(p, t.Context(), ProductStackSuricatoos, testOperationState(t))
 		assertNoError(t, err)
 
 		calls := composeOps.getCalls()
 		if len(calls) != 1 {
 			t.Fatalf("expected 1 compose call, got %d", len(calls))
 		}
-		if calls[0].Method != expectedMethod || calls[0].Stack != ProductStackPentagi {
+		if calls[0].Method != expectedMethod || calls[0].Stack != ProductStackSuricatoos {
 			t.Fatalf("unexpected call: %+v", calls[0])
 		}
 	})
@@ -138,21 +138,21 @@ func TestUpdate(t *testing.T) {
 			configSetup  func(*mockCheckConfig)
 		}{
 			{
-				name:         "pentagi_needs_update",
-				stack:        ProductStackPentagi,
+				name:         "suricatoos_needs_update",
+				stack:        ProductStackSuricatoos,
 				isUpToDate:   false,
 				expectUpdate: true,
 				configSetup: func(config *mockCheckConfig) {
-					config.PentagiIsUpToDate = false
+					config.SuricatoosIsUpToDate = false
 				},
 			},
 			{
-				name:         "pentagi_already_updated",
-				stack:        ProductStackPentagi,
+				name:         "suricatoos_already_updated",
+				stack:        ProductStackSuricatoos,
 				isUpToDate:   true,
 				expectUpdate: false,
 				configSetup: func(config *mockCheckConfig) {
-					config.PentagiIsUpToDate = true
+					config.SuricatoosIsUpToDate = true
 				},
 			},
 			{
@@ -229,7 +229,7 @@ func TestUpdate(t *testing.T) {
 
 	t.Run("compose_stacks", func(t *testing.T) {
 		p, composeOps, _, dockerOps := newProcessorForLogicTestsWithConfig(t, func(config *mockCheckConfig) {
-			config.PentagiIsUpToDate = true // should skip
+			config.SuricatoosIsUpToDate = true // should skip
 			config.LangfuseIsUpToDate = false
 			config.ObservabilityIsUpToDate = false
 		})
@@ -237,15 +237,15 @@ func TestUpdate(t *testing.T) {
 		err := p.update(t.Context(), ProductStackCompose, testOperationState(t))
 		assertNoError(t, err)
 
-		// Check compose calls - should update langfuse and observability, skip pentagi
+		// Check compose calls - should update langfuse and observability, skip suricatoos
 		composeCalls := composeOps.getCalls()
 		updateCount := 0
 		for _, call := range composeCalls {
 			if call.Method == "updateStack" {
 				updateCount++
-				// Verify we don't update pentagi
-				if call.Stack == ProductStackPentagi {
-					t.Error("should not update pentagi when it's up to date")
+				// Verify we don't update suricatoos
+				if call.Stack == ProductStackSuricatoos {
+					t.Error("should not update suricatoos when it's up to date")
 				}
 			}
 		}
@@ -268,7 +268,7 @@ func TestUpdate(t *testing.T) {
 
 	t.Run("all_stacks", func(t *testing.T) {
 		p, composeOps, _, dockerOps := newProcessorForLogicTestsWithConfig(t, func(config *mockCheckConfig) {
-			config.PentagiIsUpToDate = false
+			config.SuricatoosIsUpToDate = false
 			config.LangfuseIsUpToDate = true // should skip
 			config.ObservabilityIsUpToDate = false
 		})
@@ -276,7 +276,7 @@ func TestUpdate(t *testing.T) {
 		err := p.update(t.Context(), ProductStackAll, testOperationState(t))
 		assertNoError(t, err)
 
-		// Check compose calls - should update pentagi and observability, skip langfuse
+		// Check compose calls - should update suricatoos and observability, skip langfuse
 		composeCalls := composeOps.getCalls()
 		updateCount := 0
 		for _, call := range composeCalls {
@@ -339,7 +339,7 @@ func TestApplyChanges_ErrorPropagation_FromEnsureNetworks(t *testing.T) {
 	// not extracted forces ensure
 	p.checker.ObservabilityExtracted = false
 	p.checker.LangfuseExtracted = false
-	p.checker.PentagiExtracted = false
+	p.checker.SuricatoosExtracted = false
 
 	err := p.applyChanges(t.Context(), testOperationState(t))
 	assertError(t, err, true, "failed to ensure docker networks: network error")
@@ -349,13 +349,13 @@ func TestPurge_StrictAndDockerCleanup(t *testing.T) {
 	t.Run("compose_stack_purge", func(t *testing.T) {
 		p, composeOps, _, dockerOps := newProcessorForLogicTests(t)
 
-		err := p.purge(t.Context(), ProductStackPentagi, testOperationState(t))
+		err := p.purge(t.Context(), ProductStackSuricatoos, testOperationState(t))
 		assertNoError(t, err)
 
 		// first call must be strict purge (images)
 		composeCalls := composeOps.getCalls()
-		if len(composeCalls) == 0 || composeCalls[0].Method != "purgeImagesStack" || composeCalls[0].Stack != ProductStackPentagi {
-			t.Fatalf("expected purgeImagesStack call for pentagi, got: %+v", composeCalls)
+		if len(composeCalls) == 0 || composeCalls[0].Method != "purgeImagesStack" || composeCalls[0].Stack != ProductStackSuricatoos {
+			t.Fatalf("expected purgeImagesStack call for suricatoos, got: %+v", composeCalls)
 		}
 
 		// docker cleanup operations should NOT be called for individual compose stack
@@ -386,7 +386,7 @@ func TestApplyChanges_Embedded_AllStacksUpdated(t *testing.T) {
 		config.ObservabilityExtracted = false
 		config.LangfuseExtracted = false
 		config.GraphitiExtracted = false
-		config.PentagiExtracted = false
+		config.SuricatoosExtracted = false
 		// ensure embedded mode conditions
 		config.ObservabilityConnected = true
 		config.ObservabilityExternal = false
@@ -412,7 +412,7 @@ func TestApplyChanges_Embedded_AllStacksUpdated(t *testing.T) {
 	}
 
 	// ensure/verify for four stacks and update four stacks
-	// since all not extracted -> ensure called for obs, langfuse, graphiti, pentagi
+	// since all not extracted -> ensure called for obs, langfuse, graphiti, suricatoos
 	fsCalls := fsOps.getCalls()
 	ensureCount := 0
 	for _, c := range fsCalls {
@@ -477,7 +477,7 @@ func TestDownload_ComposeStacks(t *testing.T) {
 	// should download all individual stacks
 	composeCalls := composeOps.getCalls()
 	expectedComposeStacks := []ProductStack{
-		ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability,
+		ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability,
 	}
 	composeCallCount := 0
 	for _, call := range composeCalls {
@@ -514,7 +514,7 @@ func TestDownload_AllStacks(t *testing.T) {
 	// should download all individual stacks
 	composeCalls := composeOps.getCalls()
 	expectedComposeStacks := []ProductStack{
-		ProductStackPentagi, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability,
+		ProductStackSuricatoos, ProductStackGraphiti, ProductStackLangfuse, ProductStackObservability,
 	}
 	composeCallCount := 0
 	for _, call := range composeCalls {
@@ -577,7 +577,7 @@ func TestValidateOperation_ErrorCases(t *testing.T) {
 		{"stop worker", ProductStackWorker, ProcessorOperationStop, true, "operation stop not applicable for stack worker"},
 		{"restart installer", ProductStackInstaller, ProcessorOperationRestart, true, "operation restart not applicable for stack installer"},
 		{"remove installer", ProductStackInstaller, ProcessorOperationRemove, false, ""}, // remove is allowed for installer
-		{"valid start pentagi", ProductStackPentagi, ProcessorOperationStart, false, ""},
+		{"valid start suricatoos", ProductStackSuricatoos, ProcessorOperationStart, false, ""},
 		{"valid remove worker", ProductStackWorker, ProcessorOperationRemove, false, ""},
 	}
 
@@ -617,7 +617,7 @@ func TestIsEmbeddedDeployment(t *testing.T) {
 		{"graphiti embedded", ProductStackGraphiti, "GRAPHITI_URL", checker.DefaultGraphitiEndpoint, false, true, true},
 		{"graphiti external", ProductStackGraphiti, "GRAPHITI_URL", "http://external:8000", false, true, false},
 		{"graphiti disabled", ProductStackGraphiti, "", "", false, false, false},
-		{"pentagi always embedded", ProductStackPentagi, "", "", false, false, true},     // pentagi is always embedded
+		{"suricatoos always embedded", ProductStackSuricatoos, "", "", false, false, true},     // suricatoos is always embedded
 		{"worker always embedded", ProductStackWorker, "", "", false, false, true},       // worker is always embedded
 		{"installer always embedded", ProductStackInstaller, "", "", false, false, true}, // installer is always embedded
 	}
@@ -684,7 +684,7 @@ func TestApplyChanges_StateMachine_PhaseErrors(t *testing.T) {
 			},
 			setupError: func(p *processor) {
 				_ = p.state.SetVar("OTEL_HOST", checker.DefaultObservabilityEndpoint)
-				_ = p.state.SetVar("PENTAGI_VERSION", version.GetBinaryVersion()) // make state dirty
+				_ = p.state.SetVar("SURICATOOS_VERSION", version.GetBinaryVersion()) // make state dirty
 				injectFSError(p, map[string]error{
 					"ensureStackIntegrity": fmt.Errorf("fs error"),
 				})
@@ -700,7 +700,7 @@ func TestApplyChanges_StateMachine_PhaseErrors(t *testing.T) {
 			},
 			setupError: func(p *processor) {
 				_ = p.state.SetVar("LANGFUSE_BASE_URL", checker.DefaultLangfuseEndpoint)
-				_ = p.state.SetVar("PENTAGI_VERSION", version.GetBinaryVersion()) // make state dirty
+				_ = p.state.SetVar("SURICATOOS_VERSION", version.GetBinaryVersion()) // make state dirty
 				injectFSError(p, map[string]error{
 					"ensureStackIntegrity": fmt.Errorf("langfuse error"),
 				})
@@ -716,7 +716,7 @@ func TestApplyChanges_StateMachine_PhaseErrors(t *testing.T) {
 			},
 			setupError: func(p *processor) {
 				_ = p.state.SetVar("GRAPHITI_URL", checker.DefaultGraphitiEndpoint)
-				_ = p.state.SetVar("PENTAGI_VERSION", version.GetBinaryVersion()) // make state dirty
+				_ = p.state.SetVar("SURICATOOS_VERSION", version.GetBinaryVersion()) // make state dirty
 				injectFSError(p, map[string]error{
 					"ensureStackIntegrity": fmt.Errorf("graphiti error"),
 				})
@@ -724,19 +724,19 @@ func TestApplyChanges_StateMachine_PhaseErrors(t *testing.T) {
 			expectedError: "failed to apply graphiti changes: failed to ensure graphiti integrity: graphiti error",
 		},
 		{
-			name: "pentagi phase error",
+			name: "suricatoos phase error",
 			configSetup: func(config *mockCheckConfig) {
-				config.PentagiExtracted = false
+				config.SuricatoosExtracted = false
 			},
 			setupError: func(p *processor) {
 				// make state dirty so applyChanges proceeds
-				_ = p.state.SetVar("PENTAGI_VERSION", version.GetBinaryVersion())
+				_ = p.state.SetVar("SURICATOOS_VERSION", version.GetBinaryVersion())
 				injectFSError(p, map[string]error{
-					"ensureStackIntegrity_pentagi": fmt.Errorf("pentagi error"),
+					"ensureStackIntegrity_suricatoos": fmt.Errorf("suricatoos error"),
 					"ensureStackIntegrity":         fmt.Errorf("general error"), // fallback to catch any call
 				})
 			},
-			expectedError: "failed to apply pentagi changes: failed to ensure pentagi integrity: pentagi error",
+			expectedError: "failed to apply suricatoos changes: failed to ensure suricatoos integrity: suricatoos error",
 		},
 	}
 
@@ -781,11 +781,11 @@ func TestInstall_FullScenario(t *testing.T) {
 			config.ObservabilityInstalled = false
 			config.LangfuseInstalled = false
 			config.GraphitiInstalled = false
-			config.PentagiInstalled = false
+			config.SuricatoosInstalled = false
 			config.ObservabilityExtracted = false
 			config.LangfuseExtracted = false
 			config.GraphitiExtracted = false
-			config.PentagiExtracted = false
+			config.SuricatoosExtracted = false
 			// mark as embedded
 			config.ObservabilityConnected = true
 			config.ObservabilityExternal = false
@@ -817,7 +817,7 @@ func TestInstall_FullScenario(t *testing.T) {
 				ensureCount++
 			}
 		}
-		// should be 3 (observability, langfuse, graphiti) since pentagi might be handled differently
+		// should be 3 (observability, langfuse, graphiti) since suricatoos might be handled differently
 		if ensureCount < 3 {
 			t.Errorf("expected at least 3 ensureStackIntegrity calls, got %d", ensureCount)
 		}
@@ -830,7 +830,7 @@ func TestInstall_FullScenario(t *testing.T) {
 				updateCount++
 			}
 		}
-		// all 4 stacks should be updated (observability, langfuse, graphiti, pentagi)
+		// all 4 stacks should be updated (observability, langfuse, graphiti, suricatoos)
 		if updateCount != 4 {
 			t.Errorf("expected 4 updateStack calls, got %d", updateCount)
 		}
@@ -838,8 +838,8 @@ func TestInstall_FullScenario(t *testing.T) {
 
 	t.Run("partial_install_skip_installed", func(t *testing.T) {
 		p, composeOps, _, _ := newProcessorForLogicTestsWithConfig(t, func(config *mockCheckConfig) {
-			// pentagi already installed
-			config.PentagiInstalled = true
+			// suricatoos already installed
+			config.SuricatoosInstalled = true
 			config.LangfuseInstalled = false
 			config.ObservabilityInstalled = false
 		})
@@ -847,11 +847,11 @@ func TestInstall_FullScenario(t *testing.T) {
 		err := p.install(t.Context(), testOperationState(t))
 		assertNoError(t, err)
 
-		// should not update pentagi since it's already installed
+		// should not update suricatoos since it's already installed
 		composeCalls := composeOps.getCalls()
 		for _, call := range composeCalls {
-			if call.Method == "updateStack" && call.Stack == ProductStackPentagi {
-				t.Error("should not update pentagi when already installed")
+			if call.Method == "updateStack" && call.Stack == ProductStackSuricatoos {
+				t.Error("should not update suricatoos when already installed")
 			}
 		}
 	})
@@ -875,7 +875,7 @@ func TestPreviewFilesStatus_Behavior(t *testing.T) {
 	mockState := p.state.(*mockState)
 	mockState.envPath = filepath.Join(tmpDir, ".env")
 	mockFiles := p.files.(*mockFiles)
-	mockFiles.statuses[composeFilePentagi] = files.FileStatusModified
+	mockFiles.statuses[composeFileSuricatoos] = files.FileStatusModified
 	mockFiles.statuses[composeFileLangfuse] = files.FileStatusOK
 	mockFiles.statuses[composeFileObservability] = files.FileStatusMissing
 	mockFiles.statuses["observability/subdir/config.yml"] = files.FileStatusModified
@@ -894,8 +894,8 @@ func TestPreviewFilesStatus_Behavior(t *testing.T) {
 	statuses, err := p.checkFiles(t.Context(), ProductStackAll, testOperationState(t))
 	assertNoError(t, err)
 
-	// pentagi, observability compose must be present and reflect modified
-	for _, k := range []string{composeFilePentagi, composeFileObservability} {
+	// suricatoos, observability compose must be present and reflect modified
+	for _, k := range []string{composeFileSuricatoos, composeFileObservability} {
 		if statuses[k] != mockFiles.statuses[k] {
 			t.Errorf("expected %s to be %s, got %s", k, mockFiles.statuses[k], statuses[k])
 		}
@@ -962,7 +962,7 @@ func TestPurge_AllStacks_Detailed(t *testing.T) {
 
 	// should have purgeImagesStack for all four compose stacks in order
 	expectedOrder := []ProductStack{
-		ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackPentagi,
+		ProductStackObservability, ProductStackLangfuse, ProductStackGraphiti, ProductStackSuricatoos,
 	}
 	purgeImagesCalls := 0
 	for _, call := range composeCalls {
@@ -1006,7 +1006,7 @@ func TestRemove_PreservesData(t *testing.T) {
 	t.Run("compose_stacks_preserve_volumes", func(t *testing.T) {
 		p, composeOps, _, _ := newProcessorForLogicTests(t)
 
-		stacks := []ProductStack{ProductStackPentagi, ProductStackLangfuse, ProductStackObservability}
+		stacks := []ProductStack{ProductStackSuricatoos, ProductStackLangfuse, ProductStackObservability}
 
 		for _, stack := range stacks {
 			err := p.remove(t.Context(), stack, testOperationState(t))
@@ -1046,14 +1046,14 @@ func TestRemove_PreservesData(t *testing.T) {
 func TestApplyChanges_ComplexScenarios(t *testing.T) {
 	t.Run("mixed_deployment_modes", func(t *testing.T) {
 		p, composeOps, _, _ := newProcessorForLogicTestsWithConfig(t, func(config *mockCheckConfig) {
-			// observability external, langfuse embedded, graphiti disabled, pentagi always embedded
+			// observability external, langfuse embedded, graphiti disabled, suricatoos always embedded
 			config.ObservabilityExternal = true
 			config.ObservabilityInstalled = true // should be removed
 			config.LangfuseExternal = false
 			config.LangfuseExtracted = true // mark as extracted so it goes to update path
 			config.LangfuseConnected = true // required for isEmbeddedDeployment to return true
 			config.GraphitiConnected = false
-			config.PentagiExtracted = false
+			config.SuricatoosExtracted = false
 		})
 
 		_ = p.state.SetVar("OTEL_HOST", "http://external:4318")
@@ -1195,7 +1195,7 @@ func TestApplyChanges_ComplexScenarios(t *testing.T) {
 			config.ObservabilityExtracted = false
 			config.LangfuseExtracted = false
 			config.LangfuseConnected = true // required for isEmbeddedDeployment to return true
-			config.PentagiExtracted = false
+			config.SuricatoosExtracted = false
 		})
 
 		_ = p.state.SetVar("OTEL_HOST", checker.DefaultObservabilityEndpoint)

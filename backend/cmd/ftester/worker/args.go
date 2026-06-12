@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	"pentagi/pkg/tools"
+	"suricatoos/pkg/tools"
 )
 
 // FunctionInfo represents information about a function and its arguments

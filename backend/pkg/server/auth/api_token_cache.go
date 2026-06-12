@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"pentagi/pkg/server/models"
+	"suricatoos/pkg/server/models"
 
 	"github.com/jinzhu/gorm"
 )

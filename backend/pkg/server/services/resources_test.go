@@ -16,10 +16,10 @@ import (
 	"strings"
 	"testing"
 
-	graphmodel "pentagi/pkg/graph/model"
-	"pentagi/pkg/graph/subscriptions"
-	"pentagi/pkg/resources"
-	"pentagi/pkg/server/models"
+	graphmodel "suricatoos/pkg/graph/model"
+	"suricatoos/pkg/graph/subscriptions"
+	"suricatoos/pkg/resources"
+	"suricatoos/pkg/server/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

@@ -3,7 +3,7 @@ package cast
 import (
 	"encoding/json"
 	"fmt"
-	"pentagi/pkg/templates"
+	"suricatoos/pkg/templates"
 	"sort"
 	"strings"
 

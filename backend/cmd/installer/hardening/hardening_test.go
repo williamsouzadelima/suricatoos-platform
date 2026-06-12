@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"pentagi/cmd/installer/checker"
-	"pentagi/cmd/installer/loader"
+	"suricatoos/cmd/installer/checker"
+	"suricatoos/cmd/installer/loader"
 )
 
 // mockState implements State interface for testing
@@ -278,11 +278,11 @@ func TestUpdateDefaultValues(t *testing.T) {
 		{
 			name: "mixed scenarios",
 			vars: map[string]loader.EnvVar{
-				"PENTAGI_POSTGRES_PASSWORD":  {Name: "PENTAGI_POSTGRES_PASSWORD", Default: ""},
+				"SURICATOOS_POSTGRES_PASSWORD":  {Name: "SURICATOOS_POSTGRES_PASSWORD", Default: ""},
 				"LANGFUSE_POSTGRES_PASSWORD": {Name: "LANGFUSE_POSTGRES_PASSWORD", Default: "custom"},
 			},
 			expected: map[string]string{
-				"PENTAGI_POSTGRES_PASSWORD":  "postgres",
+				"SURICATOOS_POSTGRES_PASSWORD":  "postgres",
 				"LANGFUSE_POSTGRES_PASSWORD": "custom",
 			},
 		},
@@ -530,8 +530,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: false,
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"LANGFUSE_SALT": {Name: "LANGFUSE_SALT", Value: "salt", Default: "salt"},
@@ -539,14 +539,14 @@ func TestDoHardening(t *testing.T) {
 			expectChanges: true,
 		},
 		{
-			name: "pentagi not installed - should harden",
+			name: "suricatoos not installed - should harden",
 			checkResult: checker.CheckResult{
 				LangfuseInstalled:    true,
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     false,
-				PentagiVolumesExist:  false,
+				SuricatoosInstalled:     false,
+				SuricatoosVolumesExist:  false,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"COOKIE_SIGNING_SALT": {Name: "COOKIE_SIGNING_SALT", Value: "salt", Default: "salt"},
@@ -560,8 +560,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    false,
 				GraphitiVolumesExist: false,
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"NEO4J_PASSWORD": {Name: "NEO4J_PASSWORD", Value: "devpassword", Default: "devpassword"},
@@ -575,8 +575,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars:     map[string]loader.EnvVar{},
 			expectChanges: false,
@@ -588,8 +588,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: false,
 				GraphitiInstalled:    false,
 				GraphitiVolumesExist: false,
-				PentagiInstalled:     false,
-				PentagiVolumesExist:  false,
+				SuricatoosInstalled:     false,
+				SuricatoosVolumesExist:  false,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"LANGFUSE_SALT":       {Name: "LANGFUSE_SALT", Value: "salt", Default: "salt"},
@@ -605,8 +605,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: false,
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"LANGFUSE_SALT": {Name: "LANGFUSE_SALT", Value: "custom", Default: "salt"}, // custom value, not default
@@ -620,8 +620,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: true,  // but volumes remain!
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"LANGFUSE_SALT": {Name: "LANGFUSE_SALT", Value: "salt", Default: "salt"},
@@ -629,17 +629,17 @@ func TestDoHardening(t *testing.T) {
 			expectChanges: false, // should NOT change because volumes exist
 		},
 		{
-			name: "pentagi volumes exist but containers removed - should NOT harden",
+			name: "suricatoos volumes exist but containers removed - should NOT harden",
 			checkResult: checker.CheckResult{
 				LangfuseInstalled:    true,
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    true,
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     false, // containers removed
-				PentagiVolumesExist:  true,  // but volumes remain!
+				SuricatoosInstalled:     false, // containers removed
+				SuricatoosVolumesExist:  true,  // but volumes remain!
 			},
 			setupVars: map[string]loader.EnvVar{
-				"PENTAGI_POSTGRES_PASSWORD": {Name: "PENTAGI_POSTGRES_PASSWORD", Value: "postgres", Default: "postgres"},
+				"SURICATOOS_POSTGRES_PASSWORD": {Name: "SURICATOOS_POSTGRES_PASSWORD", Value: "postgres", Default: "postgres"},
 			},
 			expectChanges: false, // should NOT change because volumes exist
 		},
@@ -650,8 +650,8 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    false, // containers removed
 				GraphitiVolumesExist: true,  // but volumes remain!
-				PentagiInstalled:     true,
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true,
+				SuricatoosVolumesExist:  true,
 			},
 			setupVars: map[string]loader.EnvVar{
 				"NEO4J_PASSWORD": {Name: "NEO4J_PASSWORD", Value: "devpassword", Default: "devpassword"},
@@ -665,13 +665,13 @@ func TestDoHardening(t *testing.T) {
 				LangfuseVolumesExist: true,  // volumes remain
 				GraphitiInstalled:    false, // containers removed
 				GraphitiVolumesExist: true,  // volumes remain
-				PentagiInstalled:     false, // containers removed
-				PentagiVolumesExist:  true,  // volumes remain
+				SuricatoosInstalled:     false, // containers removed
+				SuricatoosVolumesExist:  true,  // volumes remain
 			},
 			setupVars: map[string]loader.EnvVar{
 				"LANGFUSE_SALT":             {Name: "LANGFUSE_SALT", Value: "salt", Default: "salt"},
 				"NEO4J_PASSWORD":            {Name: "NEO4J_PASSWORD", Value: "devpassword", Default: "devpassword"},
-				"PENTAGI_POSTGRES_PASSWORD": {Name: "PENTAGI_POSTGRES_PASSWORD", Value: "postgres", Default: "postgres"},
+				"SURICATOOS_POSTGRES_PASSWORD": {Name: "SURICATOOS_POSTGRES_PASSWORD", Value: "postgres", Default: "postgres"},
 			},
 			expectChanges: false, // should NOT change anything
 		},
@@ -822,8 +822,8 @@ func TestDoHardening_ScraperURLLogic(t *testing.T) {
 			checkResult := checker.CheckResult{
 				LangfuseInstalled:    true,
 				LangfuseVolumesExist: true,
-				PentagiInstalled:     false, // Trigger pentagi hardening
-				PentagiVolumesExist:  false,
+				SuricatoosInstalled:     false, // Trigger suricatoos hardening
+				SuricatoosVolumesExist:  false,
 			}
 
 			originalURL := tt.setupVars["SCRAPER_PRIVATE_URL"].Value
@@ -1261,8 +1261,8 @@ func TestDoHardening_IntegrationWithRealEnvFile(t *testing.T) {
 				LangfuseVolumesExist: false,
 				GraphitiInstalled:    true, // Should not harden graphiti
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     true, // Should not harden pentagi
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true, // Should not harden suricatoos
+				SuricatoosVolumesExist:  true,
 			},
 			expectedHardenedVars: []string{
 				"LANGFUSE_POSTGRES_PASSWORD",
@@ -1279,25 +1279,25 @@ func TestDoHardening_IntegrationWithRealEnvFile(t *testing.T) {
 			},
 			expectedUnchangedVars: []string{
 				"COOKIE_SIGNING_SALT",
-				"PENTAGI_POSTGRES_PASSWORD",
+				"SURICATOOS_POSTGRES_PASSWORD",
 				"NEO4J_PASSWORD", // Graphiti installed, should not harden
 				"LOCAL_SCRAPER_USERNAME",
 				"LOCAL_SCRAPER_PASSWORD",
 			},
 		},
 		{
-			name: "harden pentagi only",
+			name: "harden suricatoos only",
 			checkResult: checker.CheckResult{
 				LangfuseInstalled:    true, // Should not harden langfuse
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    true, // Should not harden graphiti
 				GraphitiVolumesExist: true,
-				PentagiInstalled:     false, // Should harden pentagi
-				PentagiVolumesExist:  false,
+				SuricatoosInstalled:     false, // Should harden suricatoos
+				SuricatoosVolumesExist:  false,
 			},
 			expectedHardenedVars: []string{
 				"COOKIE_SIGNING_SALT",
-				"PENTAGI_POSTGRES_PASSWORD",
+				"SURICATOOS_POSTGRES_PASSWORD",
 				"LOCAL_SCRAPER_USERNAME",
 				"LOCAL_SCRAPER_PASSWORD",
 				"SCRAPER_PRIVATE_URL", // Should be updated if credentials are hardened
@@ -1317,15 +1317,15 @@ func TestDoHardening_IntegrationWithRealEnvFile(t *testing.T) {
 				LangfuseVolumesExist: true,
 				GraphitiInstalled:    false, // Should harden graphiti
 				GraphitiVolumesExist: false,
-				PentagiInstalled:     true, // Should not harden pentagi
-				PentagiVolumesExist:  true,
+				SuricatoosInstalled:     true, // Should not harden suricatoos
+				SuricatoosVolumesExist:  true,
 			},
 			expectedHardenedVars: []string{
 				"NEO4J_PASSWORD",
 			},
 			expectedUnchangedVars: []string{
 				"COOKIE_SIGNING_SALT",
-				"PENTAGI_POSTGRES_PASSWORD",
+				"SURICATOOS_POSTGRES_PASSWORD",
 				"LOCAL_SCRAPER_USERNAME",
 				"LOCAL_SCRAPER_PASSWORD",
 				"LANGFUSE_POSTGRES_PASSWORD",
@@ -1339,13 +1339,13 @@ func TestDoHardening_IntegrationWithRealEnvFile(t *testing.T) {
 				LangfuseVolumesExist: false,
 				GraphitiInstalled:    false, // Should harden graphiti
 				GraphitiVolumesExist: false,
-				PentagiInstalled:     false, // Should harden pentagi
-				PentagiVolumesExist:  false,
+				SuricatoosInstalled:     false, // Should harden suricatoos
+				SuricatoosVolumesExist:  false,
 			},
 			expectedHardenedVars: []string{
-				// Pentagi vars
+				// Suricatoos vars
 				"COOKIE_SIGNING_SALT",
-				"PENTAGI_POSTGRES_PASSWORD",
+				"SURICATOOS_POSTGRES_PASSWORD",
 				"LOCAL_SCRAPER_USERNAME",
 				"LOCAL_SCRAPER_PASSWORD",
 				"SCRAPER_PRIVATE_URL",
@@ -1459,8 +1459,8 @@ func TestDoHardening_IntegrationWithRealEnvFile(t *testing.T) {
 				verifyLangfuseSyncRelationships(t, mockSt)
 			}
 
-			// Verify scraper URL consistency for Pentagi
-			if !tt.checkResult.PentagiInstalled {
+			// Verify scraper URL consistency for Suricatoos
+			if !tt.checkResult.SuricatoosInstalled {
 				verifyScraperURLConsistency(t, mockSt)
 			}
 		})

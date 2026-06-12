@@ -17,15 +17,15 @@ const (
 	// Default values for PostgreSQL configuration
 	DefaultPostgreSQLUser     = "postgres"
 	DefaultPostgreSQLPassword = "postgres"
-	DefaultPostgreSQLDatabase = "pentagidb"
+	DefaultPostgreSQLDatabase = "suricatoosdb"
 
 	// Admin user email
-	AdminEmail = "admin@pentagi.com"
+	AdminEmail = "admin@suricatoos.com"
 
 	// Environment variable names
-	EnvPostgreSQLUser     = "PENTAGI_POSTGRES_USER"
-	EnvPostgreSQLPassword = "PENTAGI_POSTGRES_PASSWORD"
-	EnvPostgreSQLDatabase = "PENTAGI_POSTGRES_DB"
+	EnvPostgreSQLUser     = "SURICATOOS_POSTGRES_USER"
+	EnvPostgreSQLPassword = "SURICATOOS_POSTGRES_PASSWORD"
+	EnvPostgreSQLDatabase = "SURICATOOS_POSTGRES_DB"
 )
 
 // performPasswordReset updates the admin password in PostgreSQL
@@ -62,7 +62,7 @@ func (p *processor) performPasswordReset(ctx context.Context, newPassword string
 		return fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	p.appendLog(fmt.Sprintf("Connected to PostgreSQL at %s:%s (database: %s)", PostgreSQLHost, PostgreSQLPort, dbName), ProductStackPentagi, state)
+	p.appendLog(fmt.Sprintf("Connected to PostgreSQL at %s:%s (database: %s)", PostgreSQLHost, PostgreSQLPort, dbName), ProductStackSuricatoos, state)
 
 	// hash the new password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
@@ -87,7 +87,7 @@ func (p *processor) performPasswordReset(ctx context.Context, newPassword string
 		return fmt.Errorf("no admin user found with email %s", AdminEmail)
 	}
 
-	p.appendLog(fmt.Sprintf("Password updated for %s", AdminEmail), ProductStackPentagi, state)
+	p.appendLog(fmt.Sprintf("Password updated for %s", AdminEmail), ProductStackSuricatoos, state)
 
 	return nil
 }
