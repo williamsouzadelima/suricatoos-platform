@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
 	"suricatoos/pkg/controller"
 	"suricatoos/pkg/database"
 	"suricatoos/pkg/database/converter"
@@ -30,7 +31,6 @@ import (
 	"suricatoos/pkg/templates"
 	"suricatoos/pkg/templates/validator"
 	"suricatoos/pkg/version"
-	"strings"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -506,7 +506,7 @@ func (r *mutationResolver) TestProvider(ctx context.Context, typeArg model.Provi
 }
 
 // CreateProvider is the resolver for the createProvider field.
-func (r *mutationResolver) CreateProvider(ctx context.Context, name string, typeArg model.ProviderType, agents model.AgentsConfig) (*model.ProviderConfig, error) {
+func (r *mutationResolver) CreateProvider(ctx context.Context, name string, typeArg model.ProviderType, agents model.AgentsConfig, apiKey *string, baseURL *string) (*model.ProviderConfig, error) {
 	uid, _, err := validatePermission(ctx, "settings.providers.edit")
 	if err != nil {
 		return nil, err
@@ -519,6 +519,12 @@ func (r *mutationResolver) CreateProvider(ctx context.Context, name string, type
 	}).Debug("create provider")
 
 	cfg := converter.ConvertAgentsConfigFromGqlModel(&agents)
+	if apiKey != nil {
+		cfg.APIKey = *apiKey
+	}
+	if baseURL != nil {
+		cfg.BaseURL = *baseURL
+	}
 	prvname, prvtype := provider.ProviderName(name), provider.ProviderType(typeArg)
 	prv, err := r.ProvidersCtrl.CreateProvider(ctx, uid, prvname, prvtype, cfg)
 	if err != nil {
@@ -531,7 +537,7 @@ func (r *mutationResolver) CreateProvider(ctx context.Context, name string, type
 }
 
 // UpdateProvider is the resolver for the updateProvider field.
-func (r *mutationResolver) UpdateProvider(ctx context.Context, providerID int64, name string, agents model.AgentsConfig) (*model.ProviderConfig, error) {
+func (r *mutationResolver) UpdateProvider(ctx context.Context, providerID int64, name string, agents model.AgentsConfig, apiKey *string, baseURL *string) (*model.ProviderConfig, error) {
 	uid, _, err := validatePermission(ctx, "settings.providers.edit")
 	if err != nil {
 		return nil, err
@@ -544,6 +550,12 @@ func (r *mutationResolver) UpdateProvider(ctx context.Context, providerID int64,
 	}).Debug("update provider")
 
 	cfg := converter.ConvertAgentsConfigFromGqlModel(&agents)
+	if apiKey != nil {
+		cfg.APIKey = *apiKey
+	}
+	if baseURL != nil {
+		cfg.BaseURL = *baseURL
+	}
 	prvname := provider.ProviderName(name)
 	prv, err := r.ProvidersCtrl.UpdateProvider(ctx, uid, providerID, prvname, cfg)
 	if err != nil {

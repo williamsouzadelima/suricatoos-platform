@@ -227,6 +227,11 @@ type ProviderConfig struct {
 	Coder          *AgentConfig      `json:"coder,omitempty" yaml:"coder,omitempty"`
 	Installer      *AgentConfig      `json:"installer,omitempty" yaml:"installer,omitempty"`
 	Pentester      *AgentConfig      `json:"pentester,omitempty" yaml:"pentester,omitempty"`
+	// APIKey and BaseURL are provider-level credentials entered via the UI. APIKey
+	// is stored encrypted at rest (see secret.go); both fall back to the env-based
+	// config when empty. They are never returned to clients in plaintext.
+	APIKey         string            `json:"api_key,omitempty" yaml:"api_key,omitempty"`
+	BaseURL        string            `json:"base_url,omitempty" yaml:"base_url,omitempty"`
 	defaultOptions []llms.CallOption `json:"-" yaml:"-"`
 	rawConfig      []byte            `json:"-" yaml:"-"`
 }

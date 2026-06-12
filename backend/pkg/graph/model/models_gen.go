@@ -358,6 +358,8 @@ type ProviderConfig struct {
 	Name      string        `json:"name"`
 	Type      ProviderType  `json:"type"`
 	Agents    *AgentsConfig `json:"agents"`
+	APIKeySet bool          `json:"apiKeySet"`
+	BaseURL   *string       `json:"baseUrl,omitempty"`
 	CreatedAt time.Time     `json:"createdAt"`
 	UpdatedAt time.Time     `json:"updatedAt"`
 }

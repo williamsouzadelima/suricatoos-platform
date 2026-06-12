@@ -493,6 +493,8 @@ export type ProviderConfigFragmentFragment = {
     id: string;
     name: string;
     type: ProviderType;
+    apiKeySet: boolean;
+    baseUrl: string | null;
     createdAt: unknown;
     updatedAt: unknown;
     agents: AgentsConfigFragmentFragment;
@@ -1103,6 +1105,8 @@ export type CreateProviderMutationVariables = Exact<{
     name: string;
     type: ProviderType;
     agents: AgentsConfigInput;
+    apiKey?: string | null | undefined;
+    baseUrl?: string | null | undefined;
 }>;
 
 export type CreateProviderMutation = { createProvider: ProviderConfigFragmentFragment };
@@ -1111,6 +1115,8 @@ export type UpdateProviderMutationVariables = Exact<{
     providerId: string | number;
     name: string;
     agents: AgentsConfigInput;
+    apiKey?: string | null | undefined;
+    baseUrl?: string | null | undefined;
 }>;
 
 export type UpdateProviderMutation = { updateProvider: ProviderConfigFragmentFragment };
@@ -1723,6 +1729,8 @@ export const ProviderConfigFragmentFragmentDoc = gql`
         agents {
             ...agentsConfigFragment
         }
+        apiKeySet
+        baseUrl
         createdAt
         updatedAt
     }
@@ -5592,8 +5600,14 @@ export type TestProviderMutationOptions = ApolloReactCommon.BaseMutationOptions<
     TestProviderMutationVariables
 >;
 export const CreateProviderDocument = gql`
-    mutation createProvider($name: String!, $type: ProviderType!, $agents: AgentsConfigInput!) {
-        createProvider(name: $name, type: $type, agents: $agents) {
+    mutation createProvider(
+        $name: String!
+        $type: ProviderType!
+        $agents: AgentsConfigInput!
+        $apiKey: String
+        $baseUrl: String
+    ) {
+        createProvider(name: $name, type: $type, agents: $agents, apiKey: $apiKey, baseUrl: $baseUrl) {
             ...providerConfigFragment
         }
     }
@@ -5620,6 +5634,8 @@ export type CreateProviderMutationFn = ApolloReactCommon.MutationFunction<
  *      name: // value for 'name'
  *      type: // value for 'type'
  *      agents: // value for 'agents'
+ *      apiKey: // value for 'apiKey'
+ *      baseUrl: // value for 'baseUrl'
  *   },
  * });
  */
@@ -5639,8 +5655,14 @@ export type CreateProviderMutationOptions = ApolloReactCommon.BaseMutationOption
     CreateProviderMutationVariables
 >;
 export const UpdateProviderDocument = gql`
-    mutation updateProvider($providerId: ID!, $name: String!, $agents: AgentsConfigInput!) {
-        updateProvider(providerId: $providerId, name: $name, agents: $agents) {
+    mutation updateProvider(
+        $providerId: ID!
+        $name: String!
+        $agents: AgentsConfigInput!
+        $apiKey: String
+        $baseUrl: String
+    ) {
+        updateProvider(providerId: $providerId, name: $name, agents: $agents, apiKey: $apiKey, baseUrl: $baseUrl) {
             ...providerConfigFragment
         }
     }
@@ -5667,6 +5689,8 @@ export type UpdateProviderMutationFn = ApolloReactCommon.MutationFunction<
  *      providerId: // value for 'providerId'
  *      name: // value for 'name'
  *      agents: // value for 'agents'
+ *      apiKey: // value for 'apiKey'
+ *      baseUrl: // value for 'baseUrl'
  *   },
  * });
  */

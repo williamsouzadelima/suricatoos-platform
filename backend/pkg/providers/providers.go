@@ -779,70 +779,131 @@ func (pc *providerController) NewProvider(prv database.Provider) (provider.Provi
 		return nil, fmt.Errorf("provider type '%s' is not available", prv.Type)
 	}
 
+	// Resolve provider-level credentials entered via the UI onto a per-call config
+	// copy: the decrypted API key / base URL override the env defaults; when empty,
+	// the env config is used unchanged. The copy never mutates the shared config.
+	resolvedCfg := pc.cfg
+	var uiCreds struct {
+		APIKey  string `json:"api_key"`
+		BaseURL string `json:"base_url"`
+	}
+	if jerr := json.Unmarshal(prv.Config, &uiCreds); jerr == nil && (uiCreds.APIKey != "" || uiCreds.BaseURL != "") {
+		apiKey, derr := pconfig.DecryptSecret(uiCreds.APIKey, pc.cfg.CookieSigningSalt)
+		if derr != nil {
+			return nil, fmt.Errorf("failed to decrypt provider credentials: %w", derr)
+		}
+		cfgCopy := applyProviderCredentials(*pc.cfg, providerType, apiKey, uiCreds.BaseURL)
+		resolvedCfg = &cfgCopy
+	}
+
 	switch providerType {
 	case provider.ProviderOpenAI:
 		openaiConfig, err := openai.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build openai provider config: %w", err)
 		}
-		return openai.New(pc.cfg, providerName, openaiConfig)
+		return openai.New(resolvedCfg, providerName, openaiConfig)
 	case provider.ProviderAnthropic:
 		anthropicConfig, err := anthropic.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build anthropic provider config: %w", err)
 		}
-		return anthropic.New(pc.cfg, providerName, anthropicConfig)
+		return anthropic.New(resolvedCfg, providerName, anthropicConfig)
 	case provider.ProviderGemini:
 		geminiConfig, err := gemini.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build gemini provider config: %w", err)
 		}
-		return gemini.New(pc.cfg, providerName, geminiConfig)
+		return gemini.New(resolvedCfg, providerName, geminiConfig)
 	case provider.ProviderBedrock:
 		bedrockConfig, err := bedrock.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build bedrock provider config: %w", err)
 		}
-		return bedrock.New(pc.cfg, providerName, bedrockConfig)
+		return bedrock.New(resolvedCfg, providerName, bedrockConfig)
 	case provider.ProviderOllama:
-		ollamaConfig, err := ollama.BuildProviderConfig(pc.cfg, prv.Config)
+		ollamaConfig, err := ollama.BuildProviderConfig(resolvedCfg, prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build ollama provider config: %w", err)
 		}
-		return ollama.New(pc.cfg, providerName, ollamaConfig)
+		return ollama.New(resolvedCfg, providerName, ollamaConfig)
 	case provider.ProviderCustom:
-		customConfig, err := custom.BuildProviderConfig(pc.cfg, prv.Config)
+		customConfig, err := custom.BuildProviderConfig(resolvedCfg, prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build custom provider config: %w", err)
 		}
-		return custom.New(pc.cfg, providerName, customConfig)
+		return custom.New(resolvedCfg, providerName, customConfig)
 	case provider.ProviderDeepSeek:
 		deepseekConfig, err := deepseek.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build deepseek provider config: %w", err)
 		}
-		return deepseek.New(pc.cfg, providerName, deepseekConfig)
+		return deepseek.New(resolvedCfg, providerName, deepseekConfig)
 	case provider.ProviderGLM:
 		glmConfig, err := glm.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build glm provider config: %w", err)
 		}
-		return glm.New(pc.cfg, providerName, glmConfig)
+		return glm.New(resolvedCfg, providerName, glmConfig)
 	case provider.ProviderKimi:
 		kimiConfig, err := kimi.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build kimi provider config: %w", err)
 		}
-		return kimi.New(pc.cfg, providerName, kimiConfig)
+		return kimi.New(resolvedCfg, providerName, kimiConfig)
 	case provider.ProviderQwen:
 		qwenConfig, err := qwen.BuildProviderConfig(prv.Config)
 		if err != nil {
 			return nil, fmt.Errorf("failed to build qwen provider config: %w", err)
 		}
-		return qwen.New(pc.cfg, providerName, qwenConfig)
+		return qwen.New(resolvedCfg, providerName, qwenConfig)
 	default:
 		return nil, fmt.Errorf("unknown provider type: %s", prv.Type)
 	}
+}
+
+// applyProviderCredentials returns a copy of cfg with the per-provider API key
+// and base URL (entered via the UI) overlaid onto the matching env-based fields.
+// Empty overrides leave the env defaults intact.
+func applyProviderCredentials(cfg config.Config, ptype provider.ProviderType, apiKey, baseURL string) config.Config {
+	set := func(dst *string, v string) {
+		if v != "" {
+			*dst = v
+		}
+	}
+	switch ptype {
+	case provider.ProviderOpenAI:
+		set(&cfg.OpenAIKey, apiKey)
+		set(&cfg.OpenAIServerURL, baseURL)
+	case provider.ProviderAnthropic:
+		set(&cfg.AnthropicAPIKey, apiKey)
+		set(&cfg.AnthropicServerURL, baseURL)
+	case provider.ProviderGemini:
+		set(&cfg.GeminiAPIKey, apiKey)
+		set(&cfg.GeminiServerURL, baseURL)
+	case provider.ProviderBedrock:
+		set(&cfg.BedrockBearerToken, apiKey)
+		set(&cfg.BedrockServerURL, baseURL)
+	case provider.ProviderOllama:
+		set(&cfg.OllamaServerAPIKey, apiKey)
+		set(&cfg.OllamaServerURL, baseURL)
+	case provider.ProviderCustom:
+		set(&cfg.LLMServerKey, apiKey)
+		set(&cfg.LLMServerURL, baseURL)
+	case provider.ProviderDeepSeek:
+		set(&cfg.DeepSeekAPIKey, apiKey)
+		set(&cfg.DeepSeekServerURL, baseURL)
+	case provider.ProviderGLM:
+		set(&cfg.GLMAPIKey, apiKey)
+		set(&cfg.GLMServerURL, baseURL)
+	case provider.ProviderKimi:
+		set(&cfg.KimiAPIKey, apiKey)
+		set(&cfg.KimiServerURL, baseURL)
+	case provider.ProviderQwen:
+		set(&cfg.QwenAPIKey, apiKey)
+		set(&cfg.QwenServerURL, baseURL)
+	}
+	return cfg
 }
 
 func (pc *providerController) CreateProvider(
@@ -862,6 +923,11 @@ func (pc *providerController) CreateProvider(
 
 	if config, err = pc.patchProviderConfig(prvtype, config); err != nil {
 		return result, fmt.Errorf("failed to patch provider config: %w", err)
+	}
+
+	// Encrypt the UI-provided API key before it touches the database.
+	if config.APIKey, err = pconfig.EncryptSecret(config.APIKey, pc.cfg.CookieSigningSalt); err != nil {
+		return result, fmt.Errorf("failed to encrypt provider api key: %w", err)
 	}
 
 	rawConfig, err := json.Marshal(config)
@@ -908,6 +974,18 @@ func (pc *providerController) UpdateProvider(
 
 	if config, err = pc.patchProviderConfig(prvtype, config); err != nil {
 		return result, fmt.Errorf("failed to patch provider config: %w", err)
+	}
+
+	// Preserve the stored (encrypted) API key when the update omits it; otherwise
+	// encrypt the newly provided key before persisting.
+	if config.APIKey == "" {
+		var existing struct {
+			APIKey string `json:"api_key"`
+		}
+		_ = json.Unmarshal(prv.Config, &existing)
+		config.APIKey = existing.APIKey
+	} else if config.APIKey, err = pconfig.EncryptSecret(config.APIKey, pc.cfg.CookieSigningSalt); err != nil {
+		return result, fmt.Errorf("failed to encrypt provider api key: %w", err)
 	}
 
 	rawConfig, err := json.Marshal(config)

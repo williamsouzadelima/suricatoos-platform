@@ -9,8 +9,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"suricatoos/pkg/graph/model"
 	"strconv"
+	"suricatoos/pkg/graph/model"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -354,7 +354,7 @@ type ComplexityRoot struct {
 		CreateFlowTemplate      func(childComplexity int, input model.CreateFlowTemplateInput) int
 		CreateKnowledgeDocument func(childComplexity int, input model.CreateKnowledgeDocumentInput) int
 		CreatePrompt            func(childComplexity int, typeArg model.PromptType, template string) int
-		CreateProvider          func(childComplexity int, name string, typeArg model.ProviderType, agents model.AgentsConfig) int
+		CreateProvider          func(childComplexity int, name string, typeArg model.ProviderType, agents model.AgentsConfig, apiKey *string, baseURL *string) int
 		DeleteAPIToken          func(childComplexity int, tokenID string) int
 		DeleteAssistant         func(childComplexity int, flowID int64, assistantID int64) int
 		DeleteFavoriteFlow      func(childComplexity int, flowID int64) int
@@ -374,7 +374,7 @@ type ComplexityRoot struct {
 		UpdateFlowTemplate      func(childComplexity int, templateID int64, input model.UpdateFlowTemplateInput) int
 		UpdateKnowledgeDocument func(childComplexity int, id string, input model.UpdateKnowledgeDocumentInput) int
 		UpdatePrompt            func(childComplexity int, promptID int64, template string) int
-		UpdateProvider          func(childComplexity int, providerID int64, name string, agents model.AgentsConfig) int
+		UpdateProvider          func(childComplexity int, providerID int64, name string, agents model.AgentsConfig, apiKey *string, baseURL *string) int
 		ValidatePrompt          func(childComplexity int, typeArg model.PromptType, template string) int
 	}
 
@@ -397,7 +397,9 @@ type ComplexityRoot struct {
 	}
 
 	ProviderConfig struct {
+		APIKeySet func(childComplexity int) int
 		Agents    func(childComplexity int) int
+		BaseURL   func(childComplexity int) int
 		CreatedAt func(childComplexity int) int
 		ID        func(childComplexity int) int
 		Name      func(childComplexity int) int
@@ -747,8 +749,8 @@ type MutationResolver interface {
 	DeleteAssistant(ctx context.Context, flowID int64, assistantID int64) (model.ResultType, error)
 	TestAgent(ctx context.Context, typeArg model.ProviderType, agentType model.AgentConfigType, agent model.AgentConfig) (*model.AgentTestResult, error)
 	TestProvider(ctx context.Context, typeArg model.ProviderType, agents model.AgentsConfig) (*model.ProviderTestResult, error)
-	CreateProvider(ctx context.Context, name string, typeArg model.ProviderType, agents model.AgentsConfig) (*model.ProviderConfig, error)
-	UpdateProvider(ctx context.Context, providerID int64, name string, agents model.AgentsConfig) (*model.ProviderConfig, error)
+	CreateProvider(ctx context.Context, name string, typeArg model.ProviderType, agents model.AgentsConfig, apiKey *string, baseURL *string) (*model.ProviderConfig, error)
+	UpdateProvider(ctx context.Context, providerID int64, name string, agents model.AgentsConfig, apiKey *string, baseURL *string) (*model.ProviderConfig, error)
 	DeleteProvider(ctx context.Context, providerID int64) (model.ResultType, error)
 	ValidatePrompt(ctx context.Context, typeArg model.PromptType, template string) (*model.PromptValidationResult, error)
 	CreatePrompt(ctx context.Context, typeArg model.PromptType, template string) (*model.UserPrompt, error)
@@ -2355,7 +2357,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateProvider(childComplexity, args["name"].(string), args["type"].(model.ProviderType), args["agents"].(model.AgentsConfig)), true
+		return e.complexity.Mutation.CreateProvider(childComplexity, args["name"].(string), args["type"].(model.ProviderType), args["agents"].(model.AgentsConfig), args["apiKey"].(*string), args["baseUrl"].(*string)), true
 
 	case "Mutation.deleteAPIToken":
 		if e.complexity.Mutation.DeleteAPIToken == nil {
@@ -2595,7 +2597,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateProvider(childComplexity, args["providerId"].(int64), args["name"].(string), args["agents"].(model.AgentsConfig)), true
+		return e.complexity.Mutation.UpdateProvider(childComplexity, args["providerId"].(int64), args["name"].(string), args["agents"].(model.AgentsConfig), args["apiKey"].(*string), args["baseUrl"].(*string)), true
 
 	case "Mutation.validatePrompt":
 		if e.complexity.Mutation.ValidatePrompt == nil {
@@ -2672,12 +2674,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Provider.Type(childComplexity), true
 
+	case "ProviderConfig.apiKeySet":
+		if e.complexity.ProviderConfig.APIKeySet == nil {
+			break
+		}
+
+		return e.complexity.ProviderConfig.APIKeySet(childComplexity), true
+
 	case "ProviderConfig.agents":
 		if e.complexity.ProviderConfig.Agents == nil {
 			break
 		}
 
 		return e.complexity.ProviderConfig.Agents(childComplexity), true
+
+	case "ProviderConfig.baseUrl":
+		if e.complexity.ProviderConfig.BaseURL == nil {
+			break
+		}
+
+		return e.complexity.ProviderConfig.BaseURL(childComplexity), true
 
 	case "ProviderConfig.createdAt":
 		if e.complexity.ProviderConfig.CreatedAt == nil {
@@ -5454,6 +5470,16 @@ func (ec *executionContext) field_Mutation_createProvider_args(ctx context.Conte
 		return nil, err
 	}
 	args["agents"] = arg2
+	arg3, err := ec.field_Mutation_createProvider_argsAPIKey(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["apiKey"] = arg3
+	arg4, err := ec.field_Mutation_createProvider_argsBaseURL(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["baseUrl"] = arg4
 	return args, nil
 }
 func (ec *executionContext) field_Mutation_createProvider_argsName(
@@ -5519,6 +5545,50 @@ func (ec *executionContext) field_Mutation_createProvider_argsAgents(
 	}
 
 	var zeroVal model.AgentsConfig
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_createProvider_argsAPIKey(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (*string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["apiKey"]
+	if !ok {
+		var zeroVal *string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("apiKey"))
+	if tmp, ok := rawArgs["apiKey"]; ok {
+		return ec.unmarshalOString2ᚖstring(ctx, tmp)
+	}
+
+	var zeroVal *string
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_createProvider_argsBaseURL(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (*string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["baseUrl"]
+	if !ok {
+		var zeroVal *string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("baseUrl"))
+	if tmp, ok := rawArgs["baseUrl"]; ok {
+		return ec.unmarshalOString2ᚖstring(ctx, tmp)
+	}
+
+	var zeroVal *string
 	return zeroVal, nil
 }
 
@@ -6499,6 +6569,16 @@ func (ec *executionContext) field_Mutation_updateProvider_args(ctx context.Conte
 		return nil, err
 	}
 	args["agents"] = arg2
+	arg3, err := ec.field_Mutation_updateProvider_argsAPIKey(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["apiKey"] = arg3
+	arg4, err := ec.field_Mutation_updateProvider_argsBaseURL(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["baseUrl"] = arg4
 	return args, nil
 }
 func (ec *executionContext) field_Mutation_updateProvider_argsProviderID(
@@ -6564,6 +6644,50 @@ func (ec *executionContext) field_Mutation_updateProvider_argsAgents(
 	}
 
 	var zeroVal model.AgentsConfig
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_updateProvider_argsAPIKey(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (*string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["apiKey"]
+	if !ok {
+		var zeroVal *string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("apiKey"))
+	if tmp, ok := rawArgs["apiKey"]; ok {
+		return ec.unmarshalOString2ᚖstring(ctx, tmp)
+	}
+
+	var zeroVal *string
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_updateProvider_argsBaseURL(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (*string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["baseUrl"]
+	if !ok {
+		var zeroVal *string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("baseUrl"))
+	if tmp, ok := rawArgs["baseUrl"]; ok {
+		return ec.unmarshalOString2ᚖstring(ctx, tmp)
+	}
+
+	var zeroVal *string
 	return zeroVal, nil
 }
 
@@ -13486,6 +13610,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_openai(_ context
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13544,6 +13672,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_anthropic(_ cont
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13599,6 +13731,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_gemini(_ context
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13654,6 +13790,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_bedrock(_ contex
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13709,6 +13849,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_ollama(_ context
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13764,6 +13908,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_custom(_ context
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13819,6 +13967,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_deepseek(_ conte
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13874,6 +14026,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_glm(_ context.Co
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13929,6 +14085,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_kimi(_ context.C
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -13984,6 +14144,10 @@ func (ec *executionContext) fieldContext_DefaultProvidersConfig_qwen(_ context.C
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -18440,7 +18604,7 @@ func (ec *executionContext) _Mutation_createProvider(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateProvider(rctx, fc.Args["name"].(string), fc.Args["type"].(model.ProviderType), fc.Args["agents"].(model.AgentsConfig))
+		return ec.resolvers.Mutation().CreateProvider(rctx, fc.Args["name"].(string), fc.Args["type"].(model.ProviderType), fc.Args["agents"].(model.AgentsConfig), fc.Args["apiKey"].(*string), fc.Args["baseUrl"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18473,6 +18637,10 @@ func (ec *executionContext) fieldContext_Mutation_createProvider(ctx context.Con
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -18509,7 +18677,7 @@ func (ec *executionContext) _Mutation_updateProvider(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateProvider(rctx, fc.Args["providerId"].(int64), fc.Args["name"].(string), fc.Args["agents"].(model.AgentsConfig))
+		return ec.resolvers.Mutation().UpdateProvider(rctx, fc.Args["providerId"].(int64), fc.Args["name"].(string), fc.Args["agents"].(model.AgentsConfig), fc.Args["apiKey"].(*string), fc.Args["baseUrl"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18542,6 +18710,10 @@ func (ec *executionContext) fieldContext_Mutation_updateProvider(ctx context.Con
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -20272,6 +20444,91 @@ func (ec *executionContext) fieldContext_ProviderConfig_agents(_ context.Context
 	return fc, nil
 }
 
+func (ec *executionContext) _ProviderConfig_apiKeySet(ctx context.Context, field graphql.CollectedField, obj *model.ProviderConfig) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.APIKeySet, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ProviderConfig_apiKeySet(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ProviderConfig",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ProviderConfig_baseUrl(ctx context.Context, field graphql.CollectedField, obj *model.ProviderConfig) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.BaseURL, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ProviderConfig_baseUrl(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ProviderConfig",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _ProviderConfig_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.ProviderConfig) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 	if err != nil {
@@ -21262,6 +21519,10 @@ func (ec *executionContext) fieldContext_ProvidersConfig_userDefined(_ context.C
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -28262,6 +28523,10 @@ func (ec *executionContext) fieldContext_Subscription_providerCreated(_ context.
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -28334,6 +28599,10 @@ func (ec *executionContext) fieldContext_Subscription_providerUpdated(_ context.
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -28406,6 +28675,10 @@ func (ec *executionContext) fieldContext_Subscription_providerDeleted(_ context.
 				return ec.fieldContext_ProviderConfig_type(ctx, field)
 			case "agents":
 				return ec.fieldContext_ProviderConfig_agents(ctx, field)
+			case "apiKeySet":
+				return ec.fieldContext_ProviderConfig_apiKeySet(ctx, field)
+			case "baseUrl":
+				return ec.fieldContext_ProviderConfig_baseUrl(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_ProviderConfig_createdAt(ctx, field)
 			case "updatedAt":
@@ -38962,6 +39235,13 @@ func (ec *executionContext) _ProviderConfig(ctx context.Context, sel ast.Selecti
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "apiKeySet":
+			out.Values[i] = ec._ProviderConfig_apiKeySet(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "baseUrl":
+			out.Values[i] = ec._ProviderConfig_baseUrl(ctx, field, obj)
 		case "createdAt":
 			out.Values[i] = ec._ProviderConfig_createdAt(ctx, field, obj)
 			if out.Values[i] == graphql.Null {

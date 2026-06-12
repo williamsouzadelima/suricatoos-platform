@@ -534,6 +534,8 @@ const agentConfigSchema = z
 
 const formSchema = z.object({
     agents: z.record(z.string(), agentConfigSchema).optional(),
+    apiKey: z.string().optional(),
+    baseUrl: z.string().optional(),
     name: z.preprocess(
         (value) => value || '',
         z.string().min(1, 'Provider name is required').max(50, 'Maximum 50 characters allowed'),
@@ -575,6 +577,8 @@ const transformFormToGraphQL = (
     formData: FormData,
 ): {
     agents: AgentsConfigInput;
+    apiKey: null | string;
+    baseUrl: null | string;
     name: string;
     type: ProviderType;
 } => {
@@ -618,6 +622,8 @@ const transformFormToGraphQL = (
 
     return {
         agents,
+        apiKey: formData.apiKey?.trim() ? formData.apiKey.trim() : null,
+        baseUrl: formData.baseUrl?.trim() ? formData.baseUrl.trim() : null,
         name: formData.name,
         type: formData.type as ProviderType,
     };
@@ -1050,10 +1056,11 @@ function SettingsProvider() {
             return;
         }
 
-        const { agents, name, type } = provider;
+        const { agents, baseUrl, name, type } = provider;
 
         reset({
             agents: agents ? (normalizeGraphQLData(agents) as FormAgents) : {},
+            baseUrl: baseUrl || undefined,
             name: name || undefined,
             type: type || undefined,
         });
@@ -1386,6 +1393,28 @@ function SettingsProvider() {
                             label={t('Name')}
                             name="name"
                             placeholder={t('Enter provider name')}
+                        />
+
+                        <FormInputStringItem
+                            control={control}
+                            description={
+                                isNew
+                                    ? t('Stored encrypted. Falls back to the environment variable when left blank.')
+                                    : t('Stored encrypted. Leave blank to keep the current key.')
+                            }
+                            disabled={isLoading}
+                            label={t('API Key')}
+                            name="apiKey"
+                            placeholder={isNew ? t('Enter API key') : t('•••••••• (leave blank to keep)')}
+                        />
+
+                        <FormInputStringItem
+                            control={control}
+                            description={t('Optional. Override the default API endpoint (base URL).')}
+                            disabled={isLoading}
+                            label={t('Base URL')}
+                            name="baseUrl"
+                            placeholder={t('Use provider default')}
                         />
 
                         {/* Agents Configuration Section */}

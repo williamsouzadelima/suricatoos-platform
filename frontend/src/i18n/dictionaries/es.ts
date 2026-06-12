@@ -79,6 +79,19 @@ const es: Record<string, string> = {
     Stop: 'Detener',
     Loading: 'Cargando',
     'Loading...': 'Cargando...',
+
+    // ── Provider credentials ─────────────────────────────────────────────
+    'API Key': 'Clave de API',
+    'Base URL': 'URL base',
+    'Enter API key': 'Ingrese la clave de API',
+    'Use provider default': 'Usar valor por defecto del proveedor',
+    'Stored encrypted. Falls back to the environment variable when left blank.':
+        'Se almacena cifrada. Usa la variable de entorno cuando se deja en blanco.',
+    'Stored encrypted. Leave blank to keep the current key.':
+        'Se almacena cifrada. Deje en blanco para mantener la clave actual.',
+    '•••••••• (leave blank to keep)': '•••••••• (deje en blanco para mantener)',
+    'Optional. Override the default API endpoint (base URL).':
+        'Opcional. Sobrescribe el endpoint por defecto de la API (URL base).',
 };
 
 export default es;
