@@ -87,8 +87,13 @@ em tempo real pelo menu do usuário.
 
 ## 📄 Relatórios de exemplo
 
-Veja a saída real do motor de relatórios (de um engajamento **fictício**) em
-[`docs/sample-reports/`](docs/sample-reports/):
+⭐ **Flagship:** [**relatório PTES (livro)**](docs/sample-reports/suricatoos-relatorio-ptes.pdf) —
+padrão **PTES**, **storytelling** (narrativa do ataque), **plano de ação** com quick wins e tempo de
+correção, **gráficos avançados** (medidor de risco, matriz 5×5, quadrante impacto×esforço, linha do
+tempo) e **co-branding whitelabel** (logo da aplicação + logo do cliente). Margens respeitadas, sem
+sobreposições.
+
+Outras amostras de formato em [`docs/sample-reports/`](docs/sample-reports/):
 
 | Relatório | Formatos |
 |---|---|
