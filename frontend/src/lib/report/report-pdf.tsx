@@ -190,6 +190,36 @@ const pdfStyles = StyleSheet.create({
         marginBottom: 8,
         textAlign: 'justify',
     },
+    table: {
+        borderColor: '#e2e8f0',
+        borderRadius: 4,
+        borderWidth: 1,
+        marginBottom: 10,
+        marginTop: 6,
+    },
+    tableCell: {
+        borderRightColor: '#e2e8f0',
+        borderRightWidth: 1,
+        padding: 5,
+    },
+    tableCellText: {
+        color: '#334155',
+        fontSize: 9,
+        lineHeight: 1.4,
+    },
+    tableHeaderRow: {
+        backgroundColor: '#194fe3',
+    },
+    tableHeaderText: {
+        color: '#ffffff',
+        fontSize: 9,
+        fontWeight: 'bold',
+    },
+    tableRow: {
+        borderBottomColor: '#e2e8f0',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+    },
 });
 
 // @react-pdf/renderer has spotty emoji glyph support — substitute readable text tags instead.
@@ -236,6 +266,8 @@ interface ParsedContent {
     items?: Array<{ inlineTokens: InlineToken[]; raw: string }>;
     level?: number;
     ordered?: boolean;
+    tableHeader?: InlineToken[][];
+    tableRows?: InlineToken[][][];
     type: string;
 }
 
@@ -253,6 +285,14 @@ const parseInlineTokens = (text: string): InlineToken[] => {
 
         paragraphTokens.forEach((token) => {
             switch (token.type) {
+                case 'br': {
+                    tokens.push({
+                        text: '\n',
+                        type: 'text',
+                    });
+                    break;
+                }
+
                 case 'codespan': {
                     tokens.push({
                         code: true,
@@ -368,6 +408,17 @@ const parseMarkdownTokens = (markdown: string): ParsedContent[] => {
             }
 
             case 'space': {
+                break;
+            }
+
+            case 'table': {
+                const header = (Array.isArray(token.header) ? token.header : []) as Array<Record<string, unknown>>;
+                const rows = (Array.isArray(token.rows) ? token.rows : []) as Array<Array<Record<string, unknown>>>;
+                result.push({
+                    tableHeader: header.map((c) => parseInlineTokens(String(c.text || ''))),
+                    tableRows: rows.map((r) => r.map((c) => parseInlineTokens(String(c.text || '')))),
+                    type: 'table',
+                });
                 break;
             }
 
@@ -579,6 +630,53 @@ const renderPDFContent = (parsed: ParsedContent[]) => {
                         >
                             {renderInlineTokens(item.inlineTokens, `para-${index}`)}
                         </Text>
+                    );
+                }
+
+                case 'table': {
+                    if (!item.tableHeader || item.tableHeader.length === 0) {
+                        return null;
+                    }
+
+                    const cols = item.tableHeader.length;
+                    const colWidth = `${(100 / cols).toFixed(4)}%`;
+
+                    return (
+                        <View
+                            key={`table-${index}`}
+                            style={pdfStyles.table}
+                            wrap={false}
+                        >
+                            <View style={[pdfStyles.tableRow, pdfStyles.tableHeaderRow]}>
+                                {item.tableHeader.map((cell, ci) => (
+                                    <View
+                                        key={`th-${index}-${ci}`}
+                                        style={[pdfStyles.tableCell, { width: colWidth }]}
+                                    >
+                                        <Text style={pdfStyles.tableHeaderText}>
+                                            {renderInlineTokens(cell, `th-${index}-${ci}`)}
+                                        </Text>
+                                    </View>
+                                ))}
+                            </View>
+                            {(item.tableRows || []).map((row, ri) => (
+                                <View
+                                    key={`tr-${index}-${ri}`}
+                                    style={pdfStyles.tableRow}
+                                >
+                                    {row.map((cell, ci) => (
+                                        <View
+                                            key={`td-${index}-${ri}-${ci}`}
+                                            style={[pdfStyles.tableCell, { width: colWidth }]}
+                                        >
+                                            <Text style={pdfStyles.tableCellText}>
+                                                {renderInlineTokens(cell, `td-${index}-${ri}-${ci}`)}
+                                            </Text>
+                                        </View>
+                                    ))}
+                                </View>
+                            ))}
+                        </View>
                     );
                 }
 
