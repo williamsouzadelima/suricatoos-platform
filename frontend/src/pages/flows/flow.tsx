@@ -36,6 +36,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -476,12 +477,12 @@ function FlowReportDropdown() {
         }
     };
 
-    const handleDownloadPDF = () => {
+    const handleExport = (type: 'executive' | 'technical', format: 'docx' | 'pdf' | 'pptx') => {
         if (isReportDisabled || !flow || !flowId) {
             return;
         }
 
-        const url = `/flows/${flowId}/report?download=true&silent=true`;
+        const url = `/flows/${flowId}/report?download=true&silent=true&type=${type}&format=${format}`;
         window.open(url, '_blank');
     };
 
@@ -531,13 +532,29 @@ function FlowReportDropdown() {
                     <Download className="size-4" />
                     {t('Download MD')}
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                    className="flex items-center gap-2"
-                    disabled={isReportDisabled}
-                    onClick={handleDownloadPDF}
-                >
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>{t('Technical report')}</DropdownMenuLabel>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'pdf')}>
                     <Download className="size-4" />
-                    {t('Download PDF')}
+                    PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'docx')}>
+                    <Download className="size-4" />
+                    {t('Word (.docx)')}
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'pptx')}>
+                    <Download className="size-4" />
+                    {t('PowerPoint (.pptx)')}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>{t('Executive report')}</DropdownMenuLabel>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('executive', 'pdf')}>
+                    <Download className="size-4" />
+                    PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('executive', 'pptx')}>
+                    <Download className="size-4" />
+                    {t('PowerPoint (.pptx)')}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

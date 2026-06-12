@@ -6,7 +6,18 @@ import Markdown from '@/components/shared/markdown';
 import { t } from '@/i18n';
 import { useFlowReportQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
-import { generateFileName, generatePDFFromMarkdown, generateReport } from '@/lib/report';
+import {
+    generateDOCXFromMarkdown,
+    generateExecutivePPTX,
+    generateExecutiveReport,
+    generateFileName,
+    generatePDFFromMarkdown,
+    generateReport,
+    generateTechnicalPPTX,
+} from '@/lib/report';
+
+type ReportFormat = 'docx' | 'pdf' | 'pptx';
+type ReportType = 'executive' | 'technical';
 
 type PdfPhase = 'done' | 'error' | 'idle';
 type ReportState = 'content' | 'error' | 'generating' | 'loading';
@@ -16,6 +27,10 @@ function FlowReport() {
     const [searchParams] = useSearchParams();
     const download = searchParams.has('download');
     const silent = searchParams.has('silent');
+    const reportType: ReportType = searchParams.get('type') === 'executive' ? 'executive' : 'technical';
+    const reportFormat: ReportFormat = ['docx', 'pptx'].includes(searchParams.get('format') ?? '')
+        ? (searchParams.get('format') as ReportFormat)
+        : 'pdf';
 
     const [pdfPhase, setPdfPhase] = useState<PdfPhase>('idle');
     const [pdfError, setPdfError] = useState<null | string>(null);
@@ -42,8 +57,13 @@ function FlowReport() {
     const dataReady = !loading && !queryError && !!data?.flow;
 
     const reportContent = useMemo(
-        () => (dataReady ? generateReport(data.tasks || [], data.flow!) : ''),
-        [dataReady, data],
+        () =>
+            dataReady
+                ? reportType === 'executive'
+                    ? generateExecutiveReport(data.tasks || [], data.flow!)
+                    : generateReport(data.tasks || [], data.flow!)
+                : '',
+        [dataReady, data, reportType],
     );
 
     useEffect(() => {
@@ -57,9 +77,27 @@ function FlowReport() {
 
         pdfTriggered.current = true;
 
-        const fileName = `${generateFileName(data.flow)}.pdf`;
+        const base = `${generateFileName(data.flow)}_${reportType === 'executive' ? 'executivo' : 'tecnico'}`;
+        const docTitle = `${data.flow.id}. ${data.flow.title}`;
+        const subtitle = reportType === 'executive' ? 'Relatório Executivo' : 'Relatório Técnico';
+        const tasks = data.tasks || [];
+        const flow = data.flow;
 
-        generatePDFFromMarkdown(reportContent, fileName)
+        const run = async (): Promise<void> => {
+            if (reportFormat === 'docx') {
+                await generateDOCXFromMarkdown(reportContent, base, { subtitle, title: docTitle });
+            } else if (reportFormat === 'pptx') {
+                if (reportType === 'executive') {
+                    await generateExecutivePPTX(tasks, flow, base);
+                } else {
+                    await generateTechnicalPPTX(reportContent, base, { title: docTitle });
+                }
+            } else {
+                await generatePDFFromMarkdown(reportContent, `${base}.pdf`);
+            }
+        };
+
+        run()
             .then(() => {
                 if (silent) {
                     setTimeout(() => window.close(), 1000);
@@ -68,11 +106,11 @@ function FlowReport() {
                 }
             })
             .catch((err) => {
-                Log.error('PDF generation failed:', err);
-                setPdfError(t('Failed to generate PDF'));
+                Log.error('Report generation failed:', err);
+                setPdfError(t('Failed to generate report'));
                 setPdfPhase('error');
             });
-    }, [dataReady, download, silent, reportContent, data]);
+    }, [dataReady, download, silent, reportContent, reportType, reportFormat, data]);
 
     let state: ReportState;
     let errorMessage: null | string = null;

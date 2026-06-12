@@ -92,6 +92,13 @@ const es: Record<string, string> = {
     '•••••••• (leave blank to keep)': '•••••••• (deje en blanco para mantener)',
     'Optional. Override the default API endpoint (base URL).':
         'Opcional. Sobrescribe el endpoint por defecto de la API (URL base).',
+
+    // ── Report export ────────────────────────────────────────────────────
+    'Technical report': 'Informe técnico',
+    'Executive report': 'Informe ejecutivo',
+    'Word (.docx)': 'Word (.docx)',
+    'PowerPoint (.pptx)': 'PowerPoint (.pptx)',
+    'Failed to generate report': 'Error al generar el informe',
 };
 
 export default es;

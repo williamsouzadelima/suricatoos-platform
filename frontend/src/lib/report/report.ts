@@ -185,6 +185,24 @@ export const downloadTextFile = (content: string, fileName: string, mimeType = '
     }
 };
 
+// Download a binary Blob (docx/pptx) directly — never round-trip through text().
+export const downloadBlob = (blob: Blob, fileName: string): void => {
+    try {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        Log.error('Failed to download blob:', error);
+        throw error;
+    }
+};
+
 export const copyToClipboard = async (text: string): Promise<boolean> => {
     try {
         await navigator.clipboard.writeText(text);
@@ -210,4 +228,70 @@ export const generatePDFBlob = async (content: string): Promise<Blob> => {
     const { generatePDFBlobNew } = await import('./report-pdf');
 
     return generatePDFBlobNew(content);
+};
+
+// ── Executive report (condensed business summary) ─────────────────────────
+export const generateExecutiveReport = (tasks: TaskFragmentFragment[], flow?: FlowFragmentFragment | null): string => {
+    const title = flow ? `${flow.id}. ${flow.title}` : 'Engajamento';
+    const sorted = [...(tasks ?? [])].sort((a, b) => +a.id - +b.id);
+    const count = (s: StatusType): number => sorted.filter((t) => t.status === s).length;
+    const finished = count(StatusType.Finished);
+    const failed = count(StatusType.Failed);
+    const ongoing = count(StatusType.Running) + count(StatusType.Waiting) + count(StatusType.Created);
+
+    let md = `# Relatório Executivo\n\n## ${title}\n\n`;
+    md += `**Data:** ${new Date().toLocaleString()}  \n**Status do engajamento:** ${flow?.status ?? '—'}\n\n`;
+    md += `## Resumo\n\nEngajamento autônomo conduzido pela Suricatoos, com **${sorted.length} tarefa(s)**: `;
+    md += `${finished} concluída(s), ${failed} com falha e ${ongoing} em andamento/pendente(s).\n\n`;
+
+    if (sorted.length > 0) {
+        md += `## Visão geral das tarefas\n\n| # | Tarefa | Status |\n| --- | --- | --- |\n`;
+        sorted.forEach((t) => {
+            md += `| ${t.id} | ${t.title} | ${getStatusEmoji(t.status)} ${t.status} |\n`;
+        });
+        md += `\n`;
+    }
+
+    md += `## Próximos passos\n\nRevisar os achados de maior risco, priorizar a remediação e reexecutar para validar as correções. O relatório técnico detalha cada tarefa, evidência e recomendação.\n`;
+
+    return md;
+};
+
+/** Status counts for the executive charts. */
+export const summarizeTaskStatuses = (
+    tasks: TaskFragmentFragment[],
+): { failed: number; finished: number; ongoing: number; total: number } => {
+    const count = (s: StatusType): number => tasks.filter((t) => t.status === s).length;
+    const finished = count(StatusType.Finished);
+    const failed = count(StatusType.Failed);
+    const ongoing = count(StatusType.Running) + count(StatusType.Waiting) + count(StatusType.Created);
+
+    return { failed, finished, ongoing, total: tasks.length };
+};
+
+// ── Lazy DOCX / PPTX generators (heavy libs loaded only on export) ─────────
+export const generateDOCXFromMarkdown = async (
+    content: string,
+    fileName: string,
+    meta: { subtitle?: string; title: string },
+): Promise<void> => {
+    const { generateDOCXFromMarkdownNew } = await import('./report-docx');
+
+    return generateDOCXFromMarkdownNew(content, fileName, meta);
+};
+
+export const generateTechnicalPPTX = async (content: string, fileName: string, meta: { title: string }): Promise<void> => {
+    const { generateTechnicalPPTXNew } = await import('./report-pptx');
+
+    return generateTechnicalPPTXNew(content, fileName, meta);
+};
+
+export const generateExecutivePPTX = async (
+    tasks: TaskFragmentFragment[],
+    flow: FlowFragmentFragment | null | undefined,
+    fileName: string,
+): Promise<void> => {
+    const { generateExecutivePPTXNew } = await import('./report-pptx');
+
+    return generateExecutivePPTXNew(tasks, flow, fileName);
 };
