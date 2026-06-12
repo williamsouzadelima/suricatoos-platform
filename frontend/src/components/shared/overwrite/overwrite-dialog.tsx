@@ -1,6 +1,7 @@
 import { Replace } from 'lucide-react';
 
 import ConfirmationDialog from '@/components/shared/confirmation-dialog';
+import { t } from '@/i18n';
 
 export interface OverwriteConflict {
     destination: string;
@@ -46,7 +47,7 @@ const buildDefaultDescription = (conflicts: OverwriteConflict[]): string | undef
     return undefined;
 };
 
-const buildDefaultConfirmText = (count: number): string => (count > 1 ? 'Replace all' : 'Replace');
+const buildDefaultConfirmText = (count: number): string => (count > 1 ? t('Replace all') : t('Replace'));
 
 /**
  * Shared "Replace or cancel" confirmation for destructive overwrite flows
@@ -63,11 +64,11 @@ export function OverwriteDialog({
     description,
     onCancel,
     onReplaceAll,
-    title = 'Replace existing item?',
+    title = t('Replace existing item?'),
 }: OverwriteDialogProps) {
     return (
         <ConfirmationDialog
-            cancelText="Cancel"
+            cancelText={t('Cancel')}
             confirmIcon={<Replace />}
             confirmText={confirmText ?? buildDefaultConfirmText(conflicts.length)}
             confirmVariant="destructive"

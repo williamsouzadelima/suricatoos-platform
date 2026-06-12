@@ -12,6 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 type ConfirmationDialogIconProps = ReactElement<React.SVGProps<SVGSVGElement>>;
@@ -35,10 +36,10 @@ interface ConfirmationDialogProps {
 
 function ConfirmationDialog({
     cancelIcon,
-    cancelText = 'Cancel',
+    cancelText = t('Cancel'),
     cancelVariant = 'outline',
     confirmIcon = <Trash2 />,
-    confirmText = 'Confirm',
+    confirmText = t('Confirm'),
     confirmVariant = 'destructive',
     description,
     handleConfirm,
@@ -54,11 +55,11 @@ function ConfirmationDialog({
     // see "Confirm Action" for a Delete prompt or a Save prompt. Explicit
     // `title` always wins.
     const verb = confirmText.trim();
-    const resolvedTitle = title ?? (verb && verb !== 'Confirm' ? `${verb} ${itemType}` : 'Confirm Action');
+    const resolvedTitle = title ?? (verb && verb !== 'Confirm' ? `${verb} ${itemType}` : t('Confirm Action'));
 
     const defaultDescription = description || (
         <>
-            Are you sure you want to {verb.toLowerCase() || 'perform this action on'}{' '}
+            Are you sure you want to {verb.toLowerCase() || t('perform this action on')}{' '}
             <strong className="text-foreground font-semibold">{itemName}</strong> {itemType}?
         </>
     );

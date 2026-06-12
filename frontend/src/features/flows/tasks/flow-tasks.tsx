@@ -10,6 +10,7 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { useAutoScroll } from '@/hooks/use-auto-scroll';
+import { t } from '@/i18n';
 import { useFlow } from '@/providers/flow-provider';
 
 import FlowTask from './flow-task';
@@ -113,7 +114,7 @@ function FlowTasks() {
                                         <InputGroupInput
                                             {...field}
                                             autoComplete="off"
-                                            placeholder="Search tasks and subtasks..."
+                                            placeholder={t('Search tasks and subtasks...')}
                                             type="text"
                                         />
                                         {field.value && (
@@ -175,8 +176,8 @@ function FlowTasks() {
                         <EmptyMedia variant="icon">
                             <ListTodo />
                         </EmptyMedia>
-                        <EmptyTitle>No tasks found for this flow</EmptyTitle>
-                        <EmptyDescription>Tasks will appear here once the agent starts working</EmptyDescription>
+                        <EmptyTitle>{t('No tasks found for this flow')}</EmptyTitle>
+                        <EmptyDescription>{t('Tasks will appear here once the agent starts working')}</EmptyDescription>
                     </EmptyHeader>
                 </Empty>
             )}

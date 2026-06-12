@@ -12,6 +12,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Spinner } from '@/components/ui/spinner';
+import { t } from '@/i18n';
 
 export interface UnsavedChangesDialogProps {
     /** When `false`, the "Save & leave" button is disabled (e.g. form is invalid). */
@@ -32,8 +33,8 @@ export interface UnsavedChangesDialogProps {
 
 function UnsavedChangesDialog({
     canSave,
-    description = 'You have unsaved changes on this page. Would you like to save them before leaving?',
-    discardText = 'Discard',
+    description = t('You have unsaved changes on this page. Would you like to save them before leaving?'),
+    discardText = t('Discard'),
     handleCancel,
     handleDiscard,
     handleOpenChange,
@@ -41,8 +42,8 @@ function UnsavedChangesDialog({
     isOpen,
     isSavingFromDialog,
     saveIcon = <Save />,
-    saveText = 'Save',
-    title = 'Unsaved changes',
+    saveText = t('Save'),
+    title = t('Unsaved changes'),
 }: UnsavedChangesDialogProps) {
     return (
         <Dialog
@@ -72,7 +73,7 @@ function UnsavedChangesDialog({
                         onClick={handleCancel}
                         variant="outline"
                     >
-                        Cancel
+                        {t('Cancel')}
                     </Button>
                     <Button
                         disabled={isSavingFromDialog}

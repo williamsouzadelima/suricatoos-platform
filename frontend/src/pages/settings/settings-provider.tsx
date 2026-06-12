@@ -47,6 +47,7 @@ import {
     useTestProviderMutation,
     useUpdateProviderMutation,
 } from '@/graphql/types';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 interface BaseFieldProps extends ControllerProps {
@@ -687,7 +688,7 @@ function TestResultsDialog({ handleOpenChange, isOpen, results }: TestResultsDia
         >
             <DialogContent className="flex max-h-[80vh] max-w-4xl flex-col">
                 <DialogHeader className="shrink-0">
-                    <DialogTitle>Provider Test Results</DialogTitle>
+                    <DialogTitle>{t('Provider Test Results')}</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-1 flex-col gap-6 overflow-y-auto">
                     <Accordion
@@ -707,7 +708,7 @@ function TestResultsDialog({ handleOpenChange, isOpen, results }: TestResultsDia
                                         <div className="mr-4 flex w-full items-center justify-between">
                                             <span className="text-lg font-semibold capitalize">{agentType}</span>
                                             <span className="text-muted-foreground text-sm">
-                                                {successTestsCount}/{testsCount} tests passed
+                                                {successTestsCount}/{testsCount} {t('tests passed')}
                                             </span>
                                         </div>
                                     </AccordionTrigger>
@@ -730,34 +731,34 @@ function TestResultsDialog({ handleOpenChange, isOpen, results }: TestResultsDia
                                                         </div>
                                                         <div className="text-muted-foreground flex items-center gap-3 text-sm">
                                                             {test.reasoning !== undefined && (
-                                                                <span>Reasoning: {test.reasoning ? 'Yes' : 'No'}</span>
+                                                                <span>{t('Reasoning:')} {test.reasoning ? t('Yes') : t('No')}</span>
                                                             )}
                                                             {test.streaming !== undefined && (
-                                                                <span>Streaming: {test.streaming ? 'Yes' : 'No'}</span>
+                                                                <span>{t('Streaming:')} {test.streaming ? t('Yes') : t('No')}</span>
                                                             )}
-                                                            {test.latency && <span>Latency: {test.latency}ms</span>}
+                                                            {test.latency && <span>{t('Latency:')} {test.latency}ms</span>}
                                                         </div>
                                                     </div>
                                                     <div
                                                         className={`text-sm font-medium ${getStatusColor(test.result)}`}
                                                     >
-                                                        Result:{' '}
+                                                        {t('Result:')}{' '}
                                                         {test.result === true
-                                                            ? 'Success'
+                                                            ? t('Success')
                                                             : test.result === false
-                                                              ? 'Failed'
-                                                              : 'Unknown'}
+                                                              ? t('Failed')
+                                                              : t('Unknown')}
                                                     </div>
                                                     {test.error && (
                                                         <div className="mt-2 rounded border border-red-200 bg-red-50 p-2 text-sm text-red-700">
-                                                            <strong>Error:</strong> {test.error}
+                                                            <strong>{t('Error:')}</strong> {test.error}
                                                         </div>
                                                     )}
                                                 </div>
                                             ))}
                                             {tests.length === 0 && (
                                                 <div className="text-muted-foreground py-4 text-center">
-                                                    No tests available for this agent
+                                                    {t('No tests available for this agent')}
                                                 </div>
                                             )}
                                         </div>
@@ -841,7 +842,7 @@ function SettingsProvider() {
     // by popstate below — react-router's blocker doesn't cover the native back gesture.
     useEffect(() => {
         if (isDirty && !hasPushedBlockerStateRef.current) {
-            window.history.pushState({ __pentagiBlock__: true }, '');
+            window.history.pushState({ __suricatoosBlock__: true }, '');
             hasPushedBlockerStateRef.current = true;
         }
     }, [isDirty]);
@@ -1086,7 +1087,7 @@ function SettingsProvider() {
             navigate('/settings/providers');
         } catch (error) {
             console.error('Submit error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while saving');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while saving'));
         }
     };
 
@@ -1114,7 +1115,7 @@ function SettingsProvider() {
             navigate('/settings/providers');
         } catch (error) {
             console.error('Delete error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while deleting');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while deleting'));
         }
     };
 
@@ -1191,7 +1192,7 @@ function SettingsProvider() {
             setIsTestDialogOpen(true);
         } catch (error) {
             console.error('Test error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while testing');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while testing'));
         }
     };
 
@@ -1267,7 +1268,7 @@ function SettingsProvider() {
             return;
         } catch (error) {
             console.error('Test error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while testing');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while testing'));
             setCurrentAgentKey(null);
         }
     };
@@ -1306,9 +1307,9 @@ function SettingsProvider() {
     if (loading) {
         return (
             <StatusCard
-                description="Please wait while we fetch provider configuration"
+                description={t('Please wait while we fetch provider configuration')}
                 icon={<Loader2 className="text-muted-foreground size-16 animate-spin" />}
-                title="Loading provider data..."
+                title={t('Loading provider data...')}
             />
         );
     }
@@ -1317,7 +1318,7 @@ function SettingsProvider() {
         return (
             <Alert variant="destructive">
                 <AlertCircle className="size-4" />
-                <AlertTitle>Error loading provider data</AlertTitle>
+                <AlertTitle>{t('Error loading provider data')}</AlertTitle>
                 <AlertDescription>{error.message}</AlertDescription>
             </Alert>
         );
@@ -1335,13 +1336,13 @@ function SettingsProvider() {
                 <div className="flex flex-col gap-2">
                     <h2 className="flex items-center gap-2 text-lg font-semibold">
                         <Cpu className="text-muted-foreground size-5" />
-                        {isNew ? 'New Provider' : 'Provider Settings'}
+                        {isNew ? t('New Provider') : t('Provider Settings')}
                     </h2>
 
                     <div className="text-muted-foreground">
                         {isNew
-                            ? 'Configure a new language model provider'
-                            : 'Update provider settings and configuration'}
+                            ? t('Configure a new language model provider')
+                            : t('Update provider settings and configuration')}
                     </div>
                 </div>
 
@@ -1355,7 +1356,7 @@ function SettingsProvider() {
                         {mutationError && (
                             <Alert variant="destructive">
                                 <AlertCircle className="size-4" />
-                                <AlertTitle>Error</AlertTitle>
+                                <AlertTitle>{t('Error')}</AlertTitle>
                                 <AlertDescription>
                                     {mutationError instanceof Error ? (
                                         mutationError.message
@@ -1370,28 +1371,28 @@ function SettingsProvider() {
                         <FormComboboxItem
                             allowCustom={false}
                             control={control}
-                            description="The type of language model provider"
+                            description={t('The type of language model provider')}
                             disabled={isLoading || !!selectedType}
-                            label="Type"
+                            label={t('Type')}
                             name="type"
                             options={providers}
-                            placeholder="Select provider"
+                            placeholder={t('Select provider')}
                         />
 
                         <FormInputStringItem
                             control={control}
-                            description="A unique name for your provider configuration"
+                            description={t('A unique name for your provider configuration')}
                             disabled={isLoading}
-                            label="Name"
+                            label={t('Name')}
                             name="name"
-                            placeholder="Enter provider name"
+                            placeholder={t('Enter provider name')}
                         />
 
                         {/* Agents Configuration Section */}
                         <div className="flex flex-col gap-4">
                             <div>
-                                <h3 className="text-lg font-medium">Agent Configurations</h3>
-                                <p className="text-muted-foreground text-sm">Configure settings for each agent type</p>
+                                <h3 className="text-lg font-medium">{t('Agent Configurations')}</h3>
+                                <p className="text-muted-foreground text-sm">{t('Configure settings for each agent type')}</p>
                             </div>
 
                             <Accordion
@@ -1428,8 +1429,8 @@ function SettingsProvider() {
                                                     )}
                                                     <span className="no-underline! hover:no-underline!">
                                                         {isAgentTestLoading && currentAgentKey === agentKey
-                                                            ? 'Testing...'
-                                                            : 'Test'}
+                                                            ? t('Testing...')
+                                                            : t('Test')}
                                                     </span>
                                                 </span>
                                             </div>
@@ -1440,7 +1441,7 @@ function SettingsProvider() {
                                                 <FormModelComboboxItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Model"
+                                                    label={t('Model')}
                                                     name={`agents.${agentKey}.model`}
                                                     onOptionSelect={(option) => {
                                                         {
@@ -1467,14 +1468,14 @@ function SettingsProvider() {
                                                         );
                                                     }}
                                                     options={availableModels}
-                                                    placeholder="Select or enter model name"
+                                                    placeholder={t('Select or enter model name')}
                                                 />
 
                                                 {/* Temperature field */}
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Temperature"
+                                                    label={t('Temperature')}
                                                     max="2"
                                                     min="0"
                                                     name={`agents.${agentKey}.temperature`}
@@ -1486,7 +1487,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Max Tokens"
+                                                    label={t('Max Tokens')}
                                                     min="1"
                                                     name={`agents.${agentKey}.maxTokens`}
                                                     placeholder="1000"
@@ -1497,7 +1498,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Top P"
+                                                    label={t('Top P')}
                                                     max="1"
                                                     min="0"
                                                     name={`agents.${agentKey}.topP`}
@@ -1509,7 +1510,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Top K"
+                                                    label={t('Top K')}
                                                     min="1"
                                                     name={`agents.${agentKey}.topK`}
                                                     placeholder="40"
@@ -1520,7 +1521,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Min Length"
+                                                    label={t('Min Length')}
                                                     min="0"
                                                     name={`agents.${agentKey}.minLength`}
                                                     placeholder="0"
@@ -1531,7 +1532,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Max Length"
+                                                    label={t('Max Length')}
                                                     min="1"
                                                     name={`agents.${agentKey}.maxLength`}
                                                     placeholder="2000"
@@ -1542,7 +1543,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Repetition Penalty"
+                                                    label={t('Repetition Penalty')}
                                                     max="2"
                                                     min="0"
                                                     name={`agents.${agentKey}.repetitionPenalty`}
@@ -1554,7 +1555,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Frequency Penalty"
+                                                    label={t('Frequency Penalty')}
                                                     max="2"
                                                     min="0"
                                                     name={`agents.${agentKey}.frequencyPenalty`}
@@ -1566,7 +1567,7 @@ function SettingsProvider() {
                                                 <FormInputNumberItem
                                                     control={control}
                                                     disabled={isLoading}
-                                                    label="Presence Penalty"
+                                                    label={t('Presence Penalty')}
                                                     max="2"
                                                     min="0"
                                                     name={`agents.${agentKey}.presencePenalty`}
@@ -1578,7 +1579,7 @@ function SettingsProvider() {
                                             {/* Reasoning Configuration */}
                                             <div className="col-span-full p-px">
                                                 <div className="mt-6 flex flex-col gap-4">
-                                                    <h4 className="text-sm font-medium">Reasoning Configuration</h4>
+                                                    <h4 className="text-sm font-medium">{t('Reasoning Configuration')}</h4>
                                                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                                         {/* Reasoning Effort field */}
                                                         <FormField
@@ -1586,7 +1587,7 @@ function SettingsProvider() {
                                                             name={`agents.${agentKey}.reasoning.effort`}
                                                             render={({ field }) => (
                                                                 <FormItem>
-                                                                    <FormLabel>Reasoning Effort</FormLabel>
+                                                                    <FormLabel>{t('Reasoning Effort')}</FormLabel>
                                                                     <Select
                                                                         defaultValue={field.value ?? 'none'}
                                                                         disabled={isLoading}
@@ -1598,21 +1599,21 @@ function SettingsProvider() {
                                                                     >
                                                                         <FormControl>
                                                                             <SelectTrigger>
-                                                                                <SelectValue placeholder="Select effort level (optional)" />
+                                                                                <SelectValue placeholder={t('Select effort level (optional)')} />
                                                                             </SelectTrigger>
                                                                         </FormControl>
                                                                         <SelectContent>
                                                                             <SelectItem value="none">
-                                                                                Not selected
+                                                                                {t('Not selected')}
                                                                             </SelectItem>
                                                                             <SelectItem value={ReasoningEffort.Low}>
-                                                                                Low
+                                                                                {t('Low')}
                                                                             </SelectItem>
                                                                             <SelectItem value={ReasoningEffort.Medium}>
-                                                                                Medium
+                                                                                {t('Medium')}
                                                                             </SelectItem>
                                                                             <SelectItem value={ReasoningEffort.High}>
-                                                                                High
+                                                                                {t('High')}
                                                                             </SelectItem>
                                                                         </SelectContent>
                                                                     </Select>
@@ -1625,7 +1626,7 @@ function SettingsProvider() {
                                                         <FormInputNumberItem
                                                             control={control}
                                                             disabled={isLoading}
-                                                            label="Reasoning Max Tokens"
+                                                            label={t('Reasoning Max Tokens')}
                                                             min="1"
                                                             name={`agents.${agentKey}.reasoning.maxTokens`}
                                                             placeholder="1000"
@@ -1638,14 +1639,14 @@ function SettingsProvider() {
                                             {/* Price Configuration */}
                                             <div className="col-span-full p-px">
                                                 <div className="mt-6 flex flex-col gap-4">
-                                                    <h4 className="text-sm font-medium">Price Configuration</h4>
+                                                    <h4 className="text-sm font-medium">{t('Price Configuration')}</h4>
                                                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                                         {/* Price Input field */}
                                                         <FormInputNumberItem
                                                             control={control}
-                                                            description="Price per 1M input tokens"
+                                                            description={t('Price per 1M input tokens')}
                                                             disabled={isLoading}
-                                                            label="Input Price"
+                                                            label={t('Input Price')}
                                                             min="0"
                                                             name={`agents.${agentKey}.price.input`}
                                                             placeholder="0.001"
@@ -1655,9 +1656,9 @@ function SettingsProvider() {
                                                         {/* Price Output field */}
                                                         <FormInputNumberItem
                                                             control={control}
-                                                            description="Price per 1M output tokens"
+                                                            description={t('Price per 1M output tokens')}
                                                             disabled={isLoading}
-                                                            label="Output Price"
+                                                            label={t('Output Price')}
                                                             min="0"
                                                             name={`agents.${agentKey}.price.output`}
                                                             placeholder="0.002"
@@ -1667,9 +1668,9 @@ function SettingsProvider() {
                                                         {/* Cache Read Price field */}
                                                         <FormInputNumberItem
                                                             control={control}
-                                                            description="Price per 1M cached read tokens"
+                                                            description={t('Price per 1M cached read tokens')}
                                                             disabled={isLoading}
-                                                            label="Cache Read Price"
+                                                            label={t('Cache Read Price')}
                                                             min="0"
                                                             name={`agents.${agentKey}.price.cacheRead`}
                                                             placeholder="0.0001"
@@ -1679,9 +1680,9 @@ function SettingsProvider() {
                                                         {/* Cache Write Price field */}
                                                         <FormInputNumberItem
                                                             control={control}
-                                                            description="Price per 1M cache write tokens"
+                                                            description={t('Price per 1M cache write tokens')}
                                                             disabled={isLoading}
-                                                            label="Cache Write Price"
+                                                            label={t('Cache Write Price')}
                                                             min="0"
                                                             name={`agents.${agentKey}.price.cacheWrite`}
                                                             placeholder="0.00015"
@@ -1715,7 +1716,7 @@ function SettingsProvider() {
                             ) : (
                                 <Trash2 className="size-4" />
                             )}
-                            {isDeleteLoading ? 'Deleting...' : 'Delete'}
+                            {isDeleteLoading ? t('Deleting...') : t('Delete')}
                         </Button>
                     )}
                     <Button
@@ -1725,7 +1726,7 @@ function SettingsProvider() {
                         variant="outline"
                     >
                         {isTestLoading ? <Loader2 className="size-4 animate-spin" /> : <Play className="size-4" />}
-                        {isTestLoading ? 'Testing...' : 'Test'}
+                        {isTestLoading ? t('Testing...') : t('Test')}
                     </Button>
                 </div>
 
@@ -1736,7 +1737,7 @@ function SettingsProvider() {
                         type="button"
                         variant="outline"
                     >
-                        Cancel
+                        {t('Cancel')}
                     </Button>
                     <FormSubmitButton
                         form="provider-form"
@@ -1744,7 +1745,7 @@ function SettingsProvider() {
                         loading={isLoading}
                         variant="secondary"
                     >
-                        {isLoading ? 'Saving...' : isNew ? 'Create Provider' : 'Update Provider'}
+                        {isLoading ? t('Saving...') : isNew ? t('Create Provider') : t('Update Provider')}
                     </FormSubmitButton>
                 </div>
             </div>
@@ -1756,25 +1757,25 @@ function SettingsProvider() {
             />
 
             <ConfirmationDialog
-                cancelText="Cancel"
-                confirmText="Delete"
+                cancelText={t('Cancel')}
+                confirmText={t('Delete')}
                 handleConfirm={handleConfirmDelete}
                 handleOpenChange={setIsDeleteDialogOpen}
                 isOpen={isDeleteDialogOpen}
                 itemName={providerName}
-                itemType="provider"
+                itemType={t('provider')}
             />
 
             <ConfirmationDialog
-                cancelText="Stay"
+                cancelText={t('Stay')}
                 confirmIcon={undefined}
-                confirmText="Leave"
+                confirmText={t('Leave')}
                 confirmVariant="destructive"
-                description="You have unsaved changes. Are you sure you want to leave without saving?"
+                description={t('You have unsaved changes. Are you sure you want to leave without saving?')}
                 handleConfirm={handleConfirmLeave}
                 handleOpenChange={handleLeaveDialogOpenChange}
                 isOpen={isLeaveDialogOpen}
-                title="Discard changes?"
+                title={t('Discard changes?')}
             />
         </>
     );

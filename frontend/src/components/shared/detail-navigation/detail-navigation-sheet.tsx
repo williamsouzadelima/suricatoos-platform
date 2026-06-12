@@ -4,6 +4,7 @@ import { type KeyboardEvent, type ReactNode, useCallback, useEffect, useMemo, us
 import { Badge } from '@/components/ui/badge';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 import type { DetailNavigationController } from './use-detail-navigation';
@@ -38,7 +39,7 @@ export function DetailNavigationSheet<T extends { id: string }>({
     controller,
     hasSearch = true,
     renderItem,
-    searchPlaceholder = 'Search…',
+    searchPlaceholder = t('Search…'),
     sheetIcon,
     sheetTitle,
 }: DetailNavigationSheetProps<T>) {
@@ -372,7 +373,7 @@ export function DetailNavigationSheet<T extends { id: string }>({
                             {hasClearButton ? (
                                 <InputGroupAddon align="inline-end">
                                     <InputGroupButton
-                                        aria-label="Clear search"
+                                        aria-label={t('Clear search')}
                                         onClick={handleSearchClear}
                                         size="icon-sm"
                                         type="button"
@@ -434,7 +435,7 @@ export function DetailNavigationSheet<T extends { id: string }>({
                     <div className="text-muted-foreground flex flex-1 items-center justify-center px-4 text-center text-sm">
                         {trimmedQuery.length > 0
                             ? `No items match "${trimmedQuery}".`
-                            : 'No items match the current filter.'}
+                            : t('No items match the current filter.')}
                     </div>
                 )}
             </SheetContent>

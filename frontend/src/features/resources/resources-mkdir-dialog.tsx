@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { Input } from '@/components/ui/input';
+import { t } from '@/i18n';
 
 import { resourcesMkdirFormSchema, type ResourcesMkdirFormValues, useResourcesMkdir } from './use-resources-mkdir';
 
@@ -74,11 +75,12 @@ function ResourcesMkdirDialogForm({ defaultParentPath, onClose }: ResourcesMkdir
             <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                     <FolderPlus className="size-4" />
-                    Create directory
+                    {t('Create directory')}
                 </DialogTitle>
                 <DialogDescription>
-                    Create a virtual directory inside your resource library. Existing parent directories are reused
-                    automatically.
+                    {t(
+                        'Create a virtual directory inside your resource library. Existing parent directories are reused automatically.',
+                    )}
                 </DialogDescription>
             </DialogHeader>
 
@@ -92,18 +94,18 @@ function ResourcesMkdirDialogForm({ defaultParentPath, onClose }: ResourcesMkdir
                         name="path"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Path</FormLabel>
+                                <FormLabel>{t('Path')}</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
                                         autoComplete="off"
                                         autoFocus
                                         disabled={isCreating}
-                                        placeholder="reports/2025"
+                                        placeholder={t('reports/2025')}
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    Relative path. Use <code>/</code> to nest into subdirectories.
+                                    {t('Relative path. Use')} <code>/</code> {t('to nest into subdirectories.')}
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -117,9 +119,9 @@ function ResourcesMkdirDialogForm({ defaultParentPath, onClose }: ResourcesMkdir
                             type="button"
                             variant="outline"
                         >
-                            Cancel
+                            {t('Cancel')}
                         </Button>
-                        <FormSubmitButton icon={<FolderPlus />}>Create</FormSubmitButton>
+                        <FormSubmitButton icon={<FolderPlus />}>{t('Create')}</FormSubmitButton>
                     </div>
                 </form>
             </Form>

@@ -10,6 +10,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { useAutoScroll } from '@/hooks/use-auto-scroll';
+import { t } from '@/i18n';
 import { useFlow } from '@/providers/flow-provider';
 
 import FlowTasksDropdown from '../flow-tasks-dropdown';
@@ -157,7 +158,7 @@ function FlowVectorStores() {
                                         <InputGroupInput
                                             {...field}
                                             autoComplete="off"
-                                            placeholder="Search vector store logs..."
+                                            placeholder={t('Search vector store logs...')}
                                             type="text"
                                         />
                                         {field.value && (
@@ -230,8 +231,8 @@ function FlowVectorStores() {
                         <EmptyMedia variant="icon">
                             <ListFilter />
                         </EmptyMedia>
-                        <EmptyTitle>No vector store logs found</EmptyTitle>
-                        <EmptyDescription>Try adjusting your search or filter parameters</EmptyDescription>
+                        <EmptyTitle>{t('No vector store logs found')}</EmptyTitle>
+                        <EmptyDescription>{t('Try adjusting your search or filter parameters')}</EmptyDescription>
                     </EmptyHeader>
                     <EmptyContent>
                         <Button
@@ -239,7 +240,7 @@ function FlowVectorStores() {
                             variant="outline"
                         >
                             <X />
-                            Reset filters
+                            {t('Reset filters')}
                         </Button>
                     </EmptyContent>
                 </Empty>
@@ -249,9 +250,9 @@ function FlowVectorStores() {
                         <EmptyMedia variant="icon">
                             <Database />
                         </EmptyMedia>
-                        <EmptyTitle>No vector store logs available</EmptyTitle>
+                        <EmptyTitle>{t('No vector store logs available')}</EmptyTitle>
                         <EmptyDescription>
-                            Vector store logs will appear here when the agent uses knowledge database
+                            {t('Vector store logs will appear here when the agent uses knowledge database')}
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>

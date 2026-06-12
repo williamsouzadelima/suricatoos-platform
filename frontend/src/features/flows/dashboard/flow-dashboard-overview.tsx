@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import FlowAgentIcon from '@/features/flows/agents/flow-agent-icon';
+import { t } from '@/i18n';
 import {
     AgentType,
     useFlowStatsByFlowQuery,
@@ -109,28 +110,28 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
                     description={`Subtasks: ${flowStats?.totalSubtasksCount ?? 0} · Assistants: ${flowStats?.totalAssistantsCount ?? 0}`}
                     icon={<GitFork className="text-muted-foreground size-4" />}
                     loading={anyLoading}
-                    title="Tasks"
+                    title={t('Tasks')}
                     value={flowStats ? formatNumber(flowStats.totalTasksCount) : '0'}
                 />
                 <MetricCard
                     description={`Duration: ${toolcalls ? formatDuration(toolcalls.totalDurationSeconds) : '—'}`}
                     icon={<Activity className="text-muted-foreground size-4" />}
                     loading={anyLoading}
-                    title="Tool Calls"
+                    title={t('Tool Calls')}
                     value={toolcalls ? formatNumber(toolcalls.totalCount) : '0'}
                 />
                 <MetricCard
-                    description="Input + Output tokens"
+                    description={t('Input + Output tokens')}
                     icon={<Cpu className="text-muted-foreground size-4" />}
                     loading={anyLoading}
-                    title="Tokens"
+                    title={t('Tokens')}
                     value={formatTokenCount(totalTokens)}
                 />
                 <MetricCard
-                    description="LLM spending for this flow"
+                    description={t('LLM spending for this flow')}
                     icon={<CircleDollarSign className="text-muted-foreground size-4" />}
                     loading={anyLoading}
-                    title="Cost"
+                    title={t('Cost')}
                     value={formatCost(totalCost)}
                 />
             </div>
@@ -138,9 +139,9 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
             {!!modelAgentRows.length && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>Usage by Model &amp; Provider</CardTitle>
+                        <CardTitle>{t('Usage by Model & Provider')}</CardTitle>
                         <CardDescription>
-                            LLM token usage and costs grouped by model and provider, with agent types used
+                            {t('LLM token usage and costs grouped by model and provider, with agent types used')}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -150,16 +151,16 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="whitespace-nowrap">Model</TableHead>
-                                        <TableHead className="whitespace-nowrap">Provider</TableHead>
-                                        <TableHead className="whitespace-nowrap">Agents</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Tokens In</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Tokens Out</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Cache In</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Cache Out</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Cost In</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Cost Out</TableHead>
-                                        <TableHead className="text-right whitespace-nowrap">Total Cost</TableHead>
+                                        <TableHead className="whitespace-nowrap">{t('Model')}</TableHead>
+                                        <TableHead className="whitespace-nowrap">{t('Provider')}</TableHead>
+                                        <TableHead className="whitespace-nowrap">{t('Agents')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Tokens In')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Tokens Out')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Cache In')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Cache Out')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Cost In')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Cost Out')}</TableHead>
+                                        <TableHead className="text-right whitespace-nowrap">{t('Total Cost')}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -212,8 +213,8 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
             {!!agentTypeRows.length && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>Usage by Agent Type</CardTitle>
-                        <CardDescription>LLM token usage and costs per agent type in this flow</CardDescription>
+                        <CardTitle>{t('Usage by Agent Type')}</CardTitle>
+                        <CardDescription>{t('LLM token usage and costs per agent type in this flow')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {usageByAgentLoading ? (
@@ -222,14 +223,14 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Agent Type</TableHead>
-                                        <TableHead className="text-right">Tokens In</TableHead>
-                                        <TableHead className="text-right">Tokens Out</TableHead>
-                                        <TableHead className="text-right">Cache In</TableHead>
-                                        <TableHead className="text-right">Cache Out</TableHead>
-                                        <TableHead className="text-right">Cost In</TableHead>
-                                        <TableHead className="text-right">Cost Out</TableHead>
-                                        <TableHead className="text-right">Total Cost</TableHead>
+                                        <TableHead>{t('Agent Type')}</TableHead>
+                                        <TableHead className="text-right">{t('Tokens In')}</TableHead>
+                                        <TableHead className="text-right">{t('Tokens Out')}</TableHead>
+                                        <TableHead className="text-right">{t('Cache In')}</TableHead>
+                                        <TableHead className="text-right">{t('Cache Out')}</TableHead>
+                                        <TableHead className="text-right">{t('Cost In')}</TableHead>
+                                        <TableHead className="text-right">{t('Cost Out')}</TableHead>
+                                        <TableHead className="text-right">{t('Total Cost')}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -250,8 +251,8 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
             {!!toolcallsByFunction.length && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>Tool Calls by Function</CardTitle>
-                        <CardDescription>Execution statistics per tool function in this flow</CardDescription>
+                        <CardTitle>{t('Tool Calls by Function')}</CardTitle>
+                        <CardDescription>{t('Execution statistics per tool function in this flow')}</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {toolcallsByFunctionLoading ? (
@@ -260,11 +261,11 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Function</TableHead>
-                                        <TableHead>Type</TableHead>
-                                        <TableHead className="text-right">Count</TableHead>
-                                        <TableHead className="text-right">Total Duration</TableHead>
-                                        <TableHead className="text-right">Avg Duration</TableHead>
+                                        <TableHead>{t('Function')}</TableHead>
+                                        <TableHead>{t('Type')}</TableHead>
+                                        <TableHead className="text-right">{t('Count')}</TableHead>
+                                        <TableHead className="text-right">{t('Total Duration')}</TableHead>
+                                        <TableHead className="text-right">{t('Avg Duration')}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -273,7 +274,7 @@ export function FlowDashboardOverview({ flowId }: { flowId: string }) {
                                             <TableCell className="font-medium">{item.functionName}</TableCell>
                                             <TableCell>
                                                 <Badge variant={item.isAgent ? 'secondary' : 'outline'}>
-                                                    {item.isAgent ? 'Agent' : 'Tool'}
+                                                    {item.isAgent ? t('Agent') : t('Tool')}
                                                 </Badge>
                                             </TableCell>
                                             <TableCell className="text-right">

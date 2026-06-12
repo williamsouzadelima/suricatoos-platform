@@ -149,7 +149,7 @@ const pdfStyles = StyleSheet.create({
         fontStyle: 'italic',
     },
     link: {
-        color: '#2563eb',
+        color: '#194fe3',
         fontWeight: 'semibold',
         textDecoration: 'underline',
     },

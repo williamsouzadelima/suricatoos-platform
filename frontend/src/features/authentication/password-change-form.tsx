@@ -9,16 +9,17 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { Input } from '@/components/ui/input';
+import { t } from '@/i18n';
 import { api, type ApiErrorResponse, type ApiHttpError } from '@/lib/axios';
 
 const passwordChangeSchema = z
     .object({
-        confirmPassword: z.string().min(1, { message: 'Confirm your password' }),
-        currentPassword: z.string().min(1, { message: 'Current password is required' }),
+        confirmPassword: z.string().min(1, { message: t('Confirm your password') }),
+        currentPassword: z.string().min(1, { message: t('Current password is required') }),
         newPassword: z
             .string()
-            .min(8, { message: 'Password must be at least 8 characters' })
-            .max(100, { message: 'Password must not exceed 100 characters' })
+            .min(8, { message: t('Password must be at least 8 characters') })
+            .max(100, { message: t('Password must not exceed 100 characters') })
             .refine(
                 (password) => {
                     if (password.length > 15) {
@@ -34,17 +35,18 @@ const passwordChangeSchema = z
                     );
                 },
                 {
-                    message:
+                    message: t(
                         'Password must be either longer than 15 characters, or at least 8 characters with a number, lowercase, uppercase, and special character (!@#$&*)',
+                    ),
                 },
             ),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
-        message: "Passwords don't match",
+        message: t("Passwords don't match"),
         path: ['confirmPassword'],
     })
     .refine((data) => data.currentPassword !== data.newPassword, {
-        message: 'New password must be different from current password',
+        message: t('New password must be different from current password'),
         path: ['newPassword'],
     });
 
@@ -94,7 +96,7 @@ export function PasswordChangeForm({
             setShowNewPassword(false);
             setShowConfirmPassword(false);
 
-            toast.success('Password successfully changed');
+            toast.success(t('Password successfully changed'));
 
             if (onSuccess) {
                 onSuccess();
@@ -103,29 +105,29 @@ export function PasswordChangeForm({
             const error = err as ApiHttpError;
             const responseData = error.response?.data as ApiErrorResponse | undefined;
 
-            let errorMessage = 'Failed to change password';
+            let errorMessage = t('Failed to change password');
 
             if (responseData?.msg) {
                 errorMessage = responseData.msg;
             } else if (responseData?.code) {
                 switch (responseData.code) {
                     case 'AuthRequired':
-                        errorMessage = 'Authentication required';
+                        errorMessage = t('Authentication required');
                         break;
                     case 'Users.ChangePasswordCurrentUser.InvalidCurrentPassword':
-                        errorMessage = 'Current password is incorrect';
+                        errorMessage = t('Current password is incorrect');
                         break;
                     case 'Users.ChangePasswordCurrentUser.InvalidNewPassword':
-                        errorMessage = 'New password does not meet requirements';
+                        errorMessage = t('New password does not meet requirements');
                         break;
                     case 'Users.ChangePasswordCurrentUser.InvalidPassword':
-                        errorMessage = 'Password validation failed';
+                        errorMessage = t('Password validation failed');
                         break;
                     case 'Users.NotFound':
-                        errorMessage = 'User not found';
+                        errorMessage = t('User not found');
                         break;
                     default:
-                        errorMessage = responseData.msg || error.message || 'Failed to change password';
+                        errorMessage = responseData.msg || error.message || t('Failed to change password');
                 }
             } else if (error.message) {
                 errorMessage = error.message;
@@ -146,12 +148,12 @@ export function PasswordChangeForm({
                     name="currentPassword"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Current Password</FormLabel>
+                            <FormLabel>{t('Current Password')}</FormLabel>
                             <FormControl>
                                 <div className="relative">
                                     <Input
                                         {...field}
-                                        placeholder="Enter your current password"
+                                        placeholder={t('Enter your current password')}
                                         type={showCurrentPassword ? 'text' : 'password'}
                                     />
                                     <Button
@@ -180,12 +182,12 @@ export function PasswordChangeForm({
                     name="newPassword"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>New Password</FormLabel>
+                            <FormLabel>{t('New Password')}</FormLabel>
                             <FormControl>
                                 <div className="relative">
                                     <Input
                                         {...field}
-                                        placeholder="Enter new password"
+                                        placeholder={t('Enter new password')}
                                         type={showNewPassword ? 'text' : 'password'}
                                     />
                                     <Button
@@ -205,8 +207,9 @@ export function PasswordChangeForm({
                                 </div>
                             </FormControl>
                             <FormDescription className="text-xs">
-                                Must be 16+ characters, or 8+ with number, lowercase, uppercase, and special character
-                                (!@#$&*)
+                                {t(
+                                    'Must be 16+ characters, or 8+ with number, lowercase, uppercase, and special character (!@#$&*)',
+                                )}
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -218,12 +221,12 @@ export function PasswordChangeForm({
                     name="confirmPassword"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Confirm New Password</FormLabel>
+                            <FormLabel>{t('Confirm New Password')}</FormLabel>
                             <FormControl>
                                 <div className="relative">
                                     <Input
                                         {...field}
-                                        placeholder="Confirm new password"
+                                        placeholder={t('Confirm new password')}
                                         type={showConfirmPassword ? 'text' : 'password'}
                                     />
                                     <Button
@@ -257,7 +260,7 @@ export function PasswordChangeForm({
                             type="button"
                             variant="ghost"
                         >
-                            Skip for now
+                            {t('Skip for now')}
                         </Button>
                     )}
                     {isModal && (
@@ -266,11 +269,11 @@ export function PasswordChangeForm({
                             type="button"
                             variant="outline"
                         >
-                            Cancel
+                            {t('Cancel')}
                         </Button>
                     )}
                     <FormSubmitButton>
-                        <span>Update Password</span>
+                        <span>{t('Update Password')}</span>
                     </FormSubmitButton>
                 </div>
             </form>

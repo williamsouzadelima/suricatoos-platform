@@ -6,6 +6,7 @@ import {
     Folder,
     GitFork,
     KeyRound,
+    Languages,
     LayoutDashboard,
     LibraryBig,
     LogOut,
@@ -25,6 +26,8 @@ import type { Flow } from '@/providers/sidebar-flows-provider';
 import type { Theme } from '@/providers/theme-provider';
 
 import Logo from '@/components/icons/logo';
+import { LanguageTabs } from '@/components/shared/language-selector';
+import { t } from '@/i18n';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
     DropdownMenu,
@@ -104,12 +107,15 @@ export function MainSidebar() {
         <Sidebar collapsible="icon">
             <SidebarHeader>
                 <SidebarMenu>
-                    <SidebarMenuItem className="flex items-center gap-2">
-                        <div className="flex aspect-square size-8 items-center justify-center">
-                            <Logo className="hover:animate-logo-spin size-6" />
+                    <SidebarMenuItem className="flex items-center gap-2.5 px-1 py-1">
+                        <div className="border-gradient flex aspect-square size-9 items-center justify-center rounded-xl shadow-sm">
+                            <Logo className="hover:animate-logo-pulse text-foreground size-5" />
                         </div>
-                        <div className="grid flex-1 text-left leading-tight">
-                            <span className="truncate font-semibold">PentAGI</span>
+                        <div className="grid flex-1 text-left leading-tight group-data-[state=collapsed]:hidden">
+                            <span className="truncate text-[0.95rem] font-semibold tracking-tight">Suricatoos</span>
+                            <span className="text-muted-foreground truncate text-[0.62rem] font-semibold tracking-[0.16em] uppercase">
+                                {t('AI Pentest')}
+                            </span>
                         </div>
                     </SidebarMenuItem>
                 </SidebarMenu>
@@ -118,11 +124,14 @@ export function MainSidebar() {
                 <SidebarGroup className="bg-sidebar sticky top-0 z-10">
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <SidebarMenuItem className="group-data-[state=expanded]:hidden">
-                                <SidebarMenuButton asChild>
+                            <SidebarMenuItem className="mb-1.5">
+                                <SidebarMenuButton
+                                    asChild
+                                    className="bg-primary text-primary-foreground shadow-sm shadow-primary/30 hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground font-medium [&::before]:hidden"
+                                >
                                     <Link to="/flows/new">
                                         <Plus />
-                                        New Flow
+                                        <span>{t('New Flow')}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -133,7 +142,7 @@ export function MainSidebar() {
                                 >
                                     <Link to="/dashboard">
                                         <LayoutDashboard />
-                                        Dashboard
+                                        {t('Dashboard')}
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -144,7 +153,7 @@ export function MainSidebar() {
                                 >
                                     <Link to="/flows">
                                         <GitFork />
-                                        Flows
+                                        {t('Flows')}
                                     </Link>
                                 </SidebarMenuButton>
                                 <SidebarMenuAction
@@ -164,7 +173,7 @@ export function MainSidebar() {
                                 >
                                     <Link to="/templates">
                                         <FileText />
-                                        Templates
+                                        {t('Templates')}
                                     </Link>
                                 </SidebarMenuButton>
                                 <SidebarMenuAction
@@ -184,7 +193,7 @@ export function MainSidebar() {
                                 >
                                     <Link to="/resources">
                                         <Folder />
-                                        Resources
+                                        {t('Resources')}
                                     </Link>
                                 </SidebarMenuButton>
                                 <SidebarMenuAction
@@ -204,7 +213,7 @@ export function MainSidebar() {
                                 >
                                     <Link to="/knowledges">
                                         <LibraryBig />
-                                        Knowledges
+                                        {t('Knowledges')}
                                     </Link>
                                 </SidebarMenuButton>
                                 <SidebarMenuAction
@@ -225,7 +234,7 @@ export function MainSidebar() {
                     <SidebarGroup>
                         <SidebarGroupLabel className="flex items-center gap-2">
                             <Clock />
-                            Recent Flows
+                            {t('Recent Flows')}
                         </SidebarGroupLabel>
                         <SidebarGroupContent>
                             <SidebarMenu>
@@ -247,7 +256,7 @@ export function MainSidebar() {
                     <SidebarGroup>
                         <SidebarGroupLabel className="flex items-center gap-2">
                             <Star />
-                            Favorite Flows
+                            {t('Favorite Flows')}
                         </SidebarGroupLabel>
                         <SidebarGroupContent>
                             <SidebarMenu>
@@ -274,7 +283,7 @@ export function MainSidebar() {
                         >
                             <Link to="/settings">
                                 <Settings />
-                                Settings
+                                {t('Settings')}
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -325,7 +334,7 @@ export function MainSidebar() {
                                     onSelect={(event) => event.preventDefault()}
                                 >
                                     <Settings2 />
-                                    Theme
+                                    {t('Theme')}
                                     <Tabs
                                         className="-my-1.5 -mr-2 ml-auto"
                                         onValueChange={(value) => setTheme(value as Theme)}
@@ -333,21 +342,21 @@ export function MainSidebar() {
                                     >
                                         <TabsList className="h-7 p-0.5">
                                             <TabsTrigger
-                                                aria-label="System theme"
+                                                aria-label={t('System theme')}
                                                 className="h-6 px-2"
                                                 value="system"
                                             >
                                                 <Monitor className="size-4" />
                                             </TabsTrigger>
                                             <TabsTrigger
-                                                aria-label="Light theme"
+                                                aria-label={t('Light theme')}
                                                 className="h-6 px-2"
                                                 value="light"
                                             >
                                                 <Sun className="size-4" />
                                             </TabsTrigger>
                                             <TabsTrigger
-                                                aria-label="Dark theme"
+                                                aria-label={t('Dark theme')}
                                                 className="h-6 px-2"
                                                 value="dark"
                                             >
@@ -356,19 +365,27 @@ export function MainSidebar() {
                                         </TabsList>
                                     </Tabs>
                                 </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className="cursor-default hover:bg-transparent focus:bg-transparent"
+                                    onSelect={(event) => event.preventDefault()}
+                                >
+                                    <Languages />
+                                    {t('Language')}
+                                    <LanguageTabs className="-my-1.5 -mr-2 ml-auto" />
+                                </DropdownMenuItem>
                                 {user?.type === 'local' && (
                                     <>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onClick={() => setIsPasswordModalOpen(true)}>
                                             <KeyRound className="mr-2 size-4" />
-                                            Change Password
+                                            {t('Change Password')}
                                         </DropdownMenuItem>
                                     </>
                                 )}
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => logout()}>
                                     <LogOut className="mr-2 size-4" />
-                                    Log out
+                                    {t('Log out')}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { t } from '@/i18n';
 import { useResources } from '@/providers/resources-provider';
 
 import { resourcesMoveFormSchema, type ResourcesMoveFormValues, useResourcesMove } from './use-resources-move';
@@ -184,9 +185,9 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
     const titleText = isMulti
         ? `Move ${files.length} items`
         : files[0].isDir
-          ? 'Move directory'
-          : 'Rename or move resource';
-    const overwriteCtaLabel = isMulti ? `Move ${files.length} with overwrite` : 'Move with overwrite';
+          ? t('Move directory')
+          : t('Rename or move resource');
+    const overwriteCtaLabel = isMulti ? `Move ${files.length} with overwrite` : t('Move with overwrite');
 
     return (
         <>
@@ -198,10 +199,10 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
                     </DialogTitle>
                     <DialogDescription>
                         {isMulti ? (
-                            <>Move every selected item into the destination directory.</>
+                            <>{t('Move every selected item into the destination directory.')}</>
                         ) : (
                             <>
-                                Update the path of <code>{files[0].path}</code>.
+                                {t('Update the path of')} <code>{files[0].path}</code>.
                             </>
                         )}
                     </DialogDescription>
@@ -217,7 +218,7 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
                             name="destination"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{isMulti ? 'Destination directory' : 'New path'}</FormLabel>
+                                    <FormLabel>{isMulti ? t('Destination directory') : t('New path')}</FormLabel>
                                     <FormControl>
                                         <Input
                                             {...field}
@@ -225,20 +226,21 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
                                             autoFocus
                                             disabled={isMoving}
                                             placeholder={
-                                                isMulti ? 'Leave empty to move into the library root' : undefined
+                                                isMulti ? t('Leave empty to move into the library root') : undefined
                                             }
                                         />
                                     </FormControl>
                                     <FormDescription>
                                         {isMulti ? (
                                             <>
-                                                Relative directory inside your library. Leave empty for the root. Each
-                                                item keeps its current filename.
+                                                {t(
+                                                    'Relative directory inside your library. Leave empty for the root. Each item keeps its current filename.',
+                                                )}
                                             </>
                                         ) : (
                                             <>
-                                                Relative path inside your library. End with <code>/</code> to drop the
-                                                entry into that directory.
+                                                {t('Relative path inside your library. End with')} <code>/</code>{' '}
+                                                {t('to drop the entry into that directory.')}
                                             </>
                                         )}
                                     </FormDescription>
@@ -254,7 +256,7 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
                                 type="button"
                                 variant="outline"
                             >
-                                Cancel
+                                {t('Cancel')}
                             </Button>
                             <OverwriteButtons
                                 isDisabled={isSubmitDisabled}
@@ -264,7 +266,7 @@ function ResourcesMoveDialogForm({ files, onClose }: ResourcesMoveDialogFormProp
                                 }}
                                 overwriteLabel={overwriteCtaLabel}
                                 primaryIcon={FolderInput}
-                                primaryLabel="Move"
+                                primaryLabel={t('Move')}
                                 primaryType="submit"
                             />
                         </div>

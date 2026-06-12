@@ -5,6 +5,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from '@/co
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { t } from '@/i18n';
 import { UsageStatsPeriod } from '@/graphql/types';
 import { usePageStorageKeys } from '@/hooks/use-page-storage-keys';
 import { cn } from '@/lib/utils';
@@ -12,9 +13,9 @@ import { DashboardAnalytics } from '@/pages/dashboard/dashboard-analytics';
 import { DashboardOverview } from '@/pages/dashboard/dashboard-overview';
 
 const periodOptions: { label: string; value: UsageStatsPeriod }[] = [
-    { label: 'Week', value: UsageStatsPeriod.Week },
-    { label: 'Month', value: UsageStatsPeriod.Month },
-    { label: 'Quarter', value: UsageStatsPeriod.Quarter },
+    { label: t('Week'), value: UsageStatsPeriod.Week },
+    { label: t('Month'), value: UsageStatsPeriod.Month },
+    { label: t('Quarter'), value: UsageStatsPeriod.Quarter },
 ];
 
 const VALID_PERIODS = new Set<string>(Object.values(UsageStatsPeriod));
@@ -85,7 +86,7 @@ function Dashboard() {
                         <BreadcrumbList>
                             <BreadcrumbItem>
                                 <LayoutDashboard className="size-4" />
-                                <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                                <BreadcrumbPage>{t('Dashboard')}</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -100,8 +101,8 @@ function Dashboard() {
                 >
                     <div className="flex items-center justify-between">
                         <TabsList>
-                            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                            <TabsTrigger value="overview">Overview</TabsTrigger>
+                            <TabsTrigger value="analytics">{t('Analytics')}</TabsTrigger>
+                            <TabsTrigger value="overview">{t('Overview')}</TabsTrigger>
                         </TabsList>
 
                         {activeTab === 'analytics' && (

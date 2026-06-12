@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { Form, FormControl, FormField } from '@/components/ui/form';
+import { t } from '@/i18n';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { useAutoScroll } from '@/hooks/use-auto-scroll';
 import { useFlow } from '@/providers/flow-provider';
@@ -155,7 +156,7 @@ function FlowAgents() {
                                         <InputGroupInput
                                             {...field}
                                             autoComplete="off"
-                                            placeholder="Search agent logs..."
+                                            placeholder={t('Search agent logs...')}
                                             type="text"
                                         />
                                         {field.value && (
@@ -229,8 +230,8 @@ function FlowAgents() {
                         <EmptyMedia variant="icon">
                             <ListFilter />
                         </EmptyMedia>
-                        <EmptyTitle>No agent logs found</EmptyTitle>
-                        <EmptyDescription>Try adjusting your search or filter parameters</EmptyDescription>
+                        <EmptyTitle>{t('No agent logs found')}</EmptyTitle>
+                        <EmptyDescription>{t('Try adjusting your search or filter parameters')}</EmptyDescription>
                     </EmptyHeader>
                     <EmptyContent>
                         <Button
@@ -238,7 +239,7 @@ function FlowAgents() {
                             variant="outline"
                         >
                             <X />
-                            Reset filters
+                            {t('Reset filters')}
                         </Button>
                     </EmptyContent>
                 </Empty>
@@ -248,8 +249,8 @@ function FlowAgents() {
                         <EmptyMedia variant="icon">
                             <Bot />
                         </EmptyMedia>
-                        <EmptyTitle>No agent logs available</EmptyTitle>
-                        <EmptyDescription>Agent logs will appear here when agents are working</EmptyDescription>
+                        <EmptyTitle>{t('No agent logs available')}</EmptyTitle>
+                        <EmptyDescription>{t('Agent logs will appear here when agents are working')}</EmptyDescription>
                     </EmptyHeader>
                 </Empty>
             )}

@@ -6,6 +6,7 @@ import { MetricCard } from '@/components/dashboard';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { t } from '@/i18n';
 import {
     useFlowsStatsTotalQuery,
     useToolcallsStatsByFunctionQuery,
@@ -57,36 +58,36 @@ export function DashboardOverview() {
                     description={`Tasks: ${flowsTotal?.totalTasksCount ?? 0} · Subtasks: ${flowsTotal?.totalSubtasksCount ?? 0} · Assistants: ${flowsTotal?.totalAssistantsCount ?? 0}`}
                     icon={<GitFork className="text-muted-foreground size-4" />}
                     loading={flowsTotalLoading}
-                    title="Total Flows"
+                    title={t('Total Flows')}
                     value={flowsTotal ? formatNumber(flowsTotal.totalFlowsCount) : '0'}
                 />
                 <MetricCard
                     description={`Total duration: ${toolcallsTotal ? formatDuration(toolcallsTotal.totalDurationSeconds) : '—'}`}
                     icon={<Activity className="text-muted-foreground size-4" />}
                     loading={toolcallsTotalLoading}
-                    title="Tool Calls"
+                    title={t('Tool Calls')}
                     value={toolcallsTotal ? formatNumber(toolcallsTotal.totalCount) : '0'}
                 />
                 <MetricCard
-                    description="Input + Output tokens processed"
+                    description={t('Input + Output tokens processed')}
                     icon={<Cpu className="text-muted-foreground size-4" />}
                     loading={usageTotalLoading}
-                    title="Total Tokens"
+                    title={t('Total Tokens')}
                     value={formatTokenCount(totalTokens)}
                 />
                 <MetricCard
-                    description="Total LLM spending across all providers"
+                    description={t('Total LLM spending across all providers')}
                     icon={<CircleDollarSign className="text-muted-foreground size-4" />}
                     loading={usageTotalLoading}
-                    title="Total Cost"
+                    title={t('Total Cost')}
                     value={formatCost(totalCost)}
                 />
             </div>
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Usage by Provider</CardTitle>
-                    <CardDescription>LLM token usage and costs grouped by provider</CardDescription>
+                    <CardTitle>{t('Usage by Provider')}</CardTitle>
+                    <CardDescription>{t('LLM token usage and costs grouped by provider')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {usageByProviderLoading ? <LoadingTable /> : <UsageStatsTable rows={providerRows} />}
@@ -95,8 +96,8 @@ export function DashboardOverview() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Usage by Model</CardTitle>
-                    <CardDescription>LLM token usage and costs grouped by model</CardDescription>
+                    <CardTitle>{t('Usage by Model')}</CardTitle>
+                    <CardDescription>{t('LLM token usage and costs grouped by model')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {usageByModelLoading ? <LoadingTable /> : <UsageStatsTable rows={modelRows} />}
@@ -105,8 +106,8 @@ export function DashboardOverview() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Usage by Agent Type</CardTitle>
-                    <CardDescription>LLM token usage and costs grouped by agent type</CardDescription>
+                    <CardTitle>{t('Usage by Agent Type')}</CardTitle>
+                    <CardDescription>{t('LLM token usage and costs grouped by agent type')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {usageByAgentTypeLoading ? <LoadingTable /> : <UsageStatsTable rows={agentTypeRows} />}
@@ -115,8 +116,8 @@ export function DashboardOverview() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Tool Calls by Function</CardTitle>
-                    <CardDescription>Execution statistics for each tool function</CardDescription>
+                    <CardTitle>{t('Tool Calls by Function')}</CardTitle>
+                    <CardDescription>{t('Execution statistics for each tool function')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {toolcallsByFunctionLoading ? (
@@ -125,11 +126,11 @@ export function DashboardOverview() {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="whitespace-nowrap">Function</TableHead>
-                                    <TableHead className="whitespace-nowrap">Type</TableHead>
-                                    <TableHead className="text-right whitespace-nowrap">Count</TableHead>
-                                    <TableHead className="text-right whitespace-nowrap">Total Duration</TableHead>
-                                    <TableHead className="text-right whitespace-nowrap">Avg Duration</TableHead>
+                                    <TableHead className="whitespace-nowrap">{t('Function')}</TableHead>
+                                    <TableHead className="whitespace-nowrap">{t('Type')}</TableHead>
+                                    <TableHead className="text-right whitespace-nowrap">{t('Count')}</TableHead>
+                                    <TableHead className="text-right whitespace-nowrap">{t('Total Duration')}</TableHead>
+                                    <TableHead className="text-right whitespace-nowrap">{t('Avg Duration')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -138,7 +139,7 @@ export function DashboardOverview() {
                                         <TableCell className="font-medium">{item.functionName}</TableCell>
                                         <TableCell>
                                             <Badge variant={item.isAgent ? 'secondary' : 'outline'}>
-                                                {item.isAgent ? 'Agent' : 'Tool'}
+                                                {item.isAgent ? t('Agent') : t('Tool')}
                                             </Badge>
                                         </TableCell>
                                         <TableCell className="text-right">{formatNumber(item.totalCount)}</TableCell>
@@ -189,14 +190,14 @@ function UsageStatsTable({ rows }: { rows: Array<{ label: string; stats: UsageSt
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableHead className="whitespace-nowrap">Name</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Tokens In</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Tokens Out</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Cache In</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Cache Out</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Cost In</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Cost Out</TableHead>
-                    <TableHead className="text-right whitespace-nowrap">Total Cost</TableHead>
+                    <TableHead className="whitespace-nowrap">{t('Name')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Tokens In')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Tokens Out')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Cache In')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Cache Out')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Cost In')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Cost Out')}</TableHead>
+                    <TableHead className="text-right whitespace-nowrap">{t('Total Cost')}</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>

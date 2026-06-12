@@ -5,6 +5,7 @@ import type { SubtaskFragmentFragment } from '@/graphql/types';
 
 import Markdown from '@/components/shared/markdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { t } from '@/i18n';
 
 import FlowTaskStatusIcon from './flow-task-status-icon';
 
@@ -82,7 +83,7 @@ function FlowSubtask({ searchValue = '', subtask }: FlowSubtaskProps) {
                             className="cursor-pointer hover:underline"
                             onClick={() => setIsDetailsVisible(!isDetailsVisible)}
                         >
-                            {isDetailsVisible ? 'Hide details' : 'Show details'}
+                            {isDetailsVisible ? t('Hide details') : t('Show details')}
                         </div>
                         {isDetailsVisible && (
                             <div className="mt-4 flex flex-col gap-4">
@@ -90,7 +91,7 @@ function FlowSubtask({ searchValue = '', subtask }: FlowSubtaskProps) {
                                     <Card>
                                         <CardHeader className="p-3">
                                             <CardTitle className="flex items-center gap-2">
-                                                <ListTodo className="size-4 shrink-0" /> Description
+                                                <ListTodo className="size-4 shrink-0" /> {t('Description')}
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-3 pt-0">
@@ -108,7 +109,7 @@ function FlowSubtask({ searchValue = '', subtask }: FlowSubtaskProps) {
                                     <Card>
                                         <CardHeader className="p-3">
                                             <CardTitle className="flex items-center gap-2">
-                                                <ListCheck className="size-4 shrink-0" /> Result
+                                                <ListCheck className="size-4 shrink-0" /> {t('Result')}
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-3 pt-0">

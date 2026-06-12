@@ -54,6 +54,7 @@ import {
     useUpdateApiTokenMutation,
 } from '@/graphql/types';
 import { useTableState } from '@/hooks/use-table-state';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 import { formatDate } from '@/lib/utils/format';
 import { baseUrl } from '@/models/api';
@@ -145,7 +146,7 @@ function SettingsAPITokensHeader({ onCreateClick }: { onCreateClick: () => void 
     return (
         <div className="flex items-center justify-between gap-4">
             <div className="flex min-w-0 flex-1 flex-col gap-2">
-                <p className="text-muted-foreground truncate">Manage API tokens for programmatic access</p>
+                <p className="text-muted-foreground truncate">{t('Manage API tokens for programmatic access')}</p>
                 <div className="flex gap-4 text-sm">
                     <a
                         className="text-primary inline-flex items-center gap-1 underline hover:no-underline"
@@ -153,7 +154,7 @@ function SettingsAPITokensHeader({ onCreateClick }: { onCreateClick: () => void 
                         rel="noopener noreferrer"
                         target="_blank"
                     >
-                        GraphQL Playground
+                        {t('GraphQL Playground')}
                         <ExternalLink className="size-3" />
                     </a>
                     <a
@@ -162,7 +163,7 @@ function SettingsAPITokensHeader({ onCreateClick }: { onCreateClick: () => void 
                         rel="noopener noreferrer"
                         target="_blank"
                     >
-                        Swagger UI
+                        {t('Swagger UI')}
                         <ExternalLink className="size-3" />
                     </a>
                 </div>
@@ -174,7 +175,7 @@ function SettingsAPITokensHeader({ onCreateClick }: { onCreateClick: () => void 
                 variant="secondary"
             >
                 <Plus className="size-4" />
-                Create Token
+                {t('Create Token')}
             </Button>
         </div>
     );
@@ -211,7 +212,7 @@ function CreateRowActions({
     return (
         <div className="flex justify-end">
             <Button
-                aria-label={isLoading ? 'Submitting…' : 'Submit'}
+                aria-label={isLoading ? t('Submitting…') : t('Submit')}
                 className="shrink-0"
                 disabled={isLoading || !isValid}
                 onClick={onSubmit}
@@ -221,7 +222,7 @@ function CreateRowActions({
                 {isLoading ? <Loader2 className="animate-spin" /> : <Check />}
             </Button>
             <Button
-                aria-label="Cancel"
+                aria-label={t('Cancel')}
                 className="shrink-0"
                 onClick={onCancel}
                 size="icon-sm"
@@ -249,7 +250,7 @@ function EditRowActions({
     return (
         <div className="flex justify-end">
             <Button
-                aria-label={isLoading ? 'Submitting…' : 'Submit'}
+                aria-label={isLoading ? t('Submitting…') : t('Submit')}
                 className="shrink-0"
                 disabled={isLoading || !isValid}
                 onClick={onSubmit}
@@ -259,7 +260,7 @@ function EditRowActions({
                 {isLoading ? <Loader2 className="animate-spin" /> : <Check />}
             </Button>
             <Button
-                aria-label="Cancel"
+                aria-label={t('Cancel')}
                 className="shrink-0"
                 onClick={onCancel}
                 size="icon-sm"
@@ -447,12 +448,12 @@ function SettingsAPITokens() {
         const success = await copyToClipboard(tokenId);
 
         if (success) {
-            toast.success('Token ID copied to clipboard');
+            toast.success(t('Token ID copied to clipboard'));
 
             return;
         }
 
-        toast.error('Failed to copy token ID to clipboard');
+        toast.error(t('Failed to copy token ID to clipboard'));
     }, []);
 
     const columns: ColumnDef<APIToken>[] = useMemo(
@@ -476,7 +477,7 @@ function SettingsAPITokens() {
                                         autoFocus
                                         className="h-8"
                                         id={createNameFieldId}
-                                        placeholder="Token name (optional)"
+                                        placeholder={t('Token name (optional)')}
                                     />
                                 )}
                             />
@@ -495,7 +496,7 @@ function SettingsAPITokens() {
                                         autoFocus
                                         className="h-8"
                                         id={editNameFieldId}
-                                        placeholder="Token name (optional)"
+                                        placeholder={t('Token name (optional)')}
                                     />
                                 )}
                             />
@@ -504,7 +505,7 @@ function SettingsAPITokens() {
 
                     return (
                         <div className="font-medium">
-                            {token.name || <span className="text-muted-foreground font-normal italic">(unnamed)</span>}
+                            {token.name || <span className="text-muted-foreground font-normal italic">{t('(unnamed)')}</span>}
                         </div>
                     );
                 },
@@ -512,7 +513,7 @@ function SettingsAPITokens() {
                 header: ({ column }) => (
                     <DataTableColumnHeader
                         column={column}
-                        title="Name"
+                        title={t('Name')}
                     />
                 ),
                 meta: { searchable: true },
@@ -525,7 +526,7 @@ function SettingsAPITokens() {
                     const isCreating = token.id === 'create-new';
 
                     if (isCreating) {
-                        return <div className="text-muted-foreground text-sm">N/A</div>;
+                        return <div className="text-muted-foreground text-sm">{t('N/A')}</div>;
                     }
 
                     const tokenId = row.getValue('tokenId') as string;
@@ -534,7 +535,7 @@ function SettingsAPITokens() {
                         <div className="flex items-center gap-2">
                             <code className="text-sm">{tokenId}</code>
                             <Button
-                                aria-label="Copy token ID"
+                                aria-label={t('Copy token ID')}
                                 className="size-6 p-0"
                                 onClick={() => handleCopyTokenId(tokenId)}
                                 variant="ghost"
@@ -548,10 +549,10 @@ function SettingsAPITokens() {
                 header: ({ column }) => (
                     <DataTableColumnHeader
                         column={column}
-                        title="Token ID"
+                        title={t('Token ID')}
                     />
                 ),
-                meta: { columnMenuLabel: 'Token ID', searchable: true },
+                meta: { columnMenuLabel: t('Token ID'), searchable: true },
                 size: 200,
             },
             {
@@ -602,7 +603,7 @@ function SettingsAPITokens() {
                 header: ({ column }) => (
                     <DataTableColumnHeader
                         column={column}
-                        title="Status"
+                        title={t('Status')}
                     />
                 ),
                 meta: { searchable: true },
@@ -638,7 +639,7 @@ function SettingsAPITokens() {
                                                 {field.value ? (
                                                     format(field.value, 'd MMM yyyy', { locale: enUS })
                                                 ) : (
-                                                    <span>Pick date</span>
+                                                    <span>{t('Pick date')}</span>
                                                 )}
                                             </Button>
                                         </PopoverTrigger>
@@ -667,7 +668,7 @@ function SettingsAPITokens() {
                 header: ({ column }) => (
                     <DataTableColumnHeader
                         column={column}
-                        title="Expires"
+                        title={t('Expires')}
                     />
                 ),
                 size: 150,
@@ -685,7 +686,7 @@ function SettingsAPITokens() {
                     const isCreating = token.id === 'create-new';
 
                     if (isCreating) {
-                        return <div className="text-muted-foreground text-sm">N/A</div>;
+                        return <div className="text-muted-foreground text-sm">{t('N/A')}</div>;
                     }
 
                     const dateString = row.getValue('createdAt') as string;
@@ -695,10 +696,10 @@ function SettingsAPITokens() {
                 header: ({ column }) => (
                     <DataTableColumnHeader
                         column={column}
-                        title="Created"
+                        title={t('Created')}
                     />
                 ),
-                meta: { columnMenuLabel: 'Created' },
+                meta: { columnMenuLabel: t('Created') },
                 size: 120,
                 sortingFn: (rowA, rowB) => {
                     const dateA = new Date(rowA.getValue('createdAt') as string);
@@ -740,7 +741,7 @@ function SettingsAPITokens() {
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button
-                                        aria-label="Open menu"
+                                        aria-label={t('Open menu')}
                                         className="shrink-0"
                                         size="icon-sm"
                                         variant="ghost"
@@ -754,11 +755,11 @@ function SettingsAPITokens() {
                                 >
                                     <DropdownMenuItem onClick={() => handleEdit(token)}>
                                         <Pencil />
-                                        Edit
+                                        {t('Edit')}
                                     </DropdownMenuItem>
                                     <DropdownMenuItem onClick={() => handleCopyTokenId(token.tokenId)}>
                                         <Copy />
-                                        Copy Token ID
+                                        {t('Copy Token ID')}
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
@@ -768,12 +769,12 @@ function SettingsAPITokens() {
                                         {isDeleteLoading && deletingToken?.tokenId === token.tokenId ? (
                                             <>
                                                 <Loader2 className="animate-spin" />
-                                                Deleting...
+                                                {t('Deleting...')}
                                             </>
                                         ) : (
                                             <>
                                                 <Trash />
-                                                Delete
+                                                {t('Delete')}
                                             </>
                                         )}
                                     </DropdownMenuItem>
@@ -819,11 +820,11 @@ function SettingsAPITokens() {
                 <>
                     <ContextMenuItem onClick={() => handleEdit(token)}>
                         <Pencil />
-                        Edit
+                        {t('Edit')}
                     </ContextMenuItem>
                     <ContextMenuItem onClick={() => handleCopyTokenId(token.tokenId)}>
                         <Copy />
-                        Copy Token ID
+                        {t('Copy Token ID')}
                     </ContextMenuItem>
                     <ContextMenuSeparator />
                     <ContextMenuItem
@@ -831,7 +832,7 @@ function SettingsAPITokens() {
                         onClick={() => handleDeleteDialogOpen(token)}
                     >
                         <Trash />
-                        {isDeleteLoading && deletingToken?.tokenId === token.tokenId ? 'Deleting...' : 'Delete'}
+                        {isDeleteLoading && deletingToken?.tokenId === token.tokenId ? t('Deleting...') : t('Delete')}
                     </ContextMenuItem>
                 </>
             );
@@ -844,9 +845,9 @@ function SettingsAPITokens() {
             <div className="flex flex-col gap-4">
                 <SettingsAPITokensHeader onCreateClick={handleCreateNew} />
                 <StatusCard
-                    description="Please wait while we fetch your API tokens"
+                    description={t('Please wait while we fetch your API tokens')}
                     icon={<Loader2 className="text-muted-foreground size-16 animate-spin" />}
-                    title="Loading tokens..."
+                    title={t('Loading tokens...')}
                 />
             </div>
         );
@@ -858,7 +859,7 @@ function SettingsAPITokens() {
                 <SettingsAPITokensHeader onCreateClick={handleCreateNew} />
                 <Alert variant="destructive">
                     <AlertCircle className="size-4" />
-                    <AlertTitle>Error loading tokens</AlertTitle>
+                    <AlertTitle>{t('Error loading tokens')}</AlertTitle>
                     <AlertDescription>{error.message}</AlertDescription>
                 </Alert>
             </div>
@@ -878,12 +879,12 @@ function SettingsAPITokens() {
                             variant="secondary"
                         >
                             <Plus className="size-4" />
-                            Create Token
+                            {t('Create Token')}
                         </Button>
                     }
-                    description="Create your first API token to access PentAGI programmatically"
+                    description={t('Create your first API token to access Suricatoos programmatically')}
                     icon={<Key className="text-muted-foreground size-8" />}
-                    title="No API tokens configured"
+                    title={t('No API tokens configured')}
                 />
             </div>
         );
@@ -896,7 +897,7 @@ function SettingsAPITokens() {
             {(createError || updateError || deleteError || deleteErrorMessage) && (
                 <Alert variant="destructive">
                     <AlertCircle className="size-4" />
-                    <AlertTitle>Error</AlertTitle>
+                    <AlertTitle>{t('Error')}</AlertTitle>
                     <AlertDescription>
                         {createError?.message || updateError?.message || deleteError?.message || deleteErrorMessage}
                     </AlertDescription>
@@ -906,8 +907,8 @@ function SettingsAPITokens() {
             <DataTable<APIToken>
                 columns={columns}
                 data={creatingToken ? [createNewTokenPlaceholder, ...tokens] : tokens}
-                empty={{ entityName: 'API tokens' }}
-                filterPlaceholder="Filter tokens..."
+                empty={{ entityName: t('API tokens') }}
+                filterPlaceholder={t('Filter tokens...')}
                 filterValue={filter}
                 onFilterChange={setFilter}
                 onPageChange={handlePageChange}
@@ -921,9 +922,9 @@ function SettingsAPITokens() {
             >
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>API Token Created</DialogTitle>
+                        <DialogTitle>{t('API Token Created')}</DialogTitle>
                         <DialogDescription>
-                            Copy this token now. You won't be able to see it again for security reasons.
+                            {t("Copy this token now. You won't be able to see it again for security reasons.")}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="bg-muted rounded p-4">
@@ -937,16 +938,16 @@ function SettingsAPITokens() {
                                     const success = await copyToClipboard(tokenSecret);
 
                                     if (success) {
-                                        toast.success('Token copied to clipboard');
+                                        toast.success(t('Token copied to clipboard'));
                                     } else {
-                                        toast.error('Failed to copy token to clipboard');
+                                        toast.error(t('Failed to copy token to clipboard'));
                                     }
                                 }
                             }}
                             variant="secondary"
                         >
                             <Copy className="size-4" />
-                            Copy Token
+                            {t('Copy Token')}
                         </Button>
                         <Button
                             className="flex-1"
@@ -956,20 +957,20 @@ function SettingsAPITokens() {
                             }}
                             variant="outline"
                         >
-                            Close
+                            {t('Close')}
                         </Button>
                     </div>
                 </DialogContent>
             </Dialog>
 
             <ConfirmationDialog
-                cancelText="Cancel"
-                confirmText="Delete"
+                cancelText={t('Cancel')}
+                confirmText={t('Delete')}
                 handleConfirm={() => handleDelete(deletingToken?.tokenId)}
                 handleOpenChange={setIsDeleteDialogOpen}
                 isOpen={isDeleteDialogOpen}
                 itemName={deletingToken?.name || deletingToken?.tokenId}
-                itemType="token"
+                itemType={t('token')}
             />
         </div>
     );

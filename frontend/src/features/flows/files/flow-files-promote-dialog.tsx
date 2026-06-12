@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { t } from '@/i18n';
 import { useResources } from '@/providers/resources-provider';
 
 import { stripFlowRootPrefix } from './flow-files-utils';
@@ -184,8 +185,8 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
     });
 
     const isSubmitDisabled = !form.formState.isValid;
-    const titleText = isMulti ? `Save ${files.length} items as resources` : 'Save as resource';
-    const overwriteCtaLabel = isMulti ? `Save ${files.length} with overwrite` : 'Save with overwrite';
+    const titleText = isMulti ? `Save ${files.length} items as resources` : t('Save as resource');
+    const overwriteCtaLabel = isMulti ? `Save ${files.length} with overwrite` : t('Save with overwrite');
 
     return (
         <>
@@ -198,13 +199,11 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                     <DialogDescription>
                         {isMulti ? (
                             <>
-                                Promote every selected entry from this flow into your global resource library so you can
-                                reuse them in other flows.
+                                {t('Promote every selected entry from this flow into your global resource library so you can reuse them in other flows.')}
                             </>
                         ) : (
                             <>
-                                Promote <code>{files[0].path}</code> from this flow into your global resource library so
-                                you can reuse it in other flows.
+                                {t('Promote')} <code>{files[0].path}</code> {t('from this flow into your global resource library so you can reuse it in other flows.')}
                             </>
                         )}
                     </DialogDescription>
@@ -220,7 +219,7 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                             name="destination"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{isMulti ? 'Destination directory' : 'Destination path'}</FormLabel>
+                                    <FormLabel>{isMulti ? t('Destination directory') : t('Destination path')}</FormLabel>
                                     <FormControl>
                                         <Input
                                             {...field}
@@ -229,7 +228,7 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                                             disabled={isPromoting}
                                             placeholder={
                                                 isMulti
-                                                    ? 'Leave empty to save into the library root'
+                                                    ? t('Leave empty to save into the library root')
                                                     : 'results/scan.txt'
                                             }
                                         />
@@ -237,13 +236,11 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                                     <FormDescription>
                                         {isMulti ? (
                                             <>
-                                                Relative directory inside your resource library. Leave empty for the
-                                                root. Each item keeps its current filename.
+                                                {t('Relative directory inside your resource library. Leave empty for the root. Each item keeps its current filename.')}
                                             </>
                                         ) : (
                                             <>
-                                                Relative path inside your resource library. Use <code>/</code> to nest
-                                                into subdirectories.
+                                                {t('Relative path inside your resource library. Use')} <code>/</code> {t('to nest into subdirectories.')}
                                             </>
                                         )}
                                     </FormDescription>
@@ -259,7 +256,7 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                                 type="button"
                                 variant="outline"
                             >
-                                Cancel
+                                {t('Cancel')}
                             </Button>
                             <OverwriteButtons
                                 isDisabled={isSubmitDisabled}
@@ -269,7 +266,7 @@ function FlowFilesPromoteDialogForm({ files, flowId, onClose }: FlowFilesPromote
                                 }}
                                 overwriteLabel={overwriteCtaLabel}
                                 primaryIcon={BookmarkPlus}
-                                primaryLabel="Save"
+                                primaryLabel={t('Save')}
                                 primaryType="submit"
                             />
                         </div>

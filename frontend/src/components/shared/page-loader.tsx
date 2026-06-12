@@ -1,7 +1,9 @@
+import { t } from '@/i18n';
+
 function PageLoader() {
     return (
         <div className="grid h-screen w-full place-items-center">
-            <p>Loading...</p>
+            <p>{t('Loading...')}</p>
         </div>
     );
 }

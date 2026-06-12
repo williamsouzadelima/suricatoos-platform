@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 
 import type { DetailNavigationController } from './use-detail-navigation';
@@ -42,7 +43,7 @@ export function DetailNavigationButtons<T extends { id: string }>({
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        aria-label="Previous"
+                        aria-label={t('Previous')}
                         className={cn(sideButtonSize, 'rounded-r-none border-r-0 p-0')}
                         disabled={!controller.prevId}
                         onClick={controller.goToPrev}
@@ -53,7 +54,7 @@ export function DetailNavigationButtons<T extends { id: string }>({
                         <ChevronLeft />
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent>Previous</TooltipContent>
+                <TooltipContent>{t('Previous')}</TooltipContent>
             </Tooltip>
             <Tooltip>
                 <TooltipTrigger asChild>
@@ -71,12 +72,12 @@ export function DetailNavigationButtons<T extends { id: string }>({
                         {controller.positionLabel}
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent>Show all matching {lowerTitle}</TooltipContent>
+                <TooltipContent>{t('Show all matching')} {lowerTitle}</TooltipContent>
             </Tooltip>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        aria-label="Next"
+                        aria-label={t('Next')}
                         className={cn(sideButtonSize, 'rounded-l-none border-l-0 p-0')}
                         disabled={!controller.nextId}
                         onClick={controller.goToNext}
@@ -87,7 +88,7 @@ export function DetailNavigationButtons<T extends { id: string }>({
                         <ChevronRight />
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent>Next</TooltipContent>
+                <TooltipContent>{t('Next')}</TooltipContent>
             </Tooltip>
         </div>
     );

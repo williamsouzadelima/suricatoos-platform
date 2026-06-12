@@ -6,6 +6,7 @@ import type { SearchLogFragmentFragment } from '@/graphql/types';
 import Markdown from '@/components/shared/markdown';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import FlowAgentIcon from '@/features/flows/agents/flow-agent-icon';
+import { t } from '@/i18n';
 import { copyMessageToClipboard } from '@/lib/clipboard';
 import { formatDate, formatName } from '@/lib/utils/format';
 
@@ -76,7 +77,7 @@ function FlowTool({ log, searchValue = '' }: FlowToolProps) {
                                     <span>{formatName(engine)}</span>
                                 </span>
                             </TooltipTrigger>
-                            <TooltipContent>Tool name</TooltipContent>
+                            <TooltipContent>{t('Tool name')}</TooltipContent>
                         </Tooltip>
                     </div>
 
@@ -93,7 +94,7 @@ function FlowTool({ log, searchValue = '' }: FlowToolProps) {
                             className="cursor-pointer"
                             onClick={() => setIsDetailsVisible(!isDetailsVisible)}
                         >
-                            {isDetailsVisible ? 'Hide details' : 'Show details'}
+                            {isDetailsVisible ? t('Hide details') : t('Show details')}
                         </div>
                         {isDetailsVisible && (
                             <>
@@ -128,19 +129,19 @@ function FlowTool({ log, searchValue = '' }: FlowToolProps) {
                             onClick={handleCopy}
                         />
                     </TooltipTrigger>
-                    <TooltipContent>Copy</TooltipContent>
+                    <TooltipContent>{t('Copy')}</TooltipContent>
                 </Tooltip>
                 <span className="text-muted-foreground/50">{formatDate(new Date(createdAt))}</span>
                 {taskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Task ID: {taskId}</span>
+                        <span className="text-muted-foreground/50">{t('Task ID:')} {taskId}</span>
                     </>
                 )}
                 {subtaskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Subtask ID: {subtaskId}</span>
+                        <span className="text-muted-foreground/50">{t('Subtask ID:')} {subtaskId}</span>
                     </>
                 )}
             </div>

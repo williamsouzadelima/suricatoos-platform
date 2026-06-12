@@ -7,6 +7,7 @@ import Markdown from '@/components/shared/markdown';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import FlowAgentIcon from '@/features/flows/agents/flow-agent-icon';
 import { VectorStoreAction } from '@/graphql/types';
+import { t } from '@/i18n';
 import { copyMessageToClipboard } from '@/lib/clipboard';
 import { formatDate } from '@/lib/utils/format';
 
@@ -134,7 +135,7 @@ function FlowVectorStore({ log, searchValue = '' }: FlowVectorStoreProps) {
                             className="cursor-pointer"
                             onClick={() => setIsDetailsVisible(!isDetailsVisible)}
                         >
-                            {isDetailsVisible ? 'Hide details' : 'Show details'}
+                            {isDetailsVisible ? t('Hide details') : t('Show details')}
                         </div>
                         {isDetailsVisible && (
                             <>
@@ -169,19 +170,19 @@ function FlowVectorStore({ log, searchValue = '' }: FlowVectorStoreProps) {
                             onClick={handleCopy}
                         />
                     </TooltipTrigger>
-                    <TooltipContent>Copy</TooltipContent>
+                    <TooltipContent>{t('Copy')}</TooltipContent>
                 </Tooltip>
                 <span className="text-muted-foreground/50">{formatDate(new Date(createdAt))}</span>
                 {taskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Task ID: {taskId}</span>
+                        <span className="text-muted-foreground/50">{t('Task ID:')} {taskId}</span>
                     </>
                 )}
                 {subtaskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Subtask ID: {subtaskId}</span>
+                        <span className="text-muted-foreground/50">{t('Subtask ID:')} {subtaskId}</span>
                     </>
                 )}
             </div>

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 
 import { Separator } from '@/components/ui/separator';
+import { t } from '@/i18n';
 import {
     Sidebar,
     SidebarContent,
@@ -35,19 +36,19 @@ const menuItems: readonly MenuItem[] = [
         icon: <Plug className="size-4" />,
         id: 'providers',
         path: '/settings/providers',
-        title: 'Providers',
+        title: t('Providers'),
     },
     {
         icon: <FileText className="size-4" />,
         id: 'prompts',
         path: '/settings/prompts',
-        title: 'Prompts',
+        title: t('Prompts'),
     },
     {
         icon: <Key className="size-4" />,
         id: 'api-tokens',
         path: '/settings/api-tokens',
-        title: 'API Tokens',
+        title: t('API Tokens'),
     },
 ] as const;
 
@@ -59,24 +60,24 @@ function SettingsHeader() {
         const path = location.pathname;
 
         if (path === '/settings/providers/new') {
-            return 'Create Provider';
+            return t('Create Provider');
         }
 
         if (path.startsWith('/settings/providers/') && params.providerId && params.providerId !== 'new') {
-            return 'Edit Provider';
+            return t('Edit Provider');
         }
 
         if (path === '/settings/prompts/new') {
-            return 'Create Prompt';
+            return t('Create Prompt');
         }
 
         if (path.startsWith('/settings/prompts/') && params.promptId && params.promptId !== 'new') {
-            return 'Edit Prompt';
+            return t('Edit Prompt');
         }
 
         const activeItem = menuItems.find((item) => path.startsWith(item.path));
 
-        return activeItem?.title ?? 'Settings';
+        return activeItem?.title ?? t('Settings');
     }, [location.pathname, params]);
 
     return (
@@ -117,7 +118,7 @@ function SettingsSidebar() {
                             <SettingsIcon className="size-6" />
                         </div>
                         <div className="grid flex-1 text-left leading-tight">
-                            <span className="truncate font-semibold">Settings</span>
+                            <span className="truncate font-semibold">{t('Settings')}</span>
                         </div>
                     </SidebarMenuItem>
                 </SidebarMenu>
@@ -140,7 +141,7 @@ function SettingsSidebar() {
                 <SidebarMenuButton asChild>
                     <NavLink to="/flows">
                         <ArrowLeft className="size-4" />
-                        Back to App
+                        {t('Back to App')}
                     </NavLink>
                 </SidebarMenuButton>
             </SidebarFooter>

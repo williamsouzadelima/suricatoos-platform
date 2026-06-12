@@ -11,6 +11,7 @@ import { Form, FormControl, FormField } from '@/components/ui/form';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group';
 import { StatusType } from '@/graphql/types';
 import { useAutoScroll } from '@/hooks/use-auto-scroll';
+import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 import { useFlow } from '@/providers/flow-provider';
 
@@ -134,29 +135,29 @@ function FlowAutomationMessages({ className }: FlowAutomationMessagesProps) {
 
     const placeholder = useMemo(() => {
         if (!flowId) {
-            return 'Select a flow...';
+            return t('Select a flow...');
         }
 
         switch (flowStatus) {
             case StatusType.Created: {
-                return 'The flow is starting...';
+                return t('The flow is starting...');
             }
 
             case StatusType.Failed:
             case StatusType.Finished: {
-                return 'This flow has ended. Create a new one to continue.';
+                return t('This flow has ended. Create a new one to continue.');
             }
 
             case StatusType.Running: {
-                return 'PentAGI is working... Click Stop to interrupt';
+                return t('Suricatoos is working... Click Stop to interrupt');
             }
 
             case StatusType.Waiting: {
-                return 'Provide additional context or instructions...';
+                return t('Provide additional context or instructions...');
             }
 
             default: {
-                return 'Type your message...';
+                return t('Type your message...');
             }
         }
     }, [flowId, flowStatus]);
@@ -214,7 +215,7 @@ function FlowAutomationMessages({ className }: FlowAutomationMessagesProps) {
                                         <InputGroupInput
                                             {...field}
                                             autoComplete="off"
-                                            placeholder="Search messages..."
+                                            placeholder={t('Search messages...')}
                                             type="text"
                                         />
                                         {field.value && (
@@ -288,8 +289,8 @@ function FlowAutomationMessages({ className }: FlowAutomationMessagesProps) {
                         <EmptyMedia variant="icon">
                             <ListFilter />
                         </EmptyMedia>
-                        <EmptyTitle>No messages found</EmptyTitle>
-                        <EmptyDescription>Try adjusting your search or filter parameters</EmptyDescription>
+                        <EmptyTitle>{t('No messages found')}</EmptyTitle>
+                        <EmptyDescription>{t('Try adjusting your search or filter parameters')}</EmptyDescription>
                     </EmptyHeader>
                     <EmptyContent>
                         <Button
@@ -297,7 +298,7 @@ function FlowAutomationMessages({ className }: FlowAutomationMessagesProps) {
                             variant="outline"
                         >
                             <X />
-                            Reset filters
+                            {t('Reset filters')}
                         </Button>
                     </EmptyContent>
                 </Empty>
@@ -307,10 +308,11 @@ function FlowAutomationMessages({ className }: FlowAutomationMessagesProps) {
                         <EmptyMedia variant="icon">
                             <Inbox />
                         </EmptyMedia>
-                        <EmptyTitle>No active tasks</EmptyTitle>
+                        <EmptyTitle>{t('No active tasks')}</EmptyTitle>
                         <EmptyDescription>
-                            Starting a new task may take some time as the PentAGI agent downloads the required Docker
-                            image
+                            {t(
+                                'Starting a new task may take some time as the Suricatoos agent downloads the required Docker image',
+                            )}
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { t } from '@/i18n';
 import { useResources } from '@/providers/resources-provider';
 
 import { resourcesCopyFormSchema, type ResourcesCopyFormValues, useResourcesCopy } from './use-resources-copy';
@@ -183,8 +184,8 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
     });
 
     const isSubmitDisabled = !form.formState.isValid;
-    const titleText = isMulti ? `Copy ${files.length} items` : files[0].isDir ? 'Copy directory' : 'Copy resource';
-    const overwriteCtaLabel = isMulti ? `Copy ${files.length} with overwrite` : 'Copy with overwrite';
+    const titleText = isMulti ? `Copy ${files.length} items` : files[0].isDir ? t('Copy directory') : t('Copy resource');
+    const overwriteCtaLabel = isMulti ? `Copy ${files.length} with overwrite` : t('Copy with overwrite');
 
     return (
         <>
@@ -196,10 +197,10 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
                     </DialogTitle>
                     <DialogDescription>
                         {isMulti ? (
-                            <>Duplicate every selected item into the destination directory.</>
+                            <>{t('Duplicate every selected item into the destination directory.')}</>
                         ) : (
                             <>
-                                Duplicate <code>{files[0].path}</code> to a new path.
+                                {t('Duplicate')} <code>{files[0].path}</code> {t('to a new path.')}
                             </>
                         )}
                     </DialogDescription>
@@ -215,7 +216,7 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
                             name="destination"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{isMulti ? 'Destination directory' : 'Destination path'}</FormLabel>
+                                    <FormLabel>{isMulti ? t('Destination directory') : t('Destination path')}</FormLabel>
                                     <FormControl>
                                         <Input
                                             {...field}
@@ -223,18 +224,19 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
                                             autoFocus
                                             disabled={isCopying}
                                             placeholder={
-                                                isMulti ? 'Leave empty to copy into the library root' : undefined
+                                                isMulti ? t('Leave empty to copy into the library root') : undefined
                                             }
                                         />
                                     </FormControl>
                                     <FormDescription>
                                         {isMulti ? (
                                             <>
-                                                Relative directory inside your library. Leave empty for the root. Each
-                                                item keeps its current filename.
+                                                {t(
+                                                    'Relative directory inside your library. Leave empty for the root. Each item keeps its current filename.',
+                                                )}
                                             </>
                                         ) : (
-                                            <>Relative path inside your library.</>
+                                            <>{t('Relative path inside your library.')}</>
                                         )}
                                     </FormDescription>
                                     <FormMessage />
@@ -249,7 +251,7 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
                                 type="button"
                                 variant="outline"
                             >
-                                Cancel
+                                {t('Cancel')}
                             </Button>
                             <OverwriteButtons
                                 isDisabled={isSubmitDisabled}
@@ -259,7 +261,7 @@ function ResourcesCopyDialogForm({ files, onClose }: ResourcesCopyDialogFormProp
                                 }}
                                 overwriteLabel={overwriteCtaLabel}
                                 primaryIcon={Copy}
-                                primaryLabel="Copy"
+                                primaryLabel={t('Copy')}
                                 primaryType="submit"
                             />
                         </div>

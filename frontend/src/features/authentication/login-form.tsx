@@ -8,6 +8,8 @@ import type { OAuthProvider } from '@/providers/user-provider';
 
 import Github from '@/components/icons/github';
 import Google from '@/components/icons/google';
+import LogoWordmark from '@/components/icons/logo-wordmark';
+import { t } from '@/i18n';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
@@ -155,9 +157,9 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
     if (shouldShowPasswordChange) {
         return (
             <div className="mx-auto flex w-[350px] flex-col gap-6">
-                <h1 className="text-center text-3xl font-bold">Update Password</h1>
+                <h1 className="text-center text-3xl font-bold">{t('Update Password')}</h1>
                 <p className="text-muted-foreground text-center text-sm">
-                    You need to change your password before continuing.
+                    {t('You need to change your password before continuing.')}
                 </p>
                 <PasswordChangeForm
                     isModal={false}
@@ -175,7 +177,8 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
                 className="mx-auto grid w-[350px] gap-8"
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
-                <h1 className="text-center text-3xl font-bold">PentAGI</h1>
+                <LogoWordmark className="text-foreground mx-auto h-9 w-auto" />
+                <h1 className="sr-only">Suricatoos</h1>
 
                 {providers?.length > 0 && (
                     <>
@@ -201,7 +204,7 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
                                 <div className="w-full border-t border-gray-300" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="bg-background px-2">or</span>
+                                <span className="bg-background px-2">{t('or')}</span>
                             </div>
                         </div>
                     </>
@@ -213,12 +216,12 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
                         name="mail"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Login</FormLabel>
+                                <FormLabel>{t('Login')}</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
                                         autoFocus
-                                        placeholder="Enter your email"
+                                        placeholder={t('Enter your email')}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -231,11 +234,11 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>{t('Password')}</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
-                                        placeholder="Enter your password"
+                                        placeholder={t('Enter your password')}
                                         type="password"
                                     />
                                 </FormControl>
@@ -245,7 +248,7 @@ function LoginForm({ providers, returnUrl = '/flows/new' }: LoginFormProps) {
                     />
 
                     <FormSubmitButton className="w-full">
-                        <span>Sign in</span>
+                        <span>{t('Sign in')}</span>
                     </FormSubmitButton>
 
                     {error && <FormMessage>{error}</FormMessage>}

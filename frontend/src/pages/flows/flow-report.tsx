@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
+import { t } from '@/i18n';
 import { useFlowReportQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import { generateFileName, generatePDFFromMarkdown, generateReport } from '@/lib/report';
@@ -68,7 +69,7 @@ function FlowReport() {
             })
             .catch((err) => {
                 Log.error('PDF generation failed:', err);
-                setPdfError('Failed to generate PDF');
+                setPdfError(t('Failed to generate PDF'));
                 setPdfPhase('error');
             });
     }, [dataReady, download, silent, reportContent, data]);
@@ -80,7 +81,7 @@ function FlowReport() {
         state = 'loading';
     } else if (queryError || !data?.flow) {
         state = 'error';
-        errorMessage = 'Failed to load flow data';
+        errorMessage = t('Failed to load flow data');
     } else if (pdfPhase === 'error') {
         state = 'error';
         errorMessage = pdfError;
@@ -94,16 +95,16 @@ function FlowReport() {
         return (
             <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
                 <div className="flex min-h-screen flex-col items-center justify-center p-8">
-                    <Logo className="animate-logo-spin mb-8 size-16 text-white" />
+                    <Logo className="animate-logo-pulse mb-8 size-16 text-white" />
                     <div className="flex flex-col gap-4 text-center">
                         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                            {state === 'loading' ? 'Loading Report...' : 'Generating PDF...'}
+                            {state === 'loading' ? t('Loading Report...') : t('Generating PDF...')}
                         </h1>
-                        <div className="mx-auto size-8 animate-spin rounded-full border-b-2 border-blue-600" />
+                        <div className="mx-auto size-8 animate-spin rounded-full border-primary border-b-2" />
                         <p className="max-w-md text-gray-600 dark:text-gray-400">
                             {state === 'loading'
-                                ? 'Please wait while we prepare your penetration testing report.'
-                                : 'Creating your PDF document. This may take a few moments.'}
+                                ? t('Please wait while we prepare your penetration testing report.')
+                                : t('Creating your PDF document. This may take a few moments.')}
                         </p>
                     </div>
                 </div>
@@ -117,15 +118,15 @@ function FlowReport() {
                 <div className="flex min-h-screen flex-col items-center justify-center p-8">
                     <Logo className="mb-8 size-16" />
                     <div className="flex flex-col gap-4 text-center">
-                        <h1 className="text-2xl font-semibold text-red-600 dark:text-red-400">Error Loading Report</h1>
+                        <h1 className="text-2xl font-semibold text-red-600 dark:text-red-400">{t('Error Loading Report')}</h1>
                         <p className="max-w-md text-gray-600 dark:text-gray-400">
-                            {errorMessage || 'An unexpected error occurred while loading the report.'}
+                            {errorMessage || t('An unexpected error occurred while loading the report.')}
                         </p>
                         <button
                             className="mt-4 rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
                             onClick={() => window.close()}
                         >
-                            Close
+                            {t('Close')}
                         </button>
                     </div>
                 </div>

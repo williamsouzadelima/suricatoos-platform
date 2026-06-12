@@ -5,6 +5,7 @@ import type { AgentLogFragmentFragment } from '@/graphql/types';
 
 import Markdown from '@/components/shared/markdown';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { t } from '@/i18n';
 import { copyMessageToClipboard } from '@/lib/clipboard';
 import { formatDate } from '@/lib/utils/format';
 
@@ -88,7 +89,7 @@ function FlowAgent({ log, searchValue = '' }: FlowAgentProps) {
                             className="cursor-pointer"
                             onClick={() => setIsDetailsVisible(!isDetailsVisible)}
                         >
-                            {isDetailsVisible ? 'Hide details' : 'Show details'}
+                            {isDetailsVisible ? t('Hide details') : t('Show details')}
                         </div>
                         {isDetailsVisible && result && (
                             <>
@@ -123,19 +124,19 @@ function FlowAgent({ log, searchValue = '' }: FlowAgentProps) {
                             onClick={handleCopy}
                         />
                     </TooltipTrigger>
-                    <TooltipContent>Copy</TooltipContent>
+                    <TooltipContent>{t('Copy')}</TooltipContent>
                 </Tooltip>
                 <span className="text-muted-foreground/50">{formatDate(new Date(createdAt))}</span>
                 {taskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Task ID: {taskId}</span>
+                        <span className="text-muted-foreground/50">{t('Task ID:')} {taskId}</span>
                     </>
                 )}
                 {subtaskId && (
                     <>
                         <span className="text-muted-foreground/50">|</span>
-                        <span className="text-muted-foreground/50">Subtask ID: {subtaskId}</span>
+                        <span className="text-muted-foreground/50">{t('Subtask ID:')} {subtaskId}</span>
                     </>
                 )}
             </div>

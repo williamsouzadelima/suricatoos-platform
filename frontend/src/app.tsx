@@ -29,6 +29,7 @@ import { SidebarFlowsProvider } from '@/providers/sidebar-flows-provider';
 import { TemplatesProvider } from '@/providers/templates-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { UserProvider } from '@/providers/user-provider';
+import { LocaleProvider } from '@/i18n';
 
 import { SystemSettingsProvider } from './providers/system-settings-provider';
 
@@ -275,10 +276,12 @@ const router = createBrowserRouter(
 function App() {
     return (
         <ApolloProvider client={client}>
-            <ThemeProvider>
-                <Toaster />
-                <RouterProvider router={router} />
-            </ThemeProvider>
+            <LocaleProvider>
+                <ThemeProvider>
+                    <Toaster />
+                    <RouterProvider router={router} />
+                </ThemeProvider>
+            </LocaleProvider>
         </ApolloProvider>
     );
 }

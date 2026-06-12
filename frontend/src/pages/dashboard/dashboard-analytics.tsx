@@ -10,6 +10,7 @@ import { FlowStatusBadge } from '@/components/icons/flow-status-badge';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { t } from '@/i18n';
 import {
     useFlowsExecutionStatsByPeriodQuery,
     useFlowsQuery,
@@ -133,11 +134,11 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
     return (
         <div className="flex flex-col gap-6">
             <ChartCard
-                description="Flows, tasks, and subtasks created per day"
+                description={t('Flows, tasks, and subtasks created per day')}
                 empty={!flowsByPeriodLoading && flowsChartData.length === 0}
                 height={320}
                 loading={flowsByPeriodLoading}
-                title="Flows Activity Over Time"
+                title={t('Flows Activity Over Time')}
             >
                 <BarChart
                     data={flowsChartData}
@@ -172,19 +173,19 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                     <Bar
                         dataKey="flows"
                         fill={CHART_COLORS.area1}
-                        name="Flows"
+                        name={t('Flows')}
                         radius={[4, 4, 0, 0]}
                     />
                     <Bar
                         dataKey="tasks"
                         fill={CHART_COLORS.area2}
-                        name="Tasks"
+                        name={t('Tasks')}
                         radius={[4, 4, 0, 0]}
                     />
                     <Bar
                         dataKey="subtasks"
                         fill={CHART_COLORS.area3}
-                        name="Subtasks"
+                        name={t('Subtasks')}
                         radius={[4, 4, 0, 0]}
                     />
                 </BarChart>
@@ -192,10 +193,10 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
 
             <div className="grid gap-6 lg:grid-cols-2">
                 <ChartCard
-                    description="Number of tool executions per day"
+                    description={t('Number of tool executions per day')}
                     empty={!toolcallsByPeriodLoading && toolcallsChartData.length === 0}
                     loading={toolcallsByPeriodLoading}
-                    title="Tool Calls Over Time"
+                    title={t('Tool Calls Over Time')}
                 >
                     <BarChart
                         data={toolcallsChartData}
@@ -230,17 +231,17 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                         <Bar
                             dataKey="count"
                             fill={CHART_COLORS.bar1}
-                            name="Tool Calls"
+                            name={t('Tool Calls')}
                             radius={[4, 4, 0, 0]}
                         />
                     </BarChart>
                 </ChartCard>
 
                 <ChartCard
-                    description="Input and output tokens processed daily"
+                    description={t('Input and output tokens processed daily')}
                     empty={!usageByPeriodLoading && usageChartData.length === 0}
                     loading={usageByPeriodLoading}
-                    title="Token Usage Over Time"
+                    title={t('Token Usage Over Time')}
                 >
                     <AreaChart
                         data={usageChartData}
@@ -277,7 +278,7 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                             dataKey="tokensIn"
                             fill={CHART_COLORS.area1}
                             fillOpacity={0.3}
-                            name="Tokens In"
+                            name={t('Tokens In')}
                             stroke={CHART_COLORS.area1}
                             type="monotone"
                         />
@@ -285,7 +286,7 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                             dataKey="tokensOut"
                             fill={CHART_COLORS.area2}
                             fillOpacity={0.3}
-                            name="Tokens Out"
+                            name={t('Tokens Out')}
                             stroke={CHART_COLORS.area2}
                             type="monotone"
                         />
@@ -294,11 +295,11 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
             </div>
 
             <ChartCard
-                description="LLM spending per day. May stay near zero when using local engines — this is expected."
+                description={t('LLM spending per day. May stay near zero when using local engines — this is expected.')}
                 empty={!usageByPeriodLoading && usageChartData.length === 0}
                 height={240}
                 loading={usageByPeriodLoading}
-                title="Cost Over Time"
+                title={t('Cost Over Time')}
             >
                 <AreaChart
                     data={usageChartData}
@@ -335,7 +336,7 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                         dataKey="costIn"
                         fill={CHART_COLORS.area1}
                         fillOpacity={0.3}
-                        name="Cost In"
+                        name={t('Cost In')}
                         stroke={CHART_COLORS.area1}
                         type="monotone"
                     />
@@ -343,7 +344,7 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                         dataKey="costOut"
                         fill={CHART_COLORS.area3}
                         fillOpacity={0.3}
-                        name="Cost Out"
+                        name={t('Cost Out')}
                         stroke={CHART_COLORS.area3}
                         type="monotone"
                     />
@@ -352,8 +353,8 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Flow Execution Details</CardTitle>
-                    <CardDescription>Execution time and tool calls breakdown per flow</CardDescription>
+                    <CardTitle>{t('Flow Execution Details')}</CardTitle>
+                    <CardDescription>{t('Execution time and tool calls breakdown per flow')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     {executionStatsLoading ? (
@@ -362,7 +363,7 @@ export function DashboardAnalytics({ period }: { period: UsageStatsPeriod }) {
                         </div>
                     ) : !deferredExecutionStats.length ? (
                         <p className="text-muted-foreground py-8 text-center text-sm">
-                            No flow executions in this period
+                            {t('No flow executions in this period')}
                         </p>
                     ) : (
                         <div

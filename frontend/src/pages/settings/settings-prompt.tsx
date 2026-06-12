@@ -36,6 +36,7 @@ import {
     useUpdatePromptMutation,
     useValidatePromptMutation,
 } from '@/graphql/types';
+import { t } from '@/i18n';
 import { formatPromptId } from '@/lib/route-titles/format-prompt-id';
 import { cn } from '@/lib/utils';
 
@@ -209,7 +210,7 @@ function SettingsPrompt() {
             setResetDialogOpen(false);
         } catch (error) {
             console.error('Reset error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while resetting');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while resetting'));
             setResetDialogOpen(false);
         }
     };
@@ -253,7 +254,7 @@ function SettingsPrompt() {
             setValidationDialogOpen(true);
         } catch (error) {
             console.error('Validation error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while validating');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while validating'));
         }
     };
 
@@ -396,7 +397,7 @@ function SettingsPrompt() {
     // by popstate below — react-router's blocker doesn't cover the native back gesture.
     useEffect(() => {
         if (isDirty && !hasPushedBlockerStateRef.current) {
-            window.history.pushState({ __pentagiBlock__: true }, '');
+            window.history.pushState({ __suricatoosBlock__: true }, '');
             hasPushedBlockerStateRef.current = true;
         }
     }, [isDirty]);
@@ -499,7 +500,7 @@ function SettingsPrompt() {
             }
         } catch (error) {
             console.error('Submit error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while saving');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while saving'));
         }
     };
 
@@ -522,7 +523,7 @@ function SettingsPrompt() {
             const humanPromptType = agentData.human?.type;
 
             if (!humanPromptType) {
-                setSubmitError('Human prompt type not found');
+                setSubmitError(t('Human prompt type not found'));
 
                 return;
             }
@@ -546,7 +547,7 @@ function SettingsPrompt() {
             }
         } catch (error) {
             console.error('Submit error:', error);
-            setSubmitError(error instanceof Error ? error.message : 'An error occurred while saving');
+            setSubmitError(error instanceof Error ? error.message : t('An error occurred while saving'));
         }
     };
 
@@ -554,9 +555,9 @@ function SettingsPrompt() {
         return (
             <>
                 <StatusCard
-                    description="Please wait while we fetch prompt information"
+                    description={t('Please wait while we fetch prompt information')}
                     icon={<Loader2 className="text-muted-foreground size-16 animate-spin" />}
-                    title="Loading prompt data..."
+                    title={t('Loading prompt data...')}
                 />
             </>
         );
@@ -567,7 +568,7 @@ function SettingsPrompt() {
             <>
                 <Alert variant="destructive">
                     <AlertCircle className="size-4" />
-                    <AlertTitle>Error loading prompt data</AlertTitle>
+                    <AlertTitle>{t('Error loading prompt data')}</AlertTitle>
                     <AlertDescription>{error.message}</AlertDescription>
                 </Alert>
             </>
@@ -579,9 +580,9 @@ function SettingsPrompt() {
             <>
                 <Alert variant="destructive">
                     <AlertCircle className="size-4" />
-                    <AlertTitle>Prompt not found</AlertTitle>
+                    <AlertTitle>{t('Prompt not found')}</AlertTitle>
                     <AlertDescription>
-                        The prompt "{promptId}" could not be found or is not supported for editing.
+                        {t('The prompt')} "{promptId}" {t('could not be found or is not supported for editing.')}
                     </AlertDescription>
                 </Alert>
             </>
@@ -687,8 +688,8 @@ function SettingsPrompt() {
 
                 <div className="text-muted-foreground">
                     {promptInfo.type === 'agent'
-                        ? 'Configure prompts for this AI agent'
-                        : 'Configure the prompt for this tool'}
+                        ? t('Configure prompts for this AI agent')
+                        : t('Configure the prompt for this tool')}
                 </div>
             </div>
 
@@ -701,14 +702,14 @@ function SettingsPrompt() {
                     <TabsTrigger value="system">
                         <div className="flex items-center gap-2">
                             <Code className="size-4" />
-                            System Prompt
+                            {t('System Prompt')}
                         </div>
                     </TabsTrigger>
                     {promptInfo.type === 'agent' && promptInfo.hasHuman && (
                         <TabsTrigger value="human">
                             <div className="flex items-center gap-2">
                                 <User className="size-4" />
-                                Human Prompt
+                                {t('Human Prompt')}
                             </div>
                         </TabsTrigger>
                     )}
@@ -728,7 +729,7 @@ function SettingsPrompt() {
                             {mutationError && (
                                 <Alert variant="destructive">
                                     <AlertCircle className="size-4" />
-                                    <AlertTitle>Error</AlertTitle>
+                                    <AlertTitle>{t('Error')}</AlertTitle>
                                     <AlertDescription>
                                         {mutationError instanceof Error ? (
                                             mutationError.message
@@ -746,8 +747,8 @@ function SettingsPrompt() {
                                 name="template"
                                 placeholder={
                                     promptInfo.type === 'tool'
-                                        ? 'Enter the tool template...'
-                                        : 'Enter the system prompt template...'
+                                        ? t('Enter the tool template...')
+                                        : t('Enter the system prompt template...')
                                 }
                             />
                         </form>
@@ -769,7 +770,7 @@ function SettingsPrompt() {
                                 {mutationError && (
                                     <Alert variant="destructive">
                                         <AlertCircle className="size-4" />
-                                        <AlertTitle>Error</AlertTitle>
+                                        <AlertTitle>{t('Error')}</AlertTitle>
                                         <AlertDescription>
                                             {mutationError instanceof Error ? (
                                                 mutationError.message
@@ -785,7 +786,7 @@ function SettingsPrompt() {
                                     control={humanForm.control}
                                     disabled={isLoading}
                                     name="template"
-                                    placeholder="Enter the human prompt template..."
+                                    placeholder={t('Enter the human prompt template...')}
                                 />
                             </form>
                         </Form>
@@ -818,7 +819,7 @@ function SettingsPrompt() {
                                     variant="destructive"
                                 >
                                     {isDeleteLoading ? <Loader2 className="size-4 animate-spin" /> : <RotateCcw />}
-                                    {isDeleteLoading ? 'Resetting...' : 'Reset'}
+                                    {isDeleteLoading ? t('Resetting...') : t('Reset')}
                                 </Button>
 
                                 <Button
@@ -828,7 +829,7 @@ function SettingsPrompt() {
                                     variant="outline"
                                 >
                                     <FileDiff className="size-4" />
-                                    Diff
+                                    {t('Diff')}
                                 </Button>
                             </>
                         )}
@@ -843,7 +844,7 @@ function SettingsPrompt() {
                             ) : (
                                 <CheckCircle className="size-4" />
                             )}
-                            {isValidateLoading ? 'Validating...' : 'Validate'}
+                            {isValidateLoading ? t('Validating...') : t('Validate')}
                         </Button>
                     </div>
 
@@ -854,7 +855,7 @@ function SettingsPrompt() {
                             type="button"
                             variant="outline"
                         >
-                            Cancel
+                            {t('Cancel')}
                         </Button>
                         {activeTab === 'system' && (
                             <FormSubmitButton
@@ -863,7 +864,7 @@ function SettingsPrompt() {
                                 loading={isLoading}
                                 variant="secondary"
                             >
-                                {isLoading ? 'Saving...' : 'Save Changes'}
+                                {isLoading ? t('Saving...') : t('Save Changes')}
                             </FormSubmitButton>
                         )}
                         {activeTab === 'human' && promptInfo?.type === 'agent' && promptInfo?.hasHuman && (
@@ -873,7 +874,7 @@ function SettingsPrompt() {
                                 loading={isLoading}
                                 variant="secondary"
                             >
-                                {isLoading ? 'Saving...' : 'Save Changes'}
+                                {isLoading ? t('Saving...') : t('Save Changes')}
                             </FormSubmitButton>
                         )}
                     </div>
@@ -882,31 +883,31 @@ function SettingsPrompt() {
 
             {/* Reset Confirmation Dialog */}
             <ConfirmationDialog
-                cancelText="Cancel"
+                cancelText={t('Cancel')}
                 cancelVariant="outline"
                 confirmIcon={<RotateCcw />}
-                confirmText="Reset"
+                confirmText={t('Reset')}
                 confirmVariant="destructive"
-                description="Are you sure you want to reset this prompt to its default value? This action cannot be undone."
+                description={t('Are you sure you want to reset this prompt to its default value? This action cannot be undone.')}
                 handleConfirm={handleConfirmReset}
                 handleOpenChange={setResetDialogOpen}
                 isOpen={resetDialogOpen}
                 itemName={`${activeTab} prompt`}
-                itemType="template"
-                title="Reset Prompt"
+                itemType={t('template')}
+                title={t('Reset Prompt')}
             />
 
             {/* Leave Confirmation Dialog */}
             <ConfirmationDialog
-                cancelText="Stay"
+                cancelText={t('Stay')}
                 confirmIcon={undefined}
-                confirmText="Leave"
+                confirmText={t('Leave')}
                 confirmVariant="destructive"
-                description="You have unsaved changes. Are you sure you want to leave without saving?"
+                description={t('You have unsaved changes. Are you sure you want to leave without saving?')}
                 handleConfirm={handleConfirmLeave}
                 handleOpenChange={handleLeaveDialogOpenChange}
                 isOpen={isLeaveDialogOpen}
-                title="Discard changes?"
+                title={t('Discard changes?')}
             />
 
             {/* Validation Results Dialog */}
@@ -918,10 +919,10 @@ function SettingsPrompt() {
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
                             <AlertCircle className="size-5" />
-                            Validation Results
+                            {t('Validation Results')}
                         </DialogTitle>
                         <DialogDescription>
-                            The validation result for the {activeTab} prompt template.
+                            {t('The validation result for the')} {activeTab} {t('prompt template.')}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -934,19 +935,19 @@ function SettingsPrompt() {
                                     <XCircle className="size-4 text-red-500!" />
                                 )}
                                 <AlertTitle>
-                                    {validationResult.result === 'success' ? 'Valid Template' : 'Validation Error'}
+                                    {validationResult.result === 'success' ? t('Valid Template') : t('Validation Error')}
                                 </AlertTitle>
                                 <AlertDescription>
                                     <div className="whitespace-pre-line">
                                         {validationResult.message}
                                         {validationResult.details && (
                                             <div className="mt-2">
-                                                <strong>Details:</strong> {validationResult.details}
+                                                <strong>{t('Details:')}</strong> {validationResult.details}
                                             </div>
                                         )}
                                         {validationResult.line && (
                                             <div className="mt-1">
-                                                <strong>Line:</strong> {validationResult.line}
+                                                <strong>{t('Line:')}</strong> {validationResult.line}
                                             </div>
                                         )}
                                     </div>
@@ -954,7 +955,7 @@ function SettingsPrompt() {
                             </Alert>
 
                             <div className="flex justify-end">
-                                <Button onClick={() => setValidationDialogOpen(false)}>Close</Button>
+                                <Button onClick={() => setValidationDialogOpen(false)}>{t('Close')}</Button>
                             </div>
                         </div>
                     )}
@@ -970,9 +971,9 @@ function SettingsPrompt() {
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
                             <FileDiff className="size-5" />
-                            Diff
+                            {t('Diff')}
                         </DialogTitle>
-                        <DialogDescription>Changes between current value and default template.</DialogDescription>
+                        <DialogDescription>{t('Changes between current value and default template.')}</DialogDescription>
                     </DialogHeader>
                     <div className="max-h-[70vh] overflow-auto">
                         <ReactDiffViewer
@@ -998,7 +999,7 @@ function Variables({ currentTemplate, onVariableClick, variables }: VariablesPro
 
     return (
         <div className="bg-muted/50 mb-4 rounded-md border p-3">
-            <h4 className="text-muted-foreground mb-2 text-sm font-medium">Available Variables:</h4>
+            <h4 className="text-muted-foreground mb-2 text-sm font-medium">{t('Available Variables:')}</h4>
             <div className="flex flex-wrap gap-1">
                 {variables.map((variable) => {
                     const isUsed = usedVariables.has(variable);
