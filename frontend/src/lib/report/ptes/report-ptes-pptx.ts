@@ -4,6 +4,7 @@
 import pptxgen from 'pptxgenjs';
 
 import { CHART_SPECS } from './report-charts-sheet';
+import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { PTES_PHASES, type Engagement } from './engagement';
 import { actionItems, categoryCounts, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
 
@@ -56,8 +57,9 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     const c = pptx.addSlide();
     c.background = { color: INK };
     c.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.18, h: '100%', fill: { color: primary } });
-    if (e.branding.appLogo) c.addImage({ data: e.branding.appLogo, x: 0.8, y: 0.7, w: 0.6, h: 0.6 });
-    c.addText(e.branding.appName.toUpperCase(), { x: e.branding.appLogo ? 1.5 : 0.8, y: 0.7, w: 8, h: 0.6, fontSize: 24, bold: true, color: primary, valign: 'middle' });
+    const appLogo = e.branding.appLogoOnDark ?? e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
+    c.addImage({ data: appLogo, x: 0.8, y: 0.56, w: 0.72, h: 0.72 });
+    c.addText(e.branding.appName.toUpperCase(), { x: 1.65, y: 0.56, w: 8, h: 0.72, fontSize: 24, bold: true, color: primary, valign: 'middle' });
     c.addText('RELATÓRIO DE PENTEST · PTES', { x: 0.8, y: 2.0, w: 11, h: 0.4, fontSize: 14, bold: true, color: CORAL, charSpacing: 2 });
     c.addText(e.title, { x: 0.8, y: 2.5, w: 11.6, h: 1.5, fontSize: 32, bold: true, color: 'FFFFFF' });
     c.addText(`Preparado por ${e.branding.appName} para`, { x: 0.8, y: 4.2, w: 11, h: 0.3, fontSize: 11, color: '94A3B8' });

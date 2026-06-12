@@ -21,6 +21,7 @@ import {
 } from 'docx';
 
 import { CHART_SPECS } from './report-charts-sheet';
+import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { PTES_PHASES, type Engagement, type Finding } from './engagement';
 import { actionItems, categoryCounts, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
 
@@ -78,8 +79,10 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     const bullet = (t: string) => new Paragraph({ bullet: { level: 0 }, spacing: { after: 30 }, children: [new TextRun({ text: t, color: SLATE, size: 19 })] });
 
     // ── Cover ──
+    const appLogo = e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
     const cover: (Paragraph | Table)[] = [
-        new Paragraph({ spacing: { before: 600, after: 0 }, children: [new TextRun({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 44 })] }),
+        new Paragraph({ spacing: { before: 600, after: 0 }, children: [new ImageRun({ type: 'png', data: decode(appLogo), transformation: { width: 72, height: 72 } })] }),
+        new Paragraph({ spacing: { before: 60, after: 0 }, children: [new TextRun({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 44 })] }),
         new Paragraph({ spacing: { before: 200, after: 60 }, children: [new TextRun({ text: 'RELATÓRIO DE PENTEST · PTES', bold: true, color: CORAL, size: 22 })] }),
         new Paragraph({ spacing: { after: 200 }, children: [new TextRun({ text: e.title, bold: true, color: INK, size: 48 })] }),
         new Paragraph({ spacing: { after: 40 }, children: [new TextRun({ text: `Preparado por ${e.branding.appName} para`, color: MUTED, size: 18 })] }),

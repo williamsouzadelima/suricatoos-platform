@@ -42,7 +42,8 @@ export interface Finding {
 // when uploaded; when absent the engine falls back to the built-in Suricatoos mark / initials.
 export interface Branding {
     appName: string;
-    appLogo?: string; // data URI of the whitelabel app logo (operator brand)
+    appLogo?: string; // data URI of the whitelabel app logo (for light backgrounds)
+    appLogoOnDark?: string; // data URI variant for dark backgrounds (cover); falls back to appLogo
     clientName: string;
     clientLogo?: string; // data URI of the client's uploaded logo
     primary?: string; // optional brand color override (hex without '#')

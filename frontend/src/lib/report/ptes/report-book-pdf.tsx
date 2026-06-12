@@ -122,7 +122,7 @@ const Badge = ({ severity }: { severity: Severity }) => {
 const Header = ({ e }: { e: Engagement }) => (
     <View style={s.header} fixed>
         <View style={s.headerL}>
-            <AppLogo branding={e.branding} size={13} color={COLORS.brand} />
+            <AppLogo branding={e.branding} size={15} />
             <Text style={s.headerBrand}>{e.branding.appName.toUpperCase()}</Text>
         </View>
         <Text style={s.headerMeta}>{`${e.client} · ${e.classification}`}</Text>
@@ -251,7 +251,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 <View style={s.coverBar} />
                 <View style={s.coverInner}>
                     <View style={s.brandRow}>
-                        <AppLogo branding={e.branding} size={34} color={COLORS.white} />
+                        <AppLogo branding={e.branding} size={42} onDark />
                         <Text style={[s.coverBrand, { color: BRAND }]}>{e.branding.appName.toUpperCase()}</Text>
                     </View>
                     <Text style={s.coverKicker}>RELATÓRIO DE PENTEST · PTES</Text>
