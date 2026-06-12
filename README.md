@@ -85,6 +85,16 @@ Interface em **pt-BR (padrão)**, **inglês** e **espanhol**. As strings em ingl
 traduções ausentes caem de volta para o inglês automaticamente, sem quebrar a tela. Troca de idioma
 em tempo real pelo menu do usuário.
 
+## 📄 Relatórios de exemplo
+
+Veja a saída real do motor de relatórios (de um engajamento **fictício**) em
+[`docs/sample-reports/`](docs/sample-reports/):
+
+| Relatório | Formatos |
+|---|---|
+| **Técnico** | [.docx](docs/sample-reports/suricatoos-relatorio-tecnico.docx) · [.pptx](docs/sample-reports/suricatoos-relatorio-tecnico.pptx) · [.pdf](docs/sample-reports/suricatoos-relatorio-tecnico.pdf) |
+| **Executivo** | [.pptx](docs/sample-reports/suricatoos-relatorio-executivo.pptx) · [.pdf](docs/sample-reports/suricatoos-relatorio-executivo.pdf) |
+
 ## 🏗️ Arquitetura & stack
 
 | Caminho | Papel | Tecnologias |
