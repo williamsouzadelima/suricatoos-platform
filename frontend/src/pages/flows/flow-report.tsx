@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
 import { t } from '@/i18n';
-import { useFlowReportQuery } from '@/graphql/types';
+import { useFlowQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import {
     downloadBlob,
@@ -55,7 +55,7 @@ function FlowReport() {
         data,
         error: queryError,
         loading,
-    } = useFlowReportQuery({
+    } = useFlowQuery({
         errorPolicy: 'all',
         skip: !flowId,
         variables: { id: flowId! },
