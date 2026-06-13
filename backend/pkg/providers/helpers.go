@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	RepeatingToolCallThreshold   = 3
+	RepeatingToolCallThreshold   = 6
 	maxQASectionsAfterRestore    = 3
 	keepQASectionsAfterRestore   = 1
 	lastSecBytesAfterRestore     = 16 * 1024 // 16 KB

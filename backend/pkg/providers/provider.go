@@ -31,7 +31,10 @@ import (
 
 const ToolPlaceholder = "Execute operations via function invocation - textual responses are not acceptable for task completion."
 
-const TasksNumberLimit = 15
+// TasksNumberLimit caps subtasks per task. Raised from 15 to allow deeper, methodology-complete
+// pentest plans (recon/enumeration alone often need several subtasks each); the generator is
+// instructed to use only as many as the objective genuinely requires.
+const TasksNumberLimit = 30
 
 const (
 	msgGeneratorSizeLimit = 150 * 1024 // 150 KB
