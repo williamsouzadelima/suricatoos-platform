@@ -27,7 +27,6 @@ const PrimaryTerminalNamePrefix = "suricatoos-terminal-"
 const (
 	maxExplicitExecCommandTimeout = 3 * time.Hour
 	defaultExtraExecTimeout       = 5 * time.Second
-	defaultQuickCheckTimeout      = 500 * time.Millisecond
 
 	// ANSI terminal color codes (aligned with Suricatoos UI palette)
 	ansiColorInputCmd  = "\033[96m" // Bright Cyan - matches UI blue accents
@@ -35,11 +34,6 @@ const (
 	ansiColorReset     = "\033[0m"  // Reset to default
 	ansiLineTerminator = "\r\n"     // CRLF for terminal compatibility
 )
-
-type execResult struct {
-	output string
-	err    error
-}
 
 type terminal struct {
 	flowID             int64
@@ -173,13 +167,6 @@ func (t *terminal) ExecCommand(
 ) (string, error) {
 	containerName := PrimaryTerminalName(t.flowID)
 
-	// create options for starting the exec process
-	cmd := []string{
-		"sh",
-		"-c",
-		command,
-	}
-
 	// verify container runtime status
 	isRunning, err := t.dockerClient.IsContainerRunning(ctx, t.containerLID)
 	if err != nil {
@@ -200,10 +187,17 @@ func (t *terminal) ExecCommand(
 		return "", fmt.Errorf("failed to put terminal log (stdin): %w", err)
 	}
 
+	// Background job: long-running, slow or interactive commands run to COMPLETION with NO
+	// time limit; full stdout+stderr is captured to a logfile the agent collects afterwards.
+	// Multiple jobs can run in parallel, each isolated under /work/.jobs/<id>/.
+	if detach {
+		return t.startBackgroundJob(ctx, containerName, cwd, command)
+	}
+
 	timeout = t.normalizeExecTimeout(timeout)
 
 	createResp, err := t.dockerClient.ContainerExecCreate(ctx, containerName, container.ExecOptions{
-		Cmd:          cmd,
+		Cmd:          []string{"sh", "-c", command},
 		AttachStdout: true,
 		AttachStderr: true,
 		WorkingDir:   cwd,
@@ -213,30 +207,49 @@ func (t *terminal) ExecCommand(
 		return "", fmt.Errorf("failed to create exec process: %w", err)
 	}
 
-	if detach {
-		resultChan := make(chan execResult, 1)
-		detachedCtx := context.WithoutCancel(ctx)
+	return t.getExecResult(ctx, createResp.ID, timeout)
+}
 
-		go func() {
-			output, err := t.getExecResult(detachedCtx, createResp.ID, timeout)
-			resultChan <- execResult{output: output, err: err}
-		}()
+// startBackgroundJob launches command fully detached inside the container (setsid + redirect)
+// so the agent never has to time-bound or wait on long scans. The real command runs to
+// completion under its own session; stdout+stderr stream to <job>/out.log and the exit code
+// lands in <job>/exit when it finishes. The launch exec itself returns immediately.
+func (t *terminal) startBackgroundJob(ctx context.Context, containerName, cwd, command string) (string, error) {
+	jobID := fmt.Sprintf("j%d", time.Now().UnixNano())
+	jobDir := fmt.Sprintf("%s/.jobs/%s", docker.WorkFolderPathInContainer, jobID)
 
-		select {
-		case result := <-resultChan:
-			if result.err != nil {
-				return "", fmt.Errorf("command failed: %w: %s", result.err, result.output)
-			}
-			if result.output == "" {
-				return "Command completed in background with exit code 0", nil
-			}
-			return result.output, nil
-		case <-time.After(defaultQuickCheckTimeout):
-			return fmt.Sprintf("Command started in background with timeout %s (still running)", timeout), nil
-		}
+	// Embed the agent's command inside an inner `sh -c '...'`; escape single quotes for that context.
+	esc := strings.ReplaceAll(command, "'", `'\''`)
+	wrapper := fmt.Sprintf(
+		"mkdir -p '%[1]s' && setsid sh -c '{ %[2]s ; } > %[1]s/out.log 2>&1; echo $? > %[1]s/exit' </dev/null >/dev/null 2>&1 & echo %[3]s",
+		jobDir, esc, jobID,
+	)
+
+	createResp, err := t.dockerClient.ContainerExecCreate(ctx, containerName, container.ExecOptions{
+		Cmd:          []string{"sh", "-c", wrapper},
+		AttachStdout: true,
+		AttachStderr: true,
+		WorkingDir:   cwd,
+		Tty:          true,
+	})
+	if err != nil {
+		return "", fmt.Errorf("failed to create background job exec: %w", err)
 	}
 
-	return t.getExecResult(ctx, createResp.ID, timeout)
+	// The wrapper backgrounds the real command and returns immediately, so a short bound is enough.
+	if _, err := t.getExecResult(ctx, createResp.ID, 30*time.Second); err != nil {
+		return "", fmt.Errorf("failed to launch background job: %w", err)
+	}
+
+	return fmt.Sprintf(
+		"Background job '%[1]s' started — it runs to COMPLETION with no time limit and its full "+
+			"stdout+stderr is captured. Launch as many jobs in parallel as you need, then collect each:\n"+
+			"  - status:  terminal -> test -f %[2]s/exit && echo \"EXITED code=$(cat %[2]s/exit)\" || echo RUNNING\n"+
+			"  - peek:    terminal -> tail -n 300 %[2]s/out.log   (or grep for specific findings)\n"+
+			"  - FULL raw output (no truncation/summary): file read_file -> %[2]s/out.log\n"+
+			"Poll status until EXITED, then read the complete output before drawing any conclusion.",
+		jobID, jobDir,
+	), nil
 }
 
 func (t *terminal) getExecResult(ctx context.Context, id string, timeout time.Duration) (string, error) {
