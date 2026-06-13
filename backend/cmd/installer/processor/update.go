@@ -15,7 +15,7 @@ import (
 	"suricatoos/pkg/version"
 )
 
-const updateServerURL = "https://update.pentagi.com"
+const updateServerURL = "" // empty = auto-update disabled; set UPDATE_SERVER_URL to enable
 
 type updateOperationsImpl struct {
 	processor *processor
@@ -154,7 +154,11 @@ func (u *updateOperationsImpl) getInstallerDownloadURL(ctx context.Context) (str
 		return "", fmt.Errorf("no update available")
 	}
 
-	return "https://update.pentagi.com/installer", nil
+	serverURL := u.getUpdateServerURL()
+	if serverURL == "" {
+		return "", fmt.Errorf("no update server configured")
+	}
+	return serverURL + "/installer", nil
 }
 
 func (u *updateOperationsImpl) downloadBinaryToTemp(ctx context.Context, downloadURL string) (string, error) {
@@ -230,7 +234,7 @@ func (u *updateOperationsImpl) getUpdateServerURL() string {
 		return serverVar.Value
 	}
 
-	return "https://update.pentagi.com"
+	return updateServerURL
 }
 
 func (u *updateOperationsImpl) getProxyURL() string {

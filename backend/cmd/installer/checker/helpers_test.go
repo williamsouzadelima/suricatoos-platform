@@ -608,8 +608,9 @@ func TestConstants(t *testing.T) {
 	if !strings.Contains(UserAgent, InstallerVersion) {
 		t.Error("UserAgent should contain InstallerVersion")
 	}
-	if DefaultUpdateServerEndpoint == "" {
-		t.Error("DefaultUpdateServerEndpoint should not be empty")
+	// DefaultUpdateServerEndpoint may be empty (auto-update disabled by default).
+	if DefaultUpdateServerEndpoint != "" && !strings.HasPrefix(DefaultUpdateServerEndpoint, "https://") {
+		t.Error("DefaultUpdateServerEndpoint, if set, must be an https URL")
 	}
 	if UpdatesCheckEndpoint == "" {
 		t.Error("UpdatesCheckEndpoint should not be empty")
