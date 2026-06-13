@@ -518,6 +518,33 @@ func ConvertAPITokens(tokens []database.ApiToken) []*model.APIToken {
 	return result
 }
 
+func ConvertBranding(b database.AppBranding) *model.Branding {
+	var appLogo, appLogoOnDark, clientName, clientLogo *string
+	if b.AppLogo.Valid {
+		appLogo = &b.AppLogo.String
+	}
+	if b.AppLogoOnDark.Valid {
+		appLogoOnDark = &b.AppLogoOnDark.String
+	}
+	if b.ClientName.Valid {
+		clientName = &b.ClientName.String
+	}
+	if b.ClientLogo.Valid {
+		clientLogo = &b.ClientLogo.String
+	}
+
+	return &model.Branding{
+		AppName:       b.AppName,
+		PrimaryColor:  b.PrimaryColor,
+		AccentColor:   b.AccentColor,
+		AppLogo:       appLogo,
+		AppLogoOnDark: appLogoOnDark,
+		ClientName:    clientName,
+		ClientLogo:    clientLogo,
+		UpdatedAt:     b.UpdatedAt.Time,
+	}
+}
+
 func ConvertFlowTemplate(template database.FlowTemplate) *model.FlowTemplate {
 	return &model.FlowTemplate{
 		ID:        template.ID,

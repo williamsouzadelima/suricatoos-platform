@@ -1013,6 +1013,50 @@ func (r *mutationResolver) DeleteFavoriteFlow(ctx context.Context, flowID int64)
 	return model.ResultTypeSuccess, nil
 }
 
+// UpdateBranding is the resolver for the updateBranding field.
+func (r *mutationResolver) UpdateBranding(ctx context.Context, input model.BrandingInput) (*model.Branding, error) {
+	uid, _, err := validatePermission(ctx, "settings.branding.edit")
+	if err != nil {
+		return nil, err
+	}
+
+	isUserSession, err := validateUserType(ctx, userSessionTypes...)
+	if err != nil {
+		return nil, err
+	}
+
+	if !isUserSession {
+		return nil, fmt.Errorf("unauthorized: non-user session is not allowed to update branding")
+	}
+
+	ns := func(s *string) sql.NullString {
+		if s == nil {
+			return sql.NullString{}
+		}
+		return sql.NullString{String: *s, Valid: true}
+	}
+
+	r.Logger.WithFields(logrus.Fields{
+		"uid":     uid,
+		"appName": input.AppName,
+	}).Debug("update branding")
+
+	branding, err := r.DB.UpsertAppBranding(ctx, database.UpsertAppBrandingParams{
+		AppName:       input.AppName,
+		PrimaryColor:  input.PrimaryColor,
+		AccentColor:   input.AccentColor,
+		AppLogo:       ns(input.AppLogo),
+		AppLogoOnDark: ns(input.AppLogoOnDark),
+		ClientName:    ns(input.ClientName),
+		ClientLogo:    ns(input.ClientLogo),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to update branding: %w", err)
+	}
+
+	return converter.ConvertBranding(branding), nil
+}
+
 // CreateFlowTemplate is the resolver for the createFlowTemplate field.
 func (r *mutationResolver) CreateFlowTemplate(ctx context.Context, input model.CreateFlowTemplateInput) (*model.FlowTemplate, error) {
 	uid, _, err := validatePermission(ctx, "templates.create")
@@ -2215,6 +2259,21 @@ func (r *queryResolver) SettingsUser(ctx context.Context) (*model.UserPreference
 	}
 
 	return converter.ConvertUserPreferences(prefs), nil
+}
+
+// Branding is the resolver for the branding field.
+func (r *queryResolver) Branding(ctx context.Context) (*model.Branding, error) {
+	_, _, err := validatePermission(ctx, "settings.branding.view")
+	if err != nil {
+		return nil, err
+	}
+
+	branding, err := r.DB.GetAppBranding(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get branding: %w", err)
+	}
+
+	return converter.ConvertBranding(branding), nil
 }
 
 // APIToken is the resolver for the apiToken field.

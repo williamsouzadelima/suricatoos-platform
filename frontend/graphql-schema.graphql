@@ -9,6 +9,17 @@ fragment settingsFragment on Settings {
     assistantUseAgents
 }
 
+fragment brandingFragment on Branding {
+    appName
+    primaryColor
+    accentColor
+    appLogo
+    appLogoOnDark
+    clientName
+    clientLogo
+    updatedAt
+}
+
 fragment flowFragment on Flow {
     id
     title
@@ -540,6 +551,18 @@ query providers {
 query settings {
     settings {
         ...settingsFragment
+    }
+}
+
+query branding {
+    branding {
+        ...brandingFragment
+    }
+}
+
+mutation updateBranding($input: BrandingInput!) {
+    updateBranding(input: $input) {
+        ...brandingFragment
     }
 }
 

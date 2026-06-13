@@ -137,6 +137,27 @@ type AssistantLog struct {
 	CreatedAt    time.Time      `json:"createdAt"`
 }
 
+type Branding struct {
+	AppName       string    `json:"appName"`
+	PrimaryColor  string    `json:"primaryColor"`
+	AccentColor   string    `json:"accentColor"`
+	AppLogo       *string   `json:"appLogo,omitempty"`
+	AppLogoOnDark *string   `json:"appLogoOnDark,omitempty"`
+	ClientName    *string   `json:"clientName,omitempty"`
+	ClientLogo    *string   `json:"clientLogo,omitempty"`
+	UpdatedAt     time.Time `json:"updatedAt"`
+}
+
+type BrandingInput struct {
+	AppName       string  `json:"appName"`
+	PrimaryColor  string  `json:"primaryColor"`
+	AccentColor   string  `json:"accentColor"`
+	AppLogo       *string `json:"appLogo,omitempty"`
+	AppLogoOnDark *string `json:"appLogoOnDark,omitempty"`
+	ClientName    *string `json:"clientName,omitempty"`
+	ClientLogo    *string `json:"clientLogo,omitempty"`
+}
+
 type CreateAPITokenInput struct {
 	Name *string `json:"name,omitempty"`
 	TTL  int     `json:"ttl"`

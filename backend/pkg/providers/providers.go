@@ -772,12 +772,12 @@ func (pc *providerController) NewProvider(prv database.Provider) (provider.Provi
 		prv.Config = []byte(pconfig.EmptyProviderConfigRaw)
 	}
 
-	// Check if the provider type is available via check default one
+	// A user-defined provider is valid for ANY supported type: it carries its own
+	// credentials (api_key / base_url) entered via the UI, so it does not require the
+	// matching env-based default provider to exist. Genuinely unknown types are still
+	// rejected by the switch's default case below.
 	providerName := provider.ProviderName(prv.Name)
 	providerType := provider.ProviderType(prv.Type)
-	if !pc.ListTypes().Contains(providerType) {
-		return nil, fmt.Errorf("provider type '%s' is not available", prv.Type)
-	}
 
 	// Resolve provider-level credentials entered via the UI onto a per-call config
 	// copy: the decrypted API key / base URL override the env defaults; when empty,

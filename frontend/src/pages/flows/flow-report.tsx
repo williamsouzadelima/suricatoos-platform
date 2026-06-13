@@ -7,6 +7,7 @@ import { t } from '@/i18n';
 import { useFlowReportQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import {
+    downloadBlob,
     generateDOCXFromMarkdown,
     generateExecutivePPTX,
     generateExecutiveReport,
@@ -15,9 +16,12 @@ import {
     generateReport,
     generateTechnicalPPTX,
 } from '@/lib/report';
+import { toEngagementBranding } from '@/lib/report/branding';
+import { generatePtesReportFromFlow } from '@/lib/report/ptes/export-ptes';
+import { useBranding } from '@/providers/branding-provider';
 
 type ReportFormat = 'docx' | 'pdf' | 'pptx';
-type ReportType = 'executive' | 'technical';
+type ReportType = 'executive' | 'ptes' | 'technical';
 
 type PdfPhase = 'done' | 'error' | 'idle';
 type ReportState = 'content' | 'error' | 'generating' | 'loading';
@@ -27,10 +31,13 @@ function FlowReport() {
     const [searchParams] = useSearchParams();
     const download = searchParams.has('download');
     const silent = searchParams.has('silent');
-    const reportType: ReportType = searchParams.get('type') === 'executive' ? 'executive' : 'technical';
+    const typeParam = searchParams.get('type');
+    const reportType: ReportType = typeParam === 'executive' ? 'executive' : typeParam === 'ptes' ? 'ptes' : 'technical';
     const reportFormat: ReportFormat = ['docx', 'pptx'].includes(searchParams.get('format') ?? '')
         ? (searchParams.get('format') as ReportFormat)
         : 'pdf';
+
+    const { branding } = useBranding();
 
     const [pdfPhase, setPdfPhase] = useState<PdfPhase>('idle');
     const [pdfError, setPdfError] = useState<null | string>(null);
@@ -77,13 +84,19 @@ function FlowReport() {
 
         pdfTriggered.current = true;
 
-        const base = `${generateFileName(data.flow)}_${reportType === 'executive' ? 'executivo' : 'tecnico'}`;
+        const typeSlug = reportType === 'executive' ? 'executivo' : reportType === 'ptes' ? 'ptes' : 'tecnico';
+        const base = `${generateFileName(data.flow)}_${typeSlug}`;
         const docTitle = `${data.flow.id}. ${data.flow.title}`;
         const subtitle = reportType === 'executive' ? 'Relatório Executivo' : 'Relatório Técnico';
         const tasks = data.tasks || [];
         const flow = data.flow;
 
         const run = async (): Promise<void> => {
+            if (reportType === 'ptes') {
+                const blob = await generatePtesReportFromFlow(flow, tasks, toEngagementBranding(branding), reportFormat);
+                downloadBlob(blob, `${base}.${reportFormat}`);
+                return;
+            }
             if (reportFormat === 'docx') {
                 await generateDOCXFromMarkdown(reportContent, base, { subtitle, title: docTitle });
             } else if (reportFormat === 'pptx') {
@@ -110,7 +123,7 @@ function FlowReport() {
                 setPdfError(t('Failed to generate report'));
                 setPdfPhase('error');
             });
-    }, [dataReady, download, silent, reportContent, reportType, reportFormat, data]);
+    }, [dataReady, download, silent, reportContent, reportType, reportFormat, data, branding]);
 
     let state: ReportState;
     let errorMessage: null | string = null;

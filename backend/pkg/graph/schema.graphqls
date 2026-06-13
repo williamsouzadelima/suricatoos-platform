@@ -178,6 +178,29 @@ type UserPreferences {
   favoriteFlows: [ID!]!
 }
 
+# ==================== Branding (Whitelabel) Types ====================
+
+type Branding {
+  appName: String!
+  primaryColor: String!
+  accentColor: String!
+  appLogo: String
+  appLogoOnDark: String
+  clientName: String
+  clientLogo: String
+  updatedAt: Time!
+}
+
+input BrandingInput {
+  appName: String!
+  primaryColor: String!
+  accentColor: String!
+  appLogo: String
+  appLogoOnDark: String
+  clientName: String
+  clientLogo: String
+}
+
 # ==================== Flow Template Types ====================
 
 type FlowTemplate {
@@ -991,6 +1014,9 @@ type Query {
   settingsPrompts: PromptsConfig!
   settingsUser: UserPreferences!
 
+  # Whitelabel branding
+  branding: Branding!
+
   # API Tokens management
   apiToken(tokenId: String!): APIToken
   apiTokens: [APIToken!]!
@@ -1044,6 +1070,9 @@ type Mutation {
   # User preferences management
   addFavoriteFlow(flowId: ID!): ResultType!
   deleteFavoriteFlow(flowId: ID!): ResultType!
+
+  # Whitelabel branding management
+  updateBranding(input: BrandingInput!): Branding!
 
   # Flow Templates management
   createFlowTemplate(input: CreateFlowTemplateInput!): FlowTemplate!

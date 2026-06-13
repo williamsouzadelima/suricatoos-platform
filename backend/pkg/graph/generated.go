@@ -178,6 +178,17 @@ type ComplexityRoot struct {
 		Type         func(childComplexity int) int
 	}
 
+	Branding struct {
+		AccentColor   func(childComplexity int) int
+		AppLogo       func(childComplexity int) int
+		AppLogoOnDark func(childComplexity int) int
+		AppName       func(childComplexity int) int
+		ClientLogo    func(childComplexity int) int
+		ClientName    func(childComplexity int) int
+		PrimaryColor  func(childComplexity int) int
+		UpdatedAt     func(childComplexity int) int
+	}
+
 	DailyFlowsStats struct {
 		Date  func(childComplexity int) int
 		Stats func(childComplexity int) int
@@ -371,6 +382,7 @@ type ComplexityRoot struct {
 		TestAgent               func(childComplexity int, typeArg model.ProviderType, agentType model.AgentConfigType, agent model.AgentConfig) int
 		TestProvider            func(childComplexity int, typeArg model.ProviderType, agents model.AgentsConfig) int
 		UpdateAPIToken          func(childComplexity int, tokenID string, input model.UpdateAPITokenInput) int
+		UpdateBranding          func(childComplexity int, input model.BrandingInput) int
 		UpdateFlowTemplate      func(childComplexity int, templateID int64, input model.UpdateFlowTemplateInput) int
 		UpdateKnowledgeDocument func(childComplexity int, id string, input model.UpdateKnowledgeDocumentInput) int
 		UpdatePrompt            func(childComplexity int, promptID int64, template string) int
@@ -467,6 +479,7 @@ type ComplexityRoot struct {
 		AgentLogs                       func(childComplexity int, flowID int64) int
 		AssistantLogs                   func(childComplexity int, flowID int64, assistantID int64) int
 		Assistants                      func(childComplexity int, flowID int64) int
+		Branding                        func(childComplexity int) int
 		Flow                            func(childComplexity int, flowID int64) int
 		FlowFiles                       func(childComplexity int, flowID int64) int
 		FlowStatsByFlow                 func(childComplexity int, flowID int64) int
@@ -761,6 +774,7 @@ type MutationResolver interface {
 	DeleteAPIToken(ctx context.Context, tokenID string) (bool, error)
 	AddFavoriteFlow(ctx context.Context, flowID int64) (model.ResultType, error)
 	DeleteFavoriteFlow(ctx context.Context, flowID int64) (model.ResultType, error)
+	UpdateBranding(ctx context.Context, input model.BrandingInput) (*model.Branding, error)
 	CreateFlowTemplate(ctx context.Context, input model.CreateFlowTemplateInput) (*model.FlowTemplate, error)
 	UpdateFlowTemplate(ctx context.Context, templateID int64, input model.UpdateFlowTemplateInput) (*model.FlowTemplate, error)
 	DeleteFlowTemplate(ctx context.Context, templateID int64) (model.ResultType, error)
@@ -805,6 +819,7 @@ type QueryResolver interface {
 	SettingsProviders(ctx context.Context) (*model.ProvidersConfig, error)
 	SettingsPrompts(ctx context.Context) (*model.PromptsConfig, error)
 	SettingsUser(ctx context.Context) (*model.UserPreferences, error)
+	Branding(ctx context.Context) (*model.Branding, error)
 	APIToken(ctx context.Context, tokenID string) (*model.APIToken, error)
 	APITokens(ctx context.Context) ([]*model.APIToken, error)
 	FlowTemplate(ctx context.Context, templateID int64) (*model.FlowTemplate, error)
@@ -1517,6 +1532,62 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.AssistantLog.Type(childComplexity), true
+
+	case "Branding.accentColor":
+		if e.complexity.Branding.AccentColor == nil {
+			break
+		}
+
+		return e.complexity.Branding.AccentColor(childComplexity), true
+
+	case "Branding.appLogo":
+		if e.complexity.Branding.AppLogo == nil {
+			break
+		}
+
+		return e.complexity.Branding.AppLogo(childComplexity), true
+
+	case "Branding.appLogoOnDark":
+		if e.complexity.Branding.AppLogoOnDark == nil {
+			break
+		}
+
+		return e.complexity.Branding.AppLogoOnDark(childComplexity), true
+
+	case "Branding.appName":
+		if e.complexity.Branding.AppName == nil {
+			break
+		}
+
+		return e.complexity.Branding.AppName(childComplexity), true
+
+	case "Branding.clientLogo":
+		if e.complexity.Branding.ClientLogo == nil {
+			break
+		}
+
+		return e.complexity.Branding.ClientLogo(childComplexity), true
+
+	case "Branding.clientName":
+		if e.complexity.Branding.ClientName == nil {
+			break
+		}
+
+		return e.complexity.Branding.ClientName(childComplexity), true
+
+	case "Branding.primaryColor":
+		if e.complexity.Branding.PrimaryColor == nil {
+			break
+		}
+
+		return e.complexity.Branding.PrimaryColor(childComplexity), true
+
+	case "Branding.updatedAt":
+		if e.complexity.Branding.UpdatedAt == nil {
+			break
+		}
+
+		return e.complexity.Branding.UpdatedAt(childComplexity), true
 
 	case "DailyFlowsStats.date":
 		if e.complexity.DailyFlowsStats.Date == nil {
@@ -2551,6 +2622,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdateAPIToken(childComplexity, args["tokenId"].(string), args["input"].(model.UpdateAPITokenInput)), true
 
+	case "Mutation.updateBranding":
+		if e.complexity.Mutation.UpdateBranding == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateBranding_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateBranding(childComplexity, args["input"].(model.BrandingInput)), true
+
 	case "Mutation.updateFlowTemplate":
 		if e.complexity.Mutation.UpdateFlowTemplate == nil {
 			break
@@ -3057,6 +3140,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Assistants(childComplexity, args["flowId"].(int64)), true
+
+	case "Query.branding":
+		if e.complexity.Query.Branding == nil {
+			break
+		}
+
+		return e.complexity.Query.Branding(childComplexity), true
 
 	case "Query.flow":
 		if e.complexity.Query.Flow == nil {
@@ -4725,6 +4815,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
 		ec.unmarshalInputAgentConfigInput,
 		ec.unmarshalInputAgentsConfigInput,
+		ec.unmarshalInputBrandingInput,
 		ec.unmarshalInputCreateAPITokenInput,
 		ec.unmarshalInputCreateFlowTemplateInput,
 		ec.unmarshalInputCreateKnowledgeDocumentInput,
@@ -6371,6 +6462,38 @@ func (ec *executionContext) field_Mutation_updateAPIToken_argsInput(
 	}
 
 	var zeroVal model.UpdateAPITokenInput
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_updateBranding_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	arg0, err := ec.field_Mutation_updateBranding_argsInput(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["input"] = arg0
+	return args, nil
+}
+func (ec *executionContext) field_Mutation_updateBranding_argsInput(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (model.BrandingInput, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["input"]
+	if !ok {
+		var zeroVal model.BrandingInput
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+	if tmp, ok := rawArgs["input"]; ok {
+		return ec.unmarshalNBrandingInput2suricatoosᚋpkgᚋgraphᚋmodelᚐBrandingInput(ctx, tmp)
+	}
+
+	var zeroVal model.BrandingInput
 	return zeroVal, nil
 }
 
@@ -12991,6 +13114,346 @@ func (ec *executionContext) fieldContext_AssistantLog_createdAt(_ context.Contex
 	return fc, nil
 }
 
+func (ec *executionContext) _Branding_appName(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_appName(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AppName, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_appName(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_primaryColor(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_primaryColor(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PrimaryColor, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_primaryColor(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_accentColor(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_accentColor(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AccentColor, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_accentColor(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_appLogo(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_appLogo(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AppLogo, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_appLogo(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_appLogoOnDark(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_appLogoOnDark(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AppLogoOnDark, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_appLogoOnDark(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_clientName(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_clientName(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ClientName, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_clientName(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_clientLogo(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_clientLogo(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ClientLogo, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_clientLogo(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Branding_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Branding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Branding_updatedAt(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UpdatedAt, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(time.Time)
+	fc.Result = res
+	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Branding_updatedAt(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Branding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Time does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _DailyFlowsStats_date(ctx context.Context, field graphql.CollectedField, obj *model.DailyFlowsStats) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_DailyFlowsStats_date(ctx, field)
 	if err != nil {
@@ -19364,6 +19827,79 @@ func (ec *executionContext) fieldContext_Mutation_deleteFavoriteFlow(ctx context
 	return fc, nil
 }
 
+func (ec *executionContext) _Mutation_updateBranding(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_updateBranding(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateBranding(rctx, fc.Args["input"].(model.BrandingInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Branding)
+	fc.Result = res
+	return ec.marshalNBranding2ᚖsuricatoosᚋpkgᚋgraphᚋmodelᚐBranding(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_updateBranding(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "appName":
+				return ec.fieldContext_Branding_appName(ctx, field)
+			case "primaryColor":
+				return ec.fieldContext_Branding_primaryColor(ctx, field)
+			case "accentColor":
+				return ec.fieldContext_Branding_accentColor(ctx, field)
+			case "appLogo":
+				return ec.fieldContext_Branding_appLogo(ctx, field)
+			case "appLogoOnDark":
+				return ec.fieldContext_Branding_appLogoOnDark(ctx, field)
+			case "clientName":
+				return ec.fieldContext_Branding_clientName(ctx, field)
+			case "clientLogo":
+				return ec.fieldContext_Branding_clientLogo(ctx, field)
+			case "updatedAt":
+				return ec.fieldContext_Branding_updatedAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Branding", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_updateBranding_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Mutation_createFlowTemplate(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Mutation_createFlowTemplate(ctx, field)
 	if err != nil {
@@ -24769,6 +25305,68 @@ func (ec *executionContext) fieldContext_Query_settingsUser(_ context.Context, f
 				return ec.fieldContext_UserPreferences_favoriteFlows(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type UserPreferences", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_branding(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_branding(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Branding(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Branding)
+	fc.Result = res
+	return ec.marshalNBranding2ᚖsuricatoosᚋpkgᚋgraphᚋmodelᚐBranding(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_branding(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "appName":
+				return ec.fieldContext_Branding_appName(ctx, field)
+			case "primaryColor":
+				return ec.fieldContext_Branding_primaryColor(ctx, field)
+			case "accentColor":
+				return ec.fieldContext_Branding_accentColor(ctx, field)
+			case "appLogo":
+				return ec.fieldContext_Branding_appLogo(ctx, field)
+			case "appLogoOnDark":
+				return ec.fieldContext_Branding_appLogoOnDark(ctx, field)
+			case "clientName":
+				return ec.fieldContext_Branding_clientName(ctx, field)
+			case "clientLogo":
+				return ec.fieldContext_Branding_clientLogo(ctx, field)
+			case "updatedAt":
+				return ec.fieldContext_Branding_updatedAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Branding", field.Name)
 		},
 	}
 	return fc, nil
@@ -36407,6 +37005,75 @@ func (ec *executionContext) unmarshalInputAgentsConfigInput(ctx context.Context,
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputBrandingInput(ctx context.Context, obj interface{}) (model.BrandingInput, error) {
+	var it model.BrandingInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"appName", "primaryColor", "accentColor", "appLogo", "appLogoOnDark", "clientName", "clientLogo"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "appName":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("appName"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AppName = data
+		case "primaryColor":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("primaryColor"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.PrimaryColor = data
+		case "accentColor":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("accentColor"))
+			data, err := ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AccentColor = data
+		case "appLogo":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("appLogo"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AppLogo = data
+		case "appLogoOnDark":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("appLogoOnDark"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AppLogoOnDark = data
+		case "clientName":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clientName"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ClientName = data
+		case "clientLogo":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clientLogo"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ClientLogo = data
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputCreateAPITokenInput(ctx context.Context, obj interface{}) (model.CreateAPITokenInput, error) {
 	var it model.CreateAPITokenInput
 	asMap := map[string]interface{}{}
@@ -37627,6 +38294,68 @@ func (ec *executionContext) _AssistantLog(ctx context.Context, sel ast.Selection
 			}
 		case "createdAt":
 			out.Values[i] = ec._AssistantLog_createdAt(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var brandingImplementors = []string{"Branding"}
+
+func (ec *executionContext) _Branding(ctx context.Context, sel ast.SelectionSet, obj *model.Branding) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, brandingImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Branding")
+		case "appName":
+			out.Values[i] = ec._Branding_appName(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "primaryColor":
+			out.Values[i] = ec._Branding_primaryColor(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "accentColor":
+			out.Values[i] = ec._Branding_accentColor(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "appLogo":
+			out.Values[i] = ec._Branding_appLogo(ctx, field, obj)
+		case "appLogoOnDark":
+			out.Values[i] = ec._Branding_appLogoOnDark(ctx, field, obj)
+		case "clientName":
+			out.Values[i] = ec._Branding_clientName(ctx, field, obj)
+		case "clientLogo":
+			out.Values[i] = ec._Branding_clientLogo(ctx, field, obj)
+		case "updatedAt":
+			out.Values[i] = ec._Branding_updatedAt(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
@@ -39000,6 +39729,13 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
+		case "updateBranding":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_updateBranding(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		case "createFlowTemplate":
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_createFlowTemplate(ctx, field)
@@ -40360,6 +41096,28 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_settingsUser(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "branding":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_branding(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&fs.Invalids, 1)
 				}
@@ -42585,6 +43343,25 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) marshalNBranding2suricatoosᚋpkgᚋgraphᚋmodelᚐBranding(ctx context.Context, sel ast.SelectionSet, v model.Branding) graphql.Marshaler {
+	return ec._Branding(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNBranding2ᚖsuricatoosᚋpkgᚋgraphᚋmodelᚐBranding(ctx context.Context, sel ast.SelectionSet, v *model.Branding) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._Branding(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNBrandingInput2suricatoosᚋpkgᚋgraphᚋmodelᚐBrandingInput(ctx context.Context, v interface{}) (model.BrandingInput, error) {
+	res, err := ec.unmarshalInputBrandingInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNCreateAPITokenInput2suricatoosᚋpkgᚋgraphᚋmodelᚐCreateAPITokenInput(ctx context.Context, v interface{}) (model.CreateAPITokenInput, error) {
