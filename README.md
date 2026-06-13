@@ -11,7 +11,6 @@ Descreva o alvo — a Suricatoos planeja e executa reconhecimento, exploração 
 ![Backend](https://img.shields.io/badge/backend-Go%20%2B%20GraphQL-194FE3?style=flat-square)
 ![Frontend](https://img.shields.io/badge/frontend-React%2019%20%2B%20Vite-FF7678?style=flat-square)
 ![i18n](https://img.shields.io/badge/i18n-pt--BR%20%C2%B7%20en%20%C2%B7%20es-FF7678?style=flat-square)
-![Fork](https://img.shields.io/badge/fork%20de-PentAGI-555?style=flat-square)
 
 </div>
 
@@ -23,8 +22,8 @@ Descreva o alvo — a Suricatoos planeja e executa reconhecimento, exploração 
 
 ## ✨ Por que Suricatoos
 
-A Suricatoos é um fork da plataforma open-source **[PentAGI](https://github.com/vxcontrol/pentagi)**
-— um sistema multiagente (Pesquisador · Desenvolvedor · Executor) que coordena LLMs, executa
+A Suricatoos é uma plataforma open-source de pentest autônomo — um sistema multiagente
+(Pesquisador · Desenvolvedor · Executor) que coordena LLMs, executa
 ferramentas em **sandboxes Docker isolados** e mantém uma **memória vetorial persistente** entre
 engajamentos.
 
@@ -169,9 +168,8 @@ pnpm run dev
 
 ## 🙌 Créditos & licença
 
-A Suricatoos é um fork de **[PentAGI](https://github.com/vxcontrol/pentagi)**, criado por
-[vxcontrol](https://github.com/vxcontrol). Todo o crédito pela arquitetura e funcionalidade central
-pertence ao projeto original. O copyright do upstream e os arquivos `LICENSE`, `NOTICE` e `EULA.md`
-são **preservados sem alteração** — revise-os antes de qualquer redistribuição.
+A Suricatoos incorpora componentes open-source de terceiros. O copyright do upstream e os arquivos
+`LICENSE` (MIT), `NOTICE` e `EULA.md` são **preservados sem alteração** e contêm a atribuição
+completa exigida pelas licenças — revise-os antes de qualquer redistribuição.
 
 Consulte [CLAUDE.md](CLAUDE.md) para o guia de desenvolvimento e notas de arquitetura.
