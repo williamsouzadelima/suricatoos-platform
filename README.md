@@ -111,13 +111,39 @@ aplicação + logo do cliente). Os três formatos são **visualmente consistente
 
 ## 🚀 Início rápido
 
+Servidor novo, do zero — três passos:
+
 ```bash
-cp .env.example .env          # preencha o banco + ao menos um provedor de LLM
-docker compose up -d
+git clone https://github.com/williamsouzadelima/suricatoos-platform.git
+cd suricatoos-platform
+./setup.sh                       # cria .env, gera COOKIE_SIGNING_SALT + senha de DB aleatórios, seta LISTEN_IP=0.0.0.0
+docker compose up -d --build     # builda do fonte (1ª vez) e sobe a stack
 ```
 
-A stack completa sobe em `https://localhost:8443`. As chaves de LLM também podem ser cadastradas
-depois, pela própria interface.
+A stack sobe em **`https://localhost`** (porta **443**, HTTPS com certificado self-signed gerado no
+boot → o navegador mostra um aviso na primeira vez, basta prosseguir). Login inicial
+**`admin@suricatoos.com` / `admin`** — **troque a senha** no primeiro acesso.
+
+> Adicione ao menos um provedor de LLM: edite `ANTHROPIC_API_KEY`/`OPEN_AI_KEY` (etc.) no `.env`,
+> ou cadastre depois pela própria interface (chaves cifradas em repouso, AES-256-GCM).
+
+**Conteúdo opcional (Conhecimento + Recursos):** as migrations já semeiam o admin, os **34 templates**
+ofensivos e as metodologias. Para carregar também os **70 docs de Conhecimento** e os **25 Recursos**
+de referência, com a stack no ar e um embedder configurado:
+
+```bash
+./seed-content.sh                # usa admin@suricatoos.com/admin por padrão; veja as flags no topo do script
+```
+
+> A busca semântica do Conhecimento exige um **embedder** (ex.: Ollama com `bge-m3`, `ollama pull bge-m3`,
+> ou um provider de embeddings) — sem ele, o upload de Conhecimento falha (os Recursos sobem normalmente).
+
+**Imagem pré-pronta (em vez de buildar):** após o CI publicar, aponte
+`SURICATOOS_IMAGE=ghcr.io/williamsouzadelima/suricatoos-platform:latest` no `.env` (deixe o pacote
+público no GitHub Packages, ou faça `docker/podman login ghcr.io` com `read:packages`).
+
+> **Podman** em vez de Docker: fixe `DOCKER_HOST=unix:///var/run/docker.sock` no compose e ajuste a
+> porta do pgvector se a 5432 do host já estiver ocupada.
 
 ### Desenvolvimento
 
