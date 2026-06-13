@@ -93,7 +93,7 @@ function FlowReport() {
 
         const run = async (): Promise<void> => {
             if (reportType === 'ptes') {
-                const blob = await generatePtesReportFromFlow(flow, tasks, toEngagementBranding(branding), reportFormat);
+                const blob = await generatePtesReportFromFlow(data, toEngagementBranding(branding), reportFormat);
                 downloadBlob(blob, `${base}.${reportFormat}`);
                 return;
             }

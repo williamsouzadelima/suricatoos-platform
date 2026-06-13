@@ -1,7 +1,7 @@
 // Public entry point for the premium PTES report. Heavy dependencies (react-pdf, pdf.js,
 // docx, pptxgenjs) are lazy-loaded so they never weigh on the main bundle — they only load
 // when the user actually exports a report.
-import type { FlowFragmentFragment, TaskFragmentFragment } from '@/graphql/types';
+import type { FlowQuery } from '@/graphql/types';
 
 import type { Branding, Engagement } from './engagement';
 import type { FromFlowOptions } from './from-flow';
@@ -35,14 +35,13 @@ export async function generatePtesBlob(engagement: Engagement, format: PtesForma
     return (await pptx.write({ outputType: 'blob' })) as Blob;
 }
 
-/** Build the Engagement from a real flow + tasks and export it in the requested format. */
+/** Build the Engagement from a real flow (the full FlowQuery payload) and export it. */
 export async function generatePtesReportFromFlow(
-    flow: FlowFragmentFragment,
-    tasks: TaskFragmentFragment[],
+    data: FlowQuery,
     branding: Branding,
     format: PtesFormat,
     options?: FromFlowOptions,
 ): Promise<Blob> {
-    const engagement = transformFlowToEngagement(flow, tasks, branding, options);
+    const engagement = transformFlowToEngagement(data, branding, options);
     return generatePtesBlob(engagement, format);
 }
