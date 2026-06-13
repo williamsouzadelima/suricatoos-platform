@@ -71,6 +71,16 @@ export type AgentsConfigInput = {
     simpleJson: AgentConfigInput;
 };
 
+export type BrandingInput = {
+    accentColor: string;
+    appLogo?: string | null | undefined;
+    appLogoOnDark?: string | null | undefined;
+    appName: string;
+    clientLogo?: string | null | undefined;
+    clientName?: string | null | undefined;
+    primaryColor: string;
+};
+
 export type CreateApiTokenInput = {
     name?: string | null | undefined;
     ttl: number;
@@ -293,6 +303,17 @@ export type SettingsFragmentFragment = {
     dockerInside: boolean;
     isDevelopMode: boolean;
     assistantUseAgents: boolean;
+};
+
+export type BrandingFragmentFragment = {
+    appName: string;
+    primaryColor: string;
+    accentColor: string;
+    appLogo: string | null;
+    appLogoOnDark: string | null;
+    clientName: string | null;
+    clientLogo: string | null;
+    updatedAt: unknown;
 };
 
 export type FlowFragmentFragment = {
@@ -689,6 +710,16 @@ export type ProvidersQuery = { providers: Array<ProviderFragmentFragment> };
 export type SettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SettingsQuery = { settings: SettingsFragmentFragment };
+
+export type BrandingQueryVariables = Exact<{ [key: string]: never }>;
+
+export type BrandingQuery = { branding: BrandingFragmentFragment };
+
+export type UpdateBrandingMutationVariables = Exact<{
+    input: BrandingInput;
+}>;
+
+export type UpdateBrandingMutation = { updateBranding: BrandingFragmentFragment };
 
 export type SettingsProvidersQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -1386,6 +1417,18 @@ export const SettingsFragmentFragmentDoc = gql`
         dockerInside
         isDevelopMode
         assistantUseAgents
+    }
+`;
+export const BrandingFragmentFragmentDoc = gql`
+    fragment brandingFragment on Branding {
+        appName
+        primaryColor
+        accentColor
+        appLogo
+        appLogoOnDark
+        clientName
+        clientLogo
+        updatedAt
     }
 `;
 export const TerminalFragmentFragmentDoc = gql`
@@ -2140,6 +2183,108 @@ export type SettingsQueryHookResult = ReturnType<typeof useSettingsQuery>;
 export type SettingsLazyQueryHookResult = ReturnType<typeof useSettingsLazyQuery>;
 export type SettingsSuspenseQueryHookResult = ReturnType<typeof useSettingsSuspenseQuery>;
 export type SettingsQueryResult = ApolloReactCommon.QueryResult<SettingsQuery, SettingsQueryVariables>;
+export const BrandingDocument = gql`
+    query branding {
+        branding {
+            ...brandingFragment
+        }
+    }
+    ${BrandingFragmentFragmentDoc}
+`;
+
+/**
+ * __useBrandingQuery__
+ *
+ * To run a query within a React component, call `useBrandingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBrandingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBrandingQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBrandingQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<BrandingQuery, BrandingQueryVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useQuery<BrandingQuery, BrandingQueryVariables>(BrandingDocument, options);
+}
+export function useBrandingLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BrandingQuery, BrandingQueryVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useLazyQuery<BrandingQuery, BrandingQueryVariables>(BrandingDocument, options);
+}
+// @ts-ignore
+export function useBrandingSuspenseQuery(
+    baseOptions?: ApolloReactHooks.SuspenseQueryHookOptions<BrandingQuery, BrandingQueryVariables>,
+): ApolloReactHooks.UseSuspenseQueryResult<BrandingQuery, BrandingQueryVariables>;
+export function useBrandingSuspenseQuery(
+    baseOptions?:
+        | ApolloReactHooks.SkipToken
+        | ApolloReactHooks.SuspenseQueryHookOptions<BrandingQuery, BrandingQueryVariables>,
+): ApolloReactHooks.UseSuspenseQueryResult<BrandingQuery | undefined, BrandingQueryVariables>;
+export function useBrandingSuspenseQuery(
+    baseOptions?:
+        | ApolloReactHooks.SkipToken
+        | ApolloReactHooks.SuspenseQueryHookOptions<BrandingQuery, BrandingQueryVariables>,
+) {
+    const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useSuspenseQuery<BrandingQuery, BrandingQueryVariables>(BrandingDocument, options);
+}
+export type BrandingQueryHookResult = ReturnType<typeof useBrandingQuery>;
+export type BrandingLazyQueryHookResult = ReturnType<typeof useBrandingLazyQuery>;
+export type BrandingSuspenseQueryHookResult = ReturnType<typeof useBrandingSuspenseQuery>;
+export type BrandingQueryResult = ApolloReactCommon.QueryResult<BrandingQuery, BrandingQueryVariables>;
+export const UpdateBrandingDocument = gql`
+    mutation updateBranding($input: BrandingInput!) {
+        updateBranding(input: $input) {
+            ...brandingFragment
+        }
+    }
+    ${BrandingFragmentFragmentDoc}
+`;
+export type UpdateBrandingMutationFn = ApolloReactCommon.MutationFunction<
+    UpdateBrandingMutation,
+    UpdateBrandingMutationVariables
+>;
+
+/**
+ * __useUpdateBrandingMutation__
+ *
+ * To run a mutation, you first call `useUpdateBrandingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBrandingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBrandingMutation, { data, loading, error }] = useUpdateBrandingMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBrandingMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateBrandingMutation, UpdateBrandingMutationVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useMutation<UpdateBrandingMutation, UpdateBrandingMutationVariables>(
+        UpdateBrandingDocument,
+        options,
+    );
+}
+export type UpdateBrandingMutationHookResult = ReturnType<typeof useUpdateBrandingMutation>;
+export type UpdateBrandingMutationResult = ApolloReactCommon.MutationResult<UpdateBrandingMutation>;
+export type UpdateBrandingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    UpdateBrandingMutation,
+    UpdateBrandingMutationVariables
+>;
 export const SettingsProvidersDocument = gql`
     query settingsProviders {
         settingsProviders {

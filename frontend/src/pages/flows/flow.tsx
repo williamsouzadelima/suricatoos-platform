@@ -477,7 +477,7 @@ function FlowReportDropdown() {
         }
     };
 
-    const handleExport = (type: 'executive' | 'technical', format: 'docx' | 'pdf' | 'pptx') => {
+    const handleExport = (type: 'executive' | 'ptes' | 'technical', format: 'docx' | 'pdf' | 'pptx') => {
         if (isReportDisabled || !flow || !flowId) {
             return;
         }
@@ -531,6 +531,20 @@ function FlowReportDropdown() {
                 >
                     <Download className="size-4" />
                     {t('Download MD')}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>{t('PTES report (premium)')}</DropdownMenuLabel>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'pdf')}>
+                    <Download className="size-4" />
+                    PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'docx')}>
+                    <Download className="size-4" />
+                    {t('Word (.docx)')}
+                </DropdownMenuItem>
+                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'pptx')}>
+                    <Download className="size-4" />
+                    {t('PowerPoint (.pptx)')}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>{t('Technical report')}</DropdownMenuLabel>

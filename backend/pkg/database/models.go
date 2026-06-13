@@ -888,6 +888,19 @@ type ApiToken struct {
 	DeletedAt sql.NullTime   `json:"deleted_at"`
 }
 
+type AppBranding struct {
+	ID            int64          `json:"id"`
+	AppName       string         `json:"app_name"`
+	PrimaryColor  string         `json:"primary_color"`
+	AccentColor   string         `json:"accent_color"`
+	AppLogo       sql.NullString `json:"app_logo"`
+	AppLogoOnDark sql.NullString `json:"app_logo_on_dark"`
+	ClientName    sql.NullString `json:"client_name"`
+	ClientLogo    sql.NullString `json:"client_logo"`
+	CreatedAt     sql.NullTime   `json:"created_at"`
+	UpdatedAt     sql.NullTime   `json:"updated_at"`
+}
+
 type Assistant struct {
 	ID                 int64           `json:"id"`
 	Status             AssistantStatus `json:"status"`

@@ -1,6 +1,54 @@
 // English source string -> Brazilian Portuguese (pt-BR).
 // Missing keys fall back to the English source automatically.
 const pt: Record<string, string> = {
+    // ── Reports ──────────────────────────────────────────────────────────
+    'PTES report (premium)': 'Relatório PTES (premium)',
+
+    // ── Branding (whitelabel) ────────────────────────────────────────────
+    Branding: 'Identidade Visual',
+    'Customize the brand identity used across the app and your generated reports (whitelabel).':
+        'Personalize a identidade visual usada no aplicativo e nos relatórios gerados (whitelabel).',
+    'Brand identity': 'Identidade da marca',
+    'The application name and colors applied to report covers, charts and headers.':
+        'O nome do aplicativo e as cores aplicadas às capas, gráficos e cabeçalhos dos relatórios.',
+    'Application name': 'Nome do aplicativo',
+    'Application name is required.': 'O nome do aplicativo é obrigatório.',
+    'Primary color': 'Cor primária',
+    'Accent color': 'Cor de destaque',
+    'Application logos': 'Logotipos do aplicativo',
+    'Used on the app UI and as the publisher logo on every report. The dark variant is used on the report cover.':
+        'Usados na interface do app e como logotipo do emissor em todos os relatórios. A variante escura é usada na capa.',
+    'Logo (light background)': 'Logotipo (fundo claro)',
+    'Logo (dark background)': 'Logotipo (fundo escuro)',
+    'Shown on light backgrounds. PNG or SVG recommended.': 'Exibido em fundos claros. PNG ou SVG recomendados.',
+    'Optional. Shown on dark backgrounds such as the report cover.':
+        'Opcional. Exibido em fundos escuros, como a capa do relatório.',
+    'Default client (co-branding)': 'Cliente padrão (co-branding)',
+    'Optional default client used to personalize reports. Can be overridden per report.':
+        'Cliente padrão opcional para personalizar os relatórios. Pode ser substituído em cada relatório.',
+    'Client name': 'Nome do cliente',
+    'e.g. ACME Corporation': 'ex.: ACME Corporação',
+    'Client logo': 'Logotipo do cliente',
+    'The client logo for co-branded, personalized reports.':
+        'O logotipo do cliente para relatórios co-marcados e personalizados.',
+    Replace: 'Substituir',
+    Remove: 'Remover',
+    Reset: 'Restaurar',
+    'Save changes': 'Salvar alterações',
+    'Saving…': 'Salvando…',
+    'Branding saved.': 'Identidade visual salva.',
+    'Failed to save branding.': 'Falha ao salvar a identidade visual.',
+    'Live preview': 'Pré-visualização',
+    Palette: 'Paleta',
+    Confidential: 'Confidencial',
+    'Penetration Test Report': 'Relatório de Teste de Intrusão',
+    'Unsupported image format. Use PNG, JPG, SVG or WebP.':
+        'Formato de imagem não suportado. Use PNG, JPG, SVG ou WebP.',
+    'Image is too large (max 1.5 MB).': 'Imagem muito grande (máx. 1,5 MB).',
+    'Large image — consider a smaller logo for lighter reports.':
+        'Imagem grande — considere um logotipo menor para relatórios mais leves.',
+    'Could not read the image file.': 'Não foi possível ler o arquivo de imagem.',
+
     // ── Navigation / sidebar ─────────────────────────────────────────────
     'New Flow': 'Novo Fluxo',
     Dashboard: 'Painel',

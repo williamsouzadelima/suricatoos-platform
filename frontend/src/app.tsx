@@ -31,6 +31,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import { UserProvider } from '@/providers/user-provider';
 import { LocaleProvider } from '@/i18n';
 
+import { BrandingProvider } from './providers/branding-provider';
 import { SystemSettingsProvider } from './providers/system-settings-provider';
 
 const Dashboard = lazy(() => import('@/pages/dashboard/dashboard'));
@@ -46,6 +47,7 @@ const Template = lazy(() => import('@/pages/templates/template'));
 const Templates = lazy(() => import('@/pages/templates/templates'));
 const OAuthResult = lazy(() => import('@/pages/oauth-result'));
 const SettingsAPITokens = lazy(() => import('@/pages/settings/settings-api-tokens'));
+const SettingsBranding = lazy(() => import('@/pages/settings/settings-branding'));
 const SettingsPrompt = lazy(() => import('@/pages/settings/settings-prompt'));
 const SettingsPrompts = lazy(() => import('@/pages/settings/settings-prompts'));
 const SettingsProvider = lazy(() => import('@/pages/settings/settings-provider'));
@@ -71,11 +73,13 @@ function ProtectedAppLayout() {
     return (
         <ProtectedRoute>
             <SystemSettingsProvider>
-                <ProvidersProvider>
-                    <SidebarFlowsProvider>
-                        <AppLayout />
-                    </SidebarFlowsProvider>
-                </ProvidersProvider>
+                <BrandingProvider>
+                    <ProvidersProvider>
+                        <SidebarFlowsProvider>
+                            <AppLayout />
+                        </SidebarFlowsProvider>
+                    </ProvidersProvider>
+                </BrandingProvider>
             </SystemSettingsProvider>
         </ProtectedRoute>
     );
@@ -85,7 +89,9 @@ function ProtectedReportLayout() {
     return (
         <ProtectedRoute>
             <SystemSettingsProvider>
-                <FlowReport />
+                <BrandingProvider>
+                    <FlowReport />
+                </BrandingProvider>
             </SystemSettingsProvider>
         </ProtectedRoute>
     );
@@ -226,6 +232,11 @@ const router = createBrowserRouter(
                         element={<SettingsAPITokens />}
                         handle={routeTitles.apiTokens}
                         path="api-tokens"
+                    />
+                    <Route
+                        element={<SettingsBranding />}
+                        handle={routeTitles.branding}
+                        path="branding"
                     />
                     {/* Catch-all route for unknown settings paths */}
                     <Route
