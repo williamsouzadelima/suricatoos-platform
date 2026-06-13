@@ -40,7 +40,7 @@ const (
 	DefaultLangfuseEndpoint      = "http://langfuse-web:3000"
 	DefaultObservabilityEndpoint = "otelcol:8148"
 	DefaultLangfuseOtelEndpoint  = "http://otelcol:4318"
-	DefaultUpdateServerEndpoint  = "https://update.pentagi.com"
+	DefaultUpdateServerEndpoint  = "" // empty = auto-update disabled; set UPDATE_SERVER_URL to enable
 	UpdatesCheckEndpoint         = "/api/v1/updates/check"
 	MinFreeMemGB                 = 0.5
 	MinFreeMemGBForSuricatoos       = 0.5
@@ -556,6 +556,17 @@ func (h *defaultCheckHandler) GatherUpdatesInfo(ctx context.Context, c *CheckRes
 
 	proxyURL := getProxyURL(h.appState)
 	updateServerURL := getEnvVar(h.appState, "UPDATE_SERVER_URL", DefaultUpdateServerEndpoint)
+
+	// No update server configured: auto-update is disabled — skip the remote check entirely.
+	if updateServerURL == "" {
+		c.UpdateServerAccessible = false
+		c.InstallerIsUpToDate = false
+		c.SuricatoosIsUpToDate = false
+		c.GraphitiIsUpToDate = false
+		c.LangfuseIsUpToDate = false
+		c.ObservabilityIsUpToDate = false
+		return nil
+	}
 
 	request := CheckUpdatesRequest{
 		InstallerOsType:        runtime.GOOS,
