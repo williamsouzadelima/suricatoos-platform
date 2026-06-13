@@ -17,6 +17,45 @@ export interface FindingReference {
     url?: string;
 }
 
+// Where a field's value came from. Renderers badge 'inferred'/'estimated' fields honestly,
+// so the report never passes off a guess as a measurement.
+export type Provenance = 'measured' | 'parsed' | 'inferred' | 'estimated';
+
+// Per-field provenance for a finding. Only fields the flow genuinely cannot capture
+// (e.g. a CVSS score when none was emitted) should ever be 'estimated'.
+export interface FieldProvenance {
+    severity?: Provenance;
+    cvss?: Provenance;
+    cwe?: Provenance;
+    affected?: Provenance;
+    remediation?: Provenance;
+}
+
+// A real affected asset extracted from a finding's OWN step-linked logs (not the generic
+// container roster). sourceLogIds tie it back to the flow for provenance.
+export interface AffectedAsset {
+    host: string; // ip or hostname
+    port?: number;
+    service?: string; // "http", "ssh"
+    url?: string; // endpoint for web findings
+    sourceLogIds: string[];
+}
+
+// A numbered piece of evidence (screenshot or tool-output excerpt) cross-linked to findings
+// and narrative beats. Screenshots resolve to the flow's /file path, rasterized at export.
+export interface Figure {
+    id: string; // "FIG-01"
+    n: number;
+    kind: 'screenshot' | 'terminal' | 'tool-output';
+    caption: string;
+    imageSrc?: string; // resolved screenshot /file path or data URI
+    code?: string; // tool-output excerpt (kind 'terminal'/'tool-output')
+    capturedUrl?: string; // the target URL the screenshot captured
+    taskId?: string;
+    subtaskId?: string;
+    findingIds: string[]; // cross-link back to findings
+}
+
 export interface Finding {
     id: string; // e.g. "F-01"
     title: string;
@@ -35,6 +74,16 @@ export interface Finding {
     businessImpact: string;
     remediation: string;
     references: FindingReference[];
+    // --- real-data extras (all optional; existing renderers/sample ignore them) ---
+    assets?: AffectedAsset[]; // structured affected assets; `affected[]` is the humanized view
+    provenance?: FieldProvenance; // per-field honesty flags
+    estimatedNote?: string; // shown inline when a field is genuinely 'estimated'
+    evidenceRefs?: string[]; // Figure ids backing this finding
+    sourceTaskIds?: string[]; // flow tasks this finding was derived from
+    sourceSubtaskIds?: string[];
+    remediationEffort?: 1 | 2 | 3; // per-finding action-plan inputs (supersede the static REMEDIATION map)
+    remediationWindow?: RemediationWindow;
+    etaDays?: number;
 }
 
 // Whitelabel branding: the application's own logo flows into the report, and an optional
@@ -59,6 +108,11 @@ export interface AttackStep {
     title: string;
     text: string;
     refs?: string[]; // finding ids referenced in this beat
+    sourceTaskId?: string; // the flow task this beat narrates
+    sourceMsgLogId?: string; // the `report` messageLog used as the prose source
+    figureRefs?: string[]; // Figure ids shown with this beat
+    timestamp?: string; // task.createdAt — feeds the timeline
+    estimated?: boolean; // true when the prose was synthesized, not from a `report` msglog
 }
 
 export interface Engagement {
@@ -78,6 +132,7 @@ export interface Engagement {
     methodology: { phase: PtesPhaseId; title: string; activities: string[] }[];
     findings: Finding[];
     recommendations: { priority: RemediationWindow; text: string }[];
+    figures?: Figure[]; // numbered evidence plates (screenshots + tool-output excerpts)
 }
 
 // Effort (1=baixo, 2=médio, 3=alto), ETA in days and remediation window per finding.
