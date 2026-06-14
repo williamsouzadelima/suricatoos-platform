@@ -217,6 +217,39 @@ type DefaultProvidersConfig struct {
 	Qwen      *ProviderConfig `json:"qwen,omitempty"`
 }
 
+type Finding struct {
+	ID             int64     `json:"id"`
+	FlowID         int64     `json:"flowId"`
+	Title          string    `json:"title"`
+	Severity       string    `json:"severity"`
+	CvssScore      *float64  `json:"cvssScore,omitempty"`
+	CvssVector     *string   `json:"cvssVector,omitempty"`
+	Cwe            *string   `json:"cwe,omitempty"`
+	Category       *string   `json:"category,omitempty"`
+	Affected       []string  `json:"affected"`
+	Description    string    `json:"description"`
+	BusinessImpact *string   `json:"businessImpact,omitempty"`
+	Likelihood     *int      `json:"likelihood,omitempty"`
+	Impact         *int      `json:"impact,omitempty"`
+	Remediation    *string   `json:"remediation,omitempty"`
+	References     *string   `json:"references,omitempty"`
+	Evidence       *string   `json:"evidence,omitempty"`
+	SourceTaskIds  []int64   `json:"sourceTaskIds"`
+	Provenance     *string   `json:"provenance,omitempty"`
+	CreatedAt      time.Time `json:"createdAt"`
+	UpdatedAt      time.Time `json:"updatedAt"`
+}
+
+type FindingDerivation struct {
+	ID        int64      `json:"id"`
+	FlowID    int64      `json:"flowId"`
+	Status    StatusType `json:"status"`
+	Summary   *string    `json:"summary,omitempty"`
+	Error     *string    `json:"error,omitempty"`
+	CreatedAt time.Time  `json:"createdAt"`
+	UpdatedAt time.Time  `json:"updatedAt"`
+}
+
 type Flow struct {
 	ID        int64       `json:"id"`
 	Title     string      `json:"title"`

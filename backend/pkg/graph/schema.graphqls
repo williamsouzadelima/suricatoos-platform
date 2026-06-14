@@ -282,6 +282,40 @@ type Subtask {
   updatedAt: Time!
 }
 
+# LLM-derived report findings (see findings table / deriveFindings)
+type Finding {
+  id: ID!
+  flowId: ID!
+  title: String!
+  severity: String!
+  cvssScore: Float
+  cvssVector: String
+  cwe: String
+  category: String
+  affected: [String!]!
+  description: String!
+  businessImpact: String
+  likelihood: Int
+  impact: Int
+  remediation: String
+  references: String
+  evidence: String
+  sourceTaskIds: [ID!]!
+  provenance: String
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type FindingDerivation {
+  id: ID!
+  flowId: ID!
+  status: StatusType!
+  summary: String
+  error: String
+  createdAt: Time!
+  updatedAt: Time!
+}
+
 # ==================== Logging Types ====================
 
 type AssistantLog {
@@ -973,6 +1007,7 @@ type Query {
 
   # Task and execution logs
   tasks(flowId: ID!): [Task!]
+  findings(flowId: ID!): [Finding!]!
   flowFiles(flowId: ID!): [FlowFile!]!
   screenshots(flowId: ID!): [Screenshot!]
   terminalLogs(flowId: ID!): [TerminalLog!]
@@ -1037,6 +1072,7 @@ type Query {
 type Mutation {
   # Flow management
   createFlow(modelProvider: String!, input: String!, resourceIds: [ID!]): Flow!
+  deriveFindings(flowId: ID!): FindingDerivation!
   putUserInput(flowId: ID!, input: String!, modelProvider: String, resourceIds: [ID!]): ResultType!
   stopFlow(flowId: ID!): ResultType!
   finishFlow(flowId: ID!): ResultType!

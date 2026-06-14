@@ -27,6 +27,8 @@ import type {
     Severity,
 } from './engagement';
 
+import { transformLlmFindingsToEngagement } from './from-flow-llm';
+
 // ---------------------------------------------------------------------------------------------
 // small utilities
 // ---------------------------------------------------------------------------------------------
@@ -349,7 +351,10 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         }
     }
 
-    if (findings.length === 0) {
+    // Backend LLM-derived findings take precedence; the regex heuristics above are the fallback.
+    const llmFindings = data.findings && data.findings.length > 0 ? transformLlmFindingsToEngagement(data.findings) : [];
+
+    if (findings.length === 0 && llmFindings.length === 0) {
         findings.push({
             affected: [],
             businessImpact: 'A confirmar.',
@@ -371,12 +376,19 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         });
     }
 
+    // Prefer the LLM findings when present. Figure↔finding cross-links were built against the
+    // regex findings, so clear them when swapping to avoid mislabelled "Referente a" refs.
+    const finalFindings = llmFindings.length > 0 ? llmFindings : findings;
+    if (llmFindings.length > 0) {
+        for (const fig of figures) fig.findingIds = [];
+    }
+
     // Attack narrative — one beat per task, prose from the `report` msglog when available.
     const attackStory = join.tasksOrdered.slice(0, 12).map((task, i) => {
         const tid = String(task.id);
         const reportLog = join.reportByTask.get(tid);
         const prose = reportLog?.result?.trim() || task.result?.trim() || task.input?.trim() || task.title;
-        const beatFindings = findings.filter((f) => f.sourceTaskIds?.includes(tid)).map((f) => f.id);
+        const beatFindings = finalFindings.filter((f) => f.sourceTaskIds?.includes(tid)).map((f) => f.id);
         const figRefs = figures.filter((f) => f.taskId === tid).map((f) => f.id);
         return {
             estimated: !reportLog,
@@ -392,7 +404,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         };
     });
 
-    const riskScore = riskScoreFromFindings(findings);
+    const riskScore = riskScoreFromFindings(finalFindings);
     const appName = branding.appName;
 
     return {
@@ -403,7 +415,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         client: branding.clientName || 'Cliente',
         contact: options.contact ?? `security@${appName.toLowerCase().replace(/[^a-z0-9]+/g, '')}.com`,
         figures,
-        findings,
+        findings: finalFindings,
         methodology: [
             { activities: ['Definição de escopo, regras de engajamento e janelas de teste.'], phase: 'pre-engagement', title: 'Interações pré-engajamento' },
             { activities: ['Coleta de informações sobre os alvos e a superfície de ataque.'], phase: 'intelligence', title: 'Coleta de inteligência' },
@@ -434,7 +446,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         },
         summaryNarrative: [
             `Esta avaliação consolida a execução do fluxo "${flow.title}" na plataforma ${appName}, no período de ${fmtDate(flow.createdAt)} a ${fmtDate(flow.updatedAt)}.`,
-            `Foram derivados ${findings.length} achado(s) a partir das atividades executadas, com evidências extraídas da saída real das ferramentas. Severidades/CVSS marcados como estimados devem ser calibrados pelo analista antes da entrega.`,
+            `Foram derivados ${finalFindings.length} achado(s) a partir das atividades executadas${llmFindings.length > 0 ? ' (análise por IA)' : ''}, com evidências extraídas da saída real das ferramentas. Severidades/CVSS marcados como estimados devem ser calibrados pelo analista antes da entrega.`,
             'As seções seguintes descrevem a narrativa do ataque, a visão de risco e o plano de ação priorizado com quick wins.',
         ],
         title: `Relatório de Teste de Intrusão — ${flow.title}`,

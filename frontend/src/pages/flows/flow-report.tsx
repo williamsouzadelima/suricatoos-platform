@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
 import { t } from '@/i18n';
-import { useFlowQuery } from '@/graphql/types';
+import { useDeriveFindingsMutation, useFlowQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import {
     downloadBlob,
@@ -55,11 +55,15 @@ function FlowReport() {
         data,
         error: queryError,
         loading,
+        refetch,
     } = useFlowQuery({
         errorPolicy: 'all',
         skip: !flowId,
         variables: { id: flowId! },
     });
+
+    // Backend LLM findings deriver — triggered once per PTES report; idempotent + cached server-side.
+    const [deriveFindings] = useDeriveFindingsMutation();
 
     const dataReady = !loading && !queryError && !!data?.flow;
 
@@ -93,7 +97,19 @@ function FlowReport() {
 
         const run = async (): Promise<void> => {
             if (reportType === 'ptes') {
-                const blob = await generatePtesReportFromFlow(data, toEngagementBranding(branding), reportFormat);
+                // Derive findings via the backend LLM first (idempotent + cached); then refetch so the
+                // report renders the AI findings. On failure the regex-derived fallback is used.
+                let reportData = data;
+                try {
+                    await deriveFindings({ variables: { flowId: flowId! } });
+                    const refreshed = await refetch();
+                    if (refreshed.data?.flow) {
+                        reportData = refreshed.data;
+                    }
+                } catch (err) {
+                    Log.error('Findings derivation failed; using fallback:', err);
+                }
+                const blob = await generatePtesReportFromFlow(reportData, toEngagementBranding(branding), reportFormat);
                 downloadBlob(blob, `${base}.${reportFormat}`);
                 return;
             }
@@ -123,6 +139,8 @@ function FlowReport() {
                 setPdfError(t('Failed to generate report'));
                 setPdfPhase('error');
             });
+        // deriveFindings/refetch are stable Apollo refs and flowId is fixed per mount; the
+        // pdfTriggered guard makes the effect idempotent, so they are intentionally omitted.
     }, [dataReady, download, silent, reportContent, reportType, reportFormat, data, branding]);
 
     let state: ReportState;

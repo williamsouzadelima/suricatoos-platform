@@ -93,6 +93,18 @@ func (r *mutationResolver) CreateFlow(ctx context.Context, modelProvider string,
 	return converter.ConvertFlow(flow, containers), nil
 }
 
+// DeriveFindings is the resolver for the deriveFindings field.
+func (r *mutationResolver) DeriveFindings(ctx context.Context, flowID int64) (*model.FindingDerivation, error) {
+	if _, err := validatePermissionWithFlowID(ctx, "findings.derive", flowID, r.DB); err != nil {
+		return nil, err
+	}
+	run, err := r.ProvidersCtrl.DeriveFindings(ctx, flowID)
+	if err != nil {
+		return nil, err
+	}
+	return converter.ConvertFindingDerivation(run), nil
+}
+
 // PutUserInput is the resolver for the putUserInput field.
 func (r *mutationResolver) PutUserInput(ctx context.Context, flowID int64, input string, modelProvider *string, resourceIds []int64) (model.ResultType, error) {
 	uid, err := validatePermissionWithFlowID(ctx, "flows.edit", flowID, r.DB)
@@ -1399,6 +1411,18 @@ func (r *queryResolver) Tasks(ctx context.Context, flowID int64) ([]*model.Task,
 	}
 
 	return converter.ConvertTasks(tasks, subtasks), nil
+}
+
+// Findings is the resolver for the findings field.
+func (r *queryResolver) Findings(ctx context.Context, flowID int64) ([]*model.Finding, error) {
+	if _, err := validatePermissionWithFlowID(ctx, "findings.view", flowID, r.DB); err != nil {
+		return nil, err
+	}
+	rows, err := r.DB.GetFlowFindings(ctx, flowID)
+	if err != nil {
+		return nil, err
+	}
+	return converter.ConvertFindings(rows), nil
 }
 
 // FlowFiles is the resolver for the flowFiles field.

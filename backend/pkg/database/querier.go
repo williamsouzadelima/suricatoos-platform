@@ -16,6 +16,13 @@ type Querier interface {
 	CreateAssistant(ctx context.Context, arg CreateAssistantParams) (Assistant, error)
 	CreateAssistantLog(ctx context.Context, arg CreateAssistantLogParams) (Assistantlog, error)
 	CreateContainer(ctx context.Context, arg CreateContainerParams) (Container, error)
+	CreateFinding(ctx context.Context, arg CreateFindingParams) (Finding, error)
+	CreateFindingDerivation(ctx context.Context, arg CreateFindingDerivationParams) (FindingDerivation, error)
+	DeleteFlowFindings(ctx context.Context, flowID int64) error
+	GetFinding(ctx context.Context, id int64) (Finding, error)
+	GetFlowFindings(ctx context.Context, flowID int64) ([]Finding, error)
+	GetLatestFlowDerivation(ctx context.Context, flowID int64) (FindingDerivation, error)
+	UpdateFindingDerivationStatus(ctx context.Context, arg UpdateFindingDerivationStatusParams) (FindingDerivation, error)
 	CreateFlow(ctx context.Context, arg CreateFlowParams) (Flow, error)
 	CreateFlowTemplate(ctx context.Context, arg CreateFlowTemplateParams) (FlowTemplate, error)
 	CreateMsgChain(ctx context.Context, arg CreateMsgChainParams) (Msgchain, error)
