@@ -253,6 +253,42 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         const facts = parseFacts(termTexts);
         const reportLog = join.reportByTask.get(tid);
 
+        // task-level evidence figures: created ONCE per task (richest terminal excerpt +
+        // screenshots) and shared by every finding derived from this task — avoids duplicate
+        // plates when a task has multiple finished subtasks/sources.
+        const taskFigureIds: string[] = [];
+        const bestTerm = terminals.slice().sort((a, b) => (b.text?.length ?? 0) - (a.text?.length ?? 0))[0];
+        if (bestTerm?.text?.trim()) {
+            figN += 1;
+            const fig: Figure = {
+                caption: `Saída de ferramenta — ${clip(task.title, 70)}`,
+                code: clip(bestTerm.text, 1400),
+                findingIds: [],
+                id: `FIG-${String(figN).padStart(2, '0')}`,
+                kind: 'terminal',
+                n: figN,
+                taskId: tid,
+            };
+            figures.push(fig);
+            taskFigureIds.push(fig.id);
+        }
+        for (const sc of (join.screenshotsByTask.get(tid) ?? []).slice(0, 2)) {
+            figN += 1;
+            const fig: Figure = {
+                capturedUrl: sc.url ?? undefined,
+                caption: clip(sc.name || `Captura — ${task.title}`, 80),
+                findingIds: [],
+                id: `FIG-${String(figN).padStart(2, '0')}`,
+                imageSrc: sc.id ? `screenshot:${flow.id}:${sc.id}` : undefined,
+                kind: 'screenshot',
+                n: figN,
+                subtaskId: sc.subtaskId ?? undefined,
+                taskId: tid,
+            };
+            figures.push(fig);
+            taskFigureIds.push(fig.id);
+        }
+
         for (const src of sourcesForTask(task)) {
             const hay = `${src.title} ${src.description} ${src.result}`;
             // severity: measured from nuclei when present, else keyword-inferred (estimated).
@@ -268,42 +304,11 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             const sourceLogIds = terminals.map((tl) => String(tl.id));
             const assets = assetsFromFacts(facts, sourceLogIds);
 
-            // evidence figure: the richest terminal excerpt for this task
-            const evidenceRefs: string[] = [];
-            const bestTerm = terminals.slice().sort((a, b) => (b.text?.length ?? 0) - (a.text?.length ?? 0))[0];
-            if (bestTerm?.text?.trim()) {
-                figN += 1;
-                const fig: Figure = {
-                    caption: `Saída de ferramenta — ${clip(src.title, 70)}`,
-                    code: clip(bestTerm.text, 1400),
-                    findingIds: [],
-                    id: `FIG-${String(figN).padStart(2, '0')}`,
-                    kind: 'terminal',
-                    n: figN,
-                    taskId: tid,
-                };
-                figures.push(fig);
-                evidenceRefs.push(fig.id);
-            }
-            for (const sc of (join.screenshotsByTask.get(tid) ?? []).slice(0, 2)) {
-                figN += 1;
-                const fig: Figure = {
-                    capturedUrl: sc.url ?? undefined,
-                    caption: clip(sc.name || `Captura — ${src.title}`, 80),
-                    findingIds: [],
-                    id: `FIG-${String(figN).padStart(2, '0')}`,
-                    imageSrc: sc.id ? `screenshot:${flow.id}:${sc.id}` : undefined,
-                    kind: 'screenshot',
-                    n: figN,
-                    subtaskId: sc.subtaskId ?? undefined,
-                    taskId: tid,
-                };
-                figures.push(fig);
-                evidenceRefs.push(fig.id);
-            }
+            // every finding from this task references the same shared task-level figures
+            const evidenceRefs = [...taskFigureIds];
 
             const id = `F-${String(fIdx + 1).padStart(2, '0')}`;
-            for (const figId of evidenceRefs) figures.find((f) => f.id === figId)!.findingIds.push(id);
+            for (const figId of taskFigureIds) figures.find((f) => f.id === figId)!.findingIds.push(id);
 
             const refsList = [...facts.cves.map((cve) => ({ label: cve, url: `https://nvd.nist.gov/vuln/detail/${cve}` })), ...facts.nuclei.slice(0, 3).map((n) => ({ label: `nuclei: ${n.templateId}` }))];
 
