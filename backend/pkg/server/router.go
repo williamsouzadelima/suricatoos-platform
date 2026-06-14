@@ -211,7 +211,10 @@ func NewRouter(
 	if !slices.Contains(cfg.CorsOrigins, "*") {
 		config.AllowCredentials = true
 	}
-	config.AllowWildcard = true
+	// AllowWildcard=false: origins are matched exactly. Wildcard-pattern origins (e.g.
+	// "https://*.example.com") combined with AllowCredentials are over-permissive; the
+	// deployment uses explicit full-origin allowlists, so exact matching is safer.
+	config.AllowWildcard = false
 	config.AllowWebSockets = true
 	config.AllowPrivateNetwork = true
 

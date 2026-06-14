@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -258,7 +259,25 @@ func NewConfig() (*Config, error) {
 	ensureInstallationID(&config)
 	ensureLicenseKey(&config)
 
+	if err := validateSecurityConfig(&config); err != nil {
+		return nil, err
+	}
+
 	return &config, nil
+}
+
+// validateSecurityConfig fails fast on insecure-default secrets that would silently weaken
+// auth. An empty or literal "salt" COOKIE_SIGNING_SALT makes bearer-token authentication
+// skippable and makes provider-key encryption trivially reversible, so refuse to boot rather
+// than run an apparently-secured instance that isn't.
+func validateSecurityConfig(config *Config) error {
+	if salt := strings.TrimSpace(config.CookieSigningSalt); salt == "" || salt == "salt" {
+		return fmt.Errorf(
+			"COOKIE_SIGNING_SALT is empty or the insecure default; set a strong random value " +
+				"(e.g. `openssl rand -hex 32`) in the environment before starting",
+		)
+	}
+	return nil
 }
 
 func ensureInstallationID(config *Config) {
