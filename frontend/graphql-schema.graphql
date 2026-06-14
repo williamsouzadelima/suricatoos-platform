@@ -57,6 +57,29 @@ fragment taskFragment on Task {
     updatedAt
 }
 
+fragment findingFragment on Finding {
+    id
+    flowId
+    title
+    severity
+    cvssScore
+    cvssVector
+    cwe
+    category
+    affected
+    description
+    businessImpact
+    likelihood
+    impact
+    remediation
+    references
+    evidence
+    sourceTaskIds
+    provenance
+    createdAt
+    updatedAt
+}
+
 fragment subtaskFragment on Subtask {
     id
     status
@@ -815,6 +838,9 @@ query flow($id: ID!) {
     flow(flowId: $id) {
         ...flowFragment
     }
+    findings(flowId: $id) {
+        ...findingFragment
+    }
     tasks(flowId: $id) {
         ...taskFragment
     }
@@ -1090,6 +1116,18 @@ mutation finishFlow($flowId: ID!) {
 
 mutation stopFlow($flowId: ID!) {
     stopFlow(flowId: $flowId)
+}
+
+mutation deriveFindings($flowId: ID!) {
+    deriveFindings(flowId: $flowId) {
+        id
+        flowId
+        status
+        summary
+        error
+        createdAt
+        updatedAt
+    }
 }
 
 mutation renameFlow($flowId: ID!, $title: String!) {

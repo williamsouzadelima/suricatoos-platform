@@ -347,6 +347,29 @@ export type TaskFragmentFragment = {
     subtasks: Array<SubtaskFragmentFragment> | null;
 };
 
+export type FindingFragmentFragment = {
+    id: string;
+    flowId: string;
+    title: string;
+    severity: string;
+    cvssScore: number | null;
+    cvssVector: string | null;
+    cwe: string | null;
+    category: string | null;
+    affected: Array<string>;
+    description: string;
+    businessImpact: string | null;
+    likelihood: number | null;
+    impact: number | null;
+    remediation: string | null;
+    references: string | null;
+    evidence: string | null;
+    sourceTaskIds: Array<string>;
+    provenance: string | null;
+    createdAt: unknown;
+    updatedAt: unknown;
+};
+
 export type SubtaskFragmentFragment = {
     id: string;
     status: StatusType;
@@ -812,6 +835,7 @@ export type FlowQueryVariables = Exact<{
 
 export type FlowQuery = {
     flow: FlowFragmentFragment;
+    findings: Array<FindingFragmentFragment>;
     tasks: Array<TaskFragmentFragment> | null;
     screenshots: Array<ScreenshotFragmentFragment> | null;
     terminalLogs: Array<TerminalLogFragmentFragment> | null;
@@ -1073,6 +1097,22 @@ export type StopFlowMutationVariables = Exact<{
 }>;
 
 export type StopFlowMutation = { stopFlow: ResultType };
+
+export type DeriveFindingsMutationVariables = Exact<{
+    flowId: string | number;
+}>;
+
+export type DeriveFindingsMutation = {
+    deriveFindings: {
+        id: string;
+        flowId: string;
+        status: StatusType;
+        summary: string | null;
+        error: string | null;
+        createdAt: unknown;
+        updatedAt: unknown;
+    };
+};
 
 export type RenameFlowMutationVariables = Exact<{
     flowId: string | number;
@@ -1491,6 +1531,30 @@ export const TaskFragmentFragmentDoc = gql`
         updatedAt
     }
     ${SubtaskFragmentFragmentDoc}
+`;
+export const FindingFragmentFragmentDoc = gql`
+    fragment findingFragment on Finding {
+        id
+        flowId
+        title
+        severity
+        cvssScore
+        cvssVector
+        cwe
+        category
+        affected
+        description
+        businessImpact
+        likelihood
+        impact
+        remediation
+        references
+        evidence
+        sourceTaskIds
+        provenance
+        createdAt
+        updatedAt
+    }
 `;
 export const TerminalLogFragmentFragmentDoc = gql`
     fragment terminalLogFragment on TerminalLog {
@@ -2663,6 +2727,9 @@ export const FlowDocument = gql`
         flow(flowId: $id) {
             ...flowFragment
         }
+        findings(flowId: $id) {
+            ...findingFragment
+        }
         tasks(flowId: $id) {
             ...taskFragment
         }
@@ -2686,6 +2753,7 @@ export const FlowDocument = gql`
         }
     }
     ${FlowFragmentFragmentDoc}
+    ${FindingFragmentFragmentDoc}
     ${TaskFragmentFragmentDoc}
     ${ScreenshotFragmentFragmentDoc}
     ${TerminalLogFragmentFragmentDoc}
@@ -5405,6 +5473,56 @@ export type StopFlowMutationResult = ApolloReactCommon.MutationResult<StopFlowMu
 export type StopFlowMutationOptions = ApolloReactCommon.BaseMutationOptions<
     StopFlowMutation,
     StopFlowMutationVariables
+>;
+export const DeriveFindingsDocument = gql`
+    mutation deriveFindings($flowId: ID!) {
+        deriveFindings(flowId: $flowId) {
+            id
+            flowId
+            status
+            summary
+            error
+            createdAt
+            updatedAt
+        }
+    }
+`;
+export type DeriveFindingsMutationFn = ApolloReactCommon.MutationFunction<
+    DeriveFindingsMutation,
+    DeriveFindingsMutationVariables
+>;
+
+/**
+ * __useDeriveFindingsMutation__
+ *
+ * To run a mutation, you first call `useDeriveFindingsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeriveFindingsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deriveFindingsMutation, { data, loading, error }] = useDeriveFindingsMutation({
+ *   variables: {
+ *      flowId: // value for 'flowId'
+ *   },
+ * });
+ */
+export function useDeriveFindingsMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<DeriveFindingsMutation, DeriveFindingsMutationVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useMutation<DeriveFindingsMutation, DeriveFindingsMutationVariables>(
+        DeriveFindingsDocument,
+        options,
+    );
+}
+export type DeriveFindingsMutationHookResult = ReturnType<typeof useDeriveFindingsMutation>;
+export type DeriveFindingsMutationResult = ApolloReactCommon.MutationResult<DeriveFindingsMutation>;
+export type DeriveFindingsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    DeriveFindingsMutation,
+    DeriveFindingsMutationVariables
 >;
 export const RenameFlowDocument = gql`
     mutation renameFlow($flowId: ID!, $title: String!) {
