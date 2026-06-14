@@ -103,6 +103,10 @@ type ProviderController interface {
 		userID int64,
 	) (provider.Providers, error)
 
+	// DeriveFindings runs the report-analyst LLM over a finished flow and persists
+	// structured findings (idempotent + cached). Used by the report engine.
+	DeriveFindings(ctx context.Context, flowID int64) (database.FindingDerivation, error)
+
 	NewProvider(prv database.Provider) (provider.Provider, error)
 	CreateProvider(
 		ctx context.Context,
