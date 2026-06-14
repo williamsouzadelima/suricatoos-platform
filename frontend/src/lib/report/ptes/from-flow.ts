@@ -259,12 +259,15 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         // screenshots) and shared by every finding derived from this task — avoids duplicate
         // plates when a task has multiple finished subtasks/sources.
         const taskFigureIds: string[] = [];
-        const bestTerm = terminals.slice().sort((a, b) => (b.text?.length ?? 0) - (a.text?.length ?? 0))[0];
-        if (bestTerm?.text?.trim()) {
+        const rankedTerms = terminals.slice().sort((a, b) => (b.text?.length ?? 0) - (a.text?.length ?? 0));
+        const bestTerm = rankedTerms[0];
+        // up to 3 richest terminal excerpts per task (evidence richness — was just the single richest)
+        rankedTerms.slice(0, 3).forEach((tl, ti) => {
+            if (!tl?.text?.trim()) return;
             figN += 1;
             const fig: Figure = {
-                caption: `Saída de ferramenta — ${clip(task.title, 70)}`,
-                code: clip(bestTerm.text, 1400),
+                caption: `Saída de ferramenta — ${clip(task.title, 70)}${ti > 0 ? ` (${ti + 1})` : ''}`,
+                code: clip(tl.text, 3500),
                 findingIds: [],
                 id: `FIG-${String(figN).padStart(2, '0')}`,
                 kind: 'terminal',
@@ -273,8 +276,8 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             };
             figures.push(fig);
             taskFigureIds.push(fig.id);
-        }
-        for (const sc of (join.screenshotsByTask.get(tid) ?? []).slice(0, 2)) {
+        });
+        for (const sc of (join.screenshotsByTask.get(tid) ?? []).slice(0, 8)) {
             figN += 1;
             const fig: Figure = {
                 capturedUrl: sc.url ?? undefined,
@@ -330,7 +333,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
                     provenance.cvss === 'estimated' || provenance.severity === 'estimated'
                         ? 'CVSS/severidade estimados a partir da execução — calibre antes da entrega.'
                         : undefined,
-                evidence: bestTerm?.text?.trim() ? { caption: `Saída — ${clip(src.title, 70)}`, code: clip(bestTerm.text, 1400) } : undefined,
+                evidence: bestTerm?.text?.trim() ? { caption: `Saída — ${clip(src.title, 70)}`, code: clip(bestTerm.text, 3500) } : undefined,
                 evidenceRefs,
                 id,
                 impact: IMPACT_BY_SEVERITY[severity],
@@ -377,10 +380,15 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
     }
 
     // Prefer the LLM findings when present. Figure↔finding cross-links were built against the
-    // regex findings, so clear them when swapping to avoid mislabelled "Referente a" refs.
+    // regex findings, so RE-LINK each figure to the LLM findings of the same task (by sourceTaskId)
+    // instead of dropping the references — keeps the evidence plates cross-referenced correctly.
     const finalFindings = llmFindings.length > 0 ? llmFindings : findings;
     if (llmFindings.length > 0) {
-        for (const fig of figures) fig.findingIds = [];
+        for (const fig of figures) {
+            fig.findingIds = fig.taskId
+                ? finalFindings.filter((f) => f.sourceTaskIds?.includes(fig.taskId!)).map((f) => f.id)
+                : [];
+        }
     }
 
     // Attack narrative — one beat per task, prose from the `report` msglog when available.

@@ -26,7 +26,9 @@ import (
 )
 
 const (
-	RepeatingToolCallThreshold   = 6
+	// Raised 6 -> 20: exploitation requires payload/encoding/wordlist ladders (5+ variants per
+	// vector), so a low repeat-abort threshold was cutting methodology-complete exploitation short.
+	RepeatingToolCallThreshold   = 20
 	maxQASectionsAfterRestore    = 3
 	keepQASectionsAfterRestore   = 1
 	lastSecBytesAfterRestore     = 16 * 1024 // 16 KB
