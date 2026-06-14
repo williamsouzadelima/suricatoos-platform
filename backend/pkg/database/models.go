@@ -901,6 +901,43 @@ type AppBranding struct {
 	UpdatedAt     sql.NullTime   `json:"updated_at"`
 }
 
+type Finding struct {
+	ID             int64           `json:"id"`
+	FlowID         int64           `json:"flow_id"`
+	DeriveRunID    sql.NullInt64   `json:"derive_run_id"`
+	Title          string          `json:"title"`
+	Severity       string          `json:"severity"`
+	CvssScore      sql.NullFloat64 `json:"cvss_score"`
+	CvssVector     sql.NullString  `json:"cvss_vector"`
+	Cwe            sql.NullString  `json:"cwe"`
+	Category       sql.NullString  `json:"category"`
+	Affected       json.RawMessage `json:"affected"`
+	Description    string          `json:"description"`
+	BusinessImpact sql.NullString  `json:"business_impact"`
+	Likelihood     sql.NullInt16   `json:"likelihood"`
+	Impact         sql.NullInt16   `json:"impact"`
+	Remediation    sql.NullString  `json:"remediation"`
+	References     json.RawMessage `json:"references"`
+	Evidence       sql.NullString  `json:"evidence"`
+	SourceTaskIds  json.RawMessage `json:"source_task_ids"`
+	EvidenceRefs   json.RawMessage `json:"evidence_refs"`
+	Provenance     json.RawMessage `json:"provenance"`
+	CreatedAt      sql.NullTime    `json:"created_at"`
+	UpdatedAt      sql.NullTime    `json:"updated_at"`
+}
+
+type FindingDerivation struct {
+	ID        int64          `json:"id"`
+	FlowID    int64          `json:"flow_id"`
+	Status    string         `json:"status"`
+	Model     sql.NullString `json:"model"`
+	Provider  sql.NullString `json:"provider"`
+	Summary   sql.NullString `json:"summary"`
+	Error     sql.NullString `json:"error"`
+	CreatedAt sql.NullTime   `json:"created_at"`
+	UpdatedAt sql.NullTime   `json:"updated_at"`
+}
+
 type Assistant struct {
 	ID                 int64           `json:"id"`
 	Status             AssistantStatus `json:"status"`
