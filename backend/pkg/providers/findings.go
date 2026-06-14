@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"time"
 
 	"suricatoos/pkg/database"
 	"suricatoos/pkg/providers/pconfig"
@@ -114,24 +115,38 @@ func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64) 
 		return database.FindingDerivation{}, fmt.Errorf("failed to create derivation: %w", err)
 	}
 
-	report, derr := pc.runFindingsLLM(ctx, flow)
-	if derr != nil {
-		updated, uerr := pc.db.UpdateFindingDerivationStatus(ctx, database.UpdateFindingDerivationStatusParams{
-			Status: "failed", Summary: sql.NullString{}, Error: toNullString(derr.Error()), ID: run.ID,
+	// markFailed records the failure on the derivation row so it never stays wedged in
+	// 'running' (the cache guard above short-circuits on 'running'/'created').
+	markFailed := func(cause error) (database.FindingDerivation, error) {
+		upd, uerr := pc.db.UpdateFindingDerivationStatus(ctx, database.UpdateFindingDerivationStatusParams{
+			Status: "failed", Summary: sql.NullString{}, Error: toNullString(cause.Error()), ID: run.ID,
 		})
 		if uerr != nil {
-			return run, fmt.Errorf("derive failed (%v) and status update failed: %w", derr, uerr)
+			return run, fmt.Errorf("%w (and status update failed: %v)", cause, uerr)
 		}
-		return updated, fmt.Errorf("findings derivation failed: %w", derr)
+		return upd, cause
 	}
 
-	// Replace prior findings for this flow with the new run atomically enough for v1.
-	if err := pc.db.DeleteFlowFindings(ctx, flowID); err != nil {
-		return run, fmt.Errorf("failed to clear previous findings: %w", err)
+	report, derr := pc.runFindingsLLM(ctx, flow)
+	if derr != nil {
+		return markFailed(fmt.Errorf("findings derivation failed: %w", derr))
 	}
+
+	// Build every row BEFORE any write, then replace the prior findings. On any persist error,
+	// drop the partial write so the report falls back cleanly (0 findings -> regex path) instead
+	// of showing a half-derived set. (sqlc's Querier interface exposes no tx here; this delete-on-
+	// error keeps the table consistent without one.)
+	params := make([]database.CreateFindingParams, 0, len(report.Findings))
 	for _, f := range report.Findings {
-		if _, err := pc.db.CreateFinding(ctx, llmFindingToParams(flowID, run.ID, f)); err != nil {
-			return run, fmt.Errorf("failed to persist finding: %w", err)
+		params = append(params, llmFindingToParams(flowID, run.ID, f))
+	}
+	if err := pc.db.DeleteFlowFindings(ctx, flowID); err != nil {
+		return markFailed(fmt.Errorf("failed to clear previous findings: %w", err))
+	}
+	for _, p := range params {
+		if _, err := pc.db.CreateFinding(ctx, p); err != nil {
+			_ = pc.db.DeleteFlowFindings(ctx, flowID) // drop the partial write for a clean fallback
+			return markFailed(fmt.Errorf("failed to persist finding: %w", err))
 		}
 	}
 
@@ -147,6 +162,11 @@ func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64) 
 // runFindingsLLM loads the flow execution, calls the provider with the submit_findings tool and
 // parses the structured result.
 func (pc *providerController) runFindingsLLM(ctx context.Context, flow database.Flow) (*FindingsReport, error) {
+	// Bound the (synchronous) LLM call so a provider/network stall fails fast instead of
+	// hanging the request goroutine + DB connections indefinitely. Full async is a follow-up.
+	ctx, cancel := context.WithTimeout(ctx, 120*time.Second)
+	defer cancel()
+
 	prv, err := pc.GetProvider(ctx, provider.ProviderName(flow.ModelProviderName), flow.UserID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get provider %q: %w", flow.ModelProviderName, err)
@@ -309,6 +329,13 @@ func llmFindingToParams(flowID, runID int64, f LLMFinding) database.CreateFindin
 	prov := f.Provenance
 	if prov == nil {
 		prov = map[string]string{}
+	}
+	// Honesty enforcement: the LLM reasons values, it does not measure them — downgrade any
+	// 'measured'/'parsed' claim it makes (promotion to 'measured' is a server-side follow-up).
+	for k, v := range prov {
+		if v == "measured" || v == "parsed" {
+			prov[k] = "inferred"
+		}
 	}
 	for _, k := range []string{"severity", "cvss", "cwe"} {
 		if prov[k] == "" {

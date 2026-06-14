@@ -139,7 +139,9 @@ function FlowReport() {
                 setPdfError(t('Failed to generate report'));
                 setPdfPhase('error');
             });
-    }, [dataReady, download, silent, reportContent, reportType, reportFormat, data, branding, deriveFindings, refetch, flowId]);
+        // deriveFindings/refetch are stable Apollo refs and flowId is fixed per mount; the
+        // pdfTriggered guard makes the effect idempotent, so they are intentionally omitted.
+    }, [dataReady, download, silent, reportContent, reportType, reportFormat, data, branding]);
 
     let state: ReportState;
     let errorMessage: null | string = null;
