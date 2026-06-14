@@ -317,6 +317,8 @@ func clearConfigEnv(t *testing.T) {
 	for _, v := range envVars {
 		t.Setenv(v, "")
 	}
+	// NewConfig now refuses an empty/default cookie salt; give tests a valid one.
+	t.Setenv("COOKIE_SIGNING_SALT", "test-cookie-signing-salt-0123456789")
 }
 
 func TestNewConfig_Defaults(t *testing.T) {
