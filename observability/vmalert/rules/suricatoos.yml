@@ -1,0 +1,70 @@
+# Suricatoos alerting rules (Prometheus/vmalert format).
+# The observability stack already scrapes node-exporter, cadvisor and the
+# postgres-exporter into VictoriaMetrics — but no alerting rules exist, so the
+# disk-full → Postgres-PANIC outage fires silently. These rules close that gap.
+#
+# Wiring (see observability/vmalert/README.md): add a `vmalert` service to
+# docker-compose-observability.yml that loads this file, points `-datasource.url`
+# at VictoriaMetrics and `-notifier.url` at an Alertmanager (or a webhook), then
+# route `critical`/`warning` to Slack/email/PagerDuty.
+#
+# NOTE: metric/label/job names below assume the default node-exporter / cadvisor
+# / postgres-exporter scrape config — adjust `job=`/`mountpoint=` to match your
+# prometheus scrape targets if they differ.
+groups:
+  - name: suricatoos-disk
+    rules:
+      - alert: DiskSpaceLow
+        expr: node_filesystem_avail_bytes{mountpoint="/"} < 8 * 1024 * 1024 * 1024
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low disk on {{ $labels.instance }} (< 8 GB free)"
+          description: "Runaway flow logs (msglogs/termlogs) fill the disk; left unchecked this leads to a Postgres disk-full PANIC and a login outage. Run scripts/disk-hygiene.sh, archive cold flows, or grow the disk."
+      - alert: DiskSpaceCritical
+        expr: node_filesystem_avail_bytes{mountpoint="/"} < 4 * 1024 * 1024 * 1024
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL disk on {{ $labels.instance }} (< 4 GB free)"
+          description: "Postgres is at imminent risk of a disk-full PANIC → crash-recovery loop → 401 login outage. Reclaim space NOW (scripts/disk-hygiene.sh) and grow the disk."
+      - alert: DiskWillFillIn6h
+        expr: predict_linear(node_filesystem_avail_bytes{mountpoint="/"}[1h], 6 * 3600) < 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk on {{ $labels.instance }} projected to fill within 6h"
+          description: "Based on the last hour's trend. Investigate flow-log growth before it PANICs Postgres."
+
+  - name: suricatoos-postgres
+    rules:
+      - alert: PostgresDown
+        expr: pg_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Postgres (pgvector) is down or unreachable"
+          description: "The DB is down or in crash-recovery (often the disk-full loop). Logins will 401 with a recovery-mode error. Check disk + `podman logs pgvector`."
+
+  - name: suricatoos-app
+    rules:
+      - alert: SuricatoosContainerRestarting
+        expr: increase(container_start_time_seconds{name="suricatoos"}[15m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "suricatoos container restarted in the last 15m"
+          description: "Unexpected restart — check `podman logs suricatoos` for a boot failure (e.g. config validation, DB unreachable)."
+      - alert: HostMemoryHigh
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.92
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host memory > 92% on {{ $labels.instance }}"
+          description: "Agent containers have no memory limits; a runaway tool can OOM-kill the host or Postgres. Consider per-container limits."
