@@ -44,6 +44,62 @@ const decode = (dataUri: string): Uint8Array => {
     return out;
 };
 
+// Minimal PNG/JPEG intrinsic-size reader so embedded screenshots keep their aspect ratio.
+function imageSize(bytes: Uint8Array): null | { w: number; h: number } {
+    if (bytes.length > 24 && bytes[0] === 0x89 && bytes[1] === 0x50) {
+        const w = ((bytes[16]! << 24) | (bytes[17]! << 16) | (bytes[18]! << 8) | bytes[19]!) >>> 0;
+        const h = ((bytes[20]! << 24) | (bytes[21]! << 16) | (bytes[22]! << 8) | bytes[23]!) >>> 0;
+        if (w > 0 && h > 0) return { h, w };
+    }
+    if (bytes.length > 10 && bytes[0] === 0xff && bytes[1] === 0xd8) {
+        let i = 2;
+        while (i + 9 < bytes.length) {
+            if (bytes[i] !== 0xff) {
+                i++;
+                continue;
+            }
+            const marker = bytes[i + 1]!;
+            if (marker >= 0xc0 && marker <= 0xc3) {
+                const h = (bytes[i + 5]! << 8) | bytes[i + 6]!;
+                const w = (bytes[i + 7]! << 8) | bytes[i + 8]!;
+                if (w > 0 && h > 0) return { h, w };
+            }
+            const len = (bytes[i + 2]! << 8) | bytes[i + 3]!;
+            if (len <= 0) break;
+            i += 2 + len;
+        }
+    }
+    return null;
+}
+
+// Evidence plates for the DOCX: terminal/tool-output excerpts render as shaded code; screenshots
+// embed the resolved image (aspect-preserved) or degrade to a caption when not resolved.
+function figuresBlocks(e: Engagement): (Paragraph | Table)[] {
+    const out: (Paragraph | Table)[] = [];
+    for (const fig of e.figures ?? []) {
+        out.push(new Paragraph({ spacing: { before: 160, after: 10 }, children: [new TextRun({ text: `${fig.id} — ${fig.caption}`, bold: true, color: INK, size: 18 })] }));
+        const links = [fig.findingIds.length ? `Referente a: ${fig.findingIds.join(', ')}` : '', fig.capturedUrl ? `URL: ${fig.capturedUrl}` : ''].filter(Boolean).join('   ·   ');
+        if (links) out.push(new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: links, color: MUTED, size: 14 })] }));
+        if (fig.kind === 'screenshot') {
+            if (fig.imageSrc?.startsWith('data:')) {
+                const data = decode(fig.imageSrc);
+                const mime = fig.imageSrc.slice(5, Math.max(5, fig.imageSrc.indexOf(';')));
+                const type = mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : mime.includes('gif') ? 'gif' : 'png';
+                const size = imageSize(data);
+                const w = size ? Math.min(460, size.w) : 460;
+                const h = size ? Math.min(560, Math.round((w * size.h) / size.w)) : 280;
+                out.push(new Paragraph({ spacing: { after: 80 }, children: [new ImageRun({ type, data, transformation: { width: w, height: h } })] }));
+            } else {
+                out.push(new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: 'Captura de tela registrada durante a execução.', italics: true, color: MUTED, size: 15 })] }));
+            }
+        } else if (fig.code) {
+            fig.code.split('\n').slice(0, 40).forEach((line) => out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [new TextRun({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 14 })] })));
+            out.push(new Paragraph({ spacing: { after: 60 }, children: [] }));
+        }
+    }
+    return out;
+}
+
 export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     const primary = e.branding.primary ?? BLUE;
 
@@ -165,7 +221,13 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     children.push(sub('Itens de correção priorizados'));
     children.push(actionTable(items, primary));
 
-    children.push(...heading(7, 'Apêndice'));
+    if ((e.figures?.length ?? 0) > 0) {
+        children.push(...heading(7, 'Evidências'));
+        children.push(body('Plano de evidências numerado: saídas reais de ferramentas e capturas de tela registradas durante a execução, vinculadas aos achados correspondentes.'));
+        children.push(...figuresBlocks(e));
+    }
+    const apx = (e.figures?.length ?? 0) > 0 ? 8 : 7;
+    children.push(...heading(apx, 'Apêndice'));
     children.push(sub('Recomendações estratégicas'));
     e.recommendations.forEach((r) =>
         children.push(
@@ -182,7 +244,8 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     return new Document({
         creator: e.branding.appName,
         title: e.title,
-        styles: { default: { document: { run: { font: 'Calibri' } } } },
+        // Serif body to match the PDF's "book" voice (Georgia ships with Word everywhere).
+        styles: { default: { document: { run: { font: 'Georgia' } } } },
         sections: [
             {
                 properties: { titlePage: true, page: { margin: { top: 1080, bottom: 1080, left: 1080, right: 1080 } } },
@@ -282,13 +345,16 @@ function findingsIndexTable(findings: Finding[], primary: string) {
 }
 function findingBlock(f: Finding): Paragraph[] {
     const sv = SEVERITY[f.severity];
+    const est = (p?: string) => p === 'estimated' || p === 'inferred';
+    const cvssTag = est(f.provenance?.cvss) ? ' (est.)' : '';
+    const sevTag = est(f.provenance?.severity) ? ' (est.)' : '';
     const out: Paragraph[] = [
         new Paragraph({
             spacing: { before: 140, after: 20 },
             border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } },
-            children: [new TextRun({ text: `${f.id} — ${f.title}  `, bold: true, color: INK, size: 22 }), new TextRun({ text: sv.label.toUpperCase(), bold: true, color: sv.color, size: 16 })],
+            children: [new TextRun({ text: `${f.id} — ${f.title}  `, bold: true, color: INK, size: 22 }), new TextRun({ text: `${sv.label.toUpperCase()}${sevTag}`, bold: true, color: sv.color, size: 16 })],
         }),
-        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: `CVSS ${f.cvss.toFixed(1)} · ${f.cwe} · ${f.category} · Afetado: ${f.affected.join(', ')}`, color: MUTED, size: 15 })] }),
+        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: `CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category} · Afetado: ${f.affected.join(', ')}`, color: MUTED, size: 15 })] }),
         new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, alignment: AlignmentType.JUSTIFIED, children: [new TextRun({ text: f.description, color: SLATE, size: 18 })] }),
     ];
     if (f.evidence) {
@@ -299,6 +365,9 @@ function findingBlock(f: Finding): Paragraph[] {
     }
     out.push(new Paragraph({ spacing: { before: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: 'Impacto: ', bold: true, color: primaryOf(), size: 17 }), new TextRun({ text: f.businessImpact, color: SLATE, size: 18 })] }));
     out.push(new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: 'Remediação: ', bold: true, color: primaryOf(), size: 17 }), new TextRun({ text: f.remediation, color: SLATE, size: 18 })] }));
+    if (f.estimatedNote) {
+        out.push(new Paragraph({ spacing: { before: 20, after: 60 }, shading: { type: ShadingType.CLEAR, fill: 'FFFBEB' }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: 'F59E0B', space: 8 } }, children: [new TextRun({ text: `Nota: ${f.estimatedNote}`, italics: true, color: '92400E', size: 15 })] }));
+    }
     return out;
 }
 function primaryOf() {

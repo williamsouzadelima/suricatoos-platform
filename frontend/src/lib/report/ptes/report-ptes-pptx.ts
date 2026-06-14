@@ -161,12 +161,14 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             sd.addShape(pptx.ShapeType.rect, { x, y: 1.5, w: 0.08, h: 5.3, fill: { color: sv.color.replace('#', '') } });
             sd.addText(`${f.id} — ${f.title}`, { x: x + 0.25, y: 1.65, w: 5.0, h: 0.6, fontSize: 13, bold: true, color: INK });
             sd.addText(sv.label.toUpperCase(), { x: x + 5.0, y: 1.65, w: 0.85, h: 0.3, fontSize: 9, bold: true, color: 'FFFFFF', fill: { color: sv.color.replace('#', '') }, align: 'center' });
-            sd.addText(`CVSS ${f.cvss.toFixed(1)} · ${f.cwe} · ${f.category}`, { x: x + 0.25, y: 2.35, w: 5.5, h: 0.3, fontSize: 9.5, color: MUTED });
+            const est = (p?: string) => p === 'estimated' || p === 'inferred';
+            const cvssTag = est(f.provenance?.cvss) ? ' (est.)' : '';
+            sd.addText(`CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category}`, { x: x + 0.25, y: 2.35, w: 5.5, h: 0.3, fontSize: 9.5, color: MUTED });
             sd.addText(
                 [
                     { text: 'Descrição\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.description}\n\n`, options: { color: SLATE, fontSize: 10 } },
                     { text: 'Impacto\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.businessImpact}\n\n`, options: { color: SLATE, fontSize: 10 } },
-                    { text: 'Remediação\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: f.remediation, options: { color: SLATE, fontSize: 10 } },
+                    { text: 'Remediação\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.remediation}${f.estimatedNote ? `\n\nNota: ${f.estimatedNote}` : ''}`, options: { color: SLATE, fontSize: 10 } },
                 ],
                 { x: x + 0.25, y: 2.75, w: 5.5, h: 3.9, valign: 'top', lineSpacingMultiple: 1.05 },
             );
