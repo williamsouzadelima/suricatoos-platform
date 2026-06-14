@@ -23,16 +23,16 @@ var findingsReflector = &jsonschema.Reflector{DoNotReference: true, ExpandedStru
 
 const submitFindingsToolName = "submit_findings"
 
-// Limits keep the prompt within the provider's simple-options token budget (DeepSeek caps
-// at 4000 output tokens), so the structured findings JSON does not get truncated.
+// Limits keep the prompt within the provider's token budget (DeepSeek output cap raised to
+// 8000) and bound how much flow execution is sent, so findings JSON does not get truncated.
 const (
-	maxDeriveTasks      = 24
-	maxFindings         = 12
-	maxTaskResultChars  = 900
-	maxSubtaskChars     = 400
-	maxReportChars      = 1200
-	maxTerminalBudget   = 7000
-	derivePromptBudget  = 26000
+	maxDeriveTasks     = 24
+	maxFindings        = 12
+	maxTaskResultChars = 2000
+	maxSubtaskChars    = 900
+	maxReportChars     = 2500
+	maxTerminalBudget  = 18000
+	derivePromptBudget = 55000
 )
 
 // LLMRef is a documentation reference attached to a finding.
@@ -278,7 +278,7 @@ func (pc *providerController) buildFindingsContext(ctx context.Context, flow dat
 			if txt == "" {
 				continue
 			}
-			chunk := clip(txt, 1200)
+			chunk := clip(txt, 2800)
 			if len(chunk) > budget {
 				break
 			}

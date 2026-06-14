@@ -1,0 +1,52 @@
+# ============================================================================
+# Validation lab — deliberately-vulnerable target for proving the agent actually
+# DISCOVERS → CONFIRMS → EXPLOITS → PROVES → REPORTS real vulnerabilities.
+#
+# Why this exists: the platform's agents had never been given an in-scope target
+# they were allowed AND able to exploit (the migrated flows were real, hardened,
+# recon-only engagements). This stands up a known-vulnerable surface so the
+# OWASP web-exploitation doctrine can be validated end-to-end.
+#
+# ─ Deploy (SEPARATE, manual step — needs disk headroom; the 79 GB host has had
+#   disk-full → pg crashes, so reclaim space first: `podman image prune -af`):
+#     cd /opt/suricatoos
+#     podman compose -f docker-compose.lab.yml up -d
+#   Juice Shop image ≈ 450 MB. It listens on 3000 INSIDE the network only
+#   (no host port published → not exposed to the internet).
+#
+# ─ Reachability: the per-flow AGENT containers must share this network. The
+#   platform creates agent containers on its configured DOCKER_NETWORK (.env);
+#   set that to `suricatoos-network` (the external network below) so the agent
+#   can reach the lab at `http://juice-shop:3000`. If the agent uses a different
+#   per-flow network, attach this service to that network instead.
+#
+# ─ In-scope target to put in a flow: http://juice-shop:3000
+#   Drive the agent at the 3 easiest OWASP classes first (IDOR / SQLi / XSS).
+#   Success = ≥5 findings, ≥1 `high` with `measured` severity (from nuclei),
+#   PoC artifacts under /work/findings/<id>/, screenshots attached.
+#
+# ─ Tear down:  podman compose -f docker-compose.lab.yml down
+# ============================================================================
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    container_name: suricatoos-lab-juiceshop
+    hostname: juice-shop
+    restart: unless-stopped
+    # No `ports:` mapping on purpose — internal to the network only, never
+    # published to the host / internet. The agent reaches it over the network.
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=unsafe   # keep all challenges enabled
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    networks:
+      - suricatoos-network
+
+networks:
+  suricatoos-network:
+    external: true
+    name: suricatoos-network

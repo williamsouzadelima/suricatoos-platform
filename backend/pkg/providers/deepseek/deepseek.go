@@ -27,7 +27,9 @@ func BuildProviderConfig(configData []byte) (*pconfig.ProviderConfig, error) {
 	defaultOptions := []llms.CallOption{
 		llms.WithModel(DeepSeekAgentModel),
 		llms.WithN(1),
-		llms.WithMaxTokens(4000),
+		// Raised 4000 -> 8000 (within DeepSeek's output cap): gives exploitation chains and the
+		// multi-finding submit_findings JSON room to complete without truncation.
+		llms.WithMaxTokens(8000),
 	}
 
 	providerConfig, err := pconfig.LoadConfigData(configData, defaultOptions)
