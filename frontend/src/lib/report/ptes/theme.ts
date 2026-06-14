@@ -1,6 +1,15 @@
 // Shared design tokens + chart-data derivation for the premium PTES report.
 import { REMEDIATION } from './engagement';
-import type { Engagement, Finding, RemediationWindow, Severity } from './engagement';
+import type { Engagement, Finding, Provenance, RemediationWindow, Severity } from './engagement';
+
+// Book typography: a serif for running text + headings (the "book" voice), a humanist sans
+// for furniture (chips, tables, headers/footers) and a mono for code/evidence. The families
+// are registered in report-book-pdf.tsx; these names are the single source of truth.
+export const FONT = {
+    serif: 'NotoSerif',
+    sans: 'NotoSans',
+    mono: 'NotoSansMono',
+} as const;
 
 export const COLORS = {
     brand: '#194FE3',
@@ -92,9 +101,24 @@ export interface ActionItem {
 
 export const actionItems = (findings: Finding[]): ActionItem[] =>
     findings.map((f) => {
-        const r = REMEDIATION[f.id] ?? { effort: 2 as const, etaDays: 7, window: 'Curto prazo' as const };
-        const quickWin = r.effort === 1 && (f.severity === 'critical' || f.severity === 'high');
-        return { f, effort: r.effort, etaDays: r.etaDays, window: r.window, quickWin };
+        // Real flows carry per-finding effort/eta/window (from-flow); fall back to the static
+        // map only for fixtures/legacy findings that don't. (The static map is keyed F-01.. and
+        // would otherwise silently override real, derived values that share those ids.)
+        const fb = REMEDIATION[f.id] ?? { effort: 2 as const, etaDays: 7, window: 'Curto prazo' as const };
+        const effort = f.remediationEffort ?? fb.effort;
+        const etaDays = f.etaDays ?? fb.etaDays;
+        const window = f.remediationWindow ?? fb.window;
+        const quickWin = effort === 1 && (f.severity === 'critical' || f.severity === 'high');
+        return { f, effort, etaDays, window, quickWin };
     });
 
 export const quickWins = (findings: Finding[]): ActionItem[] => actionItems(findings).filter((a) => a.quickWin);
+
+// ── Provenance / honesty ────────────────────────────────────────────────────
+// The report must never pass a guess off as a measurement. Fields the flow could not measure
+// are flagged 'estimated'/'inferred'; renderers badge them so the reader (and analyst) knows.
+export const isEstimated = (p?: Provenance): boolean => p === 'estimated' || p === 'inferred';
+
+// True when a finding's CVSS or severity is not a measured/parsed value.
+export const findingIsEstimated = (f: Finding): boolean =>
+    isEstimated(f.provenance?.cvss) || isEstimated(f.provenance?.severity);

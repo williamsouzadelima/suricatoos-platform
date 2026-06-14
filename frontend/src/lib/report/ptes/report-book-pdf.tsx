@@ -1,17 +1,28 @@
 // Premium "book-like" PTES report — PDF flagship.
 // Storytelling narrative, action plan (quick wins + timeline), vector charts, whitelabel co-branding.
-import { Document, Font, Page, StyleSheet, Text, View, pdf } from '@react-pdf/renderer';
+// Typography is a book pairing: a serif (Noto Serif) for running text + headings — the "book" voice —
+// a humanist sans for furniture (chips, tables, headers/footers), and a mono for code/evidence.
+import { Document, Font, Image, Page, StyleSheet, Text, View, pdf } from '@react-pdf/renderer';
 
 import { AttackChainStrip, DonutChart, EffortTimeBars, HBarChart, PhaseStepper, QuickWinsQuadrant, RemediationRoadmap, RiskGauge, RiskMatrix } from './charts';
-import { PTES_PHASES, type Engagement, type Finding, type Severity } from './engagement';
+import { PTES_PHASES, type Engagement, type Figure, type Finding, type Severity } from './engagement';
 import { AppLogo, ClientLogo } from './report-logo';
-import { actionItems, categoryCounts, COLORS, EFFORT, fmtDate, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
+import { actionItems, categoryCounts, COLORS, EFFORT, findingIsEstimated, fmtDate, isEstimated, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
 
-const FONT = 'NotoSans';
+const SERIF = 'NotoSerif';
+const SANS = 'NotoSans';
 const MONO = 'NotoSansMono';
 
 let fontsRegistered = false;
 export function registerReportFonts(base = '/fonts'): void {
+    Font.register({
+        family: 'NotoSerif',
+        fonts: [
+            { fontStyle: 'normal', fontWeight: 'normal', src: `${base}/NotoSerif-Regular.ttf` },
+            { fontStyle: 'normal', fontWeight: 'bold', src: `${base}/NotoSerif-Bold.ttf` },
+            { fontStyle: 'italic', fontWeight: 'normal', src: `${base}/NotoSerif-Italic.ttf` },
+        ],
+    });
     Font.register({
         family: 'NotoSans',
         fonts: [
@@ -26,88 +37,103 @@ export function registerReportFonts(base = '/fonts'): void {
 }
 
 const s = StyleSheet.create({
-    page: { backgroundColor: COLORS.paper, color: COLORS.slate, fontFamily: FONT, fontSize: 9.5, lineHeight: 1.5, paddingTop: 58, paddingBottom: 46, paddingHorizontal: 44 },
+    page: { backgroundColor: COLORS.paper, color: COLORS.slate, fontFamily: SERIF, fontSize: 9.5, lineHeight: 1.5, paddingTop: 58, paddingBottom: 46, paddingHorizontal: 44 },
     header: { position: 'absolute', top: 22, left: 44, right: 44, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingBottom: 6 },
     headerL: { flexDirection: 'row', alignItems: 'center' },
-    headerBrand: { fontSize: 10, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 0.5, marginLeft: 6 },
-    headerMeta: { fontSize: 7.5, color: COLORS.muted },
+    headerBrand: { fontFamily: SANS, fontSize: 10, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 0.5, marginLeft: 6 },
+    headerMeta: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
     footer: { position: 'absolute', bottom: 22, left: 44, right: 44, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: COLORS.line, paddingTop: 6 },
-    footerText: { fontSize: 7.5, color: COLORS.muted },
+    footerText: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
     // cover
     cover: { backgroundColor: COLORS.ink, color: COLORS.white, padding: 0 },
     coverBar: { position: 'absolute', top: 0, bottom: 0, left: 0, width: 14, backgroundColor: COLORS.brand },
     coverInner: { paddingVertical: 64, paddingHorizontal: 54, height: '100%' },
     brandRow: { flexDirection: 'row', alignItems: 'center' },
-    coverBrand: { fontSize: 22, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 1, marginLeft: 10 },
-    coverKicker: { fontSize: 12, color: COLORS.coral, fontWeight: 'bold', marginTop: 54, letterSpacing: 2 },
-    coverTitle: { fontSize: 29, fontWeight: 'bold', color: COLORS.white, marginTop: 14, lineHeight: 1.25 },
-    coverPrepared: { fontSize: 9, color: '#94A3B8', marginTop: 22, marginBottom: 8 },
+    coverBrand: { fontFamily: SANS, fontSize: 22, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 1, marginLeft: 10 },
+    coverKicker: { fontFamily: SANS, fontSize: 12, color: COLORS.coral, fontWeight: 'bold', marginTop: 54, letterSpacing: 2 },
+    coverTitle: { fontSize: 30, fontWeight: 'bold', color: COLORS.white, marginTop: 14, lineHeight: 1.22 },
+    coverPrepared: { fontFamily: SANS, fontSize: 9, color: '#94A3B8', marginTop: 22, marginBottom: 8 },
     chip: { alignSelf: 'flex-start', borderWidth: 1, borderColor: COLORS.coral, borderRadius: 3, paddingVertical: 3, paddingHorizontal: 8, marginTop: 22 },
-    chipText: { fontSize: 9, color: COLORS.coral, fontWeight: 'bold', letterSpacing: 1 },
+    chipText: { fontFamily: SANS, fontSize: 9, color: COLORS.coral, fontWeight: 'bold', letterSpacing: 1 },
     coverMetaRow: { flexDirection: 'row', marginTop: 8 },
-    coverMetaK: { fontSize: 9, color: '#94A3B8', width: 70 },
-    coverMetaV: { fontSize: 9, color: '#E2E8F0' },
-    // section
+    coverMetaK: { fontFamily: SANS, fontSize: 9, color: '#94A3B8', width: 70 },
+    coverMetaV: { fontFamily: SANS, fontSize: 9, color: '#E2E8F0' },
+    // section / chapter opener
     sectionWrap: { marginTop: 6, marginBottom: 8 },
-    sectionNum: { fontSize: 9, fontWeight: 'bold', color: COLORS.brand },
-    sectionTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.ink, marginTop: 1 },
-    sectionRule: { height: 2, backgroundColor: COLORS.brand, width: 38, marginTop: 5, marginBottom: 8 },
-    h3: { fontSize: 11, fontWeight: 'bold', color: COLORS.ink, marginTop: 10, marginBottom: 4 },
-    p: { fontSize: 9.5, color: COLORS.slate, marginBottom: 6, textAlign: 'justify', lineHeight: 1.55 },
-    caption: { fontSize: 8, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4, textAlign: 'center' },
+    sectionNum: { fontFamily: SANS, fontSize: 9, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 1.5 },
+    sectionTitle: { fontSize: 19, fontWeight: 'bold', color: COLORS.ink, marginTop: 2 },
+    sectionRule: { height: 2, backgroundColor: COLORS.brand, width: 38, marginTop: 6, marginBottom: 8 },
+    h3: { fontSize: 12, fontWeight: 'bold', color: COLORS.ink, marginTop: 10, marginBottom: 4 },
+    p: { fontSize: 9.5, color: COLORS.slate, marginBottom: 6, textAlign: 'justify', lineHeight: 1.6 },
+    caption: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4, textAlign: 'center' },
     // panels / cards
     statRow: { flexDirection: 'row', gap: 8, marginTop: 4 },
     stat: { flex: 1, backgroundColor: COLORS.panel, borderRadius: 6, paddingVertical: 11, paddingHorizontal: 6, alignItems: 'center' },
-    statNum: { fontSize: 20, fontWeight: 'bold', color: COLORS.ink, lineHeight: 1.1 },
-    statLbl: { fontSize: 7, color: COLORS.muted, marginTop: 5, textAlign: 'center', lineHeight: 1.2 },
+    statNum: { fontFamily: SANS, fontSize: 20, fontWeight: 'bold', color: COLORS.ink, lineHeight: 1.1 },
+    statLbl: { fontFamily: SANS, fontSize: 7, color: COLORS.muted, marginTop: 5, textAlign: 'center', lineHeight: 1.2 },
     twoCol: { flexDirection: 'row', gap: 14, marginTop: 6 },
     panel: { backgroundColor: COLORS.panel, borderRadius: 6, padding: 10 },
-    panelTitle: { fontSize: 9, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4 },
+    panelTitle: { fontFamily: SANS, fontSize: 9, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4 },
     li: { flexDirection: 'row', marginBottom: 3 },
     liDot: { width: 10, fontSize: 9, color: COLORS.brand },
-    liText: { flex: 1, fontSize: 9, color: COLORS.slate, lineHeight: 1.45 },
+    liText: { flex: 1, fontSize: 9.5, color: COLORS.slate, lineHeight: 1.5 },
     kvRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingVertical: 3 },
-    kvK: { width: 120, fontSize: 8.5, color: COLORS.muted, fontWeight: 'bold' },
-    kvV: { flex: 1, fontSize: 8.5, color: COLORS.slate },
+    kvK: { fontFamily: SANS, width: 120, fontSize: 8.5, color: COLORS.muted, fontWeight: 'bold' },
+    kvV: { flex: 1, fontSize: 9, color: COLORS.slate },
     tocRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: COLORS.line },
-    tocNum: { fontSize: 9.5, color: COLORS.brand, fontWeight: 'bold', width: 22 },
-    tocName: { flex: 1, fontSize: 9.5, color: COLORS.slate },
+    tocNum: { fontFamily: SANS, fontSize: 9.5, color: COLORS.brand, fontWeight: 'bold', width: 22 },
+    tocName: { flex: 1, fontSize: 10, color: COLORS.slate },
     // story timeline
     storyStep: { flexDirection: 'row', marginBottom: 9 },
     storyNum: { width: 22, height: 22, borderRadius: 11, backgroundColor: COLORS.brand, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
-    storyNumText: { color: COLORS.white, fontSize: 10, fontWeight: 'bold' },
+    storyNumText: { fontFamily: SANS, color: COLORS.white, fontSize: 10, fontWeight: 'bold' },
     storyHead: { flexDirection: 'row', alignItems: 'center', marginBottom: 2, flexWrap: 'wrap' },
-    storyTitle: { fontSize: 10.5, fontWeight: 'bold', color: COLORS.ink, marginRight: 6 },
-    refPill: { backgroundColor: '#DBEAFE', color: COLORS.brand, fontSize: 7, fontWeight: 'bold', borderRadius: 3, paddingVertical: 1, paddingHorizontal: 4, marginRight: 3 },
-    storyText: { fontSize: 9, color: COLORS.slate, lineHeight: 1.5, textAlign: 'justify' },
+    storyTitle: { fontSize: 11.5, fontWeight: 'bold', color: COLORS.ink, marginRight: 6 },
+    refPill: { fontFamily: SANS, backgroundColor: '#DBEAFE', color: COLORS.brand, fontSize: 7, fontWeight: 'bold', borderRadius: 3, paddingVertical: 1, paddingHorizontal: 4, marginRight: 3 },
+    storyText: { fontSize: 9.5, color: COLORS.slate, lineHeight: 1.55, textAlign: 'justify' },
     // findings table
     tHead: { flexDirection: 'row', backgroundColor: COLORS.brand, borderTopLeftRadius: 4, borderTopRightRadius: 4 },
-    tHeadCell: { color: COLORS.white, fontSize: 8, fontWeight: 'bold', padding: 5 },
+    tHeadCell: { fontFamily: SANS, color: COLORS.white, fontSize: 8, fontWeight: 'bold', padding: 5 },
     tRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line },
-    tCell: { fontSize: 8, color: COLORS.slate, padding: 5 },
+    tCell: { fontSize: 8.5, color: COLORS.slate, padding: 5 },
     // finding card
     card: { borderWidth: 1, borderColor: COLORS.line, borderLeftWidth: 4, borderRadius: 5, padding: 10, marginBottom: 10 },
     cardHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-    cardId: { fontSize: 8, color: COLORS.muted, fontWeight: 'bold' },
-    cardTitle: { fontSize: 11.5, fontWeight: 'bold', color: COLORS.ink, marginTop: 1, marginBottom: 4 },
+    cardId: { fontFamily: SANS, fontSize: 8, color: COLORS.muted, fontWeight: 'bold' },
+    cardTitle: { fontSize: 12.5, fontWeight: 'bold', color: COLORS.ink, marginTop: 1, marginBottom: 4 },
     badge: { borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6 },
-    badgeText: { fontSize: 7.5, fontWeight: 'bold', letterSpacing: 0.5 },
-    metaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginBottom: 5 },
-    metaPill: { backgroundColor: COLORS.panel, borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6, fontSize: 7.5, color: COLORS.slate },
-    fieldLbl: { fontSize: 8, fontWeight: 'bold', color: COLORS.brand, marginTop: 6, marginBottom: 2, textTransform: 'uppercase' },
-    fieldText: { fontSize: 9, color: COLORS.slate, lineHeight: 1.45 },
+    badgeText: { fontFamily: SANS, fontSize: 7.5, fontWeight: 'bold', letterSpacing: 0.5 },
+    metaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginBottom: 5, alignItems: 'center' },
+    metaPill: { fontFamily: SANS, backgroundColor: COLORS.panel, borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6, fontSize: 7.5, color: COLORS.slate },
+    fieldLbl: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: COLORS.brand, marginTop: 6, marginBottom: 2, textTransform: 'uppercase', letterSpacing: 0.4 },
+    fieldText: { fontSize: 9.5, color: COLORS.slate, lineHeight: 1.5 },
     code: { backgroundColor: '#0F172A', color: '#E2E8F0', fontFamily: MONO, fontSize: 8, padding: 8, borderRadius: 4, marginTop: 4, lineHeight: 1.4 },
-    codeCap: { fontSize: 7.5, color: COLORS.muted, fontStyle: 'italic', marginTop: 5 },
+    codeCap: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted, fontStyle: 'italic', marginTop: 5 },
+    // estimated / honesty
+    estBadge: { backgroundColor: '#FEF3C7', borderRadius: 3, paddingVertical: 2, paddingHorizontal: 5 },
+    estBadgeText: { fontFamily: SANS, fontSize: 6.5, fontWeight: 'bold', color: '#92400E', letterSpacing: 0.3 },
+    callout: { flexDirection: 'row', backgroundColor: '#FFFBEB', borderLeftWidth: 3, borderLeftColor: '#F59E0B', borderRadius: 3, paddingVertical: 5, paddingHorizontal: 7, marginTop: 6 },
+    calloutText: { fontFamily: SANS, flex: 1, fontSize: 7.5, color: '#92400E', lineHeight: 1.4 },
+    assetLine: { flexDirection: 'row', marginBottom: 2, alignItems: 'baseline' },
+    assetMono: { fontFamily: MONO, fontSize: 8, color: COLORS.ink },
+    assetMeta: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted, marginLeft: 4 },
+    // evidence / figures
+    figure: { marginBottom: 12 },
+    figCap: { fontFamily: SANS, fontSize: 8.5, fontWeight: 'bold', color: COLORS.ink, marginBottom: 3 },
+    figLinks: { fontFamily: SANS, fontSize: 7, color: COLORS.muted, marginBottom: 3 },
+    figImg: { width: '100%', maxHeight: 320, objectFit: 'contain', borderWidth: 1, borderColor: COLORS.line, borderRadius: 4 },
+    figRef: { backgroundColor: COLORS.panel, borderWidth: 1, borderStyle: 'dashed', borderColor: COLORS.line, borderRadius: 4, paddingVertical: 14, paddingHorizontal: 10, alignItems: 'center' },
+    figRefText: { fontFamily: SANS, fontSize: 8, color: COLORS.muted, textAlign: 'center' },
     // action plan table
     aHead: { flexDirection: 'row', backgroundColor: COLORS.brand, borderTopLeftRadius: 4, borderTopRightRadius: 4 },
-    aHeadCell: { color: COLORS.white, fontSize: 7.5, fontWeight: 'bold', paddingVertical: 5, paddingHorizontal: 4 },
+    aHeadCell: { fontFamily: SANS, color: COLORS.white, fontSize: 7.5, fontWeight: 'bold', paddingVertical: 5, paddingHorizontal: 4 },
     aRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line, alignItems: 'center' },
-    aCell: { fontSize: 7.5, color: COLORS.slate, paddingVertical: 5, paddingHorizontal: 4 },
+    aCell: { fontFamily: SANS, fontSize: 7.5, color: COLORS.slate, paddingVertical: 5, paddingHorizontal: 4 },
     winChip: { borderRadius: 3, paddingVertical: 2, paddingHorizontal: 4, alignSelf: 'flex-start' },
-    winChipText: { color: COLORS.white, fontSize: 6.5, fontWeight: 'bold' },
+    winChipText: { fontFamily: SANS, color: COLORS.white, fontSize: 6.5, fontWeight: 'bold' },
     legendRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 3 },
     legendDot: { width: 9, height: 9, borderRadius: 2, marginRight: 6 },
-    legendText: { fontSize: 8, color: COLORS.slate },
+    legendText: { fontFamily: SANS, fontSize: 8, color: COLORS.slate },
 });
 
 const Badge = ({ severity }: { severity: Severity }) => {
@@ -171,8 +197,41 @@ const StoryStep = ({ step }: { step: Engagement['attackStory'][number] }) => (
     </View>
 );
 
+// "estimated" marker — honest signalling that a value was inferred, not measured.
+const EstBadge = ({ label = 'ESTIMADO' }: { label?: string }) => (
+    <View style={s.estBadge}>
+        <Text style={s.estBadgeText}>{label}</Text>
+    </View>
+);
+
+// Honesty callout (estimatedNote): tells the analyst to calibrate before delivery.
+const Callout = ({ text }: { text: string }) => (
+    <View style={s.callout} wrap={false}>
+        <Text style={s.calloutText}>{text}</Text>
+    </View>
+);
+
+// Structured affected assets (host[:port] (service) + url), pulled from the finding's own logs.
+const AssetList = ({ f }: { f: Finding }) => {
+    if (f.assets && f.assets.length > 0) {
+        return (
+            <View>
+                {f.assets.slice(0, 8).map((a, i) => (
+                    <View key={i} style={s.assetLine}>
+                        <Text style={s.assetMono}>{a.port ? `${a.host}:${a.port}` : a.host}</Text>
+                        {(a.service || a.url) && <Text style={s.assetMeta}>{[a.service, a.url].filter(Boolean).join(' · ')}</Text>}
+                    </View>
+                ))}
+            </View>
+        );
+    }
+    return <Text style={s.fieldText}>{f.affected.length ? f.affected.join(', ') : '—'}</Text>;
+};
+
 const FindingCard = ({ f }: { f: Finding }) => {
     const sv = SEVERITY[f.severity];
+    const cvssEst = isEstimated(f.provenance?.cvss);
+    const sevEst = isEstimated(f.provenance?.severity);
     return (
         <View style={[s.card, { borderLeftColor: sv.color }]} wrap={false}>
             <View style={s.cardHead}>
@@ -180,16 +239,21 @@ const FindingCard = ({ f }: { f: Finding }) => {
                     <Text style={s.cardId}>{f.id}</Text>
                     <Text style={s.cardTitle}>{f.title}</Text>
                 </View>
-                <Badge severity={f.severity} />
+                <View style={{ alignItems: 'flex-end', gap: 3 }}>
+                    <Badge severity={f.severity} />
+                    {sevEst && <EstBadge label="SEVERIDADE EST." />}
+                </View>
             </View>
             <View style={s.metaGrid}>
                 <Text style={s.metaPill}>{`CVSS ${f.cvss.toFixed(1)}`}</Text>
-                <Text style={s.metaPill}>{f.cwe}</Text>
+                {cvssEst && <EstBadge label="CVSS EST." />}
+                {f.cwe && f.cwe !== '—' && <Text style={s.metaPill}>{f.cwe}</Text>}
                 <Text style={s.metaPill}>{f.category}</Text>
-                <Text style={s.metaPill}>{`Afetado: ${f.affected.join(', ')}`}</Text>
                 <Text style={s.metaPill}>{`Status: ${f.status}`}</Text>
             </View>
             <Text style={s.fieldText}>{f.description}</Text>
+            <Text style={s.fieldLbl}>Ativos afetados</Text>
+            <AssetList f={f} />
             {f.evidence && (
                 <View>
                     <Text style={s.codeCap}>{f.evidence.caption}</Text>
@@ -200,7 +264,35 @@ const FindingCard = ({ f }: { f: Finding }) => {
             <Text style={s.fieldText}>{f.businessImpact}</Text>
             <Text style={s.fieldLbl}>Remediação</Text>
             <Text style={s.fieldText}>{f.remediation}</Text>
-            {f.references.length > 0 && <Text style={[s.codeCap, { marginTop: 6 }]}>{`Referências: ${f.references.map((r) => r.label).join(' · ')}`}</Text>}
+            {f.references.length > 0 && (
+                <Text style={[s.codeCap, { marginTop: 6 }]}>{`Referências: ${f.references.map((r) => r.label).join(' · ')}`}</Text>
+            )}
+            {f.estimatedNote && <Callout text={f.estimatedNote} />}
+        </View>
+    );
+};
+
+// Numbered evidence plate — terminal/tool-output excerpts render inline; screenshots render the
+// resolved image (data URI) or, when unavailable, a captioned reference box.
+const FigurePlate = ({ fig }: { fig: Figure }) => {
+    const links = fig.findingIds.length ? `Referente a: ${fig.findingIds.join(', ')}` : '';
+    return (
+        <View style={s.figure} wrap={false}>
+            <Text style={s.figCap}>{`${fig.id} — ${fig.caption}`}</Text>
+            {(links || fig.capturedUrl) && (
+                <Text style={s.figLinks}>{[links, fig.capturedUrl ? `URL: ${fig.capturedUrl}` : ''].filter(Boolean).join('   ·   ')}</Text>
+            )}
+            {fig.kind === 'screenshot' ? (
+                fig.imageSrc && fig.imageSrc.startsWith('data:') ? (
+                    <Image src={fig.imageSrc} style={s.figImg} />
+                ) : (
+                    <View style={s.figRef}>
+                        <Text style={s.figRefText}>{`Captura de tela registrada durante a execução${fig.capturedUrl ? `\n${fig.capturedUrl}` : ''}`}</Text>
+                    </View>
+                )
+            ) : fig.code ? (
+                <Text style={s.code}>{fig.code}</Text>
+            ) : null}
         </View>
     );
 };
@@ -242,7 +334,12 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
     const items = actionItems(e.findings);
     const qw = quickWins(e.findings);
     const BRAND = e.branding.primary ? `#${e.branding.primary}` : COLORS.brand;
-    const tocItems = ['Sumário Executivo', 'Narrativa do Ataque', 'Visão Geral de Risco', 'Metodologia (PTES)', 'Achados Detalhados', 'Plano de Ação', 'Apêndice'];
+    const figures = e.figures ?? [];
+    const hasFigures = figures.length > 0;
+    const estimatedCount = e.findings.filter(findingIsEstimated).length;
+    const figuresN = 7;
+    const appendixN = hasFigures ? 8 : 7;
+    const tocItems = ['Sumário Executivo', 'Narrativa do Ataque', 'Visão Geral de Risco', 'Metodologia (PTES)', 'Achados Detalhados', 'Plano de Ação', ...(hasFigures ? ['Evidências'] : []), 'Apêndice'];
 
     return (
         <Document title={e.title} author={e.branding.appName} creator={e.branding.appName}>
@@ -327,6 +424,9 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 {e.summaryNarrative.map((para, i) => (
                     <Text key={i} style={s.p}>{para}</Text>
                 ))}
+                {estimatedCount > 0 && (
+                    <Callout text={`${estimatedCount} achado(s) têm severidade/CVSS estimados a partir da execução automatizada e devem ser calibrados por um analista antes da entrega final.`} />
+                )}
                 <View style={[s.twoCol, { alignItems: 'center', marginTop: 8 }]}>
                     <View style={{ alignItems: 'center', flex: 1 }}>
                         <RiskGauge score={e.riskScore} size={210} />
@@ -477,11 +577,24 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 <ActionTable items={items} />
             </Page>
 
-            {/* ── 7. Appendix ── */}
+            {/* ── 7. Evidence (figures) ── */}
+            {hasFigures && (
+                <Page size="A4" style={s.page}>
+                    <Header e={e} />
+                    <Footer e={e} />
+                    <Section n={figuresN} title="Evidências" />
+                    <Text style={s.p}>Plano de evidências numerado: saídas reais de ferramentas e capturas de tela registradas durante a execução, vinculadas aos achados correspondentes.</Text>
+                    {figures.map((fig) => (
+                        <FigurePlate key={fig.id} fig={fig} />
+                    ))}
+                </Page>
+            )}
+
+            {/* ── Appendix ── */}
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={7} title="Apêndice" />
+                <Section n={appendixN} title="Apêndice" />
                 <Text style={s.h3}>Recomendações estratégicas</Text>
                 {e.recommendations.map((r, i) => (
                     <View key={i} style={s.li}>
