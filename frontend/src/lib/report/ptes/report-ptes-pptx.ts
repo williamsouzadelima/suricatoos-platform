@@ -105,8 +105,8 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         objects: [
             { rect: { x: 0, y: 0, w: 0.16, h: '100%', fill: { color: primary } } },
             { rect: { x: 0, y: 7.12, w: '100%', h: 0.005, fill: { color: LINE } } },
-            { text: { text: e.branding.appName.toUpperCase(), options: { x: 0.45, y: 7.14, w: 6, h: 0.32, fontSize: 8, color: primary, bold: true, charSpacing: 1, valign: 'middle' } } },
-            { text: { text: `${e.client} · ${e.classification}`, options: { x: 7.3, y: 7.14, w: 5.6, h: 0.32, fontSize: 8, color: MUTED, align: 'right', valign: 'middle' } } },
+            { text: { text: e.branding.appName.toUpperCase(), options: { x: 0.5, y: 7.14, w: 6, h: 0.32, fontSize: 9, color: primary, bold: true, charSpacing: 1, valign: 'middle' } } },
+            { text: { text: `${e.client} · ${e.classification}`, options: { x: 7.0, y: 7.14, w: 5.83, h: 0.32, fontSize: 9, color: MUTED, align: 'right', valign: 'middle' } } },
         ],
     });
 
@@ -116,16 +116,16 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     };
     // Section opener (kicker + display title + short indigo rule), mirrors the PDF Section.
     const section = (s: pptxgen.Slide, kicker: string, title: string) => {
-        s.addText(kicker.toUpperCase(), { x: 0.5, y: 0.34, w: 12, h: 0.3, fontSize: 11, bold: true, color: primary, charSpacing: 1 });
-        s.addText(title, { x: 0.5, y: 0.62, w: 12.3, h: 0.62, fontSize: 26, bold: true, color: INK });
-        s.addShape(pptx.ShapeType.rect, { x: 0.5, y: 1.3, w: 0.62, h: 0.035, fill: { color: primary } });
+        s.addText(kicker.toUpperCase(), { x: 0.5, y: 0.4, w: 12, h: 0.32, fontSize: 13, bold: true, color: primary, charSpacing: 1 });
+        s.addText(title, { x: 0.5, y: 0.74, w: 12.3, h: 0.7, fontSize: 30, bold: true, color: INK });
+        s.addShape(pptx.ShapeType.rect, { x: 0.5, y: 1.46, w: 0.7, h: 0.04, fill: { color: primary } });
     };
     // A small pill/chip used for taxonomy + MITRE listings.
     const chip = (s: pptxgen.Slide, text: string, x: number, y: number, w: number, opts?: { filled?: boolean; mono?: boolean }) => {
         const filled = opts?.filled ?? false;
         s.addText(text, {
-            x, y, w, h: 0.28,
-            fontSize: 8.5,
+            x, y, w, h: 0.34,
+            fontSize: 11,
             bold: filled,
             color: filled ? CHIP_INK : SLATE,
             fill: { color: filled ? CHIP_FILL : PAPER },
@@ -147,13 +147,13 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     c.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.22, h: '100%', fill: { color: primary } });
     const appLogo = e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
     c.addImage({ data: appLogo, x: 0.8, y: 0.62, w: 0.62, h: 0.62 });
-    c.addText(e.branding.appName.toUpperCase(), { x: 1.55, y: 0.62, w: 7, h: 0.62, fontSize: 18, bold: true, color: primary, charSpacing: 1, valign: 'middle' });
+    c.addText(e.branding.appName.toUpperCase(), { x: 1.55, y: 0.62, w: 7, h: 0.62, fontSize: 20, bold: true, color: primary, charSpacing: 1, valign: 'middle' });
     // classification chip (coral outline), top-right
-    c.addText(e.classification, { x: 10.4, y: 0.66, w: 2.3, h: 0.36, fontSize: 10, bold: true, color: CORAL, align: 'center', valign: 'middle', charSpacing: 1, line: { color: CORAL, width: 1 }, rectRadius: 0.03, shape: pptx.ShapeType.roundRect });
+    c.addText(e.classification, { x: 10.3, y: 0.64, w: 2.4, h: 0.4, fontSize: 11, bold: true, color: CORAL, align: 'center', valign: 'middle', charSpacing: 1, line: { color: CORAL, width: 1 }, rectRadius: 0.03, shape: pptx.ShapeType.roundRect });
 
-    c.addText(t('PENTEST REPORT · PTES'), { x: 0.8, y: 1.95, w: 11.5, h: 0.35, fontSize: 12, bold: true, color: MUTED, charSpacing: 3 });
-    c.addText(e.title, { x: 0.78, y: 2.32, w: 11.8, h: 1.7, fontSize: 33, bold: true, color: INK, valign: 'top' });
-    c.addText(tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client }), { x: 0.8, y: 4.05, w: 11.5, h: 0.4, fontSize: 14, color: MUTED });
+    c.addText(t('PENTEST REPORT · PTES'), { x: 0.8, y: 1.92, w: 11.5, h: 0.38, fontSize: 13, bold: true, color: MUTED, charSpacing: 3 });
+    c.addText(e.title, { x: 0.78, y: 2.34, w: 11.8, h: 1.7, fontSize: 36, bold: true, color: INK, valign: 'top' });
+    c.addText(tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client }), { x: 0.8, y: 4.08, w: 11.5, h: 0.42, fontSize: 15, color: MUTED });
 
     // 4 KPI tiles — same metrics/tints as the PDF cover.
     const kpiY = 4.75;
@@ -168,13 +168,13 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     kpis.forEach((k, i) => {
         const x = 0.8 + i * (kpiW + kpiGap);
         c.addShape(pptx.ShapeType.roundRect, { x, y: kpiY, w: kpiW, h: 1.25, rectRadius: 0.08, fill: { color: k.fill } });
-        c.addText(k.lbl, { x: x + 0.22, y: kpiY + 0.18, w: kpiW - 0.4, h: 0.3, fontSize: 11, color: k.lblColor });
+        c.addText(k.lbl, { x: x + 0.22, y: kpiY + 0.16, w: kpiW - 0.4, h: 0.32, fontSize: 12, color: k.lblColor });
         c.addText(
             [
-                { text: k.val, options: { fontSize: 30, bold: true, color: k.numColor } },
-                ...(k.suffix ? [{ text: k.suffix, options: { fontSize: 13, color: MUTED } }] : []),
+                { text: k.val, options: { fontSize: 32, bold: true, color: k.numColor } },
+                ...(k.suffix ? [{ text: k.suffix, options: { fontSize: 14, color: MUTED } }] : []),
             ],
-            { x: x + 0.2, y: kpiY + 0.52, w: kpiW - 0.4, h: 0.62, valign: 'middle' },
+            { x: x + 0.2, y: kpiY + 0.5, w: kpiW - 0.4, h: 0.64, valign: 'middle' },
         );
     });
 
@@ -185,7 +185,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             { text: `${t('Version')}: `, options: { bold: true, color: SLATE } }, { text: `${e.version}      `, options: { color: MUTED } },
             { text: `${t('Risk')}: `, options: { bold: true, color: SLATE } }, { text: `${e.riskScore}/100 (${riskRatingLabel(e.riskScore)})`, options: { color: MUTED } },
         ],
-        { x: 0.8, y: 6.5, w: 12, h: 0.4, fontSize: 11 },
+        { x: 0.8, y: 6.5, w: 12, h: 0.4, fontSize: 12 },
     );
 
     // ── 2. Risk slide ── severity breakdown + OWASP coverage + MITRE techniques ──
@@ -193,30 +193,30 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     section(s2, t('Risk Overview'), t('Risk and Coverage'));
 
     // Severity donut + breakdown legend (left column)
-    s2.addText(t('Finding severity'), { x: 0.5, y: 1.5, w: 4, h: 0.3, fontSize: 12, bold: true, color: INK });
-    img(s2, 'donut', 0.7, 1.85, 2.0);
+    s2.addText(t('Finding severity'), { x: 0.5, y: 1.7, w: 4, h: 0.32, fontSize: 13, bold: true, color: INK });
+    img(s2, 'donut', 0.7, 2.08, 2.0);
     SEVERITY_ORDER.forEach((sv, i) => {
-        const y = 4.15 + i * 0.34;
-        s2.addShape(pptx.ShapeType.rect, { x: 0.55, y: y + 0.05, w: 0.14, h: 0.14, fill: { color: hex(SEVERITY[sv].color) } });
+        const y = 4.4 + i * 0.4;
+        s2.addShape(pptx.ShapeType.rect, { x: 0.55, y: y + 0.07, w: 0.16, h: 0.16, fill: { color: hex(SEVERITY[sv].color) } });
         s2.addText(
             [
                 { text: `${sevLabel(sv)}  `, options: { color: SLATE, bold: true } },
                 { text: `${e.findings.filter((f) => f.severity === sv).length}`, options: { color: MUTED } },
             ],
-            { x: 0.78, y, w: 2.5, h: 0.28, fontSize: 10.5, valign: 'middle' },
+            { x: 0.8, y, w: 2.5, h: 0.32, fontSize: 12, valign: 'middle' },
         );
     });
 
     // OWASP Top 10 (2021) coverage grid (covered = indigo tint w/ count) — middle/right.
     const hay = (f: Finding) => `${f.owasp ?? ''} ${f.references.map((r) => r.label).join(' ')}`;
     const owaspHits = (code: string) => e.findings.filter((f) => hay(f).includes(code)).length;
-    s2.addText(t('Coverage — OWASP Top 10 (2021)'), { x: 4.0, y: 1.5, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
+    s2.addText(t('Coverage — OWASP Top 10 (2021)'), { x: 4.0, y: 1.7, w: 9, h: 0.32, fontSize: 13, bold: true, color: INK });
     const gx = 4.0;
-    const gy = 1.9;
+    const gy = 2.08;
     const cellW = 4.35;
-    const cellH = 0.46;
+    const cellH = 0.54;
     const colGap = 0.18;
-    const rowGap = 0.1;
+    const rowGap: number = 0.12;
     OWASP_2021.forEach(([code, name], i) => {
         const col = i < 5 ? 0 : 1;
         const row = i % 5;
@@ -225,9 +225,9 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         const n = owaspHits(code);
         const on = n > 0;
         s2.addShape(pptx.ShapeType.roundRect, { x, y, w: cellW, h: cellH, rectRadius: 0.05, fill: { color: on ? CHIP_FILL : PAPER }, line: { color: on ? COV_BORDER : LINE, width: 1 } });
-        s2.addText(code, { x: x + 0.12, y, w: 0.6, h: cellH, fontSize: 11, bold: true, color: on ? CHIP_INK : MUTED, valign: 'middle' });
-        s2.addText(name, { x: x + 0.68, y, w: cellW - 1.1, h: cellH, fontSize: 9, color: on ? SLATE : MUTED, valign: 'middle' });
-        if (on) s2.addText(`${n}`, { x: x + cellW - 0.5, y, w: 0.38, h: cellH, fontSize: 12, bold: true, color: CHIP_INK, align: 'center', valign: 'middle' });
+        s2.addText(code, { x: x + 0.14, y, w: 0.64, h: cellH, fontSize: 12, bold: true, color: on ? CHIP_INK : MUTED, valign: 'middle' });
+        s2.addText(name, { x: x + 0.74, y, w: cellW - 1.2, h: cellH, fontSize: 11, color: on ? SLATE : MUTED, valign: 'middle' });
+        if (on) s2.addText(`${n}`, { x: x + cellW - 0.52, y, w: 0.4, h: cellH, fontSize: 13, bold: true, color: CHIP_INK, align: 'center', valign: 'middle' });
     });
 
     // Observed MITRE ATT&CK techniques (chips), bottom band.
@@ -235,8 +235,8 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         new Set(e.findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)),
     );
     if (mitreObserved.length > 0) {
-        s2.addText(t('Observed MITRE ATT&CK techniques'), { x: 0.5, y: 5.95, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
-        mitreObserved.slice(0, 10).forEach((t, i) => chip(s2, t, 0.5 + i * 1.22, 6.35, 1.1, { mono: true }));
+        s2.addText(t('Observed MITRE ATT&CK techniques'), { x: 0.5, y: 5.95, w: 9, h: 0.32, fontSize: 13, bold: true, color: INK });
+        mitreObserved.slice(0, 10).forEach((t, i) => chip(s2, t, 0.5 + i * 1.22, 6.38, 1.12, { mono: true }));
     }
 
     // ── 3. Findings — one slide per top finding (cap at most severe ~8) ──
@@ -250,10 +250,10 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         const { owasp, mitre, cwe, cves, primaryAsset } = taxonomy(f);
 
         // kicker + title
-        sf.addText(`${tf('FINDING {n} OF {total}', { n: idx + 1, total: topFindings.length })} · ${f.id}`, { x: 0.62, y: 0.34, w: 8, h: 0.3, fontSize: 10, bold: true, color: primary, charSpacing: 1 });
-        sf.addText(f.title, { x: 0.62, y: 0.62, w: 10.5, h: 0.9, fontSize: 21, bold: true, color: INK, valign: 'top' });
+        sf.addText(`${tf('FINDING {n} OF {total}', { n: idx + 1, total: topFindings.length })} · ${f.id}`, { x: 0.62, y: 0.34, w: 8, h: 0.3, fontSize: 12, bold: true, color: primary, charSpacing: 1 });
+        sf.addText(f.title, { x: 0.62, y: 0.66, w: 10.2, h: 0.86, fontSize: 20, bold: true, color: INK, valign: 'top' });
         // severity badge top-right
-        sf.addText(sevLabel(f.severity).toUpperCase(), { x: 11.0, y: 0.66, w: 1.7, h: 0.36, fontSize: 11, bold: true, color: 'FFFFFF', fill: { color: svColor }, align: 'center', valign: 'middle', rectRadius: 0.04, shape: pptx.ShapeType.roundRect });
+        sf.addText(sevLabel(f.severity).toUpperCase(), { x: 10.9, y: 0.68, w: 1.8, h: 0.4, fontSize: 12, bold: true, color: 'FFFFFF', fill: { color: svColor }, align: 'center', valign: 'middle', rectRadius: 0.04, shape: pptx.ShapeType.roundRect });
 
         // severity left rail spanning the body
         const bodyY = 1.7;
