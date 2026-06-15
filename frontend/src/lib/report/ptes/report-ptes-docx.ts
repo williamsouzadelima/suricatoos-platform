@@ -22,6 +22,7 @@ import {
 
 import { CHART_SPECS } from './report-charts-sheet';
 import { stripControlChars } from './from-flow-llm';
+import { highlightSegments, HOT_FG_HEX } from './report-highlight';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { PTES_PHASES, type Engagement, type Finding } from './engagement';
 import { actionItems, EFFORT, quickWins, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
@@ -63,6 +64,18 @@ const txt = (o: ConstructorParameters<typeof TextRun>[0]): TextRun => {
     }
     return new _TR(o);
 };
+
+// Render one code line as runs, highlighting the vuln-proving payload in yellow (Word highlight).
+const codeRuns = (line: string): TextRun[] =>
+    highlightSegments(line.length ? line : ' ').map((seg) =>
+        txt({
+            text: seg.text.length ? seg.text : ' ',
+            font: MONO,
+            size: 15,
+            color: seg.hot ? HOT_FG_HEX : CODE_FG,
+            highlight: seg.hot ? 'yellow' : undefined,
+        }),
+    );
 
 const decode = (dataUri: string): Uint8Array => {
     try {
@@ -178,7 +191,7 @@ function figuresBlocks(e: Engagement): (Paragraph | Table)[] {
                 out.push(new Paragraph({ spacing: { after: 60 }, children: [txt({ text: 'Captura de tela registrada durante a execução.', italics: true, color: MUTED, size: 15 })] }));
             }
         } else if (fig.code) {
-            fig.code.split('\n').slice(0, 40).forEach((line) => out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 14 })] })));
+            fig.code.split('\n').slice(0, 40).forEach((line) => out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: codeRuns(line) })));
             out.push(new Paragraph({ spacing: { after: 60 }, children: [] }));
         }
     }
@@ -606,7 +619,7 @@ function findingBlock(f: Finding): (Paragraph | Table)[] {
     if (f.evidence) {
         inner.push(new Paragraph({ spacing: { before: 40, after: 0 }, children: [txt({ text: f.evidence.caption, italics: true, color: MUTED, size: 14 })] }));
         f.evidence.code.split('\n').forEach((line) =>
-            inner.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: MONO, color: CODE_FG, size: 15 })] })),
+            inner.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: codeRuns(line) })),
         );
     }
 

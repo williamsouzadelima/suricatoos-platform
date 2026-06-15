@@ -7,6 +7,7 @@ import { Document, Font, Image, Page, StyleSheet, Text, View, pdf } from '@react
 import { AttackChainStrip, DonutChart, EffortTimeBars, HBarChart, PhaseStepper, QuickWinsQuadrant, RemediationRoadmap, RiskGauge, RiskMatrix } from './charts';
 import { PTES_PHASES, type Engagement, type Figure, type Finding, type Severity } from './engagement';
 import { AppLogo, ClientLogo } from './report-logo';
+import { highlightSegments, HOT_BG, HOT_FG } from './report-highlight';
 import { actionItems, categoryCounts, COLORS, EFFORT, findingIsEstimated, fmtDate, isEstimated, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
 
 const SERIF = 'NotoSerif';
@@ -253,6 +254,19 @@ const AssetList = ({ f }: { f: Finding }) => {
     return <Text style={s.fieldText}>{f.affected.length ? f.affected.join(', ') : '—'}</Text>;
 };
 
+// Dark code/evidence block with the vuln-proving payload highlighted in yellow.
+const CodeBlock = ({ code }: { code: string }) => (
+    <Text style={s.code}>
+        {highlightSegments(code).map((seg, i) =>
+            seg.hot ? (
+                <Text key={i} style={{ backgroundColor: HOT_BG, color: HOT_FG }}>{seg.text}</Text>
+            ) : (
+                seg.text
+            ),
+        )}
+    </Text>
+);
+
 // Parse OWASP / MITRE / CVE chips from the references list when the explicit fields are absent.
 const refMatch = (f: Finding, re: RegExp) => f.references.map((r) => r.label).find((l) => re.test(l));
 const FindingCard = ({ f }: { f: Finding }) => {
@@ -303,7 +317,7 @@ const FindingCard = ({ f }: { f: Finding }) => {
             {f.evidence && (
                 <View>
                     <Text style={s.codeCap}>{f.evidence.caption}</Text>
-                    <Text style={s.code}>{f.evidence.code}</Text>
+                    <CodeBlock code={f.evidence.code} />
                 </View>
             )}
             {f.reproSteps && f.reproSteps.length > 0 && (
@@ -356,7 +370,7 @@ const FigurePlate = ({ fig }: { fig: Figure }) => {
                     </View>
                 )
             ) : fig.code ? (
-                <Text style={s.code}>{fig.code}</Text>
+                <CodeBlock code={fig.code} />
             ) : null}
         </View>
     );
