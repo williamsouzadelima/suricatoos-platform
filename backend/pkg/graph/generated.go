@@ -409,7 +409,7 @@ type ComplexityRoot struct {
 		DeleteKnowledgeDocument func(childComplexity int, id string) int
 		DeletePrompt            func(childComplexity int, promptID int64) int
 		DeleteProvider          func(childComplexity int, providerID int64) int
-		DeriveFindings          func(childComplexity int, flowID int64) int
+		DeriveFindings          func(childComplexity int, flowID int64, language *string) int
 		FinishFlow              func(childComplexity int, flowID int64) int
 		PutUserInput            func(childComplexity int, flowID int64, input string, modelProvider *string, resourceIds []int64) int
 		RenameFlow              func(childComplexity int, flowID int64, title string) int
@@ -788,7 +788,7 @@ type ComplexityRoot struct {
 
 type MutationResolver interface {
 	CreateFlow(ctx context.Context, modelProvider string, input string, resourceIds []int64) (*model.Flow, error)
-	DeriveFindings(ctx context.Context, flowID int64) (*model.FindingDerivation, error)
+	DeriveFindings(ctx context.Context, flowID int64, language *string) (*model.FindingDerivation, error)
 	PutUserInput(ctx context.Context, flowID int64, input string, modelProvider *string, resourceIds []int64) (model.ResultType, error)
 	StopFlow(ctx context.Context, flowID int64) (model.ResultType, error)
 	FinishFlow(ctx context.Context, flowID int64) (model.ResultType, error)
@@ -2778,7 +2778,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeriveFindings(childComplexity, args["flowId"].(int64)), true
+		return e.complexity.Mutation.DeriveFindings(childComplexity, args["flowId"].(int64), args["language"].(*string)), true
 
 	case "Mutation.finishFlow":
 		if e.complexity.Mutation.FinishFlow == nil {
@@ -6240,6 +6240,11 @@ func (ec *executionContext) field_Mutation_deriveFindings_args(ctx context.Conte
 		return nil, err
 	}
 	args["flowId"] = arg0
+	arg1, err := ec.field_Mutation_deriveFindings_argsLanguage(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["language"] = arg1
 	return args, nil
 }
 func (ec *executionContext) field_Mutation_deriveFindings_argsFlowID(
@@ -6261,6 +6266,28 @@ func (ec *executionContext) field_Mutation_deriveFindings_argsFlowID(
 	}
 
 	var zeroVal int64
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_deriveFindings_argsLanguage(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (*string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["language"]
+	if !ok {
+		var zeroVal *string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("language"))
+	if tmp, ok := rawArgs["language"]; ok {
+		return ec.unmarshalOString2ᚖstring(ctx, tmp)
+	}
+
+	var zeroVal *string
 	return zeroVal, nil
 }
 
@@ -19967,7 +19994,7 @@ func (ec *executionContext) _Mutation_deriveFindings(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeriveFindings(rctx, fc.Args["flowId"].(int64))
+		return ec.resolvers.Mutation().DeriveFindings(rctx, fc.Args["flowId"].(int64), fc.Args["language"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)

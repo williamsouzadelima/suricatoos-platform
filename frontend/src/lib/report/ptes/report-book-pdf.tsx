@@ -4,11 +4,23 @@
 // a humanist sans for furniture (chips, tables, headers/footers), and a mono for code/evidence.
 import { Document, Font, Image, Page, StyleSheet, Text, View, pdf } from '@react-pdf/renderer';
 
+import { t, tf } from '@/i18n';
+
 import { AttackChainStrip, DonutChart, EffortTimeBars, HBarChart, PhaseStepper, QuickWinsQuadrant, RemediationRoadmap, RiskGauge, RiskMatrix } from './charts';
-import { PTES_PHASES, type Engagement, type Figure, type Finding, type Severity } from './engagement';
+import { PTES_PHASES, type Engagement, type Figure, type Finding, type RemediationWindow, type Severity } from './engagement';
 import { AppLogo, ClientLogo } from './report-logo';
 import { highlightSegments, HOT_BG, HOT_FG } from './report-highlight';
 import { actionItems, categoryCounts, COLORS, EFFORT, findingIsEstimated, fmtDate, isEstimated, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
+
+// theme.ts SEVERITY/EFFORT/WINDOW labels are the source of truth but hardcoded pt-BR; the map keys
+// must stay intact (they index the maps), so localize at the RENDER site by mapping the key →
+// English source string → t(). Effort levels reuse the severity Low/Medium/High translations.
+const SEV_LABEL: Record<Severity, string> = { critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low', info: 'Info' };
+const sevLabel = (sev: Severity): string => t(SEV_LABEL[sev]);
+const EFFORT_LABEL: Record<1 | 2 | 3, string> = { 1: 'Low', 2: 'Medium', 3: 'High' };
+const effortLabel = (e: 1 | 2 | 3): string => t(EFFORT_LABEL[e]);
+const WINDOW_LABEL: Record<RemediationWindow, string> = { Imediata: 'Immediate', 'Curto prazo': 'Short term', 'Médio prazo': 'Medium term' };
+const windowLabel = (w: RemediationWindow): string => t(WINDOW_LABEL[w]);
 
 const SERIF = 'NotoSerif';
 const SANS = 'NotoSans';
@@ -38,12 +50,12 @@ export function registerReportFonts(base = '/fonts'): void {
 }
 
 const s = StyleSheet.create({
-    page: { backgroundColor: COLORS.paper, color: COLORS.slate, fontFamily: SANS, fontSize: 9.5, lineHeight: 1.5, paddingTop: 58, paddingBottom: 46, paddingHorizontal: 44 },
-    header: { position: 'absolute', top: 22, left: 44, right: 44, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingBottom: 6 },
+    page: { backgroundColor: COLORS.paper, color: COLORS.slate, fontFamily: SANS, fontSize: 11.5, lineHeight: 1.6, paddingTop: 66, paddingBottom: 56, paddingHorizontal: 56 },
+    header: { position: 'absolute', top: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingBottom: 6 },
     headerL: { flexDirection: 'row', alignItems: 'center' },
     headerBrand: { fontFamily: SANS, fontSize: 10, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 0.5, marginLeft: 6 },
     headerMeta: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
-    footer: { position: 'absolute', bottom: 22, left: 44, right: 44, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: COLORS.line, paddingTop: 6 },
+    footer: { position: 'absolute', bottom: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: COLORS.line, paddingTop: 6 },
     footerText: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
     // cover — Direction 3: light, indigo rail, display title, KPI cards
     cover: { backgroundColor: COLORS.paper, color: COLORS.ink, padding: 0 },
@@ -56,73 +68,73 @@ const s = StyleSheet.create({
     coverSub: { fontFamily: SANS, fontSize: 13, color: COLORS.muted, marginTop: 10 },
     kpiRow: { flexDirection: 'row', gap: 9, marginTop: 40 },
     kpi: { flex: 1, borderRadius: 8, paddingVertical: 12, paddingHorizontal: 13 },
-    kpiLbl: { fontFamily: SANS, fontSize: 9 },
+    kpiLbl: { fontFamily: SANS, fontSize: 10 },
     kpiNum: { fontFamily: SANS, fontSize: 21, fontWeight: 'bold', marginTop: 2 },
     coverPrepared: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, marginTop: 22, marginBottom: 8 },
     chip: { alignSelf: 'flex-start', borderWidth: 1, borderColor: COLORS.coral, borderRadius: 3, paddingVertical: 3, paddingHorizontal: 8, marginTop: 22 },
     chipText: { fontFamily: SANS, fontSize: 9, color: COLORS.coral, fontWeight: 'bold', letterSpacing: 1 },
     coverMetaRow: { flexDirection: 'row', marginTop: 8 },
-    coverMetaK: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, width: 70 },
-    coverMetaV: { fontFamily: SANS, fontSize: 9, color: COLORS.slate },
+    coverMetaK: { fontFamily: SANS, fontSize: 10, color: COLORS.muted, width: 70 },
+    coverMetaV: { fontFamily: SANS, fontSize: 10, color: COLORS.slate },
     // section / chapter opener
-    sectionWrap: { marginTop: 6, marginBottom: 8 },
-    sectionNum: { fontFamily: SANS, fontSize: 9, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 1.5 },
-    sectionTitle: { fontSize: 19, fontWeight: 'bold', color: COLORS.ink, marginTop: 2 },
-    sectionRule: { height: 2, backgroundColor: COLORS.brand, width: 38, marginTop: 6, marginBottom: 8 },
-    h3: { fontSize: 12, fontWeight: 'bold', color: COLORS.ink, marginTop: 10, marginBottom: 4 },
-    p: { fontSize: 9.5, color: COLORS.slate, marginBottom: 6, textAlign: 'justify', lineHeight: 1.6 },
-    caption: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4, textAlign: 'center' },
+    sectionWrap: { marginTop: 8, marginBottom: 11 },
+    sectionNum: { fontFamily: SANS, fontSize: 9.5, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 1.5 },
+    sectionTitle: { fontSize: 23, fontWeight: 'bold', color: COLORS.ink, marginTop: 3 },
+    sectionRule: { height: 2, backgroundColor: COLORS.brand, width: 38, marginTop: 8, marginBottom: 11 },
+    h3: { fontSize: 14, fontWeight: 'bold', color: COLORS.ink, marginTop: 14, marginBottom: 6 },
+    p: { fontSize: 12, color: COLORS.slate, marginBottom: 10, textAlign: 'justify', lineHeight: 1.7 },
+    caption: { fontFamily: SANS, fontSize: 9.5, fontWeight: 'bold', color: COLORS.ink, marginBottom: 6, textAlign: 'center' },
     // panels / cards
-    statRow: { flexDirection: 'row', gap: 8, marginTop: 4 },
-    stat: { flex: 1, backgroundColor: COLORS.panel, borderRadius: 6, paddingVertical: 11, paddingHorizontal: 6, alignItems: 'center' },
+    statRow: { flexDirection: 'row', gap: 11, marginTop: 6 },
+    stat: { flex: 1, backgroundColor: COLORS.panel, borderRadius: 6, paddingVertical: 14, paddingHorizontal: 8, alignItems: 'center' },
     statNum: { fontFamily: SANS, fontSize: 20, fontWeight: 'bold', color: COLORS.ink, lineHeight: 1.1 },
-    statLbl: { fontFamily: SANS, fontSize: 7, color: COLORS.muted, marginTop: 5, textAlign: 'center', lineHeight: 1.2 },
-    twoCol: { flexDirection: 'row', gap: 14, marginTop: 6 },
-    panel: { backgroundColor: COLORS.panel, borderRadius: 6, padding: 10 },
-    panelTitle: { fontFamily: SANS, fontSize: 9, fontWeight: 'bold', color: COLORS.ink, marginBottom: 4 },
-    li: { flexDirection: 'row', marginBottom: 3 },
-    liDot: { width: 10, fontSize: 9, color: COLORS.brand },
-    liText: { flex: 1, fontSize: 9.5, color: COLORS.slate, lineHeight: 1.5 },
-    kvRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingVertical: 3 },
-    kvK: { fontFamily: SANS, width: 120, fontSize: 8.5, color: COLORS.muted, fontWeight: 'bold' },
-    kvV: { flex: 1, fontSize: 9, color: COLORS.slate },
-    tocRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: COLORS.line },
-    tocNum: { fontFamily: SANS, fontSize: 9.5, color: COLORS.brand, fontWeight: 'bold', width: 22 },
-    tocName: { flex: 1, fontSize: 10, color: COLORS.slate },
+    statLbl: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, marginTop: 6, textAlign: 'center', lineHeight: 1.2 },
+    twoCol: { flexDirection: 'row', gap: 16, marginTop: 8 },
+    panel: { backgroundColor: COLORS.panel, borderRadius: 6, padding: 12 },
+    panelTitle: { fontFamily: SANS, fontSize: 11, fontWeight: 'bold', color: COLORS.ink, marginBottom: 6 },
+    li: { flexDirection: 'row', marginBottom: 5 },
+    liDot: { width: 11, fontSize: 11.5, color: COLORS.brand },
+    liText: { flex: 1, fontSize: 11.5, color: COLORS.slate, lineHeight: 1.6 },
+    kvRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingVertical: 4 },
+    kvK: { fontFamily: SANS, width: 120, fontSize: 9.5, color: COLORS.muted, fontWeight: 'bold' },
+    kvV: { flex: 1, fontSize: 11, color: COLORS.slate },
+    tocRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: COLORS.line },
+    tocNum: { fontFamily: SANS, fontSize: 11, color: COLORS.brand, fontWeight: 'bold', width: 22 },
+    tocName: { flex: 1, fontSize: 11.5, color: COLORS.slate },
     // story timeline
-    storyStep: { flexDirection: 'row', marginBottom: 9 },
+    storyStep: { flexDirection: 'row', marginBottom: 13 },
     storyNum: { width: 22, height: 22, borderRadius: 11, backgroundColor: COLORS.brand, alignItems: 'center', justifyContent: 'center', marginRight: 10 },
     storyNumText: { fontFamily: SANS, color: COLORS.white, fontSize: 10, fontWeight: 'bold' },
-    storyHead: { flexDirection: 'row', alignItems: 'center', marginBottom: 2, flexWrap: 'wrap' },
-    storyTitle: { fontSize: 11.5, fontWeight: 'bold', color: COLORS.ink, marginRight: 6 },
-    refPill: { fontFamily: SANS, backgroundColor: '#DBEAFE', color: COLORS.brand, fontSize: 7, fontWeight: 'bold', borderRadius: 3, paddingVertical: 1, paddingHorizontal: 4, marginRight: 3 },
-    storyText: { fontSize: 9.5, color: COLORS.slate, lineHeight: 1.55, textAlign: 'justify' },
+    storyHead: { flexDirection: 'row', alignItems: 'center', marginBottom: 3, flexWrap: 'wrap' },
+    storyTitle: { fontSize: 13, fontWeight: 'bold', color: COLORS.ink, marginRight: 6 },
+    refPill: { fontFamily: SANS, backgroundColor: '#DBEAFE', color: COLORS.brand, fontSize: 8, fontWeight: 'bold', borderRadius: 3, paddingVertical: 1, paddingHorizontal: 4, marginRight: 3 },
+    storyText: { fontSize: 11.5, color: COLORS.slate, lineHeight: 1.6, textAlign: 'justify' },
     // findings table
     tHead: { flexDirection: 'row', backgroundColor: COLORS.brand, borderTopLeftRadius: 4, borderTopRightRadius: 4 },
-    tHeadCell: { fontFamily: SANS, color: COLORS.white, fontSize: 8, fontWeight: 'bold', padding: 5 },
+    tHeadCell: { fontFamily: SANS, color: COLORS.white, fontSize: 9.5, fontWeight: 'bold', padding: 6 },
     tRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line },
-    tCell: { fontSize: 8.5, color: COLORS.slate, padding: 5 },
+    tCell: { fontSize: 9.5, color: COLORS.slate, padding: 6 },
     // finding card
-    card: { borderWidth: 1, borderColor: COLORS.line, borderLeftWidth: 4, borderRadius: 5, padding: 10, marginBottom: 10 },
+    card: { borderWidth: 1, borderColor: COLORS.line, borderLeftWidth: 4, borderRadius: 5, padding: 12, marginBottom: 13 },
     cardHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-    cardId: { fontFamily: SANS, fontSize: 8, color: COLORS.muted, fontWeight: 'bold' },
-    cardTitle: { fontSize: 12.5, fontWeight: 'bold', color: COLORS.ink, marginTop: 1, marginBottom: 4 },
+    cardId: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, fontWeight: 'bold' },
+    cardTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.ink, marginTop: 2, marginBottom: 6 },
     badge: { borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6 },
-    badgeText: { fontFamily: SANS, fontSize: 7.5, fontWeight: 'bold', letterSpacing: 0.5 },
-    metaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginBottom: 5, alignItems: 'center' },
-    metaPill: { fontFamily: SANS, backgroundColor: COLORS.panel, borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6, fontSize: 7.5, color: COLORS.slate },
-    fieldLbl: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: COLORS.brand, marginTop: 6, marginBottom: 2, textTransform: 'uppercase', letterSpacing: 0.4 },
-    fieldText: { fontSize: 9.5, color: COLORS.slate, lineHeight: 1.5 },
-    code: { backgroundColor: '#0F172A', color: '#E2E8F0', fontFamily: MONO, fontSize: 8, padding: 8, borderRadius: 4, marginTop: 4, lineHeight: 1.4 },
-    codeCap: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted, fontStyle: 'italic', marginTop: 5 },
+    badgeText: { fontFamily: SANS, fontSize: 9, fontWeight: 'bold', letterSpacing: 0.5 },
+    metaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginBottom: 7, alignItems: 'center' },
+    metaPill: { fontFamily: SANS, backgroundColor: COLORS.panel, borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6, fontSize: 9, color: COLORS.slate },
+    fieldLbl: { fontFamily: SANS, fontSize: 9.5, fontWeight: 'bold', color: COLORS.brand, marginTop: 8, marginBottom: 3, textTransform: 'uppercase', letterSpacing: 0.4 },
+    fieldText: { fontSize: 11.5, color: COLORS.slate, lineHeight: 1.6 },
+    code: { backgroundColor: '#0F172A', color: '#E2E8F0', fontFamily: MONO, fontSize: 9.5, padding: 9, borderRadius: 4, marginTop: 5, lineHeight: 1.45 },
+    codeCap: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, fontStyle: 'italic', marginTop: 6 },
     // estimated / honesty
     estBadge: { backgroundColor: '#FEF3C7', borderRadius: 3, paddingVertical: 2, paddingHorizontal: 5 },
-    estBadgeText: { fontFamily: SANS, fontSize: 6.5, fontWeight: 'bold', color: '#92400E', letterSpacing: 0.3 },
-    callout: { flexDirection: 'row', backgroundColor: '#FFFBEB', borderLeftWidth: 3, borderLeftColor: '#F59E0B', borderRadius: 3, paddingVertical: 5, paddingHorizontal: 7, marginTop: 6 },
-    calloutText: { fontFamily: SANS, flex: 1, fontSize: 7.5, color: '#92400E', lineHeight: 1.4 },
-    assetLine: { flexDirection: 'row', marginBottom: 2, alignItems: 'baseline' },
-    assetMono: { fontFamily: MONO, fontSize: 8, color: COLORS.ink },
-    assetMeta: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted, marginLeft: 4 },
+    estBadgeText: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: '#92400E', letterSpacing: 0.3 },
+    callout: { flexDirection: 'row', backgroundColor: '#FFFBEB', borderLeftWidth: 3, borderLeftColor: '#F59E0B', borderRadius: 3, paddingVertical: 7, paddingHorizontal: 9, marginTop: 8 },
+    calloutText: { fontFamily: SANS, flex: 1, fontSize: 9, color: '#92400E', lineHeight: 1.5 },
+    assetLine: { flexDirection: 'row', marginBottom: 3, alignItems: 'baseline' },
+    assetMono: { fontFamily: MONO, fontSize: 9.5, color: COLORS.ink },
+    assetMeta: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, marginLeft: 4 },
     // Direction 3 — taxonomy chips, kill-chain mini path, reproduction, two-tone fields
     chipFilled: { fontFamily: SANS, backgroundColor: '#EEF0FF', color: '#3730A3', borderRadius: 4, paddingVertical: 2, paddingHorizontal: 7, fontSize: 7.5 },
     chipOut: { fontFamily: SANS, borderWidth: 1, borderColor: COLORS.line, color: COLORS.slate, borderRadius: 4, paddingVertical: 2, paddingHorizontal: 7, fontSize: 7.5 },
@@ -166,7 +178,7 @@ const Badge = ({ severity }: { severity: Severity }) => {
     const sv = SEVERITY[severity];
     return (
         <View style={[s.badge, { backgroundColor: sv.soft }]}>
-            <Text style={[s.badgeText, { color: sv.color }]}>{sv.label.toUpperCase()}</Text>
+            <Text style={[s.badgeText, { color: sv.color }]}>{sevLabel(severity).toUpperCase()}</Text>
         </View>
     );
 };
@@ -183,13 +195,13 @@ const Header = ({ e }: { e: Engagement }) => (
 const Footer = ({ e }: { e: Engagement }) => (
     <View style={s.footer} fixed>
         <Text style={s.footerText}>{e.title}</Text>
-        <Text style={s.footerText} render={({ pageNumber, totalPages }) => `Página ${pageNumber} de ${totalPages}`} />
+        <Text style={s.footerText} render={({ pageNumber, totalPages }) => `${t('Page')} ${pageNumber} ${t('of')} ${totalPages}`} />
     </View>
 );
 
 const Section = ({ n, title }: { n: number; title: string }) => (
     <View style={s.sectionWrap}>
-        <Text style={s.sectionNum}>{`SEÇÃO ${n}`}</Text>
+        <Text style={s.sectionNum}>{`${t('SECTION')} ${n}`}</Text>
         <Text style={s.sectionTitle}>{title}</Text>
         <View style={s.sectionRule} />
     </View>
@@ -224,7 +236,7 @@ const StoryStep = ({ step }: { step: Engagement['attackStory'][number] }) => (
 );
 
 // "estimated" marker — honest signalling that a value was inferred, not measured.
-const EstBadge = ({ label = 'ESTIMADO' }: { label?: string }) => (
+const EstBadge = ({ label = t('ESTIMATED') }: { label?: string }) => (
     <View style={s.estBadge}>
         <Text style={s.estBadgeText}>{label}</Text>
     </View>
@@ -285,16 +297,16 @@ const FindingCard = ({ f }: { f: Finding }) => {
             <View style={s.cardHead}>
                 <Text style={s.cardId}>{f.id}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                    {sevEst && <EstBadge label="SEV. EST." />}
+                    {sevEst && <EstBadge label={t('SEV. EST.')} />}
                     <View style={[s.sevPill, { backgroundColor: sv.soft }]}>
-                        <Text style={[s.badgeText, { color: sv.color }]}>{sv.label}</Text>
+                        <Text style={[s.badgeText, { color: sv.color }]}>{sevLabel(f.severity)}</Text>
                     </View>
                 </View>
             </View>
             <Text style={s.cardTitle}>{f.title}</Text>
             <View style={s.metaGrid}>
                 <Text style={s.chipFilled}>{`CVSS ${f.cvss.toFixed(1)}`}</Text>
-                {cvssEst && <EstBadge label="EST." />}
+                {cvssEst && <EstBadge label={t('EST.')} />}
                 {cwe && <Text style={s.chipOut}>{cwe}</Text>}
                 {owasp && <Text style={s.chipOut}>{`OWASP ${owasp}`}</Text>}
                 {mitre && <Text style={s.chipOut}>{`MITRE ${mitre}`}</Text>}
@@ -322,7 +334,7 @@ const FindingCard = ({ f }: { f: Finding }) => {
             )}
             {f.reproSteps && f.reproSteps.length > 0 && (
                 <View>
-                    <Text style={s.fieldLbl}>Reprodução</Text>
+                    <Text style={s.fieldLbl}>{t('Reproduction')}</Text>
                     {f.reproSteps.slice(0, 8).map((st, i) => (
                         <View key={i} style={s.reproRow}>
                             <Text style={s.reproNum}>{`${i + 1}.`}</Text>
@@ -333,18 +345,18 @@ const FindingCard = ({ f }: { f: Finding }) => {
             )}
             <View style={s.twoCol}>
                 <View style={{ flex: 1 }}>
-                    <Text style={s.fieldLbl}>Impacto ao negócio</Text>
+                    <Text style={s.fieldLbl}>{t('Business impact')}</Text>
                     <Text style={s.fieldText}>{f.businessImpact}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text style={s.fieldLblGreen}>Remediação</Text>
+                    <Text style={s.fieldLblGreen}>{t('Remediation')}</Text>
                     <Text style={s.fieldText}>{f.remediation}</Text>
                 </View>
             </View>
-            <Text style={s.fieldLbl}>Ativos afetados</Text>
+            <Text style={s.fieldLbl}>{t('Affected assets')}</Text>
             <AssetList f={f} />
             {f.references.length > 0 && (
-                <Text style={[s.codeCap, { marginTop: 6 }]}>{`Referências: ${f.references.map((r) => r.label).join(' · ')}`}</Text>
+                <Text style={[s.codeCap, { marginTop: 6 }]}>{`${t('References')}: ${f.references.map((r) => r.label).join(' · ')}`}</Text>
             )}
             {f.estimatedNote && <Callout text={f.estimatedNote} />}
         </View>
@@ -354,7 +366,7 @@ const FindingCard = ({ f }: { f: Finding }) => {
 // Numbered evidence plate — terminal/tool-output excerpts render inline; screenshots render the
 // resolved image (data URI) or, when unavailable, a captioned reference box.
 const FigurePlate = ({ fig }: { fig: Figure }) => {
-    const links = fig.findingIds.length ? `Referente a: ${fig.findingIds.join(', ')}` : '';
+    const links = fig.findingIds.length ? `${t('Related to')}: ${fig.findingIds.join(', ')}` : '';
     return (
         <View style={s.figure} wrap={false}>
             <Text style={s.figCap}>{`${fig.id} — ${fig.caption}`}</Text>
@@ -366,7 +378,7 @@ const FigurePlate = ({ fig }: { fig: Figure }) => {
                     <Image src={fig.imageSrc} style={s.figImg} />
                 ) : (
                     <View style={s.figRef}>
-                        <Text style={s.figRefText}>{`Captura de tela registrada durante a execução${fig.capturedUrl ? `\n${fig.capturedUrl}` : ''}`}</Text>
+                        <Text style={s.figRefText}>{`${t('Screenshot captured during execution')}${fig.capturedUrl ? `\n${fig.capturedUrl}` : ''}`}</Text>
                     </View>
                 )
             ) : fig.code ? (
@@ -381,23 +393,23 @@ const ActionTable = ({ items }: { items: ActionItem[] }) => {
     return (
         <View>
             <View style={s.aHead}>
-                <Text style={[s.aHeadCell, { width: 74 }]}>Janela</Text>
+                <Text style={[s.aHeadCell, { width: 74 }]}>{t('Window')}</Text>
                 <Text style={[s.aHeadCell, { width: 30 }]}>ID</Text>
-                <Text style={[s.aHeadCell, { flex: 1 }]}>Ação de correção</Text>
-                <Text style={[s.aHeadCell, { width: 48 }]}>Esforço</Text>
-                <Text style={[s.aHeadCell, { width: 38 }]}>Prazo</Text>
+                <Text style={[s.aHeadCell, { flex: 1 }]}>{t('Remediation action')}</Text>
+                <Text style={[s.aHeadCell, { width: 48 }]}>{t('Effort')}</Text>
+                <Text style={[s.aHeadCell, { width: 38 }]}>{t('Deadline')}</Text>
                 <Text style={[s.aHeadCell, { width: 28 }]}>QW</Text>
             </View>
             {sorted.map((a) => (
                 <View key={a.f.id} style={[s.aRow, a.quickWin ? { backgroundColor: '#ECFDF5' } : {}]} wrap={false}>
                     <View style={{ width: 74, paddingVertical: 4, paddingHorizontal: 4 }}>
                         <View style={[s.winChip, { backgroundColor: WINDOW_COLOR[a.window] }]}>
-                            <Text style={s.winChipText}>{a.window}</Text>
+                            <Text style={s.winChipText}>{windowLabel(a.window)}</Text>
                         </View>
                     </View>
                     <Text style={[s.aCell, { width: 30, fontFamily: MONO }]}>{a.f.id}</Text>
                     <Text style={[s.aCell, { flex: 1 }]}>{a.f.remediation.length > 96 ? `${a.f.remediation.slice(0, 95)}…` : a.f.remediation}</Text>
-                    <Text style={[s.aCell, { width: 48, color: EFFORT[a.effort].color, fontWeight: 'bold' }]}>{EFFORT[a.effort].label}</Text>
+                    <Text style={[s.aCell, { width: 48, color: EFFORT[a.effort].color, fontWeight: 'bold' }]}>{effortLabel(a.effort)}</Text>
                     <Text style={[s.aCell, { width: 38 }]}>{`${a.etaDays}d`}</Text>
                     <Text style={[s.aCell, { width: 28, color: '#059669', fontWeight: 'bold' }]}>{a.quickWin ? '★' : '—'}</Text>
                 </View>
@@ -428,7 +440,7 @@ const CoverageMatrix = ({ findings }: { findings: Finding[] }) => {
     );
     return (
         <View>
-            <Text style={s.h3}>Cobertura — OWASP Top 10 (2021)</Text>
+            <Text style={s.h3}>{t('Coverage — OWASP Top 10 (2021)')}</Text>
             <View style={s.covGrid}>
                 {OWASP_2021.map(([code, name]) => {
                     const n = owaspHits(code);
@@ -443,7 +455,7 @@ const CoverageMatrix = ({ findings }: { findings: Finding[] }) => {
             </View>
             {mitre.length > 0 && (
                 <View>
-                    <Text style={[s.h3, { marginTop: 10 }]}>Técnicas MITRE ATT&CK observadas</Text>
+                    <Text style={[s.h3, { marginTop: 10 }]}>{t('Observed MITRE ATT&CK techniques')}</Text>
                     <View style={s.metaGrid}>
                         {mitre.map((t) => (
                             <Text key={t} style={s.chipOut}>{t}</Text>
@@ -467,7 +479,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
     const estimatedCount = e.findings.filter(findingIsEstimated).length;
     const figuresN = 7;
     const appendixN = hasFigures ? 8 : 7;
-    const tocItems = ['Sumário Executivo', 'Metodologia (PTES)', 'Narrativa do Ataque', 'Visão Geral de Risco', 'Achados Detalhados', 'Plano de Ação', ...(hasFigures ? ['Evidências'] : []), 'Apêndice'];
+    const tocItems = [t('Executive Summary'), t('Methodology (PTES)'), t('Attack Narrative'), t('Risk Overview'), t('Detailed Findings'), t('Action Plan'), ...(hasFigures ? [t('Evidence')] : []), t('Appendix')];
 
     return (
         <Document title={e.title} author={e.branding.appName} creator={e.branding.appName}>
@@ -484,34 +496,34 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                             <Text style={s.chipText}>{e.classification}</Text>
                         </View>
                     </View>
-                    <Text style={s.coverKicker}>RELATÓRIO DE PENTEST · PTES</Text>
+                    <Text style={s.coverKicker}>{t('PENTEST REPORT · PTES')}</Text>
                     <Text style={s.coverTitle}>{e.title}</Text>
-                    <Text style={s.coverSub}>{`Preparado por ${e.branding.appName} para ${e.client}`}</Text>
+                    <Text style={s.coverSub}>{tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client })}</Text>
                     <View style={s.kpiRow}>
                         <View style={[s.kpi, { backgroundColor: '#EEF0FF' }]}>
-                            <Text style={[s.kpiLbl, { color: '#6663C9' }]}>Risco geral</Text>
+                            <Text style={[s.kpiLbl, { color: '#6663C9' }]}>{t('Overall risk')}</Text>
                             <Text style={[s.kpiNum, { color: BRAND }]}>{`${e.riskScore}`}<Text style={{ fontSize: 11, color: COLORS.muted }}>/100</Text></Text>
                         </View>
                         <View style={[s.kpi, { backgroundColor: '#FBEDEC' }]}>
-                            <Text style={[s.kpiLbl, { color: '#C04A40' }]}>Críticos</Text>
+                            <Text style={[s.kpiLbl, { color: '#C04A40' }]}>{t('Critical')}</Text>
                             <Text style={[s.kpiNum, { color: '#E0483D' }]}>{`${e.findings.filter((f) => f.severity === 'critical').length}`}</Text>
                         </View>
                         <View style={[s.kpi, { backgroundColor: COLORS.panel }]}>
-                            <Text style={[s.kpiLbl, { color: COLORS.muted }]}>Achados</Text>
+                            <Text style={[s.kpiLbl, { color: COLORS.muted }]}>{t('Findings')}</Text>
                             <Text style={[s.kpiNum, { color: COLORS.ink }]}>{`${e.findings.length}`}</Text>
                         </View>
                         <View style={[s.kpi, { backgroundColor: COLORS.panel }]}>
-                            <Text style={[s.kpiLbl, { color: COLORS.muted }]}>Quick wins</Text>
+                            <Text style={[s.kpiLbl, { color: COLORS.muted }]}>{t('Quick wins')}</Text>
                             <Text style={[s.kpiNum, { color: COLORS.ink }]}>{`${qw.length}`}</Text>
                         </View>
                     </View>
                     <View style={{ position: 'absolute', bottom: 56, left: 50 }}>
                         {[
-                            ['Período', fmtDate(e)],
-                            ['Versão', e.version],
-                            ['Autor', e.author],
-                            ['Contato', e.contact],
-                            ['Metodologia', 'PTES'],
+                            [t('Period'), fmtDate(e)],
+                            [t('Version'), e.version],
+                            [t('Author'), e.author],
+                            [t('Contact'), e.contact],
+                            [t('Methodology'), 'PTES'],
                         ].map(([k, v]) => (
                             <View key={k} style={s.coverMetaRow}>
                                 <Text style={s.coverMetaK}>{k}</Text>
@@ -526,35 +538,35 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={0} title="Controle do Documento" />
+                <Section n={0} title={t('Document Control')} />
                 {[
-                    ['Cliente', e.client],
-                    ['Título', e.title],
-                    ['Classificação', e.classification],
-                    ['Versão', e.version],
-                    ['Período de testes', fmtDate(e)],
-                    ['Autoria', e.author],
-                    ['Metodologia', 'PTES — Penetration Testing Execution Standard'],
+                    [t('Client'), e.client],
+                    [t('Title'), e.title],
+                    [t('Classification'), e.classification],
+                    [t('Version'), e.version],
+                    [t('Testing period'), fmtDate(e)],
+                    [t('Authorship'), e.author],
+                    [t('Methodology'), 'PTES — Penetration Testing Execution Standard'],
                 ].map(([k, v]) => (
                     <View key={k} style={s.kvRow}>
                         <Text style={s.kvK}>{k}</Text>
                         <Text style={s.kvV}>{v}</Text>
                     </View>
                 ))}
-                <Text style={s.h3}>Escopo</Text>
+                <Text style={s.h3}>{t('Scope')}</Text>
                 <View style={s.twoCol}>
                     <View style={[s.panel, { flex: 1 }]}>
-                        <Text style={s.panelTitle}>No escopo</Text>
+                        <Text style={s.panelTitle}>{t('In scope')}</Text>
                         <Bullets items={e.scope.inScope} />
                     </View>
                     <View style={[s.panel, { flex: 1 }]}>
-                        <Text style={s.panelTitle}>Fora do escopo</Text>
+                        <Text style={s.panelTitle}>{t('Out of scope')}</Text>
                         <Bullets items={e.scope.outOfScope} />
                     </View>
                 </View>
-                <Text style={s.h3}>Regras de engajamento</Text>
+                <Text style={s.h3}>{t('Rules of engagement')}</Text>
                 <Bullets items={e.roe} />
-                <Text style={s.h3}>Índice</Text>
+                <Text style={s.h3}>{t('Contents')}</Text>
                 {tocItems.map((t, i) => (
                     <View key={t} style={s.tocRow}>
                         <Text style={s.tocNum}>{String(i + 1)}</Text>
@@ -567,12 +579,12 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={1} title="Sumário Executivo" />
+                <Section n={1} title={t('Executive Summary')} />
                 {e.summaryNarrative.map((para, i) => (
                     <Text key={i} style={s.p}>{para}</Text>
                 ))}
                 {estimatedCount > 0 && (
-                    <Callout text={`${estimatedCount} achado(s) têm severidade/CVSS estimados a partir da execução automatizada e devem ser calibrados por um analista antes da entrega final.`} />
+                    <Callout text={tf('{count} finding(s) have severity/CVSS estimated from automated execution and must be calibrated by an analyst before final delivery.', { count: estimatedCount })} />
                 )}
                 <View style={[s.twoCol, { alignItems: 'center', marginTop: 8 }]}>
                     <View style={{ alignItems: 'center', flex: 1 }}>
@@ -584,7 +596,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                             {SEVERITY_ORDER.map((sev) => (
                                 <View key={sev} style={s.legendRow}>
                                     <View style={[s.legendDot, { backgroundColor: SEVERITY[sev].color }]} />
-                                    <Text style={s.legendText}>{`${SEVERITY[sev].label}: ${e.findings.filter((f) => f.severity === sev).length}`}</Text>
+                                    <Text style={s.legendText}>{`${sevLabel(sev)}: ${e.findings.filter((f) => f.severity === sev).length}`}</Text>
                                 </View>
                             ))}
                         </View>
@@ -593,19 +605,19 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 <View style={s.statRow}>
                     <View style={s.stat}>
                         <Text style={s.statNum}>{String(e.findings.length)}</Text>
-                        <Text style={s.statLbl}>Achados totais</Text>
+                        <Text style={s.statLbl}>{t('Total findings')}</Text>
                     </View>
                     <View style={s.stat}>
                         <Text style={[s.statNum, { color: SEVERITY.critical.color }]}>{String(e.findings.filter((f) => f.severity === 'critical').length)}</Text>
-                        <Text style={s.statLbl}>Críticos</Text>
+                        <Text style={s.statLbl}>{t('Critical')}</Text>
                     </View>
                     <View style={s.stat}>
                         <Text style={[s.statNum, { color: '#059669' }]}>{String(qw.length)}</Text>
-                        <Text style={s.statLbl}>Quick wins</Text>
+                        <Text style={s.statLbl}>{t('Quick wins')}</Text>
                     </View>
                     <View style={s.stat}>
                         <Text style={[s.statNum, { color: COLORS.brand }]}>{String(new Set(e.findings.map((f) => f.category)).size)}</Text>
-                        <Text style={s.statLbl}>Categorias</Text>
+                        <Text style={s.statLbl}>{t('Categories')}</Text>
                     </View>
                 </View>
             </Page>
@@ -614,8 +626,8 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={2} title="Metodologia (PTES)" />
-                <Text style={s.p}>O engajamento seguiu as sete fases do Penetration Testing Execution Standard (PTES), garantindo cobertura consistente do pré-engajamento ao relatório.</Text>
+                <Section n={2} title={t('Methodology (PTES)')} />
+                <Text style={s.p}>{t('The engagement followed the seven phases of the Penetration Testing Execution Standard (PTES), ensuring consistent coverage from pre-engagement to reporting.')}</Text>
                 <View style={{ alignItems: 'center', marginVertical: 8 }}>
                     <PhaseStepper phases={PTES_PHASES.map((p) => ({ n: p.n, name: p.short }))} width={500} />
                 </View>
@@ -634,8 +646,8 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={3} title="Narrativa do Ataque" />
-                <Text style={s.p}>Como a avaliação evoluiu, em linguagem acessível: do reconhecimento ao impacto, mostrando como achados isolados se encadeiam em um caminho real de comprometimento.</Text>
+                <Section n={3} title={t('Attack Narrative')} />
+                <Text style={s.p}>{t('How the assessment unfolded, in plain language: from reconnaissance to impact, showing how isolated findings chain into a real path to compromise.')}</Text>
                 <View style={{ marginVertical: 8 }}>
                     <AttackChainStrip nodes={e.attackStory.map((st) => ({ n: st.n, label: st.title.split(' ')[0] }))} width={507} />
                 </View>
@@ -648,21 +660,21 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={4} title="Visão Geral de Risco" />
-                <Text style={s.p}>Distribuição de risco dos achados por probabilidade e impacto, e concentração por categoria de superfície avaliada.</Text>
+                <Section n={4} title={t('Risk Overview')} />
+                <Text style={s.p}>{t('Risk distribution of findings by likelihood and impact, and concentration by category of the assessed surface.')}</Text>
                 <View style={[s.twoCol, { alignItems: 'flex-start' }]}>
                     <View style={{ alignItems: 'center', width: 240 }}>
-                        <Text style={s.caption}>Matriz de risco (probabilidade × impacto)</Text>
+                        <Text style={s.caption}>{t('Risk matrix (likelihood × impact)')}</Text>
                         <RiskMatrix findings={e.findings} size={235} />
                     </View>
                     <View style={{ flex: 1 }}>
-                        <Text style={s.panelTitle}>Achados por categoria</Text>
+                        <Text style={s.panelTitle}>{t('Findings by category')}</Text>
                         <HBarChart data={catData} width={240} />
-                        <Text style={[s.panelTitle, { marginTop: 12 }]}>Legenda de severidade</Text>
+                        <Text style={[s.panelTitle, { marginTop: 12 }]}>{t('Severity legend')}</Text>
                         {SEVERITY_ORDER.map((sev) => (
                             <View key={sev} style={s.legendRow}>
                                 <View style={[s.legendDot, { backgroundColor: SEVERITY[sev].color }]} />
-                                <Text style={s.legendText}>{SEVERITY[sev].label}</Text>
+                                <Text style={s.legendText}>{sevLabel(sev)}</Text>
                             </View>
                         ))}
                     </View>
@@ -676,13 +688,13 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={5} title="Achados Detalhados" />
+                <Section n={5} title={t('Detailed Findings')} />
                 <View style={s.tHead}>
                     <Text style={[s.tHeadCell, { width: 34 }]}>ID</Text>
-                    <Text style={[s.tHeadCell, { flex: 1 }]}>Achado</Text>
-                    <Text style={[s.tHeadCell, { width: 60 }]}>Severidade</Text>
+                    <Text style={[s.tHeadCell, { flex: 1 }]}>{t('Finding')}</Text>
+                    <Text style={[s.tHeadCell, { width: 60 }]}>{t('Severity')}</Text>
                     <Text style={[s.tHeadCell, { width: 38 }]}>CVSS</Text>
-                    <Text style={[s.tHeadCell, { width: 86 }]}>Categoria</Text>
+                    <Text style={[s.tHeadCell, { width: 86 }]}>{t('Category')}</Text>
                 </View>
                 {[...e.findings]
                     .sort((a, b) => b.cvss - a.cvss)
@@ -690,12 +702,12 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         <View key={f.id} style={s.tRow} wrap={false}>
                             <Text style={[s.tCell, { width: 34, fontFamily: MONO }]}>{f.id}</Text>
                             <Text style={[s.tCell, { flex: 1 }]}>{f.title}</Text>
-                            <Text style={[s.tCell, { width: 60, color: SEVERITY[f.severity].color, fontWeight: 'bold' }]}>{SEVERITY[f.severity].label}</Text>
+                            <Text style={[s.tCell, { width: 60, color: SEVERITY[f.severity].color, fontWeight: 'bold' }]}>{sevLabel(f.severity)}</Text>
                             <Text style={[s.tCell, { width: 38 }]}>{f.cvss.toFixed(1)}</Text>
                             <Text style={[s.tCell, { width: 86 }]}>{f.category}</Text>
                         </View>
                     ))}
-                <Text style={[s.h3, { marginTop: 14 }]} break>Detalhamento dos achados</Text>
+                <Text style={[s.h3, { marginTop: 14 }]} break>{t('Finding details')}</Text>
                 {[...e.findings]
                     .sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss)
                     .map((f) => (
@@ -707,23 +719,23 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={6} title="Plano de Ação" />
-                <Text style={s.p}>Roteiro de remediação priorizado por risco e esforço. Os quick wins (alto impacto, baixo esforço) devem ser executados primeiro; o gráfico de prazos mostra o que leva mais e menos tempo.</Text>
-                <Text style={s.caption}>Roteiro de remediação</Text>
+                <Section n={6} title={t('Action Plan')} />
+                <Text style={s.p}>{t('Remediation roadmap prioritized by risk and effort. Quick wins (high impact, low effort) should be executed first; the timeline chart shows what takes the most and least time.')}</Text>
+                <Text style={s.caption}>{t('Remediation roadmap')}</Text>
                 <View style={{ alignItems: 'center', marginBottom: 6 }}>
                     <RemediationRoadmap items={items} width={507} />
                 </View>
                 <View style={[s.twoCol, { alignItems: 'flex-start', marginTop: 2 }]}>
                     <View style={{ alignItems: 'center', width: 235 }}>
-                        <Text style={s.caption}>Quick wins (impacto × esforço)</Text>
+                        <Text style={s.caption}>{t('Quick wins (impact × effort)')}</Text>
                         <QuickWinsQuadrant items={items} size={232} />
                     </View>
                     <View style={{ flex: 1 }}>
-                        <Text style={s.caption}>Tempo de correção por achado</Text>
+                        <Text style={s.caption}>{t('Time to fix per finding')}</Text>
                         <EffortTimeBars items={items} width={240} />
                     </View>
                 </View>
-                <Text style={[s.h3, { marginTop: 10 }]} break>Itens de correção priorizados</Text>
+                <Text style={[s.h3, { marginTop: 10 }]} break>{t('Prioritized remediation items')}</Text>
                 <ActionTable items={items} />
             </Page>
 
@@ -732,8 +744,8 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 <Page size="A4" style={s.page}>
                     <Header e={e} />
                     <Footer e={e} />
-                    <Section n={figuresN} title="Evidências" />
-                    <Text style={s.p}>Plano de evidências numerado: saídas reais de ferramentas e capturas de tela registradas durante a execução, vinculadas aos achados correspondentes.</Text>
+                    <Section n={figuresN} title={t('Evidence')} />
+                    <Text style={s.p}>{t('Numbered evidence plan: real tool outputs and screenshots captured during execution, linked to the corresponding findings.')}</Text>
                     {figures.map((fig) => (
                         <FigurePlate key={fig.id} fig={fig} />
                     ))}
@@ -744,29 +756,29 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={appendixN} title="Apêndice" />
-                <Text style={s.h3}>Recomendações estratégicas</Text>
+                <Section n={appendixN} title={t('Appendix')} />
+                <Text style={s.h3}>{t('Strategic recommendations')}</Text>
                 {e.recommendations.map((r, i) => (
                     <View key={i} style={s.li}>
                         <Text style={s.liDot}>•</Text>
                         <Text style={s.liText}>
-                            <Text style={{ fontWeight: 'bold', color: WINDOW_COLOR[r.priority] }}>{`${r.priority}: `}</Text>
+                            <Text style={{ fontWeight: 'bold', color: WINDOW_COLOR[r.priority] }}>{`${windowLabel(r.priority)}: `}</Text>
                             {r.text}
                         </Text>
                     </View>
                 ))}
-                <Text style={s.h3}>Classificação de severidade</Text>
+                <Text style={s.h3}>{t('Severity classification')}</Text>
                 {SEVERITY_ORDER.map((sev) => (
                     <View key={sev} style={s.legendRow}>
                         <View style={[s.legendDot, { backgroundColor: SEVERITY[sev].color }]} />
-                        <Text style={s.legendText}>{`${SEVERITY[sev].label} — orientação de risco e prioridade de tratamento.`}</Text>
+                        <Text style={s.legendText}>{`${sevLabel(sev)} — ${t('risk guidance and treatment priority.')}`}</Text>
                     </View>
                 ))}
                 <View style={{ marginTop: 4 }}>
                     <CoverageMatrix findings={e.findings} />
                 </View>
-                <Text style={s.h3}>Aviso</Text>
-                <Text style={s.p}>{`Relatório gerado por ${e.branding.appName} a partir de um engajamento autorizado. Conteúdo confidencial; distribua apenas a partes autorizadas. As provas de conceito foram não destrutivas e limitadas ao escopo acordado.`}</Text>
+                <Text style={s.h3}>{t('Notice')}</Text>
+                <Text style={s.p}>{tf('Report generated by {app} from an authorized engagement. Confidential content; distribute only to authorized parties. Proofs of concept were non-destructive and limited to the agreed scope.', { app: e.branding.appName })}</Text>
             </Page>
         </Document>
     );

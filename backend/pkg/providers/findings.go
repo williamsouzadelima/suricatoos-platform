@@ -94,7 +94,7 @@ Produce at most ` + "12" + ` of the most important findings. Keep descriptions t
 // DeriveFindings runs the report-analyst LLM over a finished flow's recorded execution and
 // persists structured findings. It is idempotent + cached: if a finished derivation already
 // exists that is not older than the flow's last update, it is returned without calling the LLM.
-func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64) (database.FindingDerivation, error) {
+func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64, language string) (database.FindingDerivation, error) {
 	flow, err := pc.db.GetFlow(ctx, flowID)
 	if err != nil {
 		return database.FindingDerivation{}, fmt.Errorf("failed to load flow %d: %w", flowID, err)
@@ -136,7 +136,7 @@ func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64) 
 		return upd, cause
 	}
 
-	report, derr := pc.runFindingsLLM(ctx, flow)
+	report, derr := pc.runFindingsLLM(ctx, flow, language)
 	if derr != nil {
 		return markFailed(fmt.Errorf("findings derivation failed: %w", derr))
 	}
@@ -170,7 +170,7 @@ func (pc *providerController) DeriveFindings(ctx context.Context, flowID int64) 
 
 // runFindingsLLM loads the flow execution, calls the provider with the submit_findings tool and
 // parses the structured result.
-func (pc *providerController) runFindingsLLM(ctx context.Context, flow database.Flow) (*FindingsReport, error) {
+func (pc *providerController) runFindingsLLM(ctx context.Context, flow database.Flow, language string) (*FindingsReport, error) {
 	// Bound the (synchronous) LLM call so a provider/network stall fails fast instead of
 	// hanging the request goroutine + DB connections indefinitely. Full async is a follow-up.
 	ctx, cancel := context.WithTimeout(ctx, 120*time.Second)
@@ -186,7 +186,12 @@ func (pc *providerController) runFindingsLLM(ctx context.Context, flow database.
 		return nil, err
 	}
 
-	lang := flow.Language
+	// Honor the explicitly requested report language first; fall back to the flow's
+	// stored language, then to English.
+	lang := language
+	if lang == "" {
+		lang = flow.Language
+	}
 	if lang == "" {
 		lang = "English"
 	}

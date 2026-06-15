@@ -1074,7 +1074,7 @@ type Query {
 type Mutation {
   # Flow management
   createFlow(modelProvider: String!, input: String!, resourceIds: [ID!]): Flow!
-  deriveFindings(flowId: ID!): FindingDerivation!
+  deriveFindings(flowId: ID!, language: String): FindingDerivation!
   putUserInput(flowId: ID!, input: String!, modelProvider: String, resourceIds: [ID!]): ResultType!
   stopFlow(flowId: ID!): ResultType!
   finishFlow(flowId: ID!): ResultType!
