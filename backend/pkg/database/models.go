@@ -918,6 +918,8 @@ type Finding struct {
 	Impact         sql.NullInt16   `json:"impact"`
 	Remediation    sql.NullString  `json:"remediation"`
 	References     json.RawMessage `json:"references"`
+	AttackPath     json.RawMessage `json:"attack_path"`
+	ReproSteps     json.RawMessage `json:"repro_steps"`
 	Evidence       sql.NullString  `json:"evidence"`
 	SourceTaskIds  json.RawMessage `json:"source_task_ids"`
 	EvidenceRefs   json.RawMessage `json:"evidence_refs"`

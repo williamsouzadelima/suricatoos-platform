@@ -233,6 +233,8 @@ type Finding struct {
 	Impact         *int      `json:"impact,omitempty"`
 	Remediation    *string   `json:"remediation,omitempty"`
 	References     *string   `json:"references,omitempty"`
+	AttackPath     *string   `json:"attackPath,omitempty"`
+	ReproSteps     *string   `json:"reproSteps,omitempty"`
 	Evidence       *string   `json:"evidence,omitempty"`
 	SourceTaskIds  []int64   `json:"sourceTaskIds"`
 	Provenance     *string   `json:"provenance,omitempty"`

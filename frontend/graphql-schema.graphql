@@ -73,6 +73,8 @@ fragment findingFragment on Finding {
     impact
     remediation
     references
+    attackPath
+    reproSteps
     evidence
     sourceTaskIds
     provenance

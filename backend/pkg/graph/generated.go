@@ -230,6 +230,7 @@ type ComplexityRoot struct {
 
 	Finding struct {
 		Affected       func(childComplexity int) int
+		AttackPath     func(childComplexity int) int
 		BusinessImpact func(childComplexity int) int
 		Category       func(childComplexity int) int
 		CreatedAt      func(childComplexity int) int
@@ -245,6 +246,7 @@ type ComplexityRoot struct {
 		Provenance     func(childComplexity int) int
 		References     func(childComplexity int) int
 		Remediation    func(childComplexity int) int
+		ReproSteps     func(childComplexity int) int
 		Severity       func(childComplexity int) int
 		SourceTaskIds  func(childComplexity int) int
 		Title          func(childComplexity int) int
@@ -1780,6 +1782,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Finding.Affected(childComplexity), true
 
+	case "Finding.attackPath":
+		if e.complexity.Finding.AttackPath == nil {
+			break
+		}
+
+		return e.complexity.Finding.AttackPath(childComplexity), true
+
 	case "Finding.businessImpact":
 		if e.complexity.Finding.BusinessImpact == nil {
 			break
@@ -1884,6 +1893,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Finding.Remediation(childComplexity), true
+
+	case "Finding.reproSteps":
+		if e.complexity.Finding.ReproSteps == nil {
+			break
+		}
+
+		return e.complexity.Finding.ReproSteps(childComplexity), true
 
 	case "Finding.severity":
 		if e.complexity.Finding.Severity == nil {
@@ -15569,6 +15585,88 @@ func (ec *executionContext) fieldContext_Finding_references(_ context.Context, f
 	return fc, nil
 }
 
+func (ec *executionContext) _Finding_attackPath(ctx context.Context, field graphql.CollectedField, obj *model.Finding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Finding_attackPath(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AttackPath, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Finding_attackPath(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Finding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Finding_reproSteps(ctx context.Context, field graphql.CollectedField, obj *model.Finding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Finding_reproSteps(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ReproSteps, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Finding_reproSteps(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Finding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Finding_evidence(ctx context.Context, field graphql.CollectedField, obj *model.Finding) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Finding_evidence(ctx, field)
 	if err != nil {
@@ -25038,6 +25136,10 @@ func (ec *executionContext) fieldContext_Query_findings(ctx context.Context, fie
 				return ec.fieldContext_Finding_remediation(ctx, field)
 			case "references":
 				return ec.fieldContext_Finding_references(ctx, field)
+			case "attackPath":
+				return ec.fieldContext_Finding_attackPath(ctx, field)
+			case "reproSteps":
+				return ec.fieldContext_Finding_reproSteps(ctx, field)
 			case "evidence":
 				return ec.fieldContext_Finding_evidence(ctx, field)
 			case "sourceTaskIds":
@@ -40357,6 +40459,10 @@ func (ec *executionContext) _Finding(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Finding_remediation(ctx, field, obj)
 		case "references":
 			out.Values[i] = ec._Finding_references(ctx, field, obj)
+		case "attackPath":
+			out.Values[i] = ec._Finding_attackPath(ctx, field, obj)
+		case "reproSteps":
+			out.Values[i] = ec._Finding_reproSteps(ctx, field, obj)
 		case "evidence":
 			out.Values[i] = ec._Finding_evidence(ctx, field, obj)
 		case "sourceTaskIds":

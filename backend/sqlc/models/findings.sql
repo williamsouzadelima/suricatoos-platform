@@ -10,9 +10,9 @@ SELECT * FROM findings WHERE id = $1;
 INSERT INTO findings (
   flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category,
   affected, description, business_impact, likelihood, impact, remediation,
-  "references", evidence, source_task_ids, evidence_refs, provenance
+  "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance
 ) VALUES (
-  $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19
+  $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21
 ) RETURNING *;
 
 -- name: DeleteFlowFindings :exec
