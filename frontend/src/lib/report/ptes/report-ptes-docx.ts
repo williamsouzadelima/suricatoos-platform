@@ -81,13 +81,16 @@ function figuresBlocks(e: Engagement): (Paragraph | Table)[] {
         const links = [fig.findingIds.length ? `Referente a: ${fig.findingIds.join(', ')}` : '', fig.capturedUrl ? `URL: ${fig.capturedUrl}` : ''].filter(Boolean).join('   ·   ');
         if (links) out.push(new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: links, color: MUTED, size: 14 })] }));
         if (fig.kind === 'screenshot') {
-            if (fig.imageSrc?.startsWith('data:')) {
-                const data = decode(fig.imageSrc);
-                const mime = fig.imageSrc.slice(5, Math.max(5, fig.imageSrc.indexOf(';')));
-                const type = mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : mime.includes('gif') ? 'gif' : 'png';
-                const size = imageSize(data);
-                const w = size ? Math.min(460, size.w) : 460;
-                const h = size ? Math.min(560, Math.round((w * size.h) / size.w)) : 280;
+            const data = fig.imageSrc?.startsWith('data:') ? decode(fig.imageSrc) : null;
+            const size = data ? imageSize(data) : null;
+            // ONLY embed when the bytes are a real PNG/JPEG. A failed screenshot fetch can return
+            // an auth/error page (HTML), and embedding non-image bytes into an ImageRun produces a
+            // CORRUPT .docx. When it's not a valid image, fall back to the caption.
+            if (data && size) {
+                const mime = fig.imageSrc!.slice(5, Math.max(5, fig.imageSrc!.indexOf(';')));
+                const type = mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : 'png';
+                const w = Math.min(460, size.w);
+                const h = Math.min(560, Math.round((w * size.h) / size.w));
                 out.push(new Paragraph({ spacing: { after: 80 }, children: [new ImageRun({ type, data, transformation: { width: w, height: h } })] }));
             } else {
                 out.push(new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: 'Captura de tela registrada durante a execução.', italics: true, color: MUTED, size: 15 })] }));

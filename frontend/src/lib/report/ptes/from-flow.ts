@@ -27,7 +27,7 @@ import type {
     Severity,
 } from './engagement';
 
-import { transformLlmFindingsToEngagement } from './from-flow-llm';
+import { stripControlChars, transformLlmFindingsToEngagement } from './from-flow-llm';
 
 // ---------------------------------------------------------------------------------------------
 // small utilities
@@ -40,7 +40,7 @@ const fmtDate = (value: unknown): string => {
 };
 
 const clip = (text: string, max = 900): string => {
-    const clean = (text ?? '').replace(/\s+/g, ' ').trim();
+    const clean = stripControlChars(text ?? '').replace(/\s+/g, ' ').trim();
     return clean.length > max ? `${clean.slice(0, max).trimEnd()}…` : clean;
 };
 
