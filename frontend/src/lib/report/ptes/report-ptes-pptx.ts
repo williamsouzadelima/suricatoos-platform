@@ -1,28 +1,74 @@
-// Premium PTES report — PowerPoint deck. Mirrors the PDF: co-branded cover, executive summary,
-// attack narrative, risk overview, methodology, findings, action plan. Charts are embedded as the
-// exact same images rasterized from the PDF's vector charts, so all formats stay consistent.
+// Premium PTES report — PowerPoint deck (Direction 3: modern magazine, light, indigo accent).
+// An executive deck that carries the same visual system as the PDF flagship (report-book-pdf.tsx):
+// a light cover with an indigo left rail + display title + 4 KPI tiles, a risk slide with the
+// severity breakdown + OWASP Top 10 (2021) coverage + observed MITRE techniques, per-finding
+// slides with the FindingCard anatomy (severity rail + taxonomy chips + kill-chain mini-path +
+// evidence + Impacto/Remediação), and a closing remediation-roadmap slide.
+// Charts are embedded as the exact same images rasterized from the PDF's vector charts.
 import pptxgen from 'pptxgenjs';
 
 import { CHART_SPECS } from './report-charts-sheet';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
-import { PTES_PHASES, type Engagement } from './engagement';
-import { actionItems, categoryCounts, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
+import { type Engagement, type Finding } from './engagement';
+import { actionItems, COLORS, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
 
 export type ChartImages = Record<string, string>; // key -> PNG data URI
 
-const BLUE = '194FE3';
-const CORAL = 'FF7678';
-const INK = '0F172A';
-const SLATE = '334155';
-const MUTED = '64748B';
-const PANEL = 'F4F6FB';
-const LINE = 'E2E8F0';
+// Direction-3 palette (hex without '#', as pptxgenjs expects). Mirrors COLORS + the PDF's
+// per-tile/per-chip tints so all three formats look like one product.
+const hex = (c: string) => c.replace('#', '');
+const BRAND = hex(COLORS.brand); // indigo #4F46E5
+const BRAND_DARK = hex(COLORS.brandDark); // #3730A3
+const CORAL = hex(COLORS.coral);
+const INK = hex(COLORS.ink);
+const SLATE = hex(COLORS.slate);
+const MUTED = hex(COLORS.muted);
+const LINE = hex(COLORS.line);
+const PANEL = hex(COLORS.panel);
+const PAPER = 'FFFFFF';
+const GREEN = '059669';
+// indigo chip/coverage tints (same as report-book-pdf.tsx)
+const CHIP_FILL = 'EEF0FF';
+const CHIP_INK = '3730A3';
+const COV_BORDER = 'C7C2F0';
+const KPI_RISK = 'EEF0FF';
+const KPI_CRIT = 'FBEDEC';
+// kill-chain mini-path tints
+const PATH_FILL = 'EEF0F3';
+const PATH_HOT_FILL = 'FBEDEC';
+const PATH_HOT_INK = 'C04A40';
 
 const aspect = (key: string) => {
     const c = CHART_SPECS.find((s) => s.key === key)!;
     return c.h / c.w;
 };
-const hex = (c: string) => c.replace('#', '');
+
+// OWASP Top 10 (2021) — identical list/order to report-book-pdf.tsx.
+const OWASP_2021: [string, string][] = [
+    ['A01', 'Broken Access Control'],
+    ['A02', 'Cryptographic Failures'],
+    ['A03', 'Injection'],
+    ['A04', 'Insecure Design'],
+    ['A05', 'Security Misconfiguration'],
+    ['A06', 'Vulnerable & Outdated Components'],
+    ['A07', 'Identification & Auth Failures'],
+    ['A08', 'Software & Data Integrity'],
+    ['A09', 'Logging & Monitoring Failures'],
+    ['A10', 'Server-Side Request Forgery'],
+];
+
+// Derive OWASP / MITRE / CVE from a finding's explicit fields, falling back to scanning
+// references[].label — exactly like report-book-pdf.tsx (refMatch + CoverageMatrix).
+const refMatch = (f: Finding, re: RegExp) => f.references.map((r) => r.label).find((l) => re.test(l));
+const taxonomy = (f: Finding) => {
+    const owasp = f.owasp ?? refMatch(f, /owasp/i)?.replace(/^owasp\s*/i, '').trim();
+    const mitre = f.mitre ?? refMatch(f, /mitre|\bT\d{4}/i)?.replace(/^mitre att&ck\s*/i, '').replace(/^mitre\s*/i, '').trim();
+    const cwe = f.cwe && f.cwe !== '—' && !/^MITRE/i.test(f.cwe) ? f.cwe : undefined;
+    const cves = f.cve ?? [];
+    const a0 = f.assets?.[0];
+    const primaryAsset = a0 ? a0.url || (a0.port ? `${a0.host}:${a0.port}` : a0.host) : f.affected[0];
+    return { owasp, mitre, cwe, cves, primaryAsset };
+};
 
 export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     const pptx = new pptxgen();
@@ -30,16 +76,17 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     pptx.layout = 'W';
     pptx.author = e.branding.appName;
     pptx.company = e.branding.appName;
-    const primary = e.branding.primary ?? BLUE;
+    const primary = e.branding.primary ?? BRAND;
 
+    // Light base master with an indigo left rail + footer furniture (Direction 3).
     pptx.defineSlideMaster({
         title: 'BASE',
-        background: { color: 'FFFFFF' },
+        background: { color: PAPER },
         objects: [
             { rect: { x: 0, y: 0, w: 0.16, h: '100%', fill: { color: primary } } },
-            { rect: { x: 0, y: 7.16, w: '100%', h: 0.34, fill: { color: PANEL } } },
-            { text: { text: e.branding.appName, options: { x: 0.45, y: 7.16, w: 5, h: 0.34, fontSize: 8, color: MUTED, bold: true, valign: 'middle' } } },
-            { text: { text: `${e.client} · ${e.classification}`, options: { x: 7.9, y: 7.16, w: 5, h: 0.34, fontSize: 8, color: MUTED, align: 'right', valign: 'middle' } } },
+            { rect: { x: 0, y: 7.12, w: '100%', h: 0.005, fill: { color: LINE } } },
+            { text: { text: e.branding.appName.toUpperCase(), options: { x: 0.45, y: 7.14, w: 6, h: 0.32, fontSize: 8, color: primary, bold: true, charSpacing: 1, valign: 'middle' } } },
+            { text: { text: `${e.client} · ${e.classification}`, options: { x: 7.3, y: 7.14, w: 5.6, h: 0.32, fontSize: 8, color: MUTED, align: 'right', valign: 'middle' } } },
         ],
     });
 
@@ -47,158 +94,249 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         if (!images[key]) return;
         s.addImage({ data: images[key], x, y, w, h: w * aspect(key) });
     };
+    // Section opener (kicker + display title + short indigo rule), mirrors the PDF Section.
     const section = (s: pptxgen.Slide, kicker: string, title: string) => {
-        s.addText(kicker.toUpperCase(), { x: 0.5, y: 0.32, w: 12, h: 0.3, fontSize: 11, bold: true, color: primary });
-        s.addText(title, { x: 0.5, y: 0.6, w: 12.3, h: 0.6, fontSize: 26, bold: true, color: INK });
-        s.addShape(pptx.ShapeType.line, { x: 0.5, y: 1.28, w: 12.3, h: 0, line: { color: primary, width: 2 } });
+        s.addText(kicker.toUpperCase(), { x: 0.5, y: 0.34, w: 12, h: 0.3, fontSize: 11, bold: true, color: primary, charSpacing: 1 });
+        s.addText(title, { x: 0.5, y: 0.62, w: 12.3, h: 0.62, fontSize: 26, bold: true, color: INK });
+        s.addShape(pptx.ShapeType.rect, { x: 0.5, y: 1.3, w: 0.62, h: 0.035, fill: { color: primary } });
+    };
+    // A small pill/chip used for taxonomy + MITRE listings.
+    const chip = (s: pptxgen.Slide, text: string, x: number, y: number, w: number, opts?: { filled?: boolean; mono?: boolean }) => {
+        const filled = opts?.filled ?? false;
+        s.addText(text, {
+            x, y, w, h: 0.28,
+            fontSize: 8.5,
+            bold: filled,
+            color: filled ? CHIP_INK : SLATE,
+            fill: { color: filled ? CHIP_FILL : PAPER },
+            line: filled ? undefined : { color: LINE, width: 0.75 },
+            align: 'center',
+            valign: 'middle',
+            fontFace: opts?.mono ? 'Consolas' : undefined,
+            rectRadius: 0.04,
+            shape: pptx.ShapeType.roundRect,
+        });
     };
 
-    // ── Cover ──
+    const qw = quickWins(e.findings);
+    const critCount = e.findings.filter((f) => f.severity === 'critical').length;
+
+    // ── 1. Title slide ── light, indigo rail, display title, 4 KPI tiles ──
     const c = pptx.addSlide();
-    c.background = { color: INK };
-    c.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.18, h: '100%', fill: { color: primary } });
-    const appLogo = e.branding.appLogoOnDark ?? e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
-    c.addImage({ data: appLogo, x: 0.8, y: 0.56, w: 0.72, h: 0.72 });
-    c.addText(e.branding.appName.toUpperCase(), { x: 1.65, y: 0.56, w: 8, h: 0.72, fontSize: 24, bold: true, color: primary, valign: 'middle' });
-    c.addText('RELATÓRIO DE PENTEST · PTES', { x: 0.8, y: 2.0, w: 11, h: 0.4, fontSize: 14, bold: true, color: CORAL, charSpacing: 2 });
-    c.addText(e.title, { x: 0.8, y: 2.5, w: 11.6, h: 1.5, fontSize: 32, bold: true, color: 'FFFFFF' });
-    c.addText(`Preparado por ${e.branding.appName} para`, { x: 0.8, y: 4.2, w: 11, h: 0.3, fontSize: 11, color: '94A3B8' });
-    // client logo or monogram
-    if (e.branding.clientLogo) {
-        c.addImage({ data: e.branding.clientLogo, x: 0.8, y: 4.55, w: 1.0, h: 0.7 });
-        c.addText(e.branding.clientName, { x: 1.95, y: 4.55, w: 8, h: 0.7, fontSize: 18, bold: true, color: 'E2E8F0', valign: 'middle' });
-    } else {
-        const initials = e.branding.clientName.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-        c.addShape(pptx.ShapeType.roundRect, { x: 0.8, y: 4.55, w: 0.7, h: 0.7, rectRadius: 0.1, fill: { color: hex(`#${e.branding.accent ?? CORAL}`) } });
-        c.addText(initials, { x: 0.8, y: 4.55, w: 0.7, h: 0.7, fontSize: 20, bold: true, color: 'FFFFFF', align: 'center', valign: 'middle' });
-        c.addText(e.branding.clientName, { x: 1.65, y: 4.55, w: 8, h: 0.7, fontSize: 18, bold: true, color: 'E2E8F0', valign: 'middle' });
-    }
-    c.addText(e.classification, { x: 0.8, y: 5.6, w: 2.2, h: 0.4, fontSize: 11, bold: true, color: CORAL, align: 'center', charSpacing: 1, line: { color: CORAL, width: 1 } });
+    c.background = { color: PAPER };
+    c.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.22, h: '100%', fill: { color: primary } });
+    const appLogo = e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
+    c.addImage({ data: appLogo, x: 0.8, y: 0.62, w: 0.62, h: 0.62 });
+    c.addText(e.branding.appName.toUpperCase(), { x: 1.55, y: 0.62, w: 7, h: 0.62, fontSize: 18, bold: true, color: primary, charSpacing: 1, valign: 'middle' });
+    // classification chip (coral outline), top-right
+    c.addText(e.classification, { x: 10.4, y: 0.66, w: 2.3, h: 0.36, fontSize: 10, bold: true, color: CORAL, align: 'center', valign: 'middle', charSpacing: 1, line: { color: CORAL, width: 1 }, rectRadius: 0.03, shape: pptx.ShapeType.roundRect });
+
+    c.addText('RELATÓRIO DE PENTEST · PTES', { x: 0.8, y: 1.95, w: 11.5, h: 0.35, fontSize: 12, bold: true, color: MUTED, charSpacing: 3 });
+    c.addText(e.title, { x: 0.78, y: 2.32, w: 11.8, h: 1.7, fontSize: 33, bold: true, color: INK, valign: 'top' });
+    c.addText(`Preparado por ${e.branding.appName} para ${e.client}`, { x: 0.8, y: 4.05, w: 11.5, h: 0.4, fontSize: 14, color: MUTED });
+
+    // 4 KPI tiles — same metrics/tints as the PDF cover.
+    const kpiY = 4.75;
+    const kpiW = 2.92;
+    const kpiGap = 0.18;
+    const kpis: { lbl: string; val: string; suffix?: string; fill: string; lblColor: string; numColor: string }[] = [
+        { lbl: 'Risco geral', val: `${e.riskScore}`, suffix: '/100', fill: KPI_RISK, lblColor: '6663C9', numColor: primary },
+        { lbl: 'Críticos', val: `${critCount}`, fill: KPI_CRIT, lblColor: PATH_HOT_INK, numColor: 'E0483D' },
+        { lbl: 'Achados', val: `${e.findings.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
+        { lbl: 'Quick wins', val: `${qw.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
+    ];
+    kpis.forEach((k, i) => {
+        const x = 0.8 + i * (kpiW + kpiGap);
+        c.addShape(pptx.ShapeType.roundRect, { x, y: kpiY, w: kpiW, h: 1.25, rectRadius: 0.08, fill: { color: k.fill } });
+        c.addText(k.lbl, { x: x + 0.22, y: kpiY + 0.18, w: kpiW - 0.4, h: 0.3, fontSize: 11, color: k.lblColor });
+        c.addText(
+            [
+                { text: k.val, options: { fontSize: 30, bold: true, color: k.numColor } },
+                ...(k.suffix ? [{ text: k.suffix, options: { fontSize: 13, color: MUTED } }] : []),
+            ],
+            { x: x + 0.2, y: kpiY + 0.52, w: kpiW - 0.4, h: 0.62, valign: 'middle' },
+        );
+    });
+
+    // meta line (period / version / risk rating)
     c.addText(
         [
-            { text: `Período: `, options: { bold: true } }, { text: `${e.period.start} – ${e.period.end}    ` },
-            { text: `Versão: `, options: { bold: true } }, { text: `${e.version}    ` },
-            { text: `Risco: `, options: { bold: true } }, { text: `${e.riskScore}/100 (${riskRating(e.riskScore).label})` },
+            { text: 'Período: ', options: { bold: true, color: SLATE } }, { text: `${e.period.start} – ${e.period.end}      `, options: { color: MUTED } },
+            { text: 'Versão: ', options: { bold: true, color: SLATE } }, { text: `${e.version}      `, options: { color: MUTED } },
+            { text: 'Risco: ', options: { bold: true, color: SLATE } }, { text: `${e.riskScore}/100 (${riskRating(e.riskScore).label})`, options: { color: MUTED } },
         ],
-        { x: 0.8, y: 6.5, w: 11.5, h: 0.4, fontSize: 11, color: 'CBD5E1' },
+        { x: 0.8, y: 6.5, w: 12, h: 0.4, fontSize: 11 },
     );
 
-    // ── Executive summary ──
-    const s1 = pptx.addSlide({ masterName: 'BASE' });
-    section(s1, 'Sumário Executivo', 'Sumário Executivo');
-    s1.addText(e.summaryNarrative.join('\n\n'), { x: 0.5, y: 1.5, w: 7.0, h: 4.6, fontSize: 12, color: SLATE, valign: 'top', paraSpaceAfter: 8, lineSpacingMultiple: 1.1 });
-    img(s1, 'gauge', 8.0, 1.5, 3.0);
-    img(s1, 'donut', 9.6, 3.6, 1.9);
-    const qw = quickWins(e.findings);
-    s1.addText(
-        [
-            { text: `${e.findings.length}`, options: { fontSize: 26, bold: true, color: INK } }, { text: '  achados      ', options: { fontSize: 11, color: MUTED } },
-            { text: `${e.findings.filter((f) => f.severity === 'critical').length}`, options: { fontSize: 26, bold: true, color: SEVERITY.critical.color.replace('#', '') } }, { text: '  críticos      ', options: { fontSize: 11, color: MUTED } },
-            { text: `${qw.length}`, options: { fontSize: 26, bold: true, color: '059669' } }, { text: '  quick wins', options: { fontSize: 11, color: MUTED } },
-        ],
-        { x: 0.5, y: 6.2, w: 7.2, h: 0.7, valign: 'middle' },
-    );
-
-    // ── Attack narrative ──
+    // ── 2. Risk slide ── severity breakdown + OWASP coverage + MITRE techniques ──
     const s2 = pptx.addSlide({ masterName: 'BASE' });
-    section(s2, 'Narrativa do Ataque', 'Narrativa do Ataque');
-    img(s2, 'attackChain', 0.7, 1.5, 12.0);
-    const storyRows = e.attackStory.map((st) => [
-        { text: String(st.n), options: { color: 'FFFFFF', fill: { color: primary }, bold: true, align: 'center', valign: 'middle', fontSize: 12 } },
-        { text: st.title, options: { bold: true, color: INK, valign: 'middle', fontSize: 11 } },
-        { text: `${st.text}${st.refs?.length ? `  [${st.refs.join(', ')}]` : ''}`, options: { color: SLATE, valign: 'middle', fontSize: 10 } },
-    ]);
-    s2.addTable(storyRows, { x: 0.5, y: 2.95, w: 12.3, colW: [0.5, 2.4, 9.4], border: { type: 'solid', color: LINE, pt: 1 }, rowH: 0.56, valign: 'middle' });
+    section(s2, 'Visão Geral de Risco', 'Risco e Cobertura');
 
-    // ── Risk overview ──
-    const s3 = pptx.addSlide({ masterName: 'BASE' });
-    section(s3, 'Visão Geral de Risco', 'Visão Geral de Risco');
-    s3.addText('Matriz de risco (probabilidade × impacto)', { x: 0.5, y: 1.5, w: 5, h: 0.3, fontSize: 11, bold: true, color: INK });
-    img(s3, 'matrix', 0.9, 1.9, 4.4);
-    s3.addText('Achados por categoria', { x: 6.6, y: 1.5, w: 5, h: 0.3, fontSize: 11, bold: true, color: INK });
-    img(s3, 'categories', 6.6, 1.9, 5.0);
-    s3.addText(
-        SEVERITY_ORDER.map((sv) => ({ text: `● ${SEVERITY[sv].label}\n`, options: { color: SEVERITY[sv].color.replace('#', ''), fontSize: 11, bold: true } })),
-        { x: 6.6, y: 4.6, w: 6, h: 1.8, valign: 'top' },
-    );
-
-    // ── Methodology ──
-    const s4 = pptx.addSlide({ masterName: 'BASE' });
-    section(s4, 'Metodologia (PTES)', 'Metodologia (PTES)');
-    img(s4, 'phaseStepper', 0.6, 1.5, 12.1);
-    const methRows = e.methodology.map((m) => {
-        const ph = PTES_PHASES.find((p) => p.id === m.phase);
-        return [
-            { text: `${ph?.n}`, options: { bold: true, color: 'FFFFFF', fill: { color: primary }, align: 'center', valign: 'middle', fontSize: 12 } },
-            { text: m.title, options: { bold: true, color: INK, valign: 'middle', fontSize: 11 } },
-            { text: m.activities.join('  ·  '), options: { color: SLATE, valign: 'middle', fontSize: 10 } },
-        ];
+    // Severity donut + breakdown legend (left column)
+    s2.addText('Severidade dos achados', { x: 0.5, y: 1.5, w: 4, h: 0.3, fontSize: 12, bold: true, color: INK });
+    img(s2, 'donut', 0.7, 1.85, 2.0);
+    SEVERITY_ORDER.forEach((sv, i) => {
+        const y = 4.15 + i * 0.34;
+        s2.addShape(pptx.ShapeType.rect, { x: 0.55, y: y + 0.05, w: 0.14, h: 0.14, fill: { color: hex(SEVERITY[sv].color) } });
+        s2.addText(
+            [
+                { text: `${SEVERITY[sv].label}  `, options: { color: SLATE, bold: true } },
+                { text: `${e.findings.filter((f) => f.severity === sv).length}`, options: { color: MUTED } },
+            ],
+            { x: 0.78, y, w: 2.5, h: 0.28, fontSize: 10.5, valign: 'middle' },
+        );
     });
-    s4.addTable(methRows, { x: 0.5, y: 2.3, w: 12.3, colW: [0.5, 3.0, 8.8], border: { type: 'solid', color: LINE, pt: 1 }, rowH: 0.5, valign: 'middle' });
 
-    // ── Findings index ──
-    const s5 = pptx.addSlide({ masterName: 'BASE' });
-    section(s5, 'Achados', 'Achados Detalhados');
-    const head = ['ID', 'Achado', 'Severidade', 'CVSS', 'Categoria'].map((t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: primary }, fontSize: 11 } }));
-    const fRows = [...e.findings].sort((a, b) => b.cvss - a.cvss).map((f) => [
-        { text: f.id, options: { fontSize: 10 } },
-        { text: f.title, options: { fontSize: 10 } },
-        { text: SEVERITY[f.severity].label, options: { fontSize: 10, bold: true, color: SEVERITY[f.severity].color.replace('#', '') } },
-        { text: f.cvss.toFixed(1), options: { fontSize: 10 } },
-        { text: f.category, options: { fontSize: 10 } },
-    ]);
-    s5.addTable([head, ...fRows], { x: 0.5, y: 1.5, w: 12.3, colW: [1.0, 6.2, 1.6, 1.0, 2.5], border: { type: 'solid', color: LINE, pt: 1 }, rowH: 0.42, valign: 'middle' });
+    // OWASP Top 10 (2021) coverage grid (covered = indigo tint w/ count) — middle/right.
+    const hay = (f: Finding) => `${f.owasp ?? ''} ${f.references.map((r) => r.label).join(' ')}`;
+    const owaspHits = (code: string) => e.findings.filter((f) => hay(f).includes(code)).length;
+    s2.addText('Cobertura — OWASP Top 10 (2021)', { x: 4.0, y: 1.5, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
+    const gx = 4.0;
+    const gy = 1.9;
+    const cellW = 4.35;
+    const cellH = 0.46;
+    const colGap = 0.18;
+    const rowGap = 0.1;
+    OWASP_2021.forEach(([code, name], i) => {
+        const col = i < 5 ? 0 : 1;
+        const row = i % 5;
+        const x = gx + col * (cellW + colGap);
+        const y = gy + row * (cellH + rowGap);
+        const n = owaspHits(code);
+        const on = n > 0;
+        s2.addShape(pptx.ShapeType.roundRect, { x, y, w: cellW, h: cellH, rectRadius: 0.05, fill: { color: on ? CHIP_FILL : PAPER }, line: { color: on ? COV_BORDER : LINE, width: 1 } });
+        s2.addText(code, { x: x + 0.12, y, w: 0.6, h: cellH, fontSize: 11, bold: true, color: on ? CHIP_INK : MUTED, valign: 'middle' });
+        s2.addText(name, { x: x + 0.68, y, w: cellW - 1.1, h: cellH, fontSize: 9, color: on ? SLATE : MUTED, valign: 'middle' });
+        if (on) s2.addText(`${n}`, { x: x + cellW - 0.5, y, w: 0.38, h: cellH, fontSize: 12, bold: true, color: CHIP_INK, align: 'center', valign: 'middle' });
+    });
 
-    // ── Findings detail (criticals/highs) ──
-    const detail = [...e.findings].filter((f) => f.severity === 'critical' || f.severity === 'high').sort((a, b) => b.cvss - a.cvss);
-    for (let i = 0; i < detail.length; i += 2) {
-        const sd = pptx.addSlide({ masterName: 'BASE' });
-        section(sd, 'Achados', 'Achado em detalhe');
-        detail.slice(i, i + 2).forEach((f, j) => {
-            const x = 0.5 + j * 6.3;
-            const sv = SEVERITY[f.severity];
-            sd.addShape(pptx.ShapeType.rect, { x, y: 1.5, w: 6.0, h: 5.3, fill: { color: 'FFFFFF' }, line: { color: LINE, width: 1 } });
-            sd.addShape(pptx.ShapeType.rect, { x, y: 1.5, w: 0.08, h: 5.3, fill: { color: sv.color.replace('#', '') } });
-            sd.addText(`${f.id} — ${f.title}`, { x: x + 0.25, y: 1.65, w: 5.0, h: 0.6, fontSize: 13, bold: true, color: INK });
-            sd.addText(sv.label.toUpperCase(), { x: x + 5.0, y: 1.65, w: 0.85, h: 0.3, fontSize: 9, bold: true, color: 'FFFFFF', fill: { color: sv.color.replace('#', '') }, align: 'center' });
-            const est = (p?: string) => p === 'estimated' || p === 'inferred';
-            const cvssTag = est(f.provenance?.cvss) ? ' (est.)' : '';
-            sd.addText(`CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category}`, { x: x + 0.25, y: 2.35, w: 5.5, h: 0.3, fontSize: 9.5, color: MUTED });
-            sd.addText(
-                [
-                    { text: 'Descrição\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.description}\n\n`, options: { color: SLATE, fontSize: 10 } },
-                    { text: 'Impacto\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.businessImpact}\n\n`, options: { color: SLATE, fontSize: 10 } },
-                    { text: 'Remediação\n', options: { bold: true, color: primary, fontSize: 9 } }, { text: `${f.remediation}${f.estimatedNote ? `\n\nNota: ${f.estimatedNote}` : ''}`, options: { color: SLATE, fontSize: 10 } },
-                ],
-                { x: x + 0.25, y: 2.75, w: 5.5, h: 3.9, valign: 'top', lineSpacingMultiple: 1.05 },
-            );
-        });
+    // Observed MITRE ATT&CK techniques (chips), bottom band.
+    const mitreObserved = Array.from(
+        new Set(e.findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)),
+    );
+    if (mitreObserved.length > 0) {
+        s2.addText('Técnicas MITRE ATT&CK observadas', { x: 0.5, y: 5.95, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
+        mitreObserved.slice(0, 10).forEach((t, i) => chip(s2, t, 0.5 + i * 1.22, 6.35, 1.1, { mono: true }));
     }
 
-    // ── Action plan (charts) ──
-    const s6 = pptx.addSlide({ masterName: 'BASE' });
-    section(s6, 'Plano de Ação', 'Plano de Ação');
-    s6.addText('Roteiro de remediação', { x: 0.5, y: 1.45, w: 6, h: 0.3, fontSize: 11, bold: true, color: INK });
-    img(s6, 'roadmap', 0.6, 1.8, 12.1);
-    s6.addText('Quick wins (impacto × esforço)', { x: 0.5, y: 3.5, w: 6, h: 0.3, fontSize: 11, bold: true, color: INK });
-    img(s6, 'quadrant', 1.2, 3.85, 3.0);
-    s6.addText('Tempo de correção por achado', { x: 6.8, y: 3.5, w: 6, h: 0.3, fontSize: 11, bold: true, color: INK });
-    img(s6, 'timeBars', 6.8, 3.85, 3.2);
+    // ── 3. Findings — one slide per top finding (cap at most severe ~8) ──
+    const topFindings = [...e.findings]
+        .sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss)
+        .slice(0, 8);
+    topFindings.forEach((f, idx) => {
+        const sf = pptx.addSlide({ masterName: 'BASE' });
+        const sv = SEVERITY[f.severity];
+        const svColor = hex(sv.color);
+        const { owasp, mitre, cwe, cves, primaryAsset } = taxonomy(f);
 
-    // ── Action plan (table) ──
-    const s7 = pptx.addSlide({ masterName: 'BASE' });
-    section(s7, 'Plano de Ação', 'Itens de correção priorizados');
-    const items = actionItems(e.findings).sort((a, b) => WINDOWS.indexOf(a.window) - WINDOWS.indexOf(b.window) || SEVERITY[b.f.severity].rank - SEVERITY[a.f.severity].rank);
-    const aHead = ['Janela', 'ID', 'Ação de correção', 'Esforço', 'Prazo', 'QW'].map((t) => ({ text: t, options: { bold: true, color: 'FFFFFF', fill: { color: primary }, fontSize: 10 } }));
-    const aRows = items.map((a) => [
-        { text: a.window, options: { fontSize: 9, color: 'FFFFFF', fill: { color: WINDOW_COLOR[a.window].replace('#', '') }, bold: true } },
-        { text: a.f.id, options: { fontSize: 9 } },
-        { text: a.f.remediation, options: { fontSize: 9 } },
-        { text: EFFORT[a.effort].label, options: { fontSize: 9, bold: true, color: EFFORT[a.effort].color.replace('#', '') } },
-        { text: `${a.etaDays}d`, options: { fontSize: 9 } },
-        { text: a.quickWin ? '★' : '—', options: { fontSize: 9, bold: true, color: '059669', align: 'center' } },
-    ]);
-    s7.addTable([aHead, ...aRows], { x: 0.5, y: 1.5, w: 12.3, colW: [1.3, 0.7, 7.0, 1.1, 0.8, 1.4], border: { type: 'solid', color: LINE, pt: 1 }, rowH: 0.4, valign: 'middle' });
+        // kicker + title
+        sf.addText(`ACHADO ${idx + 1} DE ${topFindings.length} · ${f.id}`, { x: 0.62, y: 0.34, w: 8, h: 0.3, fontSize: 10, bold: true, color: primary, charSpacing: 1 });
+        sf.addText(f.title, { x: 0.62, y: 0.62, w: 10.5, h: 0.9, fontSize: 21, bold: true, color: INK, valign: 'top' });
+        // severity badge top-right
+        sf.addText(sv.label.toUpperCase(), { x: 11.0, y: 0.66, w: 1.7, h: 0.36, fontSize: 11, bold: true, color: 'FFFFFF', fill: { color: svColor }, align: 'center', valign: 'middle', rectRadius: 0.04, shape: pptx.ShapeType.roundRect });
+
+        // severity left rail spanning the body
+        const bodyY = 1.7;
+        const bodyH = 5.2;
+        sf.addShape(pptx.ShapeType.rect, { x: 0.5, y: bodyY, w: 0.07, h: bodyH, fill: { color: svColor } });
+
+        // taxonomy chips line (CVSS, CWE, OWASP, MITRE, CVE, asset)
+        const chips: { text: string; filled?: boolean; mono?: boolean; w: number }[] = [];
+        chips.push({ text: `CVSS ${f.cvss.toFixed(1)}`, filled: true, w: 1.25 });
+        if (cwe) chips.push({ text: cwe, w: 1.25 });
+        if (owasp) chips.push({ text: `OWASP ${owasp}`, w: 1.7 });
+        if (mitre) chips.push({ text: `MITRE ${mitre}`, w: 1.7 });
+        cves.slice(0, 2).forEach((cv) => chips.push({ text: cv, w: 1.6 }));
+        if (primaryAsset) chips.push({ text: primaryAsset, mono: true, w: Math.min(3.2, 0.95 + primaryAsset.length * 0.085) });
+        let cx = 0.72;
+        const chipY = 1.72;
+        chips.forEach((ch) => {
+            chip(sf, ch.text, cx, chipY, ch.w, { filled: ch.filled, mono: ch.mono });
+            cx += ch.w + 0.12;
+        });
+
+        // kill-chain mini-path (from finding.attackPath) — last two beats are "hot"
+        const path = f.attackPath ?? [];
+        let py = 2.18;
+        if (path.length > 0) {
+            let px = 0.72;
+            path.forEach((beat, i) => {
+                const hot = i >= path.length - 2;
+                const w = Math.min(2.6, 0.6 + beat.length * 0.085);
+                sf.addText(beat, { x: px, y: 2.16, w, h: 0.3, fontSize: 8.5, color: hot ? PATH_HOT_INK : MUTED, fill: { color: hot ? PATH_HOT_FILL : PATH_FILL }, align: 'center', valign: 'middle', rectRadius: 0.06, shape: pptx.ShapeType.roundRect });
+                px += w + 0.04;
+                if (i < path.length - 1) {
+                    sf.addText('→', { x: px, y: 2.16, w: 0.22, h: 0.3, fontSize: 11, color: 'C8CBD2', align: 'center', valign: 'middle' });
+                    px += 0.24;
+                }
+            });
+            py = 2.6;
+        }
+
+        // description
+        sf.addText('Descrição', { x: 0.72, y: py, w: 6, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
+        sf.addText(f.description, { x: 0.72, y: py + 0.28, w: 11.8, h: 1.05, fontSize: 11, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+
+        // evidence snippet (dark code box) — keep concise for a deck
+        let twoColY = py + 1.45;
+        if (f.evidence) {
+            const evY = py + 1.4;
+            const codeLines = f.evidence.code.split('\n').slice(0, 5);
+            sf.addText(f.evidence.caption, { x: 0.72, y: evY, w: 11.8, h: 0.26, fontSize: 8.5, italic: true, color: MUTED });
+            sf.addText(codeLines.join('\n'), { x: 0.72, y: evY + 0.28, w: 11.8, h: 0.16 + codeLines.length * 0.2, fontSize: 9, fontFace: 'Consolas', color: 'E2E8F0', fill: { color: INK }, valign: 'top', margin: 6, lineSpacingMultiple: 1.0 });
+            twoColY = evY + 0.32 + codeLines.length * 0.2 + 0.14;
+        }
+
+        // Impacto / Remediação two-column
+        const colW = 5.78;
+        sf.addText('Impacto ao negócio', { x: 0.72, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
+        sf.addText(f.businessImpact, { x: 0.72, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+        sf.addText('Remediação', { x: 0.72 + colW + 0.3, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: '1F9E6E', charSpacing: 0.5 });
+        sf.addText(f.remediation, { x: 0.72 + colW + 0.3, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+    });
+
+    // ── 4. Closing remediation-roadmap slide ──
+    const sr = pptx.addSlide({ masterName: 'BASE' });
+    section(sr, 'Plano de Ação', 'Roteiro de Remediação');
+    img(sr, 'roadmap', 0.6, 1.55, 12.1);
+
+    const items = actionItems(e.findings).sort(
+        (a, b) => WINDOWS.indexOf(a.window) - WINDOWS.indexOf(b.window) || SEVERITY[b.f.severity].rank - SEVERITY[a.f.severity].rank,
+    );
+    // Three columns by remediation window; each lists its prioritized items as compact lines.
+    const colW2 = 4.05;
+    const colGap2 = 0.18;
+    const startX = 0.5;
+    const colTop = 2.5;
+    WINDOWS.forEach((win, ci) => {
+        const x = startX + ci * (colW2 + colGap2);
+        const winItems = items.filter((a) => a.window === win);
+        sr.addShape(pptx.ShapeType.roundRect, { x, y: colTop, w: colW2, h: 0.42, rectRadius: 0.05, fill: { color: hex(WINDOW_COLOR[win]) } });
+        sr.addText(win.toUpperCase(), { x: x + 0.15, y: colTop, w: colW2 - 0.3, h: 0.42, fontSize: 11, bold: true, color: 'FFFFFF', valign: 'middle', charSpacing: 1 });
+        let ly = colTop + 0.58;
+        winItems.slice(0, 6).forEach((a) => {
+            const lines = a.f.remediation.length > 92 ? `${a.f.remediation.slice(0, 91)}…` : a.f.remediation;
+            sr.addText(
+                [
+                    { text: `${a.f.id}  `, options: { bold: true, color: hex(SEVERITY[a.f.severity].color), fontFace: 'Consolas' } },
+                    { text: a.quickWin ? '★ ' : '', options: { bold: true, color: GREEN } },
+                    { text: lines, options: { color: SLATE } },
+                    { text: `   ${EFFORT[a.effort].label} · ${a.etaDays}d`, options: { color: MUTED, italic: true } },
+                ],
+                { x, y: ly, w: colW2, h: 0.62, fontSize: 9, valign: 'top', lineSpacingMultiple: 1.0 },
+            );
+            ly += 0.72;
+        });
+        if (winItems.length === 0) sr.addText('—', { x, y: ly, w: colW2, h: 0.3, fontSize: 9, color: MUTED });
+    });
+    // strategic recommendation footer line
+    sr.addText(
+        [
+            { text: 'Quick wins primeiro: ', options: { bold: true, color: GREEN } },
+            { text: `${qw.length} correções de alto impacto e baixo esforço aceleram a redução de risco. Recomenda-se reteste após a remediação dos achados críticos.`, options: { color: SLATE } },
+        ],
+        { x: 0.5, y: 6.55, w: 12.3, h: 0.45, fontSize: 10, valign: 'middle' },
+    );
 
     return pptx;
 }

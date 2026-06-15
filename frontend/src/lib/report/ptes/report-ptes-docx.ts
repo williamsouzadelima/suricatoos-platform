@@ -24,17 +24,30 @@ import { CHART_SPECS } from './report-charts-sheet';
 import { stripControlChars } from './from-flow-llm';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { PTES_PHASES, type Engagement, type Finding } from './engagement';
-import { actionItems, categoryCounts, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
+import { actionItems, EFFORT, quickWins, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
 
 export type ChartImages = Record<string, string>; // key -> PNG data URI
 
-const BLUE = '194FE3';
+// Direction 3 palette (indigo). COLORS.brand is the indigo; these hex-without-# tokens mirror
+// theme.ts so the DOCX matches the PDF element-for-element.
+const BLUE = '4F46E5'; // brand indigo (was the legacy blue; renamed value, kept the constant)
+const INDIGO = '4F46E5';
+const INDIGO_DARK = '3730A3';
+const INDIGO_SOFT = 'EEF0FF'; // filled indigo chip / KPI / coverage-on background
+const INDIGO_BORDER = 'C7C2F0';
 const CORAL = 'FF7678';
 const INK = '0F172A';
 const SLATE = '334155';
 const MUTED = '64748B';
 const LINE = 'E2E8F0';
 const PANEL = 'F4F6FB';
+const PATH_BG = 'EEF0F3'; // kill-chain pill (cool/neutral)
+const PATH_HOT_BG = 'FBEDEC'; // kill-chain pill — last two beats (coral-tinted)
+const PATH_HOT_FG = 'C04A40';
+const GREEN = '1F9E6E'; // remediation label
+const CODE_FG = 'E2E8F0';
+const SANS = 'Helvetica'; // Direction 3 is sans; Word maps Helvetica → Arial-like furniture
+const MONO = 'Consolas';
 const hx = (c: string) => c.replace('#', '');
 
 // Sanitize at the chokepoint: OOXML forbids control characters, and the `docx` library (unlike
@@ -106,6 +119,43 @@ function safeImage(dataUri: string | undefined, width: number, height: number): 
     return new ImageRun({ type, data, transformation: { width, height } });
 }
 
+// ── Direction 3 taxonomy derivation (mirrors report-book-pdf.tsx `refMatch`) ──
+// Parse OWASP / MITRE / CVE from the references list when the explicit fields are absent.
+const refMatch = (f: Finding, re: RegExp) => f.references.map((r) => r.label).find((l) => re.test(l));
+const est = (p?: string) => p === 'estimated' || p === 'inferred';
+
+interface FindingTaxonomy {
+    owasp?: string;
+    mitre?: string;
+    cwe?: string;
+    cves: string[];
+    primaryAsset?: string;
+    path: string[];
+}
+function findingTaxonomy(f: Finding): FindingTaxonomy {
+    const owasp = f.owasp ?? refMatch(f, /owasp/i)?.replace(/^owasp\s*/i, '').trim();
+    const mitre = f.mitre ?? refMatch(f, /mitre|\bT\d{4}/i)?.replace(/^mitre att&ck\s*/i, '').replace(/^mitre\s*/i, '').trim();
+    const cwe = f.cwe && f.cwe !== '—' && !/^MITRE/i.test(f.cwe) ? f.cwe : undefined;
+    const cves = f.cve ?? [];
+    const a0 = f.assets?.[0];
+    const primaryAsset = a0 ? a0.url || (a0.port ? `${a0.host}:${a0.port}` : a0.host) : f.affected[0];
+    return { owasp, mitre, cwe, cves, primaryAsset, path: f.attackPath ?? [] };
+}
+
+// OWASP Top 10 (2021) — identical list/order to report-book-pdf.tsx.
+const OWASP_2021: [string, string][] = [
+    ['A01', 'Broken Access Control'],
+    ['A02', 'Cryptographic Failures'],
+    ['A03', 'Injection'],
+    ['A04', 'Insecure Design'],
+    ['A05', 'Security Misconfiguration'],
+    ['A06', 'Vulnerable & Outdated Components'],
+    ['A07', 'Identification & Auth Failures'],
+    ['A08', 'Software & Data Integrity'],
+    ['A09', 'Logging & Monitoring Failures'],
+    ['A10', 'Server-Side Request Forgery'],
+];
+
 // Evidence plates for the DOCX: terminal/tool-output excerpts render as shaded code; screenshots
 // embed the resolved image (aspect-preserved) or degrade to a caption when not resolved.
 function figuresBlocks(e: Engagement): (Paragraph | Table)[] {
@@ -165,25 +215,65 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     const body = (t: string) => new Paragraph({ spacing: { after: 100 }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: t, color: SLATE, size: 19 })] });
     const bullet = (t: string) => new Paragraph({ bullet: { level: 0 }, spacing: { after: 30 }, children: [txt({ text: t, color: SLATE, size: 19 })] });
 
-    // ── Cover ──
+    // ── Cover — Direction 3: light/white, indigo left rail, display title, KPI cards ──
     const appLogo = e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
-    const logoImg = safeImage(appLogo, 72, 72);
-    const cover: (Paragraph | Table)[] = [
-        new Paragraph({ spacing: { before: 600, after: 0 }, children: logoImg ? [logoImg] : [] }),
-        new Paragraph({ spacing: { before: 60, after: 0 }, children: [txt({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 44 })] }),
-        new Paragraph({ spacing: { before: 200, after: 60 }, children: [txt({ text: 'RELATÓRIO DE PENTEST · PTES', bold: true, color: CORAL, size: 22 })] }),
-        new Paragraph({ spacing: { after: 200 }, children: [txt({ text: e.title, bold: true, color: INK, size: 48 })] }),
-        new Paragraph({ spacing: { after: 40 }, children: [txt({ text: `Preparado por ${e.branding.appName} para`, color: MUTED, size: 18 })] }),
-        clientLockup(e),
-        new Paragraph({ spacing: { before: 120, after: 300 }, children: [txt({ text: ` ${e.classification} `, bold: true, color: CORAL, size: 18 })] }),
+    const logoImg = safeImage(appLogo, 26, 26);
+    // Brand row: app logo + name (left), classification pill (right).
+    const brandRow = new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: noBorders(),
+        rows: [
+            new TableRow({
+                children: [
+                    new TableCell({
+                        borders: noBorders(),
+                        verticalAlign: 'center',
+                        children: [new Paragraph({ children: [...(logoImg ? [logoImg, txt({ text: '  ' })] : []), txt({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 26 })] })],
+                    }),
+                    new TableCell({
+                        borders: { top: { style: BorderStyle.SINGLE, size: 4, color: CORAL }, bottom: { style: BorderStyle.SINGLE, size: 4, color: CORAL }, left: { style: BorderStyle.SINGLE, size: 4, color: CORAL }, right: { style: BorderStyle.SINGLE, size: 4, color: CORAL } },
+                        verticalAlign: 'center',
+                        margins: { top: 40, bottom: 40, left: 80, right: 80 },
+                        children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [txt({ text: e.classification, bold: true, color: CORAL, size: 16 })] })],
+                    }),
+                ],
+            }),
+        ],
+    });
+
+    // The cover's content column (everything to the right of the indigo rail).
+    const coverContent: (Paragraph | Table)[] = [
+        brandRow,
+        new Paragraph({ spacing: { before: 520, after: 60 }, children: [txt({ text: 'RELATÓRIO DE PENTEST · PTES', bold: true, color: MUTED, size: 22 })] }),
+        new Paragraph({ spacing: { after: 80 }, children: [txt({ text: e.title, bold: true, color: INK, size: 56 })] }),
+        new Paragraph({ spacing: { after: 260 }, children: [txt({ text: `Preparado por ${e.branding.appName} para ${e.client}`, color: MUTED, size: 24 })] }),
+        kpiCardsTable(e),
+        new Paragraph({ spacing: { before: 320, after: 0 }, children: [] }),
         kvTable([
             ['Período', `${e.period.start} – ${e.period.end}`],
             ['Versão', e.version],
             ['Autor', e.author],
             ['Contato', e.contact],
-            ['Risco geral', `${e.riskScore}/100 (${riskRating(e.riskScore).label})`],
             ['Metodologia', 'PTES — Penetration Testing Execution Standard'],
         ]),
+        // OOXML requires a paragraph after a table inside a cell — keeps the nested layout valid.
+        new Paragraph({ children: [] }),
+    ];
+
+    // Indigo left rail + content, as a 2-column table (the rail is a thin filled cell).
+    const cover: (Paragraph | Table)[] = [
+        new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: noBorders(),
+            rows: [
+                new TableRow({
+                    children: [
+                        new TableCell({ width: { size: 2, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: INDIGO }, borders: noBorders(), children: [new Paragraph({ spacing: { before: 600 }, children: [txt({ text: ' ' })] })] }),
+                        new TableCell({ borders: noBorders(), margins: { top: 200, bottom: 200, left: 280, right: 80 }, children: coverContent }),
+                    ],
+                }),
+            ],
+        }),
         new Paragraph({ children: [new PageBreak()] }),
     ];
 
@@ -230,6 +320,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             children: SEVERITY_ORDER.flatMap((sv) => [txt({ text: '■ ', color: SEVERITY[sv].color, size: 18 }), txt({ text: `${SEVERITY[sv].label}    `, color: SLATE, size: 18 })]),
         }),
     );
+    children.push(...coverageBlocks(e.findings));
 
     children.push(...heading(4, 'Metodologia (PTES)'));
     children.push(body('O engajamento seguiu as sete fases do Penetration Testing Execution Standard (PTES).'));
@@ -276,8 +367,9 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     return new Document({
         creator: stripControlChars(e.branding.appName),
         title: stripControlChars(e.title),
-        // Serif body to match the PDF's "book" voice (Georgia ships with Word everywhere).
-        styles: { default: { document: { run: { font: 'Georgia' } } } },
+        // Direction 3 is a sans report: a clean sans body (Helvetica → Arial-like on Word) replaces
+        // the old Georgia serif; code/evidence keeps a mono (Consolas).
+        styles: { default: { document: { run: { font: SANS } } } },
         sections: [
             {
                 properties: { titlePage: true, page: { margin: { top: 1080, bottom: 1080, left: 1080, right: 1080 } } },
@@ -316,23 +408,70 @@ function noBorders() {
     const none = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
     return { top: none, bottom: none, left: none, right: none, insideHorizontal: none, insideVertical: none };
 }
-function cellPlain(children: (Paragraph | Table)[]) {
-    return new TableCell({ children, margins: { top: 40, bottom: 40, left: 40, right: 40 } });
-}
-function clientLockup(e: Engagement) {
-    const initials = e.branding.clientName.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-    return new Table({
-        width: { size: 50, type: WidthType.PERCENTAGE },
-        borders: noBorders(),
-        rows: [
-            new TableRow({
+
+// One KPI card: label (small) over a big number. Optional `/100` suffix for the risk score.
+function kpiCardCell(label: string, value: string, opts: { bg: string; lblColor: string; numColor: string; suffix?: string }) {
+    return new TableCell({
+        width: { size: 25, type: WidthType.PERCENTAGE },
+        shading: { type: ShadingType.CLEAR, fill: opts.bg },
+        margins: { top: 120, bottom: 120, left: 130, right: 130 },
+        children: [
+            new Paragraph({ spacing: { after: 30 }, children: [txt({ text: label, color: opts.lblColor, size: 18 })] }),
+            new Paragraph({
                 children: [
-                    new TableCell({ width: { size: 14, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: hx(`#${e.branding.accent ?? CORAL}`) }, margins: { top: 80, bottom: 80, left: 80, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [txt({ text: initials, bold: true, color: 'FFFFFF', size: 28 })] })] }),
-                    new TableCell({ verticalAlign: 'center', borders: noBorders(), children: [new Paragraph({ children: [txt({ text: `  ${e.branding.clientName}`, bold: true, color: INK, size: 28 })] })] }),
+                    txt({ text: value, bold: true, color: opts.numColor, size: 40 }),
+                    ...(opts.suffix ? [txt({ text: opts.suffix, color: MUTED, size: 20 })] : []),
                 ],
             }),
         ],
     });
+}
+
+// Direction-3 cover KPI row: Risco geral / Críticos / Achados / Quick wins — mirrors the PDF.
+function kpiCardsTable(e: Engagement) {
+    const crit = e.findings.filter((f) => f.severity === 'critical').length;
+    const qw = quickWins(e.findings).length;
+    return new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: { ...noBorders(), insideVertical: { style: BorderStyle.SINGLE, size: 6, color: 'FFFFFF' } },
+        rows: [
+            new TableRow({
+                children: [
+                    kpiCardCell('Risco geral', `${e.riskScore}`, { bg: INDIGO_SOFT, lblColor: '6663C9', numColor: INDIGO, suffix: '/100' }),
+                    kpiCardCell('Críticos', `${crit}`, { bg: 'FBEDEC', lblColor: 'C04A40', numColor: 'E0483D' }),
+                    kpiCardCell('Achados', `${e.findings.length}`, { bg: PANEL, lblColor: MUTED, numColor: INK }),
+                    kpiCardCell('Quick wins', `${qw}`, { bg: PANEL, lblColor: MUTED, numColor: INK }),
+                ],
+            }),
+        ],
+    });
+}
+
+// A single taxonomy/severity "chip" run set rendered inside a shaded table cell, so the DOCX
+// reproduces the PDF's pill look (rounded look approximated by tight padding + soft fill).
+function chipCell(text: string, opts: { bg?: string; border?: string; color: string; mono?: boolean }) {
+    const cellBorder = opts.border ? { style: BorderStyle.SINGLE, size: 4, color: opts.border } : { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
+    return new TableCell({
+        shading: opts.bg ? { type: ShadingType.CLEAR, fill: opts.bg } : undefined,
+        borders: { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder },
+        margins: { top: 20, bottom: 20, left: 70, right: 70 },
+        children: [new Paragraph({ children: [txt({ text, color: opts.color, size: 15, font: opts.mono ? MONO : SANS })] })],
+    });
+}
+
+// A horizontal row of chips (taxonomy or path). Each chip is its own auto-width cell; the row is
+// borderless so the chips read as inline pills. Spacer cell at the end absorbs remaining width.
+function chipRowTable(cells: TableCell[]) {
+    if (cells.length === 0) return new Paragraph({ children: [] });
+    return new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        layout: 'autofit',
+        borders: noBorders(),
+        rows: [new TableRow({ children: [...cells, new TableCell({ borders: noBorders(), children: [new Paragraph({ children: [] })] })] })],
+    });
+}
+function cellPlain(children: (Paragraph | Table)[]) {
+    return new TableCell({ children, margins: { top: 40, bottom: 40, left: 40, right: 40 } });
 }
 function kvTable(rows: [string, string][]) {
     return new Table({
@@ -355,6 +494,44 @@ function hcell(t: string, primary: string, w: number) {
 function tcell(runs: TextRun[], w?: number) {
     return new TableCell({ width: w ? { size: w, type: WidthType.PERCENTAGE } : undefined, margins: { top: 40, bottom: 40, left: 60, right: 60 }, children: [new Paragraph({ children: runs })] });
 }
+// OWASP Top 10 (2021) coverage grid + observed MITRE ATT&CK technique chips — mirrors the PDF's
+// CoverageMatrix. Covered cells are filled indigo with a count; MITRE techniques render as chips.
+function coverageBlocks(findings: Finding[]): (Paragraph | Table)[] {
+    const hay = (f: Finding) => `${f.owasp ?? ''} ${f.references.map((r) => r.label).join(' ')}`;
+    const owaspHits = (code: string) => findings.filter((f) => hay(f).includes(code)).length;
+    const mitre = Array.from(new Set(findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)));
+
+    const covCell = (code: string, name: string) => {
+        const n = owaspHits(code);
+        const on = n > 0;
+        const cb = { style: BorderStyle.SINGLE, size: 4, color: on ? INDIGO_BORDER : LINE };
+        return new TableCell({
+            width: { size: 20, type: WidthType.PERCENTAGE },
+            shading: { type: ShadingType.CLEAR, fill: on ? INDIGO_SOFT : 'FFFFFF' },
+            borders: { top: cb, bottom: cb, left: cb, right: cb },
+            margins: { top: 50, bottom: 50, left: 70, right: 70 },
+            children: [
+                new Paragraph({ spacing: { after: 0 }, children: [txt({ text: `${code}${on ? `  ·  ${n}` : ''}`, bold: true, color: on ? INDIGO_DARK : MUTED, size: 16 })] }),
+                new Paragraph({ children: [txt({ text: name, color: on ? SLATE : MUTED, size: 13 })] }),
+            ],
+        });
+    };
+    const rows: TableRow[] = [];
+    for (let i = 0; i < OWASP_2021.length; i += 5) {
+        rows.push(new TableRow({ children: OWASP_2021.slice(i, i + 5).map(([c, nm]) => covCell(c, nm)) }));
+    }
+
+    const out: (Paragraph | Table)[] = [
+        new Paragraph({ spacing: { before: 180, after: 40 }, children: [txt({ text: 'Cobertura — OWASP Top 10 (2021)', bold: true, color: INK, size: 22 })] }),
+        new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, borders: { ...noBorders(), insideHorizontal: { style: BorderStyle.SINGLE, size: 8, color: 'FFFFFF' }, insideVertical: { style: BorderStyle.SINGLE, size: 8, color: 'FFFFFF' } }, rows }),
+    ];
+    if (mitre.length > 0) {
+        out.push(new Paragraph({ spacing: { before: 160, after: 40 }, children: [txt({ text: 'Técnicas MITRE ATT&CK observadas', bold: true, color: INK, size: 22 })] }));
+        out.push(chipRowTable(mitre.map((t) => chipCell(t, { border: LINE, color: SLATE }))));
+    }
+    return out;
+}
+
 function findingsIndexTable(findings: Finding[], primary: string) {
     return new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
@@ -375,35 +552,140 @@ function findingsIndexTable(findings: Finding[], primary: string) {
         ],
     });
 }
-function findingBlock(f: Finding): Paragraph[] {
+// Direction-3 FindingCard for the DOCX: a single bordered card (thick severity left rail) holding
+// the header (id + severity pill), title, taxonomy chips, kill-chain path, description, evidence
+// code, numbered "Reprodução", and a two-column Impacto / Remediação. Mirrors report-book-pdf.tsx.
+function findingBlock(f: Finding): (Paragraph | Table)[] {
     const sv = SEVERITY[f.severity];
-    const est = (p?: string) => p === 'estimated' || p === 'inferred';
-    const cvssTag = est(f.provenance?.cvss) ? ' (est.)' : '';
-    const sevTag = est(f.provenance?.severity) ? ' (est.)' : '';
-    const out: Paragraph[] = [
+    const cvssEst = est(f.provenance?.cvss);
+    const sevEst = est(f.provenance?.severity);
+    const tax = findingTaxonomy(f);
+    const inner: (Paragraph | Table)[] = [];
+
+    // Header: ID (muted) + severity pill (with optional "SEV. EST." marker).
+    inner.push(
         new Paragraph({
-            spacing: { before: 140, after: 20 },
-            border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } },
-            children: [txt({ text: `${f.id} — ${f.title}  `, bold: true, color: INK, size: 22 }), txt({ text: `${sv.label.toUpperCase()}${sevTag}`, bold: true, color: sv.color, size: 16 })],
+            spacing: { after: 20 },
+            children: [
+                txt({ text: f.id, bold: true, color: MUTED, size: 15 }),
+                txt({ text: '    ' }),
+                ...(sevEst ? [txt({ text: 'SEV. EST.  ', bold: true, color: '92400E', size: 13 })] : []),
+                txt({ text: ` ${sv.label} `, bold: true, color: sv.color, size: 15, shading: { type: ShadingType.CLEAR, fill: sv.soft } }),
+            ],
         }),
-        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: `CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category} · Afetado: ${f.affected.join(', ')}`, color: MUTED, size: 15 })] }),
-        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: f.description, color: SLATE, size: 18 })] }),
-    ];
+    );
+    inner.push(new Paragraph({ spacing: { after: 60 }, children: [txt({ text: f.title, bold: true, color: INK, size: 25 })] }));
+
+    // Taxonomy chips: CVSS (filled indigo), CWE, OWASP, MITRE, each CVE, primary asset (mono).
+    const chips: TableCell[] = [];
+    chips.push(chipCell(`CVSS ${f.cvss.toFixed(1)}${cvssEst ? ' (est.)' : ''}`, { bg: INDIGO_SOFT, color: INDIGO_DARK }));
+    if (tax.cwe) chips.push(chipCell(tax.cwe, { border: LINE, color: SLATE }));
+    if (tax.owasp) chips.push(chipCell(`OWASP ${tax.owasp}`, { border: LINE, color: SLATE }));
+    if (tax.mitre) chips.push(chipCell(`MITRE ${tax.mitre}`, { border: LINE, color: SLATE }));
+    tax.cves.forEach((c) => chips.push(chipCell(c, { border: LINE, color: SLATE })));
+    if (tax.primaryAsset) chips.push(chipCell(tax.primaryAsset, { border: LINE, color: INK, mono: true }));
+    inner.push(chipRowTable(chips));
+
+    // Kill-chain mini-path: pills with arrows; the last two beats are emphasized (coral-tinted).
+    if (tax.path.length > 0) {
+        const pathCells: TableCell[] = [];
+        tax.path.forEach((b, i) => {
+            const hot = i >= tax.path.length - 2;
+            pathCells.push(chipCell(b, hot ? { bg: PATH_HOT_BG, color: PATH_HOT_FG } : { bg: PATH_BG, color: MUTED }));
+            if (i < tax.path.length - 1) {
+                pathCells.push(new TableCell({ borders: noBorders(), verticalAlign: 'center', margins: { left: 30, right: 30 }, children: [new Paragraph({ children: [txt({ text: '→', color: 'C8CBD2', size: 16 })] })] }));
+            }
+        });
+        inner.push(new Paragraph({ spacing: { before: 60, after: 0 }, children: [] }));
+        inner.push(chipRowTable(pathCells));
+    }
+
+    inner.push(new Paragraph({ spacing: { before: 80, after: 40 }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: f.description, color: SLATE, size: 18 })] }));
+
+    // Evidence code block.
     if (f.evidence) {
-        out.push(new Paragraph({ spacing: { after: 0, before: 20 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: f.evidence.caption, italics: true, color: MUTED, size: 15 })] }));
+        inner.push(new Paragraph({ spacing: { before: 40, after: 0 }, children: [txt({ text: f.evidence.caption, italics: true, color: MUTED, size: 14 })] }));
         f.evidence.code.split('\n').forEach((line) =>
-            out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 15 })] })),
+            inner.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: MONO, color: CODE_FG, size: 15 })] })),
         );
     }
-    out.push(new Paragraph({ spacing: { before: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: 'Impacto: ', bold: true, color: primaryOf(), size: 17 }), txt({ text: f.businessImpact, color: SLATE, size: 18 })] }));
-    out.push(new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: 'Remediação: ', bold: true, color: primaryOf(), size: 17 }), txt({ text: f.remediation, color: SLATE, size: 18 })] }));
-    if (f.estimatedNote) {
-        out.push(new Paragraph({ spacing: { before: 20, after: 60 }, shading: { type: ShadingType.CLEAR, fill: 'FFFBEB' }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: 'F59E0B', space: 8 } }, children: [txt({ text: `Nota: ${f.estimatedNote}`, italics: true, color: '92400E', size: 15 })] }));
+
+    // Numbered "Reprodução".
+    if (f.reproSteps && f.reproSteps.length > 0) {
+        inner.push(new Paragraph({ spacing: { before: 100, after: 30 }, children: [txt({ text: 'REPRODUÇÃO', bold: true, color: INDIGO, size: 15 })] }));
+        f.reproSteps.slice(0, 8).forEach((st, i) =>
+            inner.push(new Paragraph({ spacing: { after: 20 }, children: [txt({ text: `${i + 1}. `, bold: true, color: INDIGO, size: 17 }), txt({ text: st, color: SLATE, size: 17 })] })),
+        );
     }
-    return out;
-}
-function primaryOf() {
-    return BLUE;
+
+    // Two-column Impacto ao negócio / Remediação.
+    inner.push(
+        new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: { ...noBorders(), insideVertical: { style: BorderStyle.SINGLE, size: 4, color: 'FFFFFF' } },
+            rows: [
+                new TableRow({
+                    children: [
+                        new TableCell({
+                            width: { size: 50, type: WidthType.PERCENTAGE },
+                            borders: noBorders(),
+                            margins: { top: 120, bottom: 40, left: 0, right: 80 },
+                            children: [
+                                new Paragraph({ spacing: { after: 30 }, children: [txt({ text: 'IMPACTO AO NEGÓCIO', bold: true, color: INDIGO, size: 15 })] }),
+                                new Paragraph({ children: [txt({ text: f.businessImpact, color: SLATE, size: 18 })] }),
+                            ],
+                        }),
+                        new TableCell({
+                            width: { size: 50, type: WidthType.PERCENTAGE },
+                            borders: noBorders(),
+                            margins: { top: 120, bottom: 40, left: 80, right: 0 },
+                            children: [
+                                new Paragraph({ spacing: { after: 30 }, children: [txt({ text: 'REMEDIAÇÃO', bold: true, color: GREEN, size: 15 })] }),
+                                new Paragraph({ children: [txt({ text: f.remediation, color: SLATE, size: 18 })] }),
+                            ],
+                        }),
+                    ],
+                }),
+            ],
+        }),
+    );
+
+    // Affected assets + references + estimated note.
+    inner.push(new Paragraph({ spacing: { before: 80, after: 20 }, children: [txt({ text: 'ATIVOS AFETADOS', bold: true, color: INDIGO, size: 15 })] }));
+    if (f.assets && f.assets.length > 0) {
+        f.assets.slice(0, 8).forEach((a) =>
+            inner.push(new Paragraph({ spacing: { after: 10 }, children: [txt({ text: a.port ? `${a.host}:${a.port}` : a.host, font: MONO, color: INK, size: 15 }), ...((a.service || a.url) ? [txt({ text: `  ${[a.service, a.url].filter(Boolean).join(' · ')}`, color: MUTED, size: 14 })] : [])] })),
+        );
+    } else {
+        inner.push(new Paragraph({ spacing: { after: 10 }, children: [txt({ text: f.affected.length ? f.affected.join(', ') : '—', color: SLATE, size: 17 })] }));
+    }
+    if (f.references.length > 0) {
+        inner.push(new Paragraph({ spacing: { before: 60 }, children: [txt({ text: `Referências: ${f.references.map((r) => r.label).join(' · ')}`, italics: true, color: MUTED, size: 14 })] }));
+    }
+    if (f.estimatedNote) {
+        inner.push(new Paragraph({ spacing: { before: 60, after: 0 }, shading: { type: ShadingType.CLEAR, fill: 'FFFBEB' }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: 'F59E0B', space: 8 } }, children: [txt({ text: `Nota: ${f.estimatedNote}`, italics: true, color: '92400E', size: 14 })] }));
+    }
+
+    // Card frame: thick severity left rail + thin grey border on the other three sides.
+    const thin = { style: BorderStyle.SINGLE, size: 4, color: LINE };
+    return [
+        new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: noBorders(),
+            rows: [
+                new TableRow({
+                    children: [
+                        new TableCell({
+                            borders: { top: thin, bottom: thin, right: thin, left: { style: BorderStyle.SINGLE, size: 24, color: sv.color } },
+                            margins: { top: 140, bottom: 140, left: 160, right: 160 },
+                            children: inner,
+                        }),
+                    ],
+                }),
+            ],
+        }),
+        new Paragraph({ spacing: { after: 140 }, children: [] }),
+    ];
 }
 function actionTable(items: ReturnType<typeof actionItems>, primary: string) {
     const sorted = [...items].sort((a, b) => WINDOWS.indexOf(a.window) - WINDOWS.indexOf(b.window) || SEVERITY[b.f.severity].rank - SEVERITY[a.f.severity].rank);

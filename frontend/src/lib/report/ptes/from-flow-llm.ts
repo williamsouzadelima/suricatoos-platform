@@ -69,6 +69,8 @@ export function transformLlmFindingsToEngagement(rows: FindingFragmentFragment[]
         const cvssEstimated = bf.cvssScore == null;
         return {
             affected: (bf.affected ?? []).map(stripControlChars),
+            attackPath: parseJSON<string[]>(bf.attackPath, []).map(stripControlChars),
+            reproSteps: parseJSON<string[]>(bf.reproSteps, []).map(stripControlChars),
             businessImpact: stripControlChars(bf.businessImpact ?? 'Impacto de negócio a confirmar pelo analista.'),
             category: stripControlChars(bf.category || 'Achado'),
             cvss: bf.cvssScore ?? CVSS_BY_SEVERITY[sev],

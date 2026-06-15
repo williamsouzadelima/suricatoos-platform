@@ -363,6 +363,8 @@ export type FindingFragmentFragment = {
     impact: number | null;
     remediation: string | null;
     references: string | null;
+    attackPath: string | null;
+    reproSteps: string | null;
     evidence: string | null;
     sourceTaskIds: Array<string>;
     provenance: string | null;
@@ -1549,6 +1551,8 @@ export const FindingFragmentFragmentDoc = gql`
         impact
         remediation
         references
+        attackPath
+        reproSteps
         evidence
         sourceTaskIds
         provenance

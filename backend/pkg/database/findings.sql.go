@@ -19,10 +19,10 @@ const createFinding = `-- name: CreateFinding :one
 INSERT INTO findings (
   flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category,
   affected, description, business_impact, likelihood, impact, remediation,
-  "references", evidence, source_task_ids, evidence_refs, provenance
+  "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance
 ) VALUES (
-  $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19
-) RETURNING id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at
+  $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21
+) RETURNING id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at
 `
 
 type CreateFindingParams struct {
@@ -41,6 +41,8 @@ type CreateFindingParams struct {
 	Impact         sql.NullInt16   `json:"impact"`
 	Remediation    sql.NullString  `json:"remediation"`
 	References     json.RawMessage `json:"references"`
+	AttackPath     json.RawMessage `json:"attack_path"`
+	ReproSteps     json.RawMessage `json:"repro_steps"`
 	Evidence       sql.NullString  `json:"evidence"`
 	SourceTaskIds  json.RawMessage `json:"source_task_ids"`
 	EvidenceRefs   json.RawMessage `json:"evidence_refs"`
@@ -64,6 +66,8 @@ func (q *Queries) CreateFinding(ctx context.Context, arg CreateFindingParams) (F
 		arg.Impact,
 		arg.Remediation,
 		arg.References,
+		arg.AttackPath,
+		arg.ReproSteps,
 		arg.Evidence,
 		arg.SourceTaskIds,
 		arg.EvidenceRefs,
@@ -87,6 +91,8 @@ func (q *Queries) CreateFinding(ctx context.Context, arg CreateFindingParams) (F
 		&i.Impact,
 		&i.Remediation,
 		&i.References,
+		&i.AttackPath,
+		&i.ReproSteps,
 		&i.Evidence,
 		&i.SourceTaskIds,
 		&i.EvidenceRefs,
@@ -141,7 +147,7 @@ func (q *Queries) DeleteFlowFindings(ctx context.Context, flowID int64) error {
 }
 
 const getFinding = `-- name: GetFinding :one
-SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE id = $1
+SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE id = $1
 `
 
 func (q *Queries) GetFinding(ctx context.Context, id int64) (Finding, error) {
@@ -164,6 +170,8 @@ func (q *Queries) GetFinding(ctx context.Context, id int64) (Finding, error) {
 		&i.Impact,
 		&i.Remediation,
 		&i.References,
+		&i.AttackPath,
+		&i.ReproSteps,
 		&i.Evidence,
 		&i.SourceTaskIds,
 		&i.EvidenceRefs,
@@ -175,7 +183,7 @@ func (q *Queries) GetFinding(ctx context.Context, id int64) (Finding, error) {
 }
 
 const getFlowFindings = `-- name: GetFlowFindings :many
-SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE flow_id = $1
+SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE flow_id = $1
 ORDER BY (CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1
   WHEN 'medium' THEN 2 WHEN 'low' THEN 3 ELSE 4 END), created_at DESC
 `
@@ -206,6 +214,8 @@ func (q *Queries) GetFlowFindings(ctx context.Context, flowID int64) ([]Finding,
 			&i.Impact,
 			&i.Remediation,
 			&i.References,
+			&i.AttackPath,
+			&i.ReproSteps,
 			&i.Evidence,
 			&i.SourceTaskIds,
 			&i.EvidenceRefs,

@@ -12,8 +12,8 @@ export const FONT = {
 } as const;
 
 export const COLORS = {
-    brand: '#194FE3',
-    brandDark: '#0B2A7A',
+    brand: '#4F46E5',
+    brandDark: '#3730A3',
     coral: '#FF7678',
     ink: '#0F172A',
     slate: '#334155',

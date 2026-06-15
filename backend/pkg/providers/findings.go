@@ -57,6 +57,8 @@ type LLMFinding struct {
 	Impact         int               `json:"impact,omitempty"`
 	Remediation    string            `json:"remediation,omitempty"`
 	References     []LLMRef          `json:"references,omitempty"`
+	AttackPath     []string          `json:"attack_path,omitempty"`
+	ReproSteps     []string          `json:"repro_steps,omitempty"`
 	Evidence       string            `json:"evidence,omitempty"`
 	SourceTaskIDs  []int64           `json:"source_task_ids,omitempty"`
 	Provenance     map[string]string `json:"provenance,omitempty"`
@@ -73,7 +75,7 @@ const findingsDeriverSystemPrompt = `You are a senior penetration-test report an
 	`Read it and extract concrete, de-duplicated SECURITY FINDINGS, then return them by calling the ` + submitFindingsToolName + ` function. ` +
 	`Do NOT answer in free text — your entire answer must be the tool call.
 
-For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; the source_task_ids the finding was derived from; and a provenance map.
+For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; an attack_path — a 3–5 step kill-chain from recon to impact, each step a short label (e.g. ["Recon","Param q","Injeção boolean/time","Dump do banco"]); repro_steps — concrete numbered reproduction steps a reviewer can follow to confirm the finding; the source_task_ids the finding was derived from; and a provenance map. Keep attack_path and repro_steps grounded ONLY in the execution data — the HONESTY RULES below apply to them too.
 
 TAXONOMY — always classify each finding (these are standard mappings, not inventions):
 - Always set the cwe field AND add it to references, e.g. {"label":"CWE-89: SQL Injection"}.
@@ -472,6 +474,8 @@ func llmFindingToParams(flowID, runID int64, f LLMFinding) database.CreateFindin
 		Impact:         toNullInt16(f.Impact),
 		Remediation:    toNullString(f.Remediation),
 		References:     jsonOrEmpty(f.References, "[]"),
+		AttackPath:     jsonOrEmpty(f.AttackPath, "[]"),
+		ReproSteps:     jsonOrEmpty(f.ReproSteps, "[]"),
 		Evidence:       toNullString(f.Evidence),
 		SourceTaskIds:  jsonOrEmpty(f.SourceTaskIDs, "[]"),
 		EvidenceRefs:   json.RawMessage("[]"),

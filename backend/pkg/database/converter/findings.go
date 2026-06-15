@@ -28,6 +28,8 @@ func ConvertFinding(f database.Finding) *model.Finding {
 		Impact:         nullInt16Ptr(f.Impact),
 		Remediation:    nullStrPtr(f.Remediation),
 		References:     rawJSONPtr(f.References),
+		AttackPath:     rawJSONPtr(f.AttackPath),
+		ReproSteps:     rawJSONPtr(f.ReproSteps),
 		Evidence:       nullStrPtr(f.Evidence),
 		SourceTaskIds:  jsonInt64Slice(f.SourceTaskIds),
 		Provenance:     rawJSONPtr(f.Provenance),

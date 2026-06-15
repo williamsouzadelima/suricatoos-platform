@@ -299,6 +299,8 @@ type Finding {
   impact: Int
   remediation: String
   references: String
+  attackPath: String
+  reproSteps: String
   evidence: String
   sourceTaskIds: [ID!]!
   provenance: String
