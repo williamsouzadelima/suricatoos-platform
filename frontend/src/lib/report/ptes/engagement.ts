@@ -74,6 +74,12 @@ export interface Finding {
     businessImpact: string;
     remediation: string;
     references: FindingReference[];
+    // --- taxonomy + technical-density fields (Direction 3; optional, derived from references when absent) ---
+    owasp?: string; // "A03:2021 — Injection" / "API1:2023 — BOLA"
+    mitre?: string; // "T1190" / "T1558.003"
+    cve?: string[]; // only when a CVE is actually evidenced in the execution
+    attackPath?: string[]; // kill-chain beats for the per-finding mini path ("Recon" → "Inject" → "Dump")
+    reproSteps?: string[]; // numbered reproduction steps
     // --- real-data extras (all optional; existing renderers/sample ignore them) ---
     assets?: AffectedAsset[]; // structured affected assets; `affected[]` is the humanized view
     provenance?: FieldProvenance; // per-field honesty flags
@@ -357,6 +363,15 @@ export const SAMPLE_ENGAGEMENT: Engagement = {
             references: [
                 { label: 'OWASP A03:2021 — Injection' },
                 { label: 'CWE-89: SQL Injection' },
+            ],
+            owasp: 'A03:2021',
+            mitre: 'T1190',
+            attackPath: ['Recon', 'Param q', 'Injeção boolean/time', 'Dump do banco'],
+            reproSteps: [
+                'Interceptar a requisição de busca da loja.',
+                'Injetar a carga \'%20AND%20SLEEP(5)-- no parâmetro q.',
+                'Confirmar o atraso de ~5 s na resposta (time-based).',
+                'Extrair a versão e o schema via sqlmap (--technique=BT).',
             ],
         },
         {
