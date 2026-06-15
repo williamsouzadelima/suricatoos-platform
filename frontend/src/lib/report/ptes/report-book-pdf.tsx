@@ -453,7 +453,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
     const estimatedCount = e.findings.filter(findingIsEstimated).length;
     const figuresN = 7;
     const appendixN = hasFigures ? 8 : 7;
-    const tocItems = ['Sumário Executivo', 'Narrativa do Ataque', 'Visão Geral de Risco', 'Metodologia (PTES)', 'Achados Detalhados', 'Plano de Ação', ...(hasFigures ? ['Evidências'] : []), 'Apêndice'];
+    const tocItems = ['Sumário Executivo', 'Metodologia (PTES)', 'Narrativa do Ataque', 'Visão Geral de Risco', 'Achados Detalhados', 'Plano de Ação', ...(hasFigures ? ['Evidências'] : []), 'Apêndice'];
 
     return (
         <Document title={e.title} author={e.branding.appName} creator={e.branding.appName}>
@@ -596,11 +596,31 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 </View>
             </Page>
 
-            {/* ── 2. Attack narrative (storytelling) ── */}
+            {/* ── 2. Methodology ── */}
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={2} title="Narrativa do Ataque" />
+                <Section n={2} title="Metodologia (PTES)" />
+                <Text style={s.p}>O engajamento seguiu as sete fases do Penetration Testing Execution Standard (PTES), garantindo cobertura consistente do pré-engajamento ao relatório.</Text>
+                <View style={{ alignItems: 'center', marginVertical: 8 }}>
+                    <PhaseStepper phases={PTES_PHASES.map((p) => ({ n: p.n, name: p.short }))} width={500} />
+                </View>
+                {e.methodology.map((m) => {
+                    const ph = PTES_PHASES.find((p) => p.id === m.phase);
+                    return (
+                        <View key={m.phase} style={{ marginBottom: 6 }} wrap={false}>
+                            <Text style={s.h3}>{`${ph?.n}. ${m.title}`}</Text>
+                            <Bullets items={m.activities} />
+                        </View>
+                    );
+                })}
+            </Page>
+
+            {/* ── 3. Attack narrative (storytelling) ── */}
+            <Page size="A4" style={s.page}>
+                <Header e={e} />
+                <Footer e={e} />
+                <Section n={3} title="Narrativa do Ataque" />
                 <Text style={s.p}>Como a avaliação evoluiu, em linguagem acessível: do reconhecimento ao impacto, mostrando como achados isolados se encadeiam em um caminho real de comprometimento.</Text>
                 <View style={{ marginVertical: 8 }}>
                     <AttackChainStrip nodes={e.attackStory.map((st) => ({ n: st.n, label: st.title.split(' ')[0] }))} width={507} />
@@ -610,11 +630,11 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 ))}
             </Page>
 
-            {/* ── 3. Risk overview ── */}
+            {/* ── 4. Risk overview ── */}
             <Page size="A4" style={s.page}>
                 <Header e={e} />
                 <Footer e={e} />
-                <Section n={3} title="Visão Geral de Risco" />
+                <Section n={4} title="Visão Geral de Risco" />
                 <Text style={s.p}>Distribuição de risco dos achados por probabilidade e impacto, e concentração por categoria de superfície avaliada.</Text>
                 <View style={[s.twoCol, { alignItems: 'flex-start' }]}>
                     <View style={{ alignItems: 'center', width: 240 }}>
@@ -636,26 +656,6 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 <View style={{ marginTop: 12 }}>
                     <CoverageMatrix findings={e.findings} />
                 </View>
-            </Page>
-
-            {/* ── 4. Methodology ── */}
-            <Page size="A4" style={s.page}>
-                <Header e={e} />
-                <Footer e={e} />
-                <Section n={4} title="Metodologia (PTES)" />
-                <Text style={s.p}>O engajamento seguiu as sete fases do Penetration Testing Execution Standard (PTES), garantindo cobertura consistente do pré-engajamento ao relatório.</Text>
-                <View style={{ alignItems: 'center', marginVertical: 8 }}>
-                    <PhaseStepper phases={PTES_PHASES.map((p) => ({ n: p.n, name: p.short }))} width={500} />
-                </View>
-                {e.methodology.map((m) => {
-                    const ph = PTES_PHASES.find((p) => p.id === m.phase);
-                    return (
-                        <View key={m.phase} style={{ marginBottom: 6 }} wrap={false}>
-                            <Text style={s.h3}>{`${ph?.n}. ${m.title}`}</Text>
-                            <Bullets items={m.activities} />
-                        </View>
-                    );
-                })}
             </Page>
 
             {/* ── 5. Findings ── */}
@@ -748,6 +748,9 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         <Text style={s.legendText}>{`${SEVERITY[sev].label} — orientação de risco e prioridade de tratamento.`}</Text>
                     </View>
                 ))}
+                <View style={{ marginTop: 4 }}>
+                    <CoverageMatrix findings={e.findings} />
+                </View>
                 <Text style={s.h3}>Aviso</Text>
                 <Text style={s.p}>{`Relatório gerado por ${e.branding.appName} a partir de um engajamento autorizado. Conteúdo confidencial; distribua apenas a partes autorizadas. As provas de conceito foram não destrutivas e limitadas ao escopo acordado.`}</Text>
             </Page>
