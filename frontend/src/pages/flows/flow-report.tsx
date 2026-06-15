@@ -128,10 +128,13 @@ function FlowReport() {
 
         run()
             .then(() => {
+                // Mark done either way: a tab opened from a real <a target="_blank"> link (the export
+                // menu) usually CANNOT window.close() itself, so instead of leaving a stuck spinner we
+                // render the report. Closing is best-effort — and delayed so Safari commits the blob
+                // download before the tab goes away (it aborts in-flight downloads on early close).
+                setPdfPhase('done');
                 if (silent) {
-                    setTimeout(() => window.close(), 1000);
-                } else {
-                    setPdfPhase('done');
+                    setTimeout(() => window.close(), 3000);
                 }
             })
             .catch((err) => {

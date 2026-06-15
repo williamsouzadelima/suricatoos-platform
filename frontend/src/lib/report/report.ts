@@ -176,9 +176,14 @@ export const downloadTextFile = (content: string, fileName: string, mimeType = '
 
         document.body.append(link);
         link.click();
-        link.remove();
 
-        URL.revokeObjectURL(url);
+        // Safari CANCELS the download if the object URL is revoked (or the <a> removed) synchronously
+        // after click(). Defer cleanup so the browser commits the download first. The blob is freed on
+        // tab close regardless, so the timeout leaking is harmless.
+        setTimeout(() => {
+            link.remove();
+            URL.revokeObjectURL(url);
+        }, 10000);
     } catch (error) {
         Log.error('Failed to download file:', error);
         throw error;
@@ -195,8 +200,13 @@ export const downloadBlob = (blob: Blob, fileName: string): void => {
         link.style.display = 'none';
         document.body.append(link);
         link.click();
-        link.remove();
-        URL.revokeObjectURL(url);
+        // Safari CANCELS the download if the object URL is revoked (or the <a> removed) synchronously
+        // after click(). Defer cleanup so the browser commits the download first. The blob is freed on
+        // tab close regardless, so the timeout leaking is harmless.
+        setTimeout(() => {
+            link.remove();
+            URL.revokeObjectURL(url);
+        }, 10000);
     } catch (error) {
         Log.error('Failed to download blob:', error);
         throw error;

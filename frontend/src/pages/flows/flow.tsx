@@ -477,23 +477,13 @@ function FlowReportDropdown() {
         }
     };
 
-    const handleExport = (type: 'executive' | 'ptes' | 'technical', format: 'docx' | 'pdf' | 'pptx') => {
-        if (isReportDisabled || !flow || !flowId) {
-            return;
-        }
-
-        const url = `/flows/${flowId}/report?download=true&silent=true&type=${type}&format=${format}`;
-        window.open(url, '_blank');
-    };
-
-    const handleOpenWebView = () => {
-        if (isReportDisabled || !flowId) {
-            return;
-        }
-
-        const url = `/flows/${flowId}/report`;
-        window.open(url, '_blank');
-    };
+    // Report-route URLs as real links. Safari's popup blocker SILENTLY drops a programmatic
+    // window.open() fired from a menu item (it isn't a user-activated window), so the export opened
+    // nothing at all. A genuine <a target="_blank"> click counts as user navigation and is NOT
+    // popup-blocked — the items below render as anchors via DropdownMenuItem `asChild`.
+    const reportHref = (type: 'executive' | 'ptes' | 'technical', format: 'docx' | 'pdf' | 'pptx'): string =>
+        flowId ? `/flows/${flowId}/report?download=true&silent=true&type=${type}&format=${format}` : '#';
+    const webViewHref = flowId ? `/flows/${flowId}/report` : '#';
 
     return (
         <DropdownMenu>
@@ -508,13 +498,11 @@ function FlowReportDropdown() {
                 />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                    className="flex items-center gap-2"
-                    disabled={isReportDisabled}
-                    onClick={handleOpenWebView}
-                >
-                    <ExternalLink className="size-4" />
-                    {t('Open web view')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={webViewHref} rel="noopener noreferrer" target="_blank">
+                        <ExternalLink className="size-4" />
+                        {t('Open web view')}
+                    </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     className="flex items-center gap-2"
@@ -534,41 +522,57 @@ function FlowReportDropdown() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>{t('PTES report (premium)')}</DropdownMenuLabel>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'pdf')}>
-                    <Download className="size-4" />
-                    PDF
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('ptes', 'pdf')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        PDF
+                    </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'docx')}>
-                    <Download className="size-4" />
-                    {t('Word (.docx)')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('ptes', 'docx')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        {t('Word (.docx)')}
+                    </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('ptes', 'pptx')}>
-                    <Download className="size-4" />
-                    {t('PowerPoint (.pptx)')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('ptes', 'pptx')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        {t('PowerPoint (.pptx)')}
+                    </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>{t('Technical report')}</DropdownMenuLabel>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'pdf')}>
-                    <Download className="size-4" />
-                    PDF
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('technical', 'pdf')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        PDF
+                    </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'docx')}>
-                    <Download className="size-4" />
-                    {t('Word (.docx)')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('technical', 'docx')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        {t('Word (.docx)')}
+                    </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('technical', 'pptx')}>
-                    <Download className="size-4" />
-                    {t('PowerPoint (.pptx)')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('technical', 'pptx')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        {t('PowerPoint (.pptx)')}
+                    </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>{t('Executive report')}</DropdownMenuLabel>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('executive', 'pdf')}>
-                    <Download className="size-4" />
-                    PDF
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('executive', 'pdf')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        PDF
+                    </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2" disabled={isReportDisabled} onClick={() => handleExport('executive', 'pptx')}>
-                    <Download className="size-4" />
-                    {t('PowerPoint (.pptx)')}
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={reportHref('executive', 'pptx')} rel="noopener noreferrer" target="_blank">
+                        <Download className="size-4" />
+                        {t('PowerPoint (.pptx)')}
+                    </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
