@@ -878,13 +878,15 @@ func TestRepeatingDetector(t *testing.T) {
 			expectedLen:      2,
 		},
 		{
-			name: "three identical calls triggers detection",
+			// A short run of identical calls accumulates but stays below RepeatingToolCallThreshold,
+			// so detect() does not fire yet.
+			name: "three identical calls accumulate but stay below threshold",
 			calls: []llms.ToolCall{
 				makeToolCall("search", `{"query":"test"}`),
 				makeToolCall("search", `{"query":"test"}`),
 				makeToolCall("search", `{"query":"test"}`),
 			},
-			expectedDetected: []bool{false, false, true},
+			expectedDetected: []bool{false, false, false},
 			expectedLen:      3,
 		},
 		{
@@ -908,22 +910,37 @@ func TestRepeatingDetector(t *testing.T) {
 			expectedLen:      1,
 		},
 		{
-			name: "six identical calls still below escalation threshold",
+			// detect() only fires once the run of identical calls reaches RepeatingToolCallThreshold,
+			// so anything strictly below it stays false. Driven by the constant so the case never
+			// drifts when the threshold is retuned.
+			name: "identical calls just below threshold stay false",
 			calls: func() []llms.ToolCall {
 				tc := makeToolCall("search", `{"query":"test"}`)
-				return []llms.ToolCall{tc, tc, tc, tc, tc, tc}
+				out := make([]llms.ToolCall, RepeatingToolCallThreshold-1)
+				for i := range out {
+					out[i] = tc
+				}
+				return out
 			}(),
-			expectedDetected: []bool{false, false, true, true, true, true},
-			expectedLen:      6,
+			expectedDetected: make([]bool, RepeatingToolCallThreshold-1), // all false
+			expectedLen:      RepeatingToolCallThreshold - 1,
 		},
 		{
-			name: "seven identical calls reaches escalation threshold",
+			name: "identical calls reaching threshold trigger detection",
 			calls: func() []llms.ToolCall {
 				tc := makeToolCall("search", `{"query":"test"}`)
-				return []llms.ToolCall{tc, tc, tc, tc, tc, tc, tc}
+				out := make([]llms.ToolCall, RepeatingToolCallThreshold)
+				for i := range out {
+					out[i] = tc
+				}
+				return out
 			}(),
-			expectedDetected: []bool{false, false, true, true, true, true, true},
-			expectedLen:      7,
+			expectedDetected: func() []bool {
+				d := make([]bool, RepeatingToolCallThreshold)
+				d[RepeatingToolCallThreshold-1] = true // detect() fires once len reaches the threshold
+				return d
+			}(),
+			expectedLen: RepeatingToolCallThreshold,
 		},
 		{
 			name: "message field stripped treats calls as identical",
@@ -932,7 +949,7 @@ func TestRepeatingDetector(t *testing.T) {
 				makeToolCall("search", `{"query":"test","message":"second attempt"}`),
 				makeToolCall("search", `{"query":"test","message":"third attempt"}`),
 			},
-			expectedDetected: []bool{false, false, true},
+			expectedDetected: []bool{false, false, false}, // identical-treatment is asserted by expectedLen (no reset), not by firing at this small count
 			expectedLen:      3,
 		},
 		{
@@ -942,7 +959,7 @@ func TestRepeatingDetector(t *testing.T) {
 				makeToolCall("search", `{"limit":"10","query":"test"}`),
 				makeToolCall("search", `{"query":"test","limit":"10"}`),
 			},
-			expectedDetected: []bool{false, false, true},
+			expectedDetected: []bool{false, false, false}, // identical-treatment is asserted by expectedLen (no reset), not by firing at this small count
 			expectedLen:      3,
 		},
 	}
@@ -964,32 +981,32 @@ func TestRepeatingDetector(t *testing.T) {
 }
 
 func TestRepeatingDetectorEscalationThreshold(t *testing.T) {
-	// This test validates the escalation math used in performer.go:
-	// len(detector.funcCalls) >= RepeatingToolCallThreshold + maxSoftDetectionsBeforeAbort
-	// With threshold=3 and maxSoftDetections=4, abort triggers at len >= 7
+	// Validates the escalation math used in performer.go:
+	//   abort when len(detector.funcCalls) >= RepeatingToolCallThreshold + maxSoftDetectionsBeforeAbort
+	// Driven entirely by the constants so it never drifts when the threshold is retuned.
+	tc := makeToolCall("search", `{"query":"test"}`)
+	abortAt := RepeatingToolCallThreshold + testMaxSoftDetectionsBeforeAbort
 
 	detector := &repeatingDetector{}
-	tc := makeToolCall("search", `{"query":"test"}`)
-
-	for i := 0; i < 7; i++ {
+	for i := 0; i < abortAt; i++ {
 		detector.detect(tc)
 	}
 
-	assert.Equal(t, 7, len(detector.funcCalls))
-	assert.True(t, len(detector.funcCalls) >= RepeatingToolCallThreshold+testMaxSoftDetectionsBeforeAbort,
-		"7 calls should reach escalation threshold: %d >= %d+%d",
-		len(detector.funcCalls), RepeatingToolCallThreshold, testMaxSoftDetectionsBeforeAbort)
+	assert.Equal(t, abortAt, len(detector.funcCalls))
+	assert.True(t, len(detector.funcCalls) >= abortAt,
+		"%d identical calls should reach the abort threshold: %d >= %d+%d",
+		abortAt, len(detector.funcCalls), RepeatingToolCallThreshold, testMaxSoftDetectionsBeforeAbort)
 
-	// Verify 6 calls is below threshold
+	// One call below the abort threshold must NOT escalate.
 	detector2 := &repeatingDetector{}
-	for i := 0; i < 6; i++ {
+	for i := 0; i < abortAt-1; i++ {
 		detector2.detect(tc)
 	}
 
-	assert.Equal(t, 6, len(detector2.funcCalls))
-	assert.False(t, len(detector2.funcCalls) >= RepeatingToolCallThreshold+testMaxSoftDetectionsBeforeAbort,
-		"6 calls should NOT reach escalation threshold: %d < %d+%d",
-		len(detector2.funcCalls), RepeatingToolCallThreshold, 4)
+	assert.Equal(t, abortAt-1, len(detector2.funcCalls))
+	assert.False(t, len(detector2.funcCalls) >= abortAt,
+		"%d identical calls should NOT reach the abort threshold: %d < %d+%d",
+		abortAt-1, len(detector2.funcCalls), RepeatingToolCallThreshold, testMaxSoftDetectionsBeforeAbort)
 }
 
 func TestClearCallArguments(t *testing.T) {
