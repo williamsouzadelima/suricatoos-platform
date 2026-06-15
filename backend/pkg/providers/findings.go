@@ -242,10 +242,106 @@ func parseFindingsReport(args string) (*FindingsReport, error) {
 		s = s[i:]
 	}
 	var report FindingsReport
-	if err := json.NewDecoder(strings.NewReader(s)).Decode(&report); err != nil {
-		return nil, fmt.Errorf("failed to parse findings JSON: %w", err)
+	decErr := json.NewDecoder(strings.NewReader(s)).Decode(&report)
+	if decErr == nil && len(report.Findings) > 0 {
+		return &report, nil
 	}
-	return &report, nil
+	// Salvage path: the model often returns JSON that is truncated (hit the output-token cap) or
+	// has an internal glitch (a missing comma / stray token), which a strict decode of the whole
+	// object rejects ("invalid character 't' after object key:value pair"). Parse the findings
+	// array element-by-element instead and keep every well-formed finding — losing at most the one
+	// broken/truncated element rather than ALL findings.
+	if salv := salvageFindings(s); len(salv) > 0 {
+		return &FindingsReport{Findings: salv, Summary: report.Summary}, nil
+	}
+	if decErr != nil {
+		return nil, fmt.Errorf("failed to parse findings JSON (%d chars; head=%q tail=%q): %w",
+			len(s), snippet(s, 0, 200), snippet(s, len(s)-200, len(s)), decErr)
+	}
+	return &report, nil // valid JSON but zero findings
+}
+
+// snippet returns s[a:b] clamped to bounds — used to surface the malformed JSON in error logs.
+func snippet(s string, a, b int) string {
+	if a < 0 {
+		a = 0
+	}
+	if b > len(s) {
+		b = len(s)
+	}
+	if a >= b {
+		return ""
+	}
+	return s[a:b]
+}
+
+// salvageFindings extracts the `findings` array and unmarshals each object independently, keeping
+// only the well-formed ones. It tolerates a truncated final object (LLM hit the token cap) and a
+// single internally-malformed object (which is simply skipped).
+func salvageFindings(s string) []LLMFinding {
+	idx := strings.Index(s, `"findings"`)
+	if idx < 0 {
+		return nil
+	}
+	rel := strings.IndexByte(s[idx:], '[')
+	if rel < 0 {
+		return nil
+	}
+	body := s[idx+rel+1:]
+	var out []LLMFinding
+	for i := 0; i < len(body) && len(out) < maxFindings; {
+		for i < len(body) && body[i] != '{' {
+			if body[i] == ']' {
+				return out
+			}
+			i++
+		}
+		if i >= len(body) {
+			break
+		}
+		end := balancedObjectEnd(body, i)
+		if end < 0 {
+			break // truncated final object — keep the complete ones gathered so far
+		}
+		var f LLMFinding
+		if json.Unmarshal([]byte(body[i:end]), &f) == nil && strings.TrimSpace(f.Title) != "" {
+			out = append(out, f)
+		}
+		i = end
+	}
+	return out
+}
+
+// balancedObjectEnd returns the index just past the '}' that closes the object beginning at start,
+// honoring JSON string/escape rules, or -1 if the object is never closed (truncated).
+func balancedObjectEnd(s string, start int) int {
+	depth, inStr, esc := 0, false, false
+	for j := start; j < len(s); j++ {
+		c := s[j]
+		if inStr {
+			switch {
+			case esc:
+				esc = false
+			case c == '\\':
+				esc = true
+			case c == '"':
+				inStr = false
+			}
+			continue
+		}
+		switch c {
+		case '"':
+			inStr = true
+		case '{':
+			depth++
+		case '}':
+			depth--
+			if depth == 0 {
+				return j + 1
+			}
+		}
+	}
+	return -1
 }
 
 // Evidence relevance scoring. The flow's terminal output is mostly noise (dumped JS bundles,
