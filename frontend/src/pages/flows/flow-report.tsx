@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
-import { t } from '@/i18n';
+import { t, tf } from '@/i18n';
 import { useDeriveFindingsMutation, useFlowQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import {
@@ -164,19 +164,21 @@ function FlowReport() {
     }
 
     if (state === 'loading' || state === 'generating') {
+        // Format-aware copy so a .docx/.pptx export doesn't say "Generating PDF".
+        const formatNoun = reportFormat === 'docx' ? 'Word (.docx)' : reportFormat === 'pptx' ? 'PowerPoint (.pptx)' : 'PDF';
         return (
             <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
                 <div className="flex min-h-screen flex-col items-center justify-center p-8">
                     <Logo className="animate-logo-pulse mb-8 size-16 text-white" />
                     <div className="flex flex-col gap-4 text-center">
                         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                            {state === 'loading' ? t('Loading Report...') : t('Generating PDF...')}
+                            {state === 'loading' ? t('Loading Report...') : tf('Generating {format}…', { format: formatNoun })}
                         </h1>
                         <div className="mx-auto size-8 animate-spin rounded-full border-primary border-b-2" />
                         <p className="max-w-md text-gray-600 dark:text-gray-400">
                             {state === 'loading'
                                 ? t('Please wait while we prepare your penetration testing report.')
-                                : t('Creating your PDF document. This may take a few moments.')}
+                                : tf('Creating your {format} file. This may take a few moments.', { format: formatNoun })}
                         </p>
                     </div>
                 </div>

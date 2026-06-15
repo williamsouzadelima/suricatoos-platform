@@ -203,12 +203,38 @@ func (pc *providerController) runFindingsLLM(ctx context.Context, flow database.
 	if args == "" {
 		return nil, fmt.Errorf("model returned no %s tool call", submitFindingsToolName)
 	}
-	var report FindingsReport
-	if err := json.Unmarshal([]byte(args), &report); err != nil {
-		return nil, fmt.Errorf("failed to parse findings JSON: %w", err)
+	report, err := parseFindingsReport(args)
+	if err != nil {
+		return nil, err
 	}
 	if len(report.Findings) > maxFindings {
 		report.Findings = report.Findings[:maxFindings]
+	}
+	return report, nil
+}
+
+// parseFindingsReport tolerantly decodes the model's tool-call arguments. DeepSeek (and other
+// providers) frequently return slightly malformed JSON — a trailing '}' or stray text after the
+// object, or the whole thing wrapped in a ```json fence. json.Unmarshal rejects ANY trailing
+// bytes ("invalid character '}' after top-level value"), which made every derive fail → never
+// cached → every export re-ran the ~2-min LLM call. A json.Decoder reads exactly ONE top-level
+// value and ignores whatever follows, so these responses parse cleanly.
+func parseFindingsReport(args string) (*FindingsReport, error) {
+	s := strings.TrimSpace(args)
+	// Strip a Markdown code fence if the model wrapped the JSON in one.
+	if strings.HasPrefix(s, "```") {
+		s = strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(strings.TrimPrefix(s, "```"), "json"), "JSON"))
+		if i := strings.LastIndex(s, "```"); i >= 0 {
+			s = strings.TrimSpace(s[:i])
+		}
+	}
+	// Drop any prose preamble before the first object brace.
+	if i := strings.IndexByte(s, '{'); i > 0 {
+		s = s[i:]
+	}
+	var report FindingsReport
+	if err := json.NewDecoder(strings.NewReader(s)).Decode(&report); err != nil {
+		return nil, fmt.Errorf("failed to parse findings JSON: %w", err)
 	}
 	return &report, nil
 }
