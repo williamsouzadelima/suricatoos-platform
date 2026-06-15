@@ -129,7 +129,9 @@ function FlowReport() {
         run()
             .then(() => {
                 if (silent) {
-                    setTimeout(() => window.close(), 1000);
+                    // Give the browser time to commit the download before the tab self-closes —
+                    // Safari aborts an in-flight blob download if the originating tab closes too soon.
+                    setTimeout(() => window.close(), 3000);
                 } else {
                     setPdfPhase('done');
                 }
