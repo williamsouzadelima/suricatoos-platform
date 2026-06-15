@@ -1102,6 +1102,7 @@ export type StopFlowMutation = { stopFlow: ResultType };
 
 export type DeriveFindingsMutationVariables = Exact<{
     flowId: string | number;
+    language?: string | null | undefined;
 }>;
 
 export type DeriveFindingsMutation = {
@@ -5479,8 +5480,8 @@ export type StopFlowMutationOptions = ApolloReactCommon.BaseMutationOptions<
     StopFlowMutationVariables
 >;
 export const DeriveFindingsDocument = gql`
-    mutation deriveFindings($flowId: ID!) {
-        deriveFindings(flowId: $flowId) {
+    mutation deriveFindings($flowId: ID!, $language: String) {
+        deriveFindings(flowId: $flowId, language: $language) {
             id
             flowId
             status
@@ -5510,6 +5511,7 @@ export type DeriveFindingsMutationFn = ApolloReactCommon.MutationFunction<
  * const [deriveFindingsMutation, { data, loading, error }] = useDeriveFindingsMutation({
  *   variables: {
  *      flowId: // value for 'flowId'
+ *      language: // value for 'language'
  *   },
  * });
  */

@@ -3,7 +3,8 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
-import { t, tf } from '@/i18n';
+import { t, tf, useLocale } from '@/i18n';
+import type { LocaleCode } from '@/i18n/locales';
 import { useDeriveFindingsMutation, useFlowQuery } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import {
@@ -23,6 +24,14 @@ import { useBranding } from '@/providers/branding-provider';
 type ReportFormat = 'docx' | 'pdf' | 'pptx';
 type ReportType = 'executive' | 'ptes' | 'technical';
 
+// Map the app's active locale to a clear language NAME the LLM understands, so the
+// derived findings are written in the report's language rather than the flow's stored one.
+const LOCALE_LANGUAGE_NAME: Record<LocaleCode, string> = {
+    en: 'English',
+    es: 'Spanish',
+    pt: 'Portuguese (Brazil)',
+};
+
 type PdfPhase = 'done' | 'error' | 'idle';
 type ReportState = 'content' | 'error' | 'generating' | 'loading';
 
@@ -38,6 +47,8 @@ function FlowReport() {
         : 'pdf';
 
     const { branding } = useBranding();
+    const { locale } = useLocale();
+    const reportLanguage = LOCALE_LANGUAGE_NAME[locale];
 
     const [pdfPhase, setPdfPhase] = useState<PdfPhase>('idle');
     const [pdfError, setPdfError] = useState<null | string>(null);
@@ -101,7 +112,7 @@ function FlowReport() {
                 // report renders the AI findings. On failure the regex-derived fallback is used.
                 let reportData = data;
                 try {
-                    await deriveFindings({ variables: { flowId: flowId! } });
+                    await deriveFindings({ variables: { flowId: flowId!, language: reportLanguage } });
                     const refreshed = await refetch();
                     if (refreshed.data?.flow) {
                         reportData = refreshed.data;

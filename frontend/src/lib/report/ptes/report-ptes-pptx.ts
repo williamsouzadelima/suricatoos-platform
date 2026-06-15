@@ -7,13 +7,32 @@
 // Charts are embedded as the exact same images rasterized from the PDF's vector charts.
 import pptxgen from 'pptxgenjs';
 
+import { t, tf } from '@/i18n';
+
 import { CHART_SPECS } from './report-charts-sheet';
 import { highlightSegments, HOT_BG_HEX, HOT_FG_HEX } from './report-highlight';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
-import { type Engagement, type Finding } from './engagement';
-import { actionItems, COLORS, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
+import { type Engagement, type Finding, type RemediationWindow, type Severity } from './engagement';
+import { actionItems, COLORS, EFFORT, quickWins, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
 
 export type ChartImages = Record<string, string>; // key -> PNG data URI
+
+// theme.ts SEVERITY/EFFORT/WINDOW/riskRating labels are hardcoded pt-BR source-of-truth; the map
+// keys must stay intact, so localize at the render site by mapping the key → English source → t().
+const SEV_LABEL: Record<Severity, string> = { critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low', info: 'Info' };
+const sevLabel = (sev: Severity): string => t(SEV_LABEL[sev]);
+const EFFORT_LABEL: Record<1 | 2 | 3, string> = { 1: 'Low', 2: 'Medium', 3: 'High' };
+const effortLabel = (e: 1 | 2 | 3): string => t(EFFORT_LABEL[e]);
+const WINDOW_LABEL: Record<RemediationWindow, string> = { Imediata: 'Immediate', 'Curto prazo': 'Short term', 'Médio prazo': 'Medium term' };
+const windowLabel = (w: RemediationWindow): string => t(WINDOW_LABEL[w]);
+// riskRating().label is an uppercase pt-BR rating; map score → English source string → t().
+const riskRatingLabel = (score: number): string => {
+    if (score >= 80) return t('CRITICAL');
+    if (score >= 60) return t('HIGH');
+    if (score >= 40) return t('MEDIUM');
+    if (score >= 20) return t('LOW');
+    return t('INFORMATIONAL');
+};
 
 // Direction-3 palette (hex without '#', as pptxgenjs expects). Mirrors COLORS + the PDF's
 // per-tile/per-chip tints so all three formats look like one product.
@@ -132,19 +151,19 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     // classification chip (coral outline), top-right
     c.addText(e.classification, { x: 10.4, y: 0.66, w: 2.3, h: 0.36, fontSize: 10, bold: true, color: CORAL, align: 'center', valign: 'middle', charSpacing: 1, line: { color: CORAL, width: 1 }, rectRadius: 0.03, shape: pptx.ShapeType.roundRect });
 
-    c.addText('RELATÓRIO DE PENTEST · PTES', { x: 0.8, y: 1.95, w: 11.5, h: 0.35, fontSize: 12, bold: true, color: MUTED, charSpacing: 3 });
+    c.addText(t('PENTEST REPORT · PTES'), { x: 0.8, y: 1.95, w: 11.5, h: 0.35, fontSize: 12, bold: true, color: MUTED, charSpacing: 3 });
     c.addText(e.title, { x: 0.78, y: 2.32, w: 11.8, h: 1.7, fontSize: 33, bold: true, color: INK, valign: 'top' });
-    c.addText(`Preparado por ${e.branding.appName} para ${e.client}`, { x: 0.8, y: 4.05, w: 11.5, h: 0.4, fontSize: 14, color: MUTED });
+    c.addText(tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client }), { x: 0.8, y: 4.05, w: 11.5, h: 0.4, fontSize: 14, color: MUTED });
 
     // 4 KPI tiles — same metrics/tints as the PDF cover.
     const kpiY = 4.75;
     const kpiW = 2.92;
     const kpiGap = 0.18;
     const kpis: { lbl: string; val: string; suffix?: string; fill: string; lblColor: string; numColor: string }[] = [
-        { lbl: 'Risco geral', val: `${e.riskScore}`, suffix: '/100', fill: KPI_RISK, lblColor: '6663C9', numColor: primary },
-        { lbl: 'Críticos', val: `${critCount}`, fill: KPI_CRIT, lblColor: PATH_HOT_INK, numColor: 'E0483D' },
-        { lbl: 'Achados', val: `${e.findings.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
-        { lbl: 'Quick wins', val: `${qw.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
+        { lbl: t('Overall risk'), val: `${e.riskScore}`, suffix: '/100', fill: KPI_RISK, lblColor: '6663C9', numColor: primary },
+        { lbl: t('Critical'), val: `${critCount}`, fill: KPI_CRIT, lblColor: PATH_HOT_INK, numColor: 'E0483D' },
+        { lbl: t('Findings'), val: `${e.findings.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
+        { lbl: t('Quick wins'), val: `${qw.length}`, fill: PANEL, lblColor: MUTED, numColor: INK },
     ];
     kpis.forEach((k, i) => {
         const x = 0.8 + i * (kpiW + kpiGap);
@@ -162,26 +181,26 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     // meta line (period / version / risk rating)
     c.addText(
         [
-            { text: 'Período: ', options: { bold: true, color: SLATE } }, { text: `${e.period.start} – ${e.period.end}      `, options: { color: MUTED } },
-            { text: 'Versão: ', options: { bold: true, color: SLATE } }, { text: `${e.version}      `, options: { color: MUTED } },
-            { text: 'Risco: ', options: { bold: true, color: SLATE } }, { text: `${e.riskScore}/100 (${riskRating(e.riskScore).label})`, options: { color: MUTED } },
+            { text: `${t('Period')}: `, options: { bold: true, color: SLATE } }, { text: `${e.period.start} – ${e.period.end}      `, options: { color: MUTED } },
+            { text: `${t('Version')}: `, options: { bold: true, color: SLATE } }, { text: `${e.version}      `, options: { color: MUTED } },
+            { text: `${t('Risk')}: `, options: { bold: true, color: SLATE } }, { text: `${e.riskScore}/100 (${riskRatingLabel(e.riskScore)})`, options: { color: MUTED } },
         ],
         { x: 0.8, y: 6.5, w: 12, h: 0.4, fontSize: 11 },
     );
 
     // ── 2. Risk slide ── severity breakdown + OWASP coverage + MITRE techniques ──
     const s2 = pptx.addSlide({ masterName: 'BASE' });
-    section(s2, 'Visão Geral de Risco', 'Risco e Cobertura');
+    section(s2, t('Risk Overview'), t('Risk and Coverage'));
 
     // Severity donut + breakdown legend (left column)
-    s2.addText('Severidade dos achados', { x: 0.5, y: 1.5, w: 4, h: 0.3, fontSize: 12, bold: true, color: INK });
+    s2.addText(t('Finding severity'), { x: 0.5, y: 1.5, w: 4, h: 0.3, fontSize: 12, bold: true, color: INK });
     img(s2, 'donut', 0.7, 1.85, 2.0);
     SEVERITY_ORDER.forEach((sv, i) => {
         const y = 4.15 + i * 0.34;
         s2.addShape(pptx.ShapeType.rect, { x: 0.55, y: y + 0.05, w: 0.14, h: 0.14, fill: { color: hex(SEVERITY[sv].color) } });
         s2.addText(
             [
-                { text: `${SEVERITY[sv].label}  `, options: { color: SLATE, bold: true } },
+                { text: `${sevLabel(sv)}  `, options: { color: SLATE, bold: true } },
                 { text: `${e.findings.filter((f) => f.severity === sv).length}`, options: { color: MUTED } },
             ],
             { x: 0.78, y, w: 2.5, h: 0.28, fontSize: 10.5, valign: 'middle' },
@@ -191,7 +210,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     // OWASP Top 10 (2021) coverage grid (covered = indigo tint w/ count) — middle/right.
     const hay = (f: Finding) => `${f.owasp ?? ''} ${f.references.map((r) => r.label).join(' ')}`;
     const owaspHits = (code: string) => e.findings.filter((f) => hay(f).includes(code)).length;
-    s2.addText('Cobertura — OWASP Top 10 (2021)', { x: 4.0, y: 1.5, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
+    s2.addText(t('Coverage — OWASP Top 10 (2021)'), { x: 4.0, y: 1.5, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
     const gx = 4.0;
     const gy = 1.9;
     const cellW = 4.35;
@@ -216,7 +235,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         new Set(e.findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)),
     );
     if (mitreObserved.length > 0) {
-        s2.addText('Técnicas MITRE ATT&CK observadas', { x: 0.5, y: 5.95, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
+        s2.addText(t('Observed MITRE ATT&CK techniques'), { x: 0.5, y: 5.95, w: 9, h: 0.3, fontSize: 12, bold: true, color: INK });
         mitreObserved.slice(0, 10).forEach((t, i) => chip(s2, t, 0.5 + i * 1.22, 6.35, 1.1, { mono: true }));
     }
 
@@ -231,10 +250,10 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         const { owasp, mitre, cwe, cves, primaryAsset } = taxonomy(f);
 
         // kicker + title
-        sf.addText(`ACHADO ${idx + 1} DE ${topFindings.length} · ${f.id}`, { x: 0.62, y: 0.34, w: 8, h: 0.3, fontSize: 10, bold: true, color: primary, charSpacing: 1 });
+        sf.addText(`${tf('FINDING {n} OF {total}', { n: idx + 1, total: topFindings.length })} · ${f.id}`, { x: 0.62, y: 0.34, w: 8, h: 0.3, fontSize: 10, bold: true, color: primary, charSpacing: 1 });
         sf.addText(f.title, { x: 0.62, y: 0.62, w: 10.5, h: 0.9, fontSize: 21, bold: true, color: INK, valign: 'top' });
         // severity badge top-right
-        sf.addText(sv.label.toUpperCase(), { x: 11.0, y: 0.66, w: 1.7, h: 0.36, fontSize: 11, bold: true, color: 'FFFFFF', fill: { color: svColor }, align: 'center', valign: 'middle', rectRadius: 0.04, shape: pptx.ShapeType.roundRect });
+        sf.addText(sevLabel(f.severity).toUpperCase(), { x: 11.0, y: 0.66, w: 1.7, h: 0.36, fontSize: 11, bold: true, color: 'FFFFFF', fill: { color: svColor }, align: 'center', valign: 'middle', rectRadius: 0.04, shape: pptx.ShapeType.roundRect });
 
         // severity left rail spanning the body
         const bodyY = 1.7;
@@ -275,7 +294,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         }
 
         // description
-        sf.addText('Descrição', { x: 0.72, y: py, w: 6, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
+        sf.addText(t('Description'), { x: 0.72, y: py, w: 6, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
         sf.addText(f.description, { x: 0.72, y: py + 0.28, w: 11.8, h: 1.05, fontSize: 11, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
 
         // evidence snippet (dark code box) — keep concise for a deck
@@ -295,15 +314,15 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
 
         // Impacto / Remediação two-column
         const colW = 5.78;
-        sf.addText('Impacto ao negócio', { x: 0.72, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
+        sf.addText(t('Business impact'), { x: 0.72, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
         sf.addText(f.businessImpact, { x: 0.72, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
-        sf.addText('Remediação', { x: 0.72 + colW + 0.3, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: '1F9E6E', charSpacing: 0.5 });
+        sf.addText(t('Remediation'), { x: 0.72 + colW + 0.3, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: '1F9E6E', charSpacing: 0.5 });
         sf.addText(f.remediation, { x: 0.72 + colW + 0.3, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
     });
 
     // ── 4. Closing remediation-roadmap slide ──
     const sr = pptx.addSlide({ masterName: 'BASE' });
-    section(sr, 'Plano de Ação', 'Roteiro de Remediação');
+    section(sr, t('Action Plan'), t('Remediation Roadmap'));
     img(sr, 'roadmap', 0.6, 1.55, 12.1);
 
     const items = actionItems(e.findings).sort(
@@ -318,7 +337,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         const x = startX + ci * (colW2 + colGap2);
         const winItems = items.filter((a) => a.window === win);
         sr.addShape(pptx.ShapeType.roundRect, { x, y: colTop, w: colW2, h: 0.42, rectRadius: 0.05, fill: { color: hex(WINDOW_COLOR[win]) } });
-        sr.addText(win.toUpperCase(), { x: x + 0.15, y: colTop, w: colW2 - 0.3, h: 0.42, fontSize: 11, bold: true, color: 'FFFFFF', valign: 'middle', charSpacing: 1 });
+        sr.addText(windowLabel(win).toUpperCase(), { x: x + 0.15, y: colTop, w: colW2 - 0.3, h: 0.42, fontSize: 11, bold: true, color: 'FFFFFF', valign: 'middle', charSpacing: 1 });
         let ly = colTop + 0.58;
         winItems.slice(0, 6).forEach((a) => {
             const lines = a.f.remediation.length > 92 ? `${a.f.remediation.slice(0, 91)}…` : a.f.remediation;
@@ -327,7 +346,7 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
                     { text: `${a.f.id}  `, options: { bold: true, color: hex(SEVERITY[a.f.severity].color), fontFace: 'Consolas' } },
                     { text: a.quickWin ? '★ ' : '', options: { bold: true, color: GREEN } },
                     { text: lines, options: { color: SLATE } },
-                    { text: `   ${EFFORT[a.effort].label} · ${a.etaDays}d`, options: { color: MUTED, italic: true } },
+                    { text: `   ${effortLabel(a.effort)} · ${a.etaDays}d`, options: { color: MUTED, italic: true } },
                 ],
                 { x, y: ly, w: colW2, h: 0.62, fontSize: 9, valign: 'top', lineSpacingMultiple: 1.0 },
             );
@@ -338,8 +357,8 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     // strategic recommendation footer line
     sr.addText(
         [
-            { text: 'Quick wins primeiro: ', options: { bold: true, color: GREEN } },
-            { text: `${qw.length} correções de alto impacto e baixo esforço aceleram a redução de risco. Recomenda-se reteste após a remediação dos achados críticos.`, options: { color: SLATE } },
+            { text: `${t('Quick wins first')}: `, options: { bold: true, color: GREEN } },
+            { text: tf('{count} high-impact, low-effort fixes accelerate risk reduction. A retest is recommended after remediating the critical findings.', { count: qw.length }), options: { color: SLATE } },
         ],
         { x: 0.5, y: 6.55, w: 12.3, h: 0.45, fontSize: 10, valign: 'middle' },
     );

@@ -14,6 +14,7 @@ import type {
     TerminalLogFragmentFragment,
 } from '@/graphql/types';
 import { MessageLogType } from '@/graphql/types';
+import { t, tf } from '@/i18n';
 
 import type {
     AffectedAsset,
@@ -312,7 +313,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             if (!code.trim()) return;
             figN += 1;
             const fig: Figure = {
-                caption: `Saída de ferramenta — ${clip(task.title, 70)}${ti > 0 ? ` (${ti + 1})` : ''}`,
+                caption: `${t('Tool output')} — ${clip(task.title, 70)}${ti > 0 ? ` (${ti + 1})` : ''}`,
                 code,
                 findingIds: [],
                 id: `FIG-${String(figN).padStart(2, '0')}`,
@@ -327,7 +328,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             figN += 1;
             const fig: Figure = {
                 capturedUrl: sc.url ?? undefined,
-                caption: clip(sc.name || `Captura — ${task.title}`, 80),
+                caption: clip(sc.name || `${t('Screenshot')} — ${task.title}`, 80),
                 findingIds: [],
                 id: `FIG-${String(figN).padStart(2, '0')}`,
                 imageSrc: sc.id ? `screenshot:${flow.id}:${sc.id}` : undefined,
@@ -370,16 +371,16 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             findings.push({
                 affected: assets.map((a) => (a.port ? `${a.host}:${a.port}${a.service ? ` (${a.service})` : ''}` : a.host)),
                 assets,
-                businessImpact: 'Impacto de negócio a confirmar pelo analista (confidencialidade, integridade ou disponibilidade dos ativos afetados).',
-                category: facts.nuclei.length ? 'Vulnerabilidade (scanner)' : facts.cves.length ? 'CVE conhecida' : 'Execução de teste',
+                businessImpact: t('Business impact to be confirmed by the analyst (confidentiality, integrity, or availability of the affected assets).'),
+                category: facts.nuclei.length ? t('Vulnerability (scanner)') : facts.cves.length ? t('Known CVE') : t('Test execution'),
                 cvss: CVSS_BY_SEVERITY[severity],
                 cwe: '—',
                 description: body,
                 estimatedNote:
                     provenance.cvss === 'estimated' || provenance.severity === 'estimated'
-                        ? 'CVSS/severidade estimados a partir da execução — calibre antes da entrega.'
+                        ? t('CVSS/severity estimated from execution — calibrate before delivery.')
                         : undefined,
-                evidence: bestTerm?.text?.trim() ? { caption: `Saída — ${clip(src.title, 70)}`, code: evidenceWindow(bestTerm.text, 3500) } : undefined,
+                evidence: bestTerm?.text?.trim() ? { caption: `${t('Output')} — ${clip(src.title, 70)}`, code: evidenceWindow(bestTerm.text, 3500) } : undefined,
                 evidenceRefs,
                 id,
                 impact: IMPACT_BY_SEVERITY[severity],
@@ -387,14 +388,14 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
                 phase: phaseForText(hay, FINDING_PHASES[fIdx % FINDING_PHASES.length]!),
                 provenance,
                 references: refsList,
-                remediation: 'Definir e validar a correção com base na análise do achado; reteste após a remediação.',
+                remediation: t('Define and validate the fix based on the finding analysis; retest after remediation.'),
                 remediationEffort: EFFORT_BY_SEVERITY[severity],
                 remediationWindow: WINDOW_BY_SEVERITY[severity],
                 etaDays: ETA_BY_SEVERITY[severity],
                 severity,
                 sourceTaskIds: [tid],
                 status: 'confirmed',
-                title: clip(src.title, 120) || `Achado ${fIdx + 1}`,
+                title: clip(src.title, 120) || tf('Finding {n}', { n: fIdx + 1 }),
             });
             fIdx += 1;
         }
@@ -406,22 +407,22 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
     if (findings.length === 0 && llmFindings.length === 0) {
         findings.push({
             affected: [],
-            businessImpact: 'A confirmar.',
-            category: 'Execução de teste',
+            businessImpact: t('To be confirmed.'),
+            category: t('Test execution'),
             cvss: 0,
             cwe: '—',
-            description: 'Nenhum achado estruturado foi capturado automaticamente neste fluxo.',
-            estimatedNote: 'Adicione os achados manualmente a partir da análise da execução.',
+            description: t('No structured findings were automatically captured in this flow.'),
+            estimatedNote: t('Add the findings manually from the execution analysis.'),
             id: 'F-01',
             impact: 1,
             likelihood: 1,
             phase: 'reporting',
             provenance: { severity: 'estimated' },
             references: [],
-            remediation: 'Adicionar os achados manualmente a partir da análise da execução.',
+            remediation: t('Add the findings manually from the execution analysis.'),
             severity: 'info',
             status: 'open',
-            title: 'Sem achados estruturados capturados',
+            title: t('No structured findings captured'),
         });
     }
 
@@ -454,7 +455,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             sourceTaskId: tid,
             text: clip(prose, 360),
             timestamp: task.createdAt ? String(task.createdAt) : undefined,
-            title: clip(task.title, 70) || `Etapa ${i + 1}`,
+            title: clip(task.title, 70) || tf('Step {n}', { n: i + 1 }),
         };
     });
 
@@ -463,47 +464,47 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
 
     return {
         attackStory,
-        author: options.author ?? `${appName} — Equipe de Segurança Ofensiva`,
+        author: options.author ?? tf('{app} — Offensive Security Team', { app: appName }),
         branding,
         classification: options.classification ?? 'CONFIDENCIAL',
-        client: branding.clientName || 'Cliente',
+        client: branding.clientName || t('Client'),
         contact: options.contact ?? `security@${appName.toLowerCase().replace(/[^a-z0-9]+/g, '')}.com`,
         figures,
         findings: finalFindings,
         methodology: [
-            { activities: ['Definição de escopo, regras de engajamento e janelas de teste.'], phase: 'pre-engagement', title: 'Interações pré-engajamento' },
-            { activities: ['Coleta de informações sobre os alvos e a superfície de ataque.'], phase: 'intelligence', title: 'Coleta de inteligência' },
-            { activities: ['Mapeamento de ameaças e priorização de vetores.'], phase: 'threat-modeling', title: 'Modelagem de ameaças' },
-            { activities: ['Identificação e validação de vulnerabilidades nos ativos em escopo.'], phase: 'vulnerability-analysis', title: 'Análise de vulnerabilidades' },
-            { activities: ['Exploração controlada das vulnerabilidades confirmadas.'], phase: 'exploitation', title: 'Exploração' },
-            { activities: ['Avaliação do impacto pós-comprometimento e movimentação.'], phase: 'post-exploitation', title: 'Pós-exploração' },
-            { activities: ['Consolidação dos achados, plano de ação e este relatório.'], phase: 'reporting', title: 'Relatório' },
+            { activities: [t('Scope definition, rules of engagement, and testing windows.')], phase: 'pre-engagement', title: t('Pre-engagement interactions') },
+            { activities: [t('Gathering information about the targets and the attack surface.')], phase: 'intelligence', title: t('Intelligence gathering') },
+            { activities: [t('Threat mapping and prioritization of vectors.')], phase: 'threat-modeling', title: t('Threat modeling') },
+            { activities: [t('Identification and validation of vulnerabilities in the in-scope assets.')], phase: 'vulnerability-analysis', title: t('Vulnerability analysis') },
+            { activities: [t('Controlled exploitation of the confirmed vulnerabilities.')], phase: 'exploitation', title: t('Exploitation') },
+            { activities: [t('Assessment of post-compromise impact and movement.')], phase: 'post-exploitation', title: t('Post-exploitation') },
+            { activities: [t('Consolidation of findings, action plan, and this report.')], phase: 'reporting', title: t('Reporting') },
         ],
         period: { end: fmtDate(flow.updatedAt), start: fmtDate(flow.createdAt) },
         recommendations: [
-            { priority: 'Imediata', text: 'Tratar os achados de maior severidade e os quick wins identificados no plano de ação.' },
-            { priority: 'Curto prazo', text: 'Corrigir os achados de severidade média e revisar as configurações relacionadas.' },
-            { priority: 'Médio prazo', text: 'Endereçar os achados residuais e incorporar testes recorrentes ao ciclo de segurança.' },
+            { priority: 'Imediata', text: t('Address the highest-severity findings and the quick wins identified in the action plan.') },
+            { priority: 'Curto prazo', text: t('Fix the medium-severity findings and review the related configurations.') },
+            { priority: 'Médio prazo', text: t('Address the residual findings and incorporate recurring testing into the security cycle.') },
         ],
         riskScore,
         roe: [
-            'Testes executados exclusivamente sobre os ativos em escopo.',
-            'Ações potencialmente destrutivas evitadas ou previamente acordadas.',
-            'Achados tratados como confidenciais entre as partes.',
+            t('Tests executed exclusively against the in-scope assets.'),
+            t('Potentially destructive actions avoided or agreed in advance.'),
+            t('Findings treated as confidential between the parties.'),
         ],
         scope: {
             inScope:
                 flow.terminals && flow.terminals.length > 0
                     ? flow.terminals.map((tm) => `${tm.name} (${tm.image})`)
-                    : ['Ambiente avaliado durante a execução do fluxo.'],
-            outOfScope: ['Qualquer ativo não listado explicitamente no escopo.'],
+                    : [t('Environment assessed during the flow execution.')],
+            outOfScope: [t('Any asset not explicitly listed in scope.')],
         },
         summaryNarrative: [
-            `Esta avaliação consolida a execução do fluxo "${flow.title}" na plataforma ${appName}, no período de ${fmtDate(flow.createdAt)} a ${fmtDate(flow.updatedAt)}.`,
-            `Foram derivados ${finalFindings.length} achado(s) a partir das atividades executadas${llmFindings.length > 0 ? ' (análise por IA)' : ''}, com evidências extraídas da saída real das ferramentas. Severidades/CVSS marcados como estimados devem ser calibrados pelo analista antes da entrega.`,
-            'As seções seguintes descrevem a narrativa do ataque, a visão de risco e o plano de ação priorizado com quick wins.',
+            tf('This assessment consolidates the execution of the "{flow}" flow on the {app} platform, in the period from {start} to {end}.', { flow: flow.title, app: appName, start: fmtDate(flow.createdAt), end: fmtDate(flow.updatedAt) }),
+            `${tf('{count} finding(s) were derived from the executed activities{aiNote}, with evidence extracted from the real tool output.', { count: finalFindings.length, aiNote: llmFindings.length > 0 ? ` ${t('(AI analysis)')}` : '' })} ${t('Severities/CVSS marked as estimated must be calibrated by the analyst before delivery.')}`,
+            t('The following sections describe the attack narrative, the risk overview, and the prioritized action plan with quick wins.'),
         ],
-        title: `Relatório de Teste de Intrusão — ${flow.title}`,
+        title: tf('Penetration Test Report — {flow}', { flow: flow.title }),
         version: options.version ?? '1.0',
     };
 }

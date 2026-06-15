@@ -94,11 +94,15 @@ func (r *mutationResolver) CreateFlow(ctx context.Context, modelProvider string,
 }
 
 // DeriveFindings is the resolver for the deriveFindings field.
-func (r *mutationResolver) DeriveFindings(ctx context.Context, flowID int64) (*model.FindingDerivation, error) {
+func (r *mutationResolver) DeriveFindings(ctx context.Context, flowID int64, language *string) (*model.FindingDerivation, error) {
 	if _, err := validatePermissionWithFlowID(ctx, "findings.derive", flowID, r.DB); err != nil {
 		return nil, err
 	}
-	run, err := r.ProvidersCtrl.DeriveFindings(ctx, flowID)
+	lang := ""
+	if language != nil {
+		lang = *language
+	}
+	run, err := r.ProvidersCtrl.DeriveFindings(ctx, flowID, lang)
 	if err != nil {
 		return nil, err
 	}
