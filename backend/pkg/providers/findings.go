@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -72,7 +73,13 @@ const findingsDeriverSystemPrompt = `You are a senior penetration-test report an
 	`Read it and extract concrete, de-duplicated SECURITY FINDINGS, then return them by calling the ` + submitFindingsToolName + ` function. ` +
 	`Do NOT answer in free text — your entire answer must be the tool call.
 
-For each finding provide: a concise title; severity (critical|high|medium|low|info); a CVSS v3.1 vector and base score; CWE (e.g. "CWE-89"); a category (e.g. "Web Application", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description; the business impact; likelihood and impact each 1-5; concrete remediation; references (OWASP/CWE/CVE) when applicable; the source_task_ids the finding was derived from; and a provenance map.
+For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; the source_task_ids the finding was derived from; and a provenance map.
+
+TAXONOMY — always classify each finding (these are standard mappings, not inventions):
+- Always set the cwe field AND add it to references, e.g. {"label":"CWE-89: SQL Injection"}.
+- Always map to OWASP and add it as a reference: web → OWASP Top 10 2021 (e.g. {"label":"OWASP A03:2021 — Injection"}); API → OWASP API Top 10 2023 (e.g. {"label":"OWASP API1:2023 — BOLA"}).
+- For network / Active Directory / post-exploitation findings, also add the MITRE ATT&CK technique id as a reference, e.g. {"label":"MITRE ATT&CK T1558.003"}.
+- Add a CVE reference ONLY when a specific CVE id is actually present in the execution data; otherwise omit CVE.
 
 HONESTY RULES (mandatory):
 - Use ONLY information present in the execution. NEVER invent CVEs, hosts, ports or results that are not in the data.
@@ -239,6 +246,73 @@ func parseFindingsReport(args string) (*FindingsReport, error) {
 	return &report, nil
 }
 
+// Evidence relevance scoring. The flow's terminal output is mostly noise (dumped JS bundles,
+// file listings, base64). Selecting the LONGEST excerpt — what we did before — reliably picked a
+// 988 KB minified Angular bundle as "evidence". These heuristics instead favour excerpts that
+// actually demonstrate an exploit: HTTP traffic, payloads, credentials, proof-of-impact.
+var (
+	evidenceSignalRe = regexp.MustCompile(`(?i)(HTTP/[12]|\b(?:GET|POST|PUT|DELETE|PATCH) /|\bcurl\b|Authorization:|\bBearer |Set-Cookie|X-Auth|\bUNION\s+SELECT|SELECT\s.+\sFROM|'\s*OR\s|OR\s+1=1|sqlmap|<script|onerror=|javascript:|\.\./|%2e%2e|alg"?\s*:\s*"?none|eyJ[A-Za-z0-9_-]{8,}|vulnerab|\bpayload|\bbypass|\bexploit|flag\{|\bCVE-\d|\b(?:200|201|301|302|400|401|403|404|500)\b)`)
+	evidenceNoiseRe  = regexp.MustCompile(`(=>\s*\{|\}\)\(\)|;var |function\s*\(|\{class |return [a-z]\}|webpackChunk|__webpack|sourceMappingURL)`)
+	evidenceB64Re    = regexp.MustCompile(`[A-Za-z0-9+/]{400,}`)
+)
+
+// evidenceScore rates how useful a terminal excerpt is as exploit evidence (higher = better).
+func evidenceScore(text string) int {
+	t := strings.TrimSpace(text)
+	n := len(t)
+	if n == 0 {
+		return 0
+	}
+	score := len(evidenceSignalRe.FindAllStringIndex(t, 16)) * 6
+	score += strings.Count(t, "$ ") + strings.Count(t, "\n# ") // shell prompts = commands run
+	score -= len(evidenceNoiseRe.FindAllStringIndex(t, 40)) * 5 // minified JS / bundles
+	if evidenceB64Re.MatchString(t) {
+		score -= 8
+	}
+	if spaces := strings.Count(t, " ") + strings.Count(t, "\n"); n > 400 && spaces*40 < n {
+		score -= 12 // <2.5% whitespace => minified/binary blob
+	}
+	switch {
+	case n > 20000:
+		score -= 15
+	case n > 8000:
+		score -= 5
+	}
+	return score
+}
+
+// evidenceWindow returns at most max runes centred on the first exploit signal, so even a long log
+// surfaces the relevant request/response instead of its (often irrelevant) head.
+func evidenceWindow(text string, max int) string {
+	t := strings.TrimSpace(text)
+	r := []rune(t)
+	if len(r) <= max {
+		return t
+	}
+	start := 0
+	if loc := evidenceSignalRe.FindStringIndex(t); loc != nil {
+		start = len([]rune(t[:loc[0]])) - max/3
+		if start < 0 {
+			start = 0
+		}
+	}
+	end := start + max
+	if end > len(r) {
+		end = len(r)
+		if start = end - max; start < 0 {
+			start = 0
+		}
+	}
+	seg := string(r[start:end])
+	if start > 0 {
+		seg = "…" + seg
+	}
+	if end < len(r) {
+		seg += "…"
+	}
+	return seg
+}
+
 // buildFindingsContext renders the flow execution into a single clipped human message.
 func (pc *providerController) buildFindingsContext(ctx context.Context, flow database.Flow) (string, error) {
 	tasks, err := pc.db.GetFlowTasks(ctx, flow.ID)
@@ -294,26 +368,40 @@ func (pc *providerController) buildFindingsContext(ctx context.Context, flow dat
 		b.WriteString("\n")
 	}
 
-	// Terminal excerpts: richest-first, within a byte budget.
-	sort.SliceStable(termlogs, func(i, j int) bool { return len(termlogs[i].Text) > len(termlogs[j].Text) })
+	// Terminal excerpts: most-RELEVANT-first (not longest), within a byte budget. Score each log
+	// for exploit-evidence value and drop pure noise so the budget is spent on real proof.
+	type scoredTerm struct {
+		text  string
+		tid   int64
+		score int
+	}
+	sterms := make([]scoredTerm, 0, len(termlogs))
+	for _, tl := range termlogs {
+		tid := int64(0)
+		if tl.TaskID.Valid {
+			tid = tl.TaskID.Int64
+		}
+		sterms = append(sterms, scoredTerm{text: strings.TrimSpace(tl.Text), tid: tid, score: evidenceScore(tl.Text)})
+	}
+	sort.SliceStable(sterms, func(i, j int) bool {
+		if sterms[i].score != sterms[j].score {
+			return sterms[i].score > sterms[j].score
+		}
+		return len(sterms[i].text) < len(sterms[j].text) // tie: prefer the more concise excerpt
+	})
 	budget := maxTerminalBudget
-	if len(termlogs) > 0 && budget > 0 {
+	if len(sterms) > 0 && budget > 0 {
 		b.WriteString("## Terminal output excerpts\n")
-		for _, tl := range termlogs {
-			txt := strings.TrimSpace(tl.Text)
-			if txt == "" {
-				continue
+		for _, st := range sterms {
+			if st.text == "" || st.score <= 0 {
+				continue // skip noise (dumped bundles, listings, base64)
 			}
-			chunk := clip(txt, 2800)
+			chunk := evidenceWindow(st.text, 2800)
 			if len(chunk) > budget {
 				break
 			}
 			budget -= len(chunk)
-			tid := int64(0)
-			if tl.TaskID.Valid {
-				tid = tl.TaskID.Int64
-			}
-			fmt.Fprintf(&b, "[task %d] %s\n", tid, chunk)
+			fmt.Fprintf(&b, "[task %d] %s\n", st.tid, chunk)
 		}
 	}
 

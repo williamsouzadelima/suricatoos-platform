@@ -44,6 +44,47 @@ const clip = (text: string, max = 900): string => {
     return clean.length > max ? `${clean.slice(0, max).trimEnd()}…` : clean;
 };
 
+// Evidence relevance scoring (mirrors the backend deriver). Terminal output is mostly noise —
+// dumped JS bundles, file listings, base64. Ranking by LENGTH picked a 988 KB minified bundle as
+// "evidence"; instead, favour excerpts that demonstrate an exploit (HTTP traffic, payloads,
+// credentials, proof-of-impact) and discard noise.
+const SIG_RE =
+    /HTTP\/[12]|\b(?:GET|POST|PUT|DELETE|PATCH) \/|\bcurl\b|Authorization:|\bBearer |Set-Cookie|\bUNION\s+SELECT|SELECT\s.+\sFROM|'\s*OR\s|OR\s+1=1|sqlmap|<script|onerror=|javascript:|\.\.\/|%2e%2e|alg"?\s*:\s*"?none|eyJ[A-Za-z0-9_-]{8,}|vulnerab|\bpayload|\bbypass|\bexploit|flag\{|\bCVE-\d|\b(?:200|201|301|302|400|401|403|404|500)\b/gi;
+const NOISE_RE = /=>\s*\{|\}\)\(\)|;var |function\s*\(|\{class |return [a-z]\}|webpackChunk|__webpack|sourceMappingURL/g;
+const B64_RE = /[A-Za-z0-9+/]{400,}/;
+
+const scoreEvidence = (raw: null | string | undefined): number => {
+    const t = stripControlChars(raw ?? '').trim();
+    const n = t.length;
+    if (!n) return 0;
+    let score = (t.match(SIG_RE)?.length ?? 0) * 6;
+    score += (t.match(/\$ /g)?.length ?? 0) + (t.match(/\n# /g)?.length ?? 0); // shell prompts
+    score -= (t.match(NOISE_RE)?.length ?? 0) * 5; // minified JS / bundles
+    if (B64_RE.test(t)) score -= 8;
+    const spaces = t.match(/[ \n]/g)?.length ?? 0;
+    if (n > 400 && spaces * 40 < n) score -= 12; // <2.5% whitespace => minified/binary
+    if (n > 20000) score -= 15;
+    else if (n > 8000) score -= 5;
+    return score;
+};
+
+// Return up to `max` chars centred on the first exploit signal (preserving line breaks), so a long
+// log still surfaces the relevant request/response rather than its irrelevant head.
+const evidenceWindow = (raw: null | string | undefined, max: number): string => {
+    const t = stripControlChars(raw ?? '')
+        .replace(/[ \t]+\n/g, '\n')
+        .trim();
+    if (t.length <= max) return t;
+    const idx = t.search(SIG_RE);
+    let start = idx > 0 ? Math.max(0, idx - Math.floor(max / 3)) : 0;
+    let end = start + max;
+    if (end > t.length) {
+        end = t.length;
+        start = Math.max(0, end - max);
+    }
+    return `${start > 0 ? '…' : ''}${t.slice(start, end)}${end < t.length ? '…' : ''}`;
+};
+
 const key = (taskId?: null | string, subtaskId?: null | string): string =>
     subtaskId ? `${taskId ?? ''}:${subtaskId}` : `${taskId ?? ''}`;
 
@@ -259,15 +300,20 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         // screenshots) and shared by every finding derived from this task — avoids duplicate
         // plates when a task has multiple finished subtasks/sources.
         const taskFigureIds: string[] = [];
-        const rankedTerms = terminals.slice().sort((a, b) => (b.text?.length ?? 0) - (a.text?.length ?? 0));
-        const bestTerm = rankedTerms[0];
-        // up to 3 richest terminal excerpts per task (evidence richness — was just the single richest)
-        rankedTerms.slice(0, 3).forEach((tl, ti) => {
-            if (!tl?.text?.trim()) return;
+        // Rank by exploit-RELEVANCE (not length) and DROP noise (JS bundles, listings, base64).
+        const rankedTerms = terminals
+            .map((tl) => ({ s: scoreEvidence(tl.text), tl }))
+            .sort((a, b) => b.s - a.s || (a.tl.text?.length ?? 0) - (b.tl.text?.length ?? 0));
+        const usefulTerms = rankedTerms.filter((x) => x.s > 0);
+        const bestTerm = usefulTerms[0]?.tl;
+        // up to 3 most-relevant terminal excerpts per task (only genuine evidence; noise is skipped)
+        usefulTerms.slice(0, 3).forEach(({ tl }, ti) => {
+            const code = evidenceWindow(tl.text, 3500);
+            if (!code.trim()) return;
             figN += 1;
             const fig: Figure = {
                 caption: `Saída de ferramenta — ${clip(task.title, 70)}${ti > 0 ? ` (${ti + 1})` : ''}`,
-                code: clip(tl.text, 3500),
+                code,
                 findingIds: [],
                 id: `FIG-${String(figN).padStart(2, '0')}`,
                 kind: 'terminal',
@@ -333,7 +379,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
                     provenance.cvss === 'estimated' || provenance.severity === 'estimated'
                         ? 'CVSS/severidade estimados a partir da execução — calibre antes da entrega.'
                         : undefined,
-                evidence: bestTerm?.text?.trim() ? { caption: `Saída — ${clip(src.title, 70)}`, code: clip(bestTerm.text, 3500) } : undefined,
+                evidence: bestTerm?.text?.trim() ? { caption: `Saída — ${clip(src.title, 70)}`, code: evidenceWindow(bestTerm.text, 3500) } : undefined,
                 evidenceRefs,
                 id,
                 impact: IMPACT_BY_SEVERITY[severity],
