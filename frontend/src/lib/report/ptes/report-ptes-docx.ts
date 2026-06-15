@@ -21,6 +21,7 @@ import {
 } from 'docx';
 
 import { CHART_SPECS } from './report-charts-sheet';
+import { stripControlChars } from './from-flow-llm';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { PTES_PHASES, type Engagement, type Finding } from './engagement';
 import { actionItems, categoryCounts, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
@@ -36,12 +37,32 @@ const LINE = 'E2E8F0';
 const PANEL = 'F4F6FB';
 const hx = (c: string) => c.replace('#', '');
 
+// Sanitize at the chokepoint: OOXML forbids control characters, and the `docx` library (unlike
+// pptxgenjs, which sanitizes internally) writes run text into the XML VERBATIM. So strip ANSI/
+// control chars from EVERY TextRun built here — no upstream field (terminal excerpts, AI text,
+// titles, captions) can corrupt the .docx. `_TR` is the real constructor; every run is built
+// through `txt(...)` instead of `new TextRun(...)`.
+const _TR = TextRun;
+const txt = (o: ConstructorParameters<typeof TextRun>[0]): TextRun => {
+    if (typeof o === 'string') return new _TR(stripControlChars(o));
+    if (typeof (o as { text?: unknown }).text === 'string') {
+        return new _TR({ ...(o as object), text: stripControlChars((o as { text: string }).text) } as ConstructorParameters<typeof TextRun>[0]);
+    }
+    return new _TR(o);
+};
+
 const decode = (dataUri: string): Uint8Array => {
-    const b64 = dataUri.split(',')[1] ?? '';
-    const bin = atob(b64);
-    const out = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-    return out;
+    try {
+        const b64 = dataUri.split(',')[1] ?? '';
+        const bin = atob(b64);
+        const out = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+        return out;
+    } catch {
+        // Malformed/non-base64 data URI (e.g. a failed fetch returned a non-image). Return empty
+        // so imageSize() rejects it and the caller degrades to a caption instead of throwing.
+        return new Uint8Array(0);
+    }
 };
 
 // Minimal PNG/JPEG intrinsic-size reader so embedded screenshots keep their aspect ratio.
@@ -72,31 +93,42 @@ function imageSize(bytes: Uint8Array): null | { w: number; h: number } {
     return null;
 }
 
+// Build an ImageRun only when the data URI decodes to a REAL PNG/JPEG. A failed image fetch (chart,
+// logo, or screenshot) can return an HTML error page; embedding those bytes corrupts the .docx.
+// Returns null so the caller can skip the embed.
+function safeImage(dataUri: string | undefined, width: number, height: number): ImageRun | null {
+    if (!dataUri || !dataUri.startsWith('data:')) return null;
+    const data = decode(dataUri);
+    const size = imageSize(data);
+    if (!size) return null;
+    const mime = dataUri.slice(5, Math.max(5, dataUri.indexOf(';')));
+    const type: 'jpg' | 'png' = mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : 'png';
+    return new ImageRun({ type, data, transformation: { width, height } });
+}
+
 // Evidence plates for the DOCX: terminal/tool-output excerpts render as shaded code; screenshots
 // embed the resolved image (aspect-preserved) or degrade to a caption when not resolved.
 function figuresBlocks(e: Engagement): (Paragraph | Table)[] {
     const out: (Paragraph | Table)[] = [];
     for (const fig of e.figures ?? []) {
-        out.push(new Paragraph({ spacing: { before: 160, after: 10 }, children: [new TextRun({ text: `${fig.id} — ${fig.caption}`, bold: true, color: INK, size: 18 })] }));
+        out.push(new Paragraph({ spacing: { before: 160, after: 10 }, children: [txt({ text: `${fig.id} — ${fig.caption}`, bold: true, color: INK, size: 18 })] }));
         const links = [fig.findingIds.length ? `Referente a: ${fig.findingIds.join(', ')}` : '', fig.capturedUrl ? `URL: ${fig.capturedUrl}` : ''].filter(Boolean).join('   ·   ');
-        if (links) out.push(new Paragraph({ spacing: { after: 30 }, children: [new TextRun({ text: links, color: MUTED, size: 14 })] }));
+        if (links) out.push(new Paragraph({ spacing: { after: 30 }, children: [txt({ text: links, color: MUTED, size: 14 })] }));
         if (fig.kind === 'screenshot') {
-            const data = fig.imageSrc?.startsWith('data:') ? decode(fig.imageSrc) : null;
-            const size = data ? imageSize(data) : null;
-            // ONLY embed when the bytes are a real PNG/JPEG. A failed screenshot fetch can return
-            // an auth/error page (HTML), and embedding non-image bytes into an ImageRun produces a
-            // CORRUPT .docx. When it's not a valid image, fall back to the caption.
-            if (data && size) {
-                const mime = fig.imageSrc!.slice(5, Math.max(5, fig.imageSrc!.indexOf(';')));
-                const type = mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : 'png';
-                const w = Math.min(460, size.w);
-                const h = Math.min(560, Math.round((w * size.h) / size.w));
-                out.push(new Paragraph({ spacing: { after: 80 }, children: [new ImageRun({ type, data, transformation: { width: w, height: h } })] }));
+            // ONLY embed when the bytes are a real PNG/JPEG (safeImage guards this). A failed
+            // screenshot fetch can return an auth/error page (HTML); non-image bytes corrupt the
+            // .docx. When it's not a valid image, fall back to the caption.
+            const raw = fig.imageSrc?.startsWith('data:') ? decode(fig.imageSrc) : null;
+            const size = raw ? imageSize(raw) : null;
+            const w = size ? Math.min(460, size.w) : 0;
+            const img = size ? safeImage(fig.imageSrc, w, Math.min(560, Math.round((w * size.h) / size.w))) : null;
+            if (img) {
+                out.push(new Paragraph({ spacing: { after: 80 }, children: [img] }));
             } else {
-                out.push(new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: 'Captura de tela registrada durante a execução.', italics: true, color: MUTED, size: 15 })] }));
+                out.push(new Paragraph({ spacing: { after: 60 }, children: [txt({ text: 'Captura de tela registrada durante a execução.', italics: true, color: MUTED, size: 15 })] }));
             }
         } else if (fig.code) {
-            fig.code.split('\n').slice(0, 40).forEach((line) => out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [new TextRun({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 14 })] })));
+            fig.code.split('\n').slice(0, 40).forEach((line) => out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 14 })] })));
             out.push(new Paragraph({ spacing: { after: 60 }, children: [] }));
         }
     }
@@ -110,14 +142,10 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
         const c = CHART_SPECS.find((s) => s.key === key)!;
         return c.h / c.w;
     };
-    const chartPara = (key: string, widthPx: number, align: (typeof AlignmentType)[keyof typeof AlignmentType] = AlignmentType.LEFT) =>
-        new Paragraph({
-            alignment: align,
-            spacing: { before: 80, after: 80 },
-            children: images[key]
-                ? [new ImageRun({ type: 'png', data: decode(images[key]), transformation: { width: widthPx, height: Math.round(widthPx * aspect(key)) } })]
-                : [],
-        });
+    const chartPara = (key: string, widthPx: number, align: (typeof AlignmentType)[keyof typeof AlignmentType] = AlignmentType.LEFT) => {
+        const img = safeImage(images[key], widthPx, Math.round(widthPx * aspect(key)));
+        return new Paragraph({ alignment: align, spacing: { before: 80, after: 80 }, children: img ? [img] : [] });
+    };
     const twoCharts = (a: string, aw: number, b: string, bw: number) =>
         new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
@@ -126,27 +154,28 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
         });
 
     const heading = (n: number, title: string) => [
-        new Paragraph({ spacing: { before: 220, after: 0 }, children: [new TextRun({ text: `SEÇÃO ${n}`, bold: true, color: primary, size: 16 })] }),
+        new Paragraph({ spacing: { before: 220, after: 0 }, children: [txt({ text: `SEÇÃO ${n}`, bold: true, color: primary, size: 16 })] }),
         new Paragraph({
             spacing: { after: 60 },
             border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: primary, space: 4 } },
-            children: [new TextRun({ text: title, bold: true, color: INK, size: 30 })],
+            children: [txt({ text: title, bold: true, color: INK, size: 30 })],
         }),
     ];
-    const sub = (t: string) => new Paragraph({ spacing: { before: 120, after: 40 }, children: [new TextRun({ text: t, bold: true, color: INK, size: 22 })] });
-    const body = (t: string) => new Paragraph({ spacing: { after: 100 }, alignment: AlignmentType.JUSTIFIED, children: [new TextRun({ text: t, color: SLATE, size: 19 })] });
-    const bullet = (t: string) => new Paragraph({ bullet: { level: 0 }, spacing: { after: 30 }, children: [new TextRun({ text: t, color: SLATE, size: 19 })] });
+    const sub = (t: string) => new Paragraph({ spacing: { before: 120, after: 40 }, children: [txt({ text: t, bold: true, color: INK, size: 22 })] });
+    const body = (t: string) => new Paragraph({ spacing: { after: 100 }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: t, color: SLATE, size: 19 })] });
+    const bullet = (t: string) => new Paragraph({ bullet: { level: 0 }, spacing: { after: 30 }, children: [txt({ text: t, color: SLATE, size: 19 })] });
 
     // ── Cover ──
     const appLogo = e.branding.appLogo ?? SURICATOOS_LOGO_BADGE;
+    const logoImg = safeImage(appLogo, 72, 72);
     const cover: (Paragraph | Table)[] = [
-        new Paragraph({ spacing: { before: 600, after: 0 }, children: [new ImageRun({ type: 'png', data: decode(appLogo), transformation: { width: 72, height: 72 } })] }),
-        new Paragraph({ spacing: { before: 60, after: 0 }, children: [new TextRun({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 44 })] }),
-        new Paragraph({ spacing: { before: 200, after: 60 }, children: [new TextRun({ text: 'RELATÓRIO DE PENTEST · PTES', bold: true, color: CORAL, size: 22 })] }),
-        new Paragraph({ spacing: { after: 200 }, children: [new TextRun({ text: e.title, bold: true, color: INK, size: 48 })] }),
-        new Paragraph({ spacing: { after: 40 }, children: [new TextRun({ text: `Preparado por ${e.branding.appName} para`, color: MUTED, size: 18 })] }),
+        new Paragraph({ spacing: { before: 600, after: 0 }, children: logoImg ? [logoImg] : [] }),
+        new Paragraph({ spacing: { before: 60, after: 0 }, children: [txt({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 44 })] }),
+        new Paragraph({ spacing: { before: 200, after: 60 }, children: [txt({ text: 'RELATÓRIO DE PENTEST · PTES', bold: true, color: CORAL, size: 22 })] }),
+        new Paragraph({ spacing: { after: 200 }, children: [txt({ text: e.title, bold: true, color: INK, size: 48 })] }),
+        new Paragraph({ spacing: { after: 40 }, children: [txt({ text: `Preparado por ${e.branding.appName} para`, color: MUTED, size: 18 })] }),
         clientLockup(e),
-        new Paragraph({ spacing: { before: 120, after: 300 }, children: [new TextRun({ text: ` ${e.classification} `, bold: true, color: CORAL, size: 18 })] }),
+        new Paragraph({ spacing: { before: 120, after: 300 }, children: [txt({ text: ` ${e.classification} `, bold: true, color: CORAL, size: 18 })] }),
         kvTable([
             ['Período', `${e.period.start} – ${e.period.end}`],
             ['Versão', e.version],
@@ -169,9 +198,9 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
         new Paragraph({
             spacing: { before: 60 },
             children: [
-                new TextRun({ text: `${e.findings.length} achados   `, bold: true, color: INK, size: 22 }),
-                new TextRun({ text: `${e.findings.filter((f) => f.severity === 'critical').length} críticos   `, bold: true, color: SEVERITY.critical.color, size: 22 }),
-                new TextRun({ text: `${quickWins(e.findings).length} quick wins`, bold: true, color: '059669', size: 22 }),
+                txt({ text: `${e.findings.length} achados   `, bold: true, color: INK, size: 22 }),
+                txt({ text: `${e.findings.filter((f) => f.severity === 'critical').length} críticos   `, bold: true, color: SEVERITY.critical.color, size: 22 }),
+                txt({ text: `${quickWins(e.findings).length} quick wins`, bold: true, color: '059669', size: 22 }),
             ],
         }),
     );
@@ -184,12 +213,12 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             new Paragraph({
                 spacing: { before: 80, after: 20 },
                 children: [
-                    new TextRun({ text: `${st.n}. ${st.title}  `, bold: true, color: INK, size: 21 }),
-                    ...(st.refs?.length ? [new TextRun({ text: `[${st.refs.join(', ')}]`, bold: true, color: primary, size: 15 })] : []),
+                    txt({ text: `${st.n}. ${st.title}  `, bold: true, color: INK, size: 21 }),
+                    ...(st.refs?.length ? [txt({ text: `[${st.refs.join(', ')}]`, bold: true, color: primary, size: 15 })] : []),
                 ],
             }),
         );
-        children.push(new Paragraph({ spacing: { after: 60 }, alignment: AlignmentType.JUSTIFIED, children: [new TextRun({ text: st.text, color: SLATE, size: 19 })] }));
+        children.push(new Paragraph({ spacing: { after: 60 }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: st.text, color: SLATE, size: 19 })] }));
     });
 
     children.push(...heading(3, 'Visão Geral de Risco'));
@@ -198,7 +227,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     children.push(
         new Paragraph({
             spacing: { before: 60 },
-            children: SEVERITY_ORDER.flatMap((sv) => [new TextRun({ text: '■ ', color: SEVERITY[sv].color, size: 18 }), new TextRun({ text: `${SEVERITY[sv].label}    `, color: SLATE, size: 18 })]),
+            children: SEVERITY_ORDER.flatMap((sv) => [txt({ text: '■ ', color: SEVERITY[sv].color, size: 18 }), txt({ text: `${SEVERITY[sv].label}    `, color: SLATE, size: 18 })]),
         }),
     );
 
@@ -213,7 +242,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
 
     children.push(...heading(5, 'Achados Detalhados'));
     children.push(findingsIndexTable(e.findings, primary));
-    children.push(new Paragraph({ spacing: { before: 160, after: 40 }, children: [new TextRun({ text: 'Detalhamento dos achados', bold: true, color: INK, size: 22 })] }));
+    children.push(new Paragraph({ spacing: { before: 160, after: 40 }, children: [txt({ text: 'Detalhamento dos achados', bold: true, color: INK, size: 22 })] }));
     [...e.findings].sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss).forEach((f) => children.push(...findingBlock(f)));
 
     children.push(...heading(6, 'Plano de Ação'));
@@ -237,7 +266,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             new Paragraph({
                 bullet: { level: 0 },
                 spacing: { after: 30 },
-                children: [new TextRun({ text: `${r.priority}: `, bold: true, color: WINDOW_COLOR[r.priority] }), new TextRun({ text: r.text, color: SLATE, size: 19 })],
+                children: [txt({ text: `${r.priority}: `, bold: true, color: WINDOW_COLOR[r.priority] }), txt({ text: r.text, color: SLATE, size: 19 })],
             }),
         ),
     );
@@ -245,8 +274,8 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     children.push(body(`Relatório gerado por ${e.branding.appName} a partir de um engajamento autorizado. Conteúdo confidencial; distribua apenas a partes autorizadas. As provas de conceito foram não destrutivas e limitadas ao escopo acordado.`));
 
     return new Document({
-        creator: e.branding.appName,
-        title: e.title,
+        creator: stripControlChars(e.branding.appName),
+        title: stripControlChars(e.title),
         // Serif body to match the PDF's "book" voice (Georgia ships with Word everywhere).
         styles: { default: { document: { run: { font: 'Georgia' } } } },
         sections: [
@@ -259,7 +288,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
                             new Paragraph({
                                 tabStops: [{ type: 'right', position: 9360 }],
                                 border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: LINE, space: 2 } },
-                                children: [new TextRun({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 16 }), new TextRun({ text: `\t${e.client} · ${e.classification}`, color: MUTED, size: 14 })],
+                                children: [txt({ text: e.branding.appName.toUpperCase(), bold: true, color: primary, size: 16 }), txt({ text: `\t${e.client} · ${e.classification}`, color: MUTED, size: 14 })],
                             }),
                         ],
                     }),
@@ -271,7 +300,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
                             new Paragraph({
                                 tabStops: [{ type: 'right', position: 9360 }],
                                 border: { top: { style: BorderStyle.SINGLE, size: 6, color: LINE, space: 2 } },
-                                children: [new TextRun({ text: e.title, color: MUTED, size: 13 }), new TextRun({ children: ['\tPágina ', PageNumber.CURRENT, ' de ', PageNumber.TOTAL_PAGES], color: MUTED, size: 13 })],
+                                children: [txt({ text: e.title, color: MUTED, size: 13 }), txt({ children: ['\tPágina ', PageNumber.CURRENT, ' de ', PageNumber.TOTAL_PAGES], color: MUTED, size: 13 })],
                             }),
                         ],
                     }),
@@ -298,8 +327,8 @@ function clientLockup(e: Engagement) {
         rows: [
             new TableRow({
                 children: [
-                    new TableCell({ width: { size: 14, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: hx(`#${e.branding.accent ?? CORAL}`) }, margins: { top: 80, bottom: 80, left: 80, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: initials, bold: true, color: 'FFFFFF', size: 28 })] })] }),
-                    new TableCell({ verticalAlign: 'center', borders: noBorders(), children: [new Paragraph({ children: [new TextRun({ text: `  ${e.branding.clientName}`, bold: true, color: INK, size: 28 })] })] }),
+                    new TableCell({ width: { size: 14, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: hx(`#${e.branding.accent ?? CORAL}`) }, margins: { top: 80, bottom: 80, left: 80, right: 80 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [txt({ text: initials, bold: true, color: 'FFFFFF', size: 28 })] })] }),
+                    new TableCell({ verticalAlign: 'center', borders: noBorders(), children: [new Paragraph({ children: [txt({ text: `  ${e.branding.clientName}`, bold: true, color: INK, size: 28 })] })] }),
                 ],
             }),
         ],
@@ -313,15 +342,15 @@ function kvTable(rows: [string, string][]) {
             ([k, v]) =>
                 new TableRow({
                     children: [
-                        new TableCell({ width: { size: 26, type: WidthType.PERCENTAGE }, margins: { top: 60, bottom: 60, left: 40, right: 40 }, children: [new Paragraph({ children: [new TextRun({ text: k, bold: true, color: MUTED, size: 18 })] })] }),
-                        new TableCell({ margins: { top: 60, bottom: 60, left: 40, right: 40 }, children: [new Paragraph({ children: [new TextRun({ text: v, color: SLATE, size: 18 })] })] }),
+                        new TableCell({ width: { size: 26, type: WidthType.PERCENTAGE }, margins: { top: 60, bottom: 60, left: 40, right: 40 }, children: [new Paragraph({ children: [txt({ text: k, bold: true, color: MUTED, size: 18 })] })] }),
+                        new TableCell({ margins: { top: 60, bottom: 60, left: 40, right: 40 }, children: [new Paragraph({ children: [txt({ text: v, color: SLATE, size: 18 })] })] }),
                     ],
                 }),
         ),
     });
 }
 function hcell(t: string, primary: string, w: number) {
-    return new TableCell({ width: { size: w, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: primary }, margins: { top: 50, bottom: 50, left: 60, right: 60 }, children: [new Paragraph({ children: [new TextRun({ text: t, bold: true, color: 'FFFFFF', size: 16 })] })] });
+    return new TableCell({ width: { size: w, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: primary }, margins: { top: 50, bottom: 50, left: 60, right: 60 }, children: [new Paragraph({ children: [txt({ text: t, bold: true, color: 'FFFFFF', size: 16 })] })] });
 }
 function tcell(runs: TextRun[], w?: number) {
     return new TableCell({ width: w ? { size: w, type: WidthType.PERCENTAGE } : undefined, margins: { top: 40, bottom: 40, left: 60, right: 60 }, children: [new Paragraph({ children: runs })] });
@@ -335,11 +364,11 @@ function findingsIndexTable(findings: Finding[], primary: string) {
             ...[...findings].sort((a, b) => b.cvss - a.cvss).map((f) =>
                 new TableRow({
                     children: [
-                        tcell([new TextRun({ text: f.id, size: 16, color: SLATE })]),
-                        tcell([new TextRun({ text: f.title, size: 16, color: SLATE })]),
-                        tcell([new TextRun({ text: SEVERITY[f.severity].label, bold: true, size: 16, color: SEVERITY[f.severity].color })]),
-                        tcell([new TextRun({ text: f.cvss.toFixed(1), size: 16, color: SLATE })]),
-                        tcell([new TextRun({ text: f.category, size: 16, color: SLATE })]),
+                        tcell([txt({ text: f.id, size: 16, color: SLATE })]),
+                        tcell([txt({ text: f.title, size: 16, color: SLATE })]),
+                        tcell([txt({ text: SEVERITY[f.severity].label, bold: true, size: 16, color: SEVERITY[f.severity].color })]),
+                        tcell([txt({ text: f.cvss.toFixed(1), size: 16, color: SLATE })]),
+                        tcell([txt({ text: f.category, size: 16, color: SLATE })]),
                     ],
                 }),
             ),
@@ -355,21 +384,21 @@ function findingBlock(f: Finding): Paragraph[] {
         new Paragraph({
             spacing: { before: 140, after: 20 },
             border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } },
-            children: [new TextRun({ text: `${f.id} — ${f.title}  `, bold: true, color: INK, size: 22 }), new TextRun({ text: `${sv.label.toUpperCase()}${sevTag}`, bold: true, color: sv.color, size: 16 })],
+            children: [txt({ text: `${f.id} — ${f.title}  `, bold: true, color: INK, size: 22 }), txt({ text: `${sv.label.toUpperCase()}${sevTag}`, bold: true, color: sv.color, size: 16 })],
         }),
-        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: `CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category} · Afetado: ${f.affected.join(', ')}`, color: MUTED, size: 15 })] }),
-        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, alignment: AlignmentType.JUSTIFIED, children: [new TextRun({ text: f.description, color: SLATE, size: 18 })] }),
+        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: `CVSS ${f.cvss.toFixed(1)}${cvssTag} · ${f.cwe} · ${f.category} · Afetado: ${f.affected.join(', ')}`, color: MUTED, size: 15 })] }),
+        new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, alignment: AlignmentType.JUSTIFIED, children: [txt({ text: f.description, color: SLATE, size: 18 })] }),
     ];
     if (f.evidence) {
-        out.push(new Paragraph({ spacing: { after: 0, before: 20 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: f.evidence.caption, italics: true, color: MUTED, size: 15 })] }));
+        out.push(new Paragraph({ spacing: { after: 0, before: 20 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: f.evidence.caption, italics: true, color: MUTED, size: 15 })] }));
         f.evidence.code.split('\n').forEach((line) =>
-            out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [new TextRun({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 15 })] })),
+            out.push(new Paragraph({ shading: { type: ShadingType.CLEAR, fill: INK }, spacing: { after: 0 }, children: [txt({ text: line || ' ', font: 'Consolas', color: 'E2E8F0', size: 15 })] })),
         );
     }
-    out.push(new Paragraph({ spacing: { before: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: 'Impacto: ', bold: true, color: primaryOf(), size: 17 }), new TextRun({ text: f.businessImpact, color: SLATE, size: 18 })] }));
-    out.push(new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [new TextRun({ text: 'Remediação: ', bold: true, color: primaryOf(), size: 17 }), new TextRun({ text: f.remediation, color: SLATE, size: 18 })] }));
+    out.push(new Paragraph({ spacing: { before: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: 'Impacto: ', bold: true, color: primaryOf(), size: 17 }), txt({ text: f.businessImpact, color: SLATE, size: 18 })] }));
+    out.push(new Paragraph({ spacing: { after: 40 }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: sv.color, space: 8 } }, children: [txt({ text: 'Remediação: ', bold: true, color: primaryOf(), size: 17 }), txt({ text: f.remediation, color: SLATE, size: 18 })] }));
     if (f.estimatedNote) {
-        out.push(new Paragraph({ spacing: { before: 20, after: 60 }, shading: { type: ShadingType.CLEAR, fill: 'FFFBEB' }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: 'F59E0B', space: 8 } }, children: [new TextRun({ text: `Nota: ${f.estimatedNote}`, italics: true, color: '92400E', size: 15 })] }));
+        out.push(new Paragraph({ spacing: { before: 20, after: 60 }, shading: { type: ShadingType.CLEAR, fill: 'FFFBEB' }, border: { left: { style: BorderStyle.SINGLE, size: 24, color: 'F59E0B', space: 8 } }, children: [txt({ text: `Nota: ${f.estimatedNote}`, italics: true, color: '92400E', size: 15 })] }));
     }
     return out;
 }
@@ -386,12 +415,12 @@ function actionTable(items: ReturnType<typeof actionItems>, primary: string) {
             ...sorted.map((a) =>
                 new TableRow({
                     children: [
-                        new TableCell({ shading: { type: ShadingType.CLEAR, fill: hx(WINDOW_COLOR[a.window]) }, margins: { top: 40, bottom: 40, left: 60, right: 60 }, children: [new Paragraph({ children: [new TextRun({ text: a.window, bold: true, color: 'FFFFFF', size: 14 })] })] }),
-                        tcell([new TextRun({ text: a.f.id, size: 15, color: SLATE })]),
-                        tcell([new TextRun({ text: a.f.remediation, size: 15, color: SLATE })]),
-                        tcell([new TextRun({ text: EFFORT[a.effort].label, bold: true, size: 15, color: EFFORT[a.effort].color })]),
-                        tcell([new TextRun({ text: `${a.etaDays}d`, size: 15, color: SLATE })]),
-                        tcell([new TextRun({ text: a.quickWin ? '★' : '—', bold: true, size: 15, color: '059669' })]),
+                        new TableCell({ shading: { type: ShadingType.CLEAR, fill: hx(WINDOW_COLOR[a.window]) }, margins: { top: 40, bottom: 40, left: 60, right: 60 }, children: [new Paragraph({ children: [txt({ text: a.window, bold: true, color: 'FFFFFF', size: 14 })] })] }),
+                        tcell([txt({ text: a.f.id, size: 15, color: SLATE })]),
+                        tcell([txt({ text: a.f.remediation, size: 15, color: SLATE })]),
+                        tcell([txt({ text: EFFORT[a.effort].label, bold: true, size: 15, color: EFFORT[a.effort].color })]),
+                        tcell([txt({ text: `${a.etaDays}d`, size: 15, color: SLATE })]),
+                        tcell([txt({ text: a.quickWin ? '★' : '—', bold: true, size: 15, color: '059669' })]),
                     ],
                 }),
             ),
