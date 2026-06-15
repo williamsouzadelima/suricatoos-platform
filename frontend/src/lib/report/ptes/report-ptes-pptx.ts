@@ -8,6 +8,7 @@
 import pptxgen from 'pptxgenjs';
 
 import { CHART_SPECS } from './report-charts-sheet';
+import { highlightSegments, HOT_BG_HEX, HOT_FG_HEX } from './report-highlight';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { type Engagement, type Finding } from './engagement';
 import { actionItems, COLORS, EFFORT, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
@@ -283,7 +284,12 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             const evY = py + 1.4;
             const codeLines = f.evidence.code.split('\n').slice(0, 5);
             sf.addText(f.evidence.caption, { x: 0.72, y: evY, w: 11.8, h: 0.26, fontSize: 8.5, italic: true, color: MUTED });
-            sf.addText(codeLines.join('\n'), { x: 0.72, y: evY + 0.28, w: 11.8, h: 0.16 + codeLines.length * 0.2, fontSize: 9, fontFace: 'Consolas', color: 'E2E8F0', fill: { color: INK }, valign: 'top', margin: 6, lineSpacingMultiple: 1.0 });
+            // Highlight the vuln-proving payload in yellow within the dark code box.
+            const codeRuns = highlightSegments(codeLines.join('\n')).map((seg) => ({
+                text: seg.text,
+                options: { fontFace: 'Consolas', fontSize: 9, color: seg.hot ? HOT_FG_HEX : 'E2E8F0', highlight: seg.hot ? HOT_BG_HEX : undefined },
+            }));
+            sf.addText(codeRuns, { x: 0.72, y: evY + 0.28, w: 11.8, h: 0.16 + codeLines.length * 0.2, fill: { color: INK }, valign: 'top', margin: 6, lineSpacingMultiple: 1.0 });
             twoColY = evY + 0.32 + codeLines.length * 0.2 + 0.14;
         }
 

