@@ -73,7 +73,13 @@ const findingsDeriverSystemPrompt = `You are a senior penetration-test report an
 	`Read it and extract concrete, de-duplicated SECURITY FINDINGS, then return them by calling the ` + submitFindingsToolName + ` function. ` +
 	`Do NOT answer in free text — your entire answer must be the tool call.
 
-For each finding provide: a concise title; severity (critical|high|medium|low|info); a CVSS v3.1 vector and base score; CWE (e.g. "CWE-89"); a category (e.g. "Web Application", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description; the business impact; likelihood and impact each 1-5; concrete remediation; references (OWASP/CWE/CVE) when applicable; the source_task_ids the finding was derived from; and a provenance map.
+For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; the source_task_ids the finding was derived from; and a provenance map.
+
+TAXONOMY — always classify each finding (these are standard mappings, not inventions):
+- Always set the cwe field AND add it to references, e.g. {"label":"CWE-89: SQL Injection"}.
+- Always map to OWASP and add it as a reference: web → OWASP Top 10 2021 (e.g. {"label":"OWASP A03:2021 — Injection"}); API → OWASP API Top 10 2023 (e.g. {"label":"OWASP API1:2023 — BOLA"}).
+- For network / Active Directory / post-exploitation findings, also add the MITRE ATT&CK technique id as a reference, e.g. {"label":"MITRE ATT&CK T1558.003"}.
+- Add a CVE reference ONLY when a specific CVE id is actually present in the execution data; otherwise omit CVE.
 
 HONESTY RULES (mandatory):
 - Use ONLY information present in the execution. NEVER invent CVEs, hosts, ports or results that are not in the data.
