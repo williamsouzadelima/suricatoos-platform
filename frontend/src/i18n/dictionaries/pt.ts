@@ -181,6 +181,7 @@ const pt: Record<string, string> = {
     'Generate retest report': 'Gerar relatório de reteste',
     'Generating…': 'Gerando…',
     '+{count} more': '+{count} mais',
+    'Tool output (proof)': 'Saída da ferramenta (prova)',
 };
 
 export default pt;
