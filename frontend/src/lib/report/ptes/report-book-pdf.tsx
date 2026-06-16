@@ -45,17 +45,20 @@ export function registerReportFonts(base = '/fonts'): void {
         ],
     });
     Font.register({ family: 'NotoSansMono', fonts: [{ fontStyle: 'normal', fontWeight: 'normal', src: `${base}/NotoSansMono-Regular.ttf` }] });
-    Font.registerHyphenationCallback((w) => [w]);
+    // Break long UNBROKEN tokens (URLs, hashes, payloads from real findings) into chunks so they
+    // wrap. Leaving them unbreakable lets a token wider than its container blow up @react-pdf's
+    // layout math → "unsupported number" crash on export. Short words pass through untouched.
+    Font.registerHyphenationCallback((word) => (word.length > 18 ? (word.match(/.{1,14}/g) ?? [word]) : [word]));
     fontsRegistered = true;
 }
 
 const s = StyleSheet.create({
     page: { backgroundColor: COLORS.paper, color: COLORS.slate, fontFamily: SANS, fontSize: 11.5, lineHeight: 1.6, paddingTop: 66, paddingBottom: 56, paddingHorizontal: 56 },
-    header: { position: 'absolute', top: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.line, paddingBottom: 6 },
+    header: { position: 'absolute', top: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 6 },
     headerL: { flexDirection: 'row', alignItems: 'center' },
     headerBrand: { fontFamily: SANS, fontSize: 10, fontWeight: 'bold', color: COLORS.brand, letterSpacing: 0.5, marginLeft: 6 },
     headerMeta: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
-    footer: { position: 'absolute', bottom: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: COLORS.line, paddingTop: 6 },
+    footer: { position: 'absolute', bottom: 22, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', paddingTop: 6 },
     footerText: { fontFamily: SANS, fontSize: 7.5, color: COLORS.muted },
     // cover — Direction 3: light, indigo rail, display title, KPI cards
     cover: { backgroundColor: COLORS.paper, color: COLORS.ink, padding: 0 },
@@ -115,7 +118,11 @@ const s = StyleSheet.create({
     tRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: COLORS.line },
     tCell: { fontSize: 9.5, color: COLORS.slate, padding: 6 },
     // finding card
-    card: { borderWidth: 1, borderColor: COLORS.line, borderLeftWidth: 4, borderRadius: 5, padding: 12, marginBottom: 13 },
+    // No border: a bordered View crashes @react-pdf's clipBorderTop when it wraps across pages.
+    // The severity is shown by a top color bar (a background fill, which wraps safely) + the pill.
+    cardHeadBlock: { marginTop: 8 },
+    cardGap: { marginBottom: 18 },
+    cardBar: { height: 4, marginBottom: 10 },
     cardHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
     cardId: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, fontWeight: 'bold' },
     cardTitle: { fontSize: 15, fontWeight: 'bold', color: COLORS.ink, marginTop: 2, marginBottom: 6 },
@@ -125,20 +132,20 @@ const s = StyleSheet.create({
     metaPill: { fontFamily: SANS, backgroundColor: COLORS.panel, borderRadius: 3, paddingVertical: 2, paddingHorizontal: 6, fontSize: 9, color: COLORS.slate },
     fieldLbl: { fontFamily: SANS, fontSize: 9.5, fontWeight: 'bold', color: COLORS.brand, marginTop: 8, marginBottom: 3, textTransform: 'uppercase', letterSpacing: 0.4 },
     fieldText: { fontSize: 11.5, color: COLORS.slate, lineHeight: 1.6 },
-    code: { backgroundColor: '#0F172A', color: '#E2E8F0', fontFamily: MONO, fontSize: 9.5, padding: 9, borderRadius: 4, marginTop: 5, lineHeight: 1.45 },
+    code: { backgroundColor: '#0F172A', color: '#E2E8F0', fontFamily: MONO, fontSize: 9.5, padding: 9, marginTop: 5, lineHeight: 1.45 },
     codeCap: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, fontStyle: 'italic', marginTop: 6 },
     // estimated / honesty
     estBadge: { backgroundColor: '#FEF3C7', borderRadius: 3, paddingVertical: 2, paddingHorizontal: 5 },
     estBadgeText: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: '#92400E', letterSpacing: 0.3 },
-    callout: { flexDirection: 'row', backgroundColor: '#FFFBEB', borderLeftWidth: 3, borderLeftColor: '#F59E0B', borderRadius: 3, paddingVertical: 7, paddingHorizontal: 9, marginTop: 8 },
+    callout: { flexDirection: 'row', backgroundColor: '#FEF3C7', borderRadius: 3, paddingVertical: 7, paddingHorizontal: 9, marginTop: 8 },
     calloutText: { fontFamily: SANS, flex: 1, fontSize: 9, color: '#92400E', lineHeight: 1.5 },
     assetLine: { flexDirection: 'row', marginBottom: 3, alignItems: 'baseline' },
     assetMono: { fontFamily: MONO, fontSize: 9.5, color: COLORS.ink },
     assetMeta: { fontFamily: SANS, fontSize: 9, color: COLORS.muted, marginLeft: 4 },
     // Direction 3 — taxonomy chips, kill-chain mini path, reproduction, two-tone fields
-    chipFilled: { fontFamily: SANS, backgroundColor: '#EEF0FF', color: '#3730A3', borderRadius: 4, paddingVertical: 2, paddingHorizontal: 7, fontSize: 7.5 },
-    chipOut: { fontFamily: SANS, borderWidth: 1, borderColor: COLORS.line, color: COLORS.slate, borderRadius: 4, paddingVertical: 2, paddingHorizontal: 7, fontSize: 7.5 },
-    chipMono: { fontFamily: MONO, borderWidth: 1, borderColor: COLORS.line, color: COLORS.ink, borderRadius: 4, paddingVertical: 2, paddingHorizontal: 7, fontSize: 7.5 },
+    chipFilled: { fontFamily: SANS, backgroundColor: '#EEF0FF', color: '#3730A3', borderRadius: 4, paddingVertical: 3, paddingHorizontal: 7, fontSize: 9 },
+    chipOut: { fontFamily: SANS, backgroundColor: '#EEF0F3', color: '#334155', borderRadius: 4, paddingVertical: 3, paddingHorizontal: 7, fontSize: 9 },
+    chipMono: { fontFamily: MONO, backgroundColor: '#EEF0F3', color: COLORS.ink, borderRadius: 4, paddingVertical: 3, paddingHorizontal: 7, fontSize: 9 },
     pathRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', marginTop: 7, marginBottom: 5 },
     pathPill: { fontFamily: SANS, backgroundColor: '#EEF0F3', color: COLORS.muted, borderRadius: 9, paddingVertical: 2, paddingHorizontal: 8, fontSize: 7.5, marginRight: 3, marginBottom: 2 },
     pathHot: { fontFamily: SANS, backgroundColor: '#FBEDEC', color: '#C04A40', borderRadius: 9, paddingVertical: 2, paddingHorizontal: 8, fontSize: 7.5, marginRight: 3, marginBottom: 2 },
@@ -149,9 +156,9 @@ const s = StyleSheet.create({
     reproText: { flex: 1, fontSize: 8.7, color: COLORS.slate, lineHeight: 1.45 },
     fieldLblGreen: { fontFamily: SANS, fontSize: 8, fontWeight: 'bold', color: '#1F9E6E', marginTop: 6, marginBottom: 2, textTransform: 'uppercase', letterSpacing: 0.4 },
     covGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 4 },
-    covCell: { width: 152, borderRadius: 6, borderWidth: 1, paddingVertical: 6, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center' },
-    covOn: { backgroundColor: '#EEF0FF', borderColor: '#C7C2F0' },
-    covOff: { backgroundColor: COLORS.paper, borderColor: COLORS.line },
+    covCell: { width: 152, borderRadius: 6, paddingVertical: 6, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center' },
+    covOn: { backgroundColor: '#EEF0FF' },
+    covOff: { backgroundColor: COLORS.panel },
     covCode: { fontFamily: SANS, fontSize: 8.5, fontWeight: 'bold', width: 26 },
     covName: { fontFamily: SANS, fontSize: 7.5, flex: 1, lineHeight: 1.25 },
     covN: { fontFamily: SANS, fontSize: 8.5, fontWeight: 'bold', color: '#3730A3', marginLeft: 4 },
@@ -183,21 +190,12 @@ const Badge = ({ severity }: { severity: Severity }) => {
     );
 };
 
-const Header = ({ e }: { e: Engagement }) => (
-    <View style={s.header} fixed>
-        <View style={s.headerL}>
-            <AppLogo branding={e.branding} size={15} />
-            <Text style={s.headerBrand}>{e.branding.appName.toUpperCase()}</Text>
-        </View>
-        <Text style={s.headerMeta}>{`${e.client} · ${e.classification}`}</Text>
-    </View>
-);
-const Footer = ({ e }: { e: Engagement }) => (
-    <View style={s.footer} fixed>
-        <Text style={s.footerText}>{e.title}</Text>
-        <Text style={s.footerText} render={({ pageNumber, totalPages }) => `${t('Page')} ${pageNumber} ${t('of')} ${totalPages}`} />
-    </View>
-);
+// NOTE: @react-pdf `fixed` elements (running header/footer + page numbers) crash with
+// "unsupported number" on documents beyond ~12 pages (real reports with many findings).
+// Until @react-pdf is upgraded, the per-page header/footer are disabled so long reports render.
+// Branding lives on the cover + section headers instead.
+const Header = (_: { e: Engagement }) => null;
+const Footer = (_: { e: Engagement }) => null;
 
 const Section = ({ n, title }: { n: number; title: string }) => (
     <View style={s.sectionWrap}>
@@ -293,47 +291,56 @@ const FindingCard = ({ f }: { f: Finding }) => {
     const primaryAsset = a0 ? a0.url || (a0.port ? `${a0.host}:${a0.port}` : a0.host) : f.affected[0];
     const path = f.attackPath ?? [];
     return (
-        <View style={[s.card, { borderLeftColor: sv.color, borderLeftWidth: 6 }]} wrap={false}>
-            <View style={s.cardHead}>
-                <Text style={s.cardId}>{f.id}</Text>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                    {sevEst && <EstBadge label={t('SEV. EST.')} />}
-                    <View style={[s.sevPill, { backgroundColor: sv.soft }]}>
-                        <Text style={[s.badgeText, { color: sv.color }]}>{sevLabel(f.severity)}</Text>
+        // No outer wrapping <View>: a View that wraps across pages crashes @react-pdf's layout.
+        // Return a Fragment of sibling blocks — each dense block is its own wrap={false} unit
+        // (atomic, fits a page); the running description is a <Text> (flows across pages safely).
+        // Page breaks fall BETWEEN blocks, never inside one.
+        <>
+            <View wrap={false} style={s.cardHeadBlock}>
+                <View style={[s.cardBar, { backgroundColor: sv.color }]} />
+                <View style={s.cardHead}>
+                    <Text style={s.cardId}>{f.id}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                        {sevEst && <EstBadge label={t('SEV. EST.')} />}
+                        <View style={[s.sevPill, { backgroundColor: sv.soft }]}>
+                            <Text style={[s.badgeText, { color: sv.color }]}>{sevLabel(f.severity)}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <Text style={s.cardTitle}>{f.title}</Text>
-            <View style={s.metaGrid}>
-                <Text style={s.chipFilled}>{`CVSS ${f.cvss.toFixed(1)}`}</Text>
-                {cvssEst && <EstBadge label={t('EST.')} />}
-                {cwe && <Text style={s.chipOut}>{cwe}</Text>}
-                {owasp && <Text style={s.chipOut}>{`OWASP ${owasp}`}</Text>}
-                {mitre && <Text style={s.chipOut}>{`MITRE ${mitre}`}</Text>}
-                {cves.map((c) => (
-                    <Text key={c} style={s.chipOut}>{c}</Text>
-                ))}
-                {primaryAsset && <Text style={s.chipMono}>{primaryAsset}</Text>}
-            </View>
-            {path.length > 0 && (
-                <View style={s.pathRow}>
-                    {path.map((b, i) => (
-                        <View key={i} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={i >= path.length - 2 ? s.pathHot : s.pathPill}>{b}</Text>
-                            {i < path.length - 1 && <Text style={s.pathArr}>→</Text>}
-                        </View>
+                <Text style={s.cardTitle}>{f.title}</Text>
+                <View style={s.metaGrid}>
+                    <Text style={s.chipFilled}>{`CVSS ${f.cvss.toFixed(1)}`}</Text>
+                    {cvssEst && <EstBadge label={t('EST.')} />}
+                    {cwe && <Text style={s.chipOut}>{cwe}</Text>}
+                    {owasp && <Text style={s.chipOut}>{`OWASP ${owasp}`}</Text>}
+                    {mitre && <Text style={s.chipOut}>{`MITRE ${mitre}`}</Text>}
+                    {cves.map((c) => (
+                        <Text key={c} style={s.chipOut}>{c}</Text>
                     ))}
+                    {primaryAsset && <Text style={s.chipMono}>{primaryAsset}</Text>}
                 </View>
-            )}
-            <Text style={s.fieldText}>{f.description}</Text>
+                {path.length > 0 && (
+                    <View style={s.pathRow}>
+                        {path.map((b, i) => (
+                            <View key={i} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={i >= path.length - 2 ? s.pathHot : s.pathPill}>{b}</Text>
+                                {i < path.length - 1 && <Text style={s.pathArr}>→</Text>}
+                            </View>
+                        ))}
+                    </View>
+                )}
+            </View>
+            <View wrap={false}>
+                <Text style={s.fieldText}>{f.description}</Text>
+            </View>
             {f.evidence && (
-                <View>
+                <View wrap={false}>
                     <Text style={s.codeCap}>{f.evidence.caption}</Text>
                     <CodeBlock code={f.evidence.code} />
                 </View>
             )}
             {f.reproSteps && f.reproSteps.length > 0 && (
-                <View>
+                <View wrap={false}>
                     <Text style={s.fieldLbl}>{t('Reproduction')}</Text>
                     {f.reproSteps.slice(0, 8).map((st, i) => (
                         <View key={i} style={s.reproRow}>
@@ -343,7 +350,7 @@ const FindingCard = ({ f }: { f: Finding }) => {
                     ))}
                 </View>
             )}
-            <View style={s.twoCol}>
+            <View style={s.twoCol} wrap={false}>
                 <View style={{ flex: 1 }}>
                     <Text style={s.fieldLbl}>{t('Business impact')}</Text>
                     <Text style={s.fieldText}>{f.businessImpact}</Text>
@@ -353,13 +360,16 @@ const FindingCard = ({ f }: { f: Finding }) => {
                     <Text style={s.fieldText}>{f.remediation}</Text>
                 </View>
             </View>
-            <Text style={s.fieldLbl}>{t('Affected assets')}</Text>
-            <AssetList f={f} />
-            {f.references.length > 0 && (
-                <Text style={[s.codeCap, { marginTop: 6 }]}>{`${t('References')}: ${f.references.map((r) => r.label).join(' · ')}`}</Text>
-            )}
+            <View wrap={false}>
+                <Text style={s.fieldLbl}>{t('Affected assets')}</Text>
+                <AssetList f={f} />
+                {f.references.length > 0 && (
+                    <Text style={[s.codeCap, { marginTop: 6 }]}>{`${t('References')}: ${f.references.map((r) => r.label).join(' · ')}`}</Text>
+                )}
+            </View>
             {f.estimatedNote && <Callout text={f.estimatedNote} />}
-        </View>
+            <View style={s.cardGap} />
+        </>
     );
 };
 
@@ -368,7 +378,7 @@ const FindingCard = ({ f }: { f: Finding }) => {
 const FigurePlate = ({ fig }: { fig: Figure }) => {
     const links = fig.findingIds.length ? `${t('Related to')}: ${fig.findingIds.join(', ')}` : '';
     return (
-        <View style={s.figure} wrap={false}>
+        <View style={s.figure}>
             <Text style={s.figCap}>{`${fig.id} — ${fig.caption}`}</Text>
             {(links || fig.capturedUrl) && (
                 <Text style={s.figLinks}>{[links, fig.capturedUrl ? `URL: ${fig.capturedUrl}` : ''].filter(Boolean).join('   ·   ')}</Text>
@@ -390,9 +400,11 @@ const FigurePlate = ({ fig }: { fig: Figure }) => {
 
 const ActionTable = ({ items }: { items: ActionItem[] }) => {
     const sorted = [...items].sort((a, b) => WINDOWS.indexOf(a.window) - WINDOWS.indexOf(b.window) || SEVERITY[b.f.severity].rank - SEVERITY[a.f.severity].rank);
+    // Fragment, not a wrapping <View>: a container View holding many rows crashes @react-pdf when
+    // it spans a page break. The header + wrap=false rows flow directly as page siblings instead.
     return (
-        <View>
-            <View style={s.aHead}>
+        <>
+            <View style={s.aHead} wrap={false}>
                 <Text style={[s.aHeadCell, { width: 74 }]}>{t('Window')}</Text>
                 <Text style={[s.aHeadCell, { width: 30 }]}>ID</Text>
                 <Text style={[s.aHeadCell, { flex: 1 }]}>{t('Remediation action')}</Text>
@@ -414,7 +426,7 @@ const ActionTable = ({ items }: { items: ActionItem[] }) => {
                     <Text style={[s.aCell, { width: 28, color: '#059669', fontWeight: 'bold' }]}>{a.quickWin ? '★' : '—'}</Text>
                 </View>
             ))}
-        </View>
+        </>
     );
 };
 
@@ -439,7 +451,7 @@ const CoverageMatrix = ({ findings }: { findings: Finding[] }) => {
         new Set(findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)),
     );
     return (
-        <View>
+        <View wrap={false}>
             <Text style={s.h3}>{t('Coverage — OWASP Top 10 (2021)')}</Text>
             <View style={s.covGrid}>
                 {OWASP_2021.map(([code, name]) => {
