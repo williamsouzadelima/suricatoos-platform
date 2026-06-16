@@ -10,7 +10,7 @@ import { AttackChainStrip, DonutChart, EffortTimeBars, HBarChart, PhaseStepper, 
 import { PTES_PHASES, type Engagement, type Figure, type Finding, type RemediationWindow, type Severity } from './engagement';
 import { AppLogo, ClientLogo } from './report-logo';
 import { highlightSegments, HOT_BG, HOT_FG } from './report-highlight';
-import { actionItems, categoryCounts, COLORS, EFFORT, findingIsEstimated, fmtDate, isEstimated, quickWins, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
+import { actionItems, affectedHostsRoster, categoryCounts, COLORS, EFFORT, findingIsEstimated, fmtDate, isEstimated, quickWins, RETEST_STATUS, riskRating, SEVERITY, SEVERITY_ORDER, severityCounts, topVulnerabilities, WINDOW_COLOR, WINDOWS, type ActionItem } from './theme';
 
 // theme.ts SEVERITY/EFFORT/WINDOW labels are the source of truth but hardcoded pt-BR; the map keys
 // must stay intact (they index the maps), so localize at the RENDER site by mapping the key →
@@ -305,6 +305,11 @@ const FindingCard = ({ f }: { f: Finding }) => {
                         <View style={[s.sevPill, { backgroundColor: sv.soft }]}>
                             <Text style={[s.badgeText, { color: sv.color }]}>{sevLabel(f.severity)}</Text>
                         </View>
+                        {f.retestStatus && (
+                            <View style={[s.sevPill, { backgroundColor: RETEST_STATUS[f.retestStatus].soft }]}>
+                                <Text style={[s.badgeText, { color: RETEST_STATUS[f.retestStatus].color }]}>{t(RETEST_STATUS[f.retestStatus].key)}</Text>
+                            </View>
+                        )}
                     </View>
                 </View>
                 <Text style={s.cardTitle}>{f.title}</Text>
@@ -479,6 +484,71 @@ const CoverageMatrix = ({ findings }: { findings: Finding[] }) => {
     );
 };
 
+// Strati-parity executive tables. Each renders as a Fragment: an atomic (wrap={false}) title+header
+// block followed by atomic row Views — never one big wrapping <View> (that crashes @react-pdf on a
+// page break), so rows flow safely across pages.
+const TopVulnsTable = ({ findings }: { findings: Finding[] }) => (
+    <>
+        <View wrap={false}>
+            <Text style={[s.h3, { marginTop: 14 }]}>{t('Top vulnerabilities')}</Text>
+            <View style={s.tHead}>
+                <Text style={[s.tHeadCell, { width: 34 }]}>ID</Text>
+                <Text style={[s.tHeadCell, { flex: 1 }]}>{t('Vulnerability')}</Text>
+                <Text style={[s.tHeadCell, { width: 58 }]}>{t('Criticality')}</Text>
+                <Text style={[s.tHeadCell, { width: 156 }]}>{t('Recommendation')}</Text>
+            </View>
+        </View>
+        {topVulnerabilities(findings).map((f) => (
+            <View key={f.id} style={s.tRow} wrap={false}>
+                <Text style={[s.tCell, { width: 34, fontFamily: MONO }]}>{f.id}</Text>
+                <Text style={[s.tCell, { flex: 1 }]}>{f.title}</Text>
+                <Text style={[s.tCell, { width: 58, color: SEVERITY[f.severity].color, fontWeight: 'bold' }]}>{sevLabel(f.severity)}</Text>
+                <Text style={[s.tCell, { width: 156 }]}>{f.remediation.length > 130 ? `${f.remediation.slice(0, 129)}…` : f.remediation}</Text>
+            </View>
+        ))}
+    </>
+);
+
+const AffectedHostsTable = ({ findings }: { findings: Finding[] }) => (
+    <>
+        <View wrap={false}>
+            <Text style={[s.h3, { marginTop: 16 }]}>{t('Affected hosts and URLs')}</Text>
+            <View style={s.tHead}>
+                <Text style={[s.tHeadCell, { width: 58 }]}>{t('Criticality')}</Text>
+                <Text style={[s.tHeadCell, { flex: 1 }]}>{t('Vulnerability')}</Text>
+                <Text style={[s.tHeadCell, { width: 176 }]}>URL</Text>
+            </View>
+        </View>
+        {affectedHostsRoster(findings).map((r, i) => (
+            <View key={i} style={s.tRow} wrap={false}>
+                <Text style={[s.tCell, { width: 58, color: SEVERITY[r.severity].color, fontWeight: 'bold' }]}>{sevLabel(r.severity)}</Text>
+                <Text style={[s.tCell, { flex: 1 }]}>{r.vuln}</Text>
+                <Text style={[s.tCell, { width: 176, fontFamily: MONO, fontSize: 8.5 }]}>{r.url}</Text>
+            </View>
+        ))}
+    </>
+);
+
+const ContactsTable = ({ contacts }: { contacts: NonNullable<Engagement['contacts']> }) => (
+    <>
+        <View wrap={false}>
+            <Text style={s.h3}>{t('Contacts')}</Text>
+            <View style={s.tHead}>
+                <Text style={[s.tHeadCell, { width: 156 }]}>{t('Name')}</Text>
+                <Text style={[s.tHeadCell, { width: 120 }]}>{t('Role')}</Text>
+                <Text style={[s.tHeadCell, { flex: 1 }]}>{t('Contact information')}</Text>
+            </View>
+        </View>
+        {contacts.map((c, i) => (
+            <View key={i} style={s.tRow} wrap={false}>
+                <Text style={[s.tCell, { width: 156 }]}>{c.name}</Text>
+                <Text style={[s.tCell, { width: 120 }]}>{c.role}</Text>
+                <Text style={[s.tCell, { flex: 1 }]}>{c.info || '—'}</Text>
+            </View>
+        ))}
+    </>
+);
+
 export function EngagementPdfDocument({ engagement: e }: { engagement: Engagement }) {
     const sevData = severityCounts(e.findings);
     const catData = categoryCounts(e.findings);
@@ -509,7 +579,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         </View>
                     </View>
                     <Text style={s.coverKicker}>{t('PENTEST REPORT · PTES')}</Text>
-                    <Text style={s.coverTitle}>{e.title}</Text>
+                    <Text style={s.coverTitle}>{e.isRetest ? `${e.title} — ${t('Retest')}` : e.title}</Text>
                     <Text style={s.coverSub}>{tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client })}</Text>
                     <View style={s.kpiRow}>
                         <View style={[s.kpi, { backgroundColor: '#EEF0FF' }]}>
@@ -565,6 +635,7 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         <Text style={s.kvV}>{v}</Text>
                     </View>
                 ))}
+                {e.contacts && e.contacts.length > 0 && <ContactsTable contacts={e.contacts} />}
                 <Text style={s.h3}>{t('Scope')}</Text>
                 <View style={s.twoCol}>
                     <View style={[s.panel, { flex: 1 }]}>
@@ -585,6 +656,10 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         <Text style={s.tocName}>{t}</Text>
                     </View>
                 ))}
+                <View style={[s.panel, { marginTop: 16 }]} wrap={false}>
+                    <Text style={[s.panelTitle, { color: COLORS.coral }]}>{t('Confidentiality notice')}</Text>
+                    <Text style={s.fieldText}>{t('This document contains proprietary and confidential information. All data discovered during testing and presented here was handled to preserve its privacy and secrecy. Duplication, redistribution or use, in whole or in part, by any means, requires prior consent.')}</Text>
+                </View>
             </Page>
 
             {/* ── 1. Executive summary ── */}
@@ -632,6 +707,8 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                         <Text style={s.statLbl}>{t('Categories')}</Text>
                     </View>
                 </View>
+                <TopVulnsTable findings={e.findings} />
+                <AffectedHostsTable findings={e.findings} />
             </Page>
 
             {/* ── 2. Methodology ── */}
@@ -788,6 +865,10 @@ export function EngagementPdfDocument({ engagement: e }: { engagement: Engagemen
                 ))}
                 <View style={{ marginTop: 4 }}>
                     <CoverageMatrix findings={e.findings} />
+                </View>
+                <View wrap={false}>
+                    <Text style={s.h3}>{t('Trace cleanup')}</Text>
+                    <Text style={s.p}>{e.cleanupAttestation ?? t('After collecting the information and evidence shown above, the systems were restored exactly as found: any accounts created for the proof of concept were removed, and the exploits used during testing were properly deleted.')}</Text>
                 </View>
                 <Text style={s.h3}>{t('Notice')}</Text>
                 <Text style={s.p}>{tf('Report generated by {app} from an authorized engagement. Confidential content; distribute only to authorized parties. Proofs of concept were non-destructive and limited to the agreed scope.', { app: e.branding.appName })}</Text>

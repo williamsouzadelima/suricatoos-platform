@@ -1,6 +1,6 @@
 // Shared design tokens + chart-data derivation for the premium PTES report.
 import { REMEDIATION } from './engagement';
-import type { Engagement, Finding, Provenance, RemediationWindow, Severity } from './engagement';
+import type { Engagement, Finding, Provenance, RemediationWindow, RetestStatus, Severity } from './engagement';
 
 // Book typography: a serif for running text + headings (the "book" voice), a humanist sans
 // for furniture (chips, tables, headers/footers) and a mono for code/evidence. The families
@@ -113,6 +113,52 @@ export const actionItems = (findings: Finding[]): ActionItem[] =>
     });
 
 export const quickWins = (findings: Finding[]): ActionItem[] => actionItems(findings).filter((a) => a.quickWin);
+
+// ── Consolidated executive-summary tables (Strati parity) ───────────────────
+// "Top vulnerabilities" — findings ranked by severity then CVSS. Renderers add the columns.
+export const topVulnerabilities = (findings: Finding[], limit = 12): Finding[] =>
+    [...findings]
+        .sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss)
+        .slice(0, limit);
+
+export interface HostRow {
+    severity: Severity;
+    vuln: string;
+    url: string;
+}
+
+// "Affected hosts / URLs" — one row per (finding × distinct endpoint), aggregated across all
+// findings and ordered by severity. Endpoints come from structured assets first, then the
+// humanized `affected[]` list.
+export const affectedHostsRoster = (findings: Finding[]): HostRow[] => {
+    const rows: HostRow[] = [];
+    const seen = new Set<string>();
+    for (const f of [...findings].sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank)) {
+        const urls: string[] = [];
+        (f.assets ?? []).forEach((a) => urls.push(a.url || `${a.host}${a.port ? `:${a.port}` : ''}`));
+        (f.affected ?? []).forEach((u) => urls.push(u));
+        const uniq = [...new Set(urls.map((u) => u.trim()).filter(Boolean))];
+        for (const url of uniq.length ? uniq : ['—']) {
+            const key = `${f.id}|${url}`;
+            if (seen.has(key)) continue;
+            seen.add(key);
+            rows.push({ severity: f.severity, vuln: f.title, url });
+        }
+    }
+    return rows;
+};
+
+// ── Retest status (Strati retest deliverable) ───────────────────────────────
+// `key` is the English source string fed through i18n by each renderer (so labels follow the
+// app locale); color/soft drive the status pill.
+export const RETEST_STATUS: Record<RetestStatus, { key: string; color: string; soft: string }> = {
+    not_fixed: { key: 'Not fixed', color: '#B91C1C', soft: '#FEE2E2' },
+    open: { key: 'Open', color: '#D97706', soft: '#FEF3C7' },
+    accepted: { key: 'Accepted risk', color: '#64748B', soft: '#F1F5F9' },
+    fixed: { key: 'Fixed', color: '#15803D', soft: '#DCFCE7' },
+};
+
+export const RETEST_ORDER: RetestStatus[] = ['not_fixed', 'open', 'accepted', 'fixed'];
 
 // ── Provenance / honesty ────────────────────────────────────────────────────
 // The report must never pass a guess off as a measurement. Fields the flow could not measure

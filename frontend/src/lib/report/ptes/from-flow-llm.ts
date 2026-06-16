@@ -3,7 +3,7 @@
 // 'measured'); a CVSS with no score is 'estimated'. The report's existing badges render these.
 import type { FindingFragmentFragment } from '@/graphql/types';
 
-import type { FieldProvenance, Finding, FindingReference, PtesPhaseId, Provenance, RemediationWindow, Severity } from './engagement';
+import type { FieldProvenance, Finding, FindingReference, PtesPhaseId, Provenance, RemediationWindow, RetestStatus, Severity } from './engagement';
 
 // Strip ANSI escape sequences + XML-invalid control characters. OOXML (DOCX/PPTX) reject control
 // chars -> a CORRUPT file, and real tool output is full of ANSI color codes. Built via RegExp
@@ -60,8 +60,13 @@ const normProv = (raw: Record<string, unknown>): FieldProvenance => {
     return out;
 };
 
-/** Convert backend findings into the report's Finding model (LLM path; regex path is the fallback). */
-export function transformLlmFindingsToEngagement(rows: FindingFragmentFragment[]): Finding[] {
+/** Convert backend findings into the report's Finding model (LLM path; regex path is the fallback).
+ *  When `retestStatuses` is provided (retest mode) each finding gets a `retestStatus` — looked up by
+ *  backend id, defaulting to 'open' (Em aberto) for findings the analyst hasn't dispositioned yet. */
+export function transformLlmFindingsToEngagement(
+    rows: FindingFragmentFragment[],
+    retestStatuses?: Record<string, RetestStatus>,
+): Finding[] {
     return rows.map((bf, i): Finding => {
         const sev = asSeverity(bf.severity);
         const refs = parseJSON<{ label: string; url?: string }[]>(bf.references, []);
@@ -90,6 +95,7 @@ export function transformLlmFindingsToEngagement(rows: FindingFragmentFragment[]
             remediation: stripControlChars(bf.remediation ?? 'Definir e validar a correção a partir da análise do achado; reteste após a remediação.'),
             remediationEffort: EFFORT_BY_SEVERITY[sev],
             remediationWindow: WINDOW_BY_SEVERITY[sev],
+            retestStatus: retestStatuses ? retestStatuses[bf.id] ?? 'open' : undefined,
             severity: sev,
             sourceTaskIds: bf.sourceTaskIds ?? [],
             status: 'confirmed',

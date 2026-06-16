@@ -5,8 +5,9 @@ import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
 import { t, tf, useLocale } from '@/i18n';
 import type { LocaleCode } from '@/i18n/locales';
-import { useDeriveFindingsMutation, useFlowQuery } from '@/graphql/types';
+import { useDeriveFindingsMutation, useFlowQuery, type FindingFragmentFragment } from '@/graphql/types';
 import { Log } from '@/lib/log';
+import type { RetestStatus } from '@/lib/report/ptes/engagement';
 import {
     downloadBlob,
     generateDOCXFromMarkdown,
@@ -35,11 +36,117 @@ const LOCALE_LANGUAGE_NAME: Record<LocaleCode, string> = {
 type PdfPhase = 'done' | 'error' | 'idle';
 type ReportState = 'content' | 'error' | 'generating' | 'loading';
 
+const RETEST_OPTIONS: { key: string; value: RetestStatus }[] = [
+    { key: 'Open', value: 'open' },
+    { key: 'Fixed', value: 'fixed' },
+    { key: 'Not fixed', value: 'not_fixed' },
+    { key: 'Accepted risk', value: 'accepted' },
+];
+
+// Retest editor: set each finding's remediation status, then generate a retest-flavored report.
+// Statuses are kept client-side (localStorage per flow) — server-side persistence is a follow-up.
+function RetestPanel({
+    deriving,
+    findings,
+    flowId,
+    generating,
+    onGenerate,
+}: {
+    deriving: boolean;
+    findings: FindingFragmentFragment[];
+    flowId: string;
+    generating: boolean;
+    onGenerate: (statuses: Record<string, RetestStatus>, format: ReportFormat) => void;
+}) {
+    const storageKey = `suricatoos:retest:${flowId}`;
+    const [statuses, setStatuses] = useState<Record<string, RetestStatus>>(() => {
+        try {
+            const raw = localStorage.getItem(storageKey);
+            return raw ? (JSON.parse(raw) as Record<string, RetestStatus>) : {};
+        } catch {
+            return {};
+        }
+    });
+    const [format, setFormat] = useState<ReportFormat>('pdf');
+
+    const setStatus = (id: string, value: RetestStatus): void => {
+        setStatuses((prev) => {
+            const next = { ...prev, [id]: value };
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(next));
+            } catch {
+                // ignore storage errors (private mode, etc.)
+            }
+            return next;
+        });
+    };
+
+    return (
+        <div className="min-h-screen bg-white dark:bg-gray-900">
+            <div className="mx-auto max-w-3xl p-8">
+                <h1 className="mb-1 text-2xl font-semibold text-gray-900 dark:text-white">{t('Retest')}</h1>
+                <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+                    {t('Set the remediation status of each finding, then generate the retest report.')}
+                </p>
+                {deriving ? (
+                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                        <div className="size-5 animate-spin rounded-full border-primary border-b-2" />
+                        {t('Loading findings…')}
+                    </div>
+                ) : findings.length === 0 ? (
+                    <p className="text-gray-600 dark:text-gray-400">{t('No findings were derived for this flow yet.')}</p>
+                ) : (
+                    <>
+                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                            {findings.map((f) => (
+                                <div key={f.id} className="flex items-center justify-between gap-4 py-3">
+                                    <span className="text-sm text-gray-800 dark:text-gray-200">{f.title}</span>
+                                    <select
+                                        className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                                        onChange={(ev) => setStatus(f.id, ev.target.value as RetestStatus)}
+                                        value={statuses[f.id] ?? 'open'}
+                                    >
+                                        {RETEST_OPTIONS.map((o) => (
+                                            <option key={o.value} value={o.value}>
+                                                {t(o.key)}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-6 flex items-center gap-3">
+                            <select
+                                className="rounded-md border border-gray-300 bg-white px-2 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+                                onChange={(ev) => setFormat(ev.target.value as ReportFormat)}
+                                value={format}
+                            >
+                                <option value="pdf">PDF</option>
+                                <option value="docx">{t('Word (.docx)')}</option>
+                                <option value="pptx">{t('PowerPoint (.pptx)')}</option>
+                            </select>
+                            <button
+                                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:opacity-50"
+                                disabled={generating}
+                                onClick={() => onGenerate(statuses, format)}
+                                type="button"
+                            >
+                                {generating ? t('Generating…') : t('Generate retest report')}
+                            </button>
+                        </div>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+}
+
 function FlowReport() {
     const { flowId } = useParams<{ flowId: string }>();
     const [searchParams] = useSearchParams();
     const download = searchParams.has('download');
     const silent = searchParams.has('silent');
+    const retest = searchParams.has('retest');
     const typeParam = searchParams.get('type');
     const reportType: ReportType = typeParam === 'executive' ? 'executive' : typeParam === 'ptes' ? 'ptes' : 'technical';
     const reportFormat: ReportFormat = ['docx', 'pptx'].includes(searchParams.get('format') ?? '')
@@ -53,6 +160,11 @@ function FlowReport() {
     const [pdfPhase, setPdfPhase] = useState<PdfPhase>('idle');
     const [pdfError, setPdfError] = useState<null | string>(null);
     const pdfTriggered = useRef(false);
+
+    // Retest mode: derive findings once so the editor can list them, then let the user disposition each.
+    const [retestDeriving, setRetestDeriving] = useState(false);
+    const [retestGenerating, setRetestGenerating] = useState(false);
+    const retestDerived = useRef(false);
 
     const [prevFlowId, setPrevFlowId] = useState(flowId);
 
@@ -157,6 +269,44 @@ function FlowReport() {
         // pdfTriggered guard makes the effect idempotent, so they are intentionally omitted.
     }, [dataReady, download, silent, reportContent, reportType, reportFormat, data, branding]);
 
+    // Retest mode: derive findings once (idempotent + cached server-side) so the editor can list them.
+    useEffect(() => {
+        if (!retest || !dataReady || retestDerived.current || !flowId) {
+            return;
+        }
+        retestDerived.current = true;
+        setRetestDeriving(true);
+        (async () => {
+            try {
+                await deriveFindings({ variables: { flowId, language: reportLanguage } });
+                await refetch();
+            } catch (err) {
+                Log.error('Retest findings derivation failed:', err);
+            } finally {
+                setRetestDeriving(false);
+            }
+        })();
+        // deriveFindings/refetch are stable Apollo refs; the ref guard makes this run once.
+    }, [retest, dataReady, flowId]);
+
+    const handleRetestGenerate = async (statuses: Record<string, RetestStatus>, format: ReportFormat): Promise<void> => {
+        if (!data?.flow) {
+            return;
+        }
+        setRetestGenerating(true);
+        try {
+            const blob = await generatePtesReportFromFlow(data, toEngagementBranding(branding), format, {
+                retest: true,
+                retestStatuses: statuses,
+            });
+            downloadBlob(blob, `${generateFileName(data.flow)}_ptes_reteste.${format}`);
+        } catch (err) {
+            Log.error('Retest report generation failed:', err);
+        } finally {
+            setRetestGenerating(false);
+        }
+    };
+
     let state: ReportState;
     let errorMessage: null | string = null;
 
@@ -216,6 +366,18 @@ function FlowReport() {
                     </div>
                 </div>
             </div>
+        );
+    }
+
+    if (retest) {
+        return (
+            <RetestPanel
+                deriving={retestDeriving}
+                findings={data?.findings ?? []}
+                flowId={flowId!}
+                generating={retestGenerating}
+                onGenerate={handleRetestGenerate}
+            />
         );
     }
 

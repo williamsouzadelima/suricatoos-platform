@@ -3,6 +3,10 @@
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
+// Per-finding remediation state for a RETEST report. Mirrors the Strati retest deliverable
+// (Em aberto / Corrigida / Não Corrigida) plus an "accepted risk" disposition.
+export type RetestStatus = 'open' | 'fixed' | 'not_fixed' | 'accepted';
+
 export type PtesPhaseId =
     | 'pre-engagement'
     | 'intelligence'
@@ -90,6 +94,8 @@ export interface Finding {
     remediationEffort?: 1 | 2 | 3; // per-finding action-plan inputs (supersede the static REMEDIATION map)
     remediationWindow?: RemediationWindow;
     etaDays?: number;
+    // --- retest ---
+    retestStatus?: RetestStatus; // remediation state, only rendered when the engagement is a retest
 }
 
 // Whitelabel branding: the application's own logo flows into the report, and an optional
@@ -106,6 +112,13 @@ export interface Branding {
 }
 
 export type RemediationWindow = 'Imediata' | 'Curto prazo' | 'Médio prazo';
+
+// A typed contact (client sponsor, pentester, reviewer) for the report's contact table.
+export interface Contact {
+    name: string;
+    role: string; // "Cliente" | "Pentester" | "Revisor (CISO)" ... (already localized when built)
+    info: string; // email / phone, one per line
+}
 
 // One beat of the engagement narrative (storytelling), tied to PTES phases and findings.
 export interface AttackStep {
@@ -130,6 +143,7 @@ export interface Engagement {
     period: { start: string; end: string };
     author: string;
     contact: string;
+    contacts?: Contact[]; // typed contact table (client / pentester / reviewer); falls back to `contact`
     scope: { inScope: string[]; outOfScope: string[] };
     roe: string[];
     summaryNarrative: string[];
@@ -139,6 +153,8 @@ export interface Engagement {
     findings: Finding[];
     recommendations: { priority: RemediationWindow; text: string }[];
     figures?: Figure[]; // numbered evidence plates (screenshots + tool-output excerpts)
+    isRetest?: boolean; // when true, renderers add the retest title suffix + per-finding Status
+    cleanupAttestation?: string; // override for the "trace cleanup" statement; renderer uses i18n default when absent
 }
 
 // Effort (1=baixo, 2=médio, 3=alto), ETA in days and remediation window per finding.

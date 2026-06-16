@@ -99,6 +99,39 @@ const es: Record<string, string> = {
     'Word (.docx)': 'Word (.docx)',
     'PowerPoint (.pptx)': 'PowerPoint (.pptx)',
     'Failed to generate report': 'Error al generar el informe',
+
+    // ── Report: Strati-parity tables / front matter / retest ─────────────
+    'Top vulnerabilities': 'Vulnerabilidades principales',
+    'Affected hosts and URLs': 'Hosts y URLs afectados',
+    Recommendation: 'Recomendación',
+    Vulnerability: 'Vulnerabilidad',
+    Criticality: 'Criticidad',
+    Contacts: 'Contactos',
+    Name: 'Nombre',
+    Role: 'Cargo',
+    'Contact information': 'Información de contacto',
+    Pentester: 'Pentester',
+    Reviewer: 'Revisor',
+    'Confidentiality notice': 'Aviso de confidencialidad',
+    'This document contains proprietary and confidential information. All data discovered during testing and presented here was handled to preserve its privacy and secrecy. Duplication, redistribution or use, in whole or in part, by any means, requires prior consent.':
+        'Este documento contiene información propietaria y confidencial. Todos los datos descubiertos durante las pruebas y presentados aquí fueron tratados para preservar su privacidad y secreto. La duplicación, redistribución o uso, total o parcial, por cualquier medio, requiere consentimiento previo.',
+    'Trace cleanup': 'Limpieza de rastros',
+    'After collecting the information and evidence shown above, the systems were restored exactly as found: any accounts created for the proof of concept were removed, and the exploits used during testing were properly deleted.':
+        'Tras recopilar la información y las evidencias mostradas arriba, los sistemas se restauraron exactamente como se encontraron: se eliminaron las cuentas creadas para la prueba de concepto y los exploits utilizados durante las pruebas fueron debidamente borrados.',
+    Retest: 'Reverificación',
+    'Retest status': 'Estado de reverificación',
+    Open: 'Abierto',
+    Fixed: 'Corregida',
+    'Not fixed': 'No corregida',
+    'Accepted risk': 'Riesgo aceptado',
+    'Retest of the engagement; each finding shows its current remediation status.':
+        'Reverificación del trabajo; cada hallazgo muestra su estado actual de remediación.',
+    'Set the remediation status of each finding, then generate the retest report.':
+        'Defina el estado de remediación de cada hallazgo y luego genere el informe de reverificación.',
+    'Loading findings…': 'Cargando hallazgos…',
+    'No findings were derived for this flow yet.': 'Aún no se derivaron hallazgos para este flujo.',
+    'Generate retest report': 'Generar informe de reverificación',
+    'Generating…': 'Generando…',
 };
 
 export default es;
