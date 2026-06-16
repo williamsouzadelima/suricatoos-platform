@@ -283,7 +283,7 @@ function Flow() {
                         )}
                         {!!(flowData?.tasks ?? [])?.length && <FlowReportDropdown />}
                         {flow && (
-                            <DropdownMenu>
+                            <DropdownMenu modal={false}>
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         aria-label={t('Flow actions')}
@@ -488,7 +488,11 @@ function FlowReportDropdown() {
     const retestHref = flowId ? `/flows/${flowId}/report?type=ptes&retest=true` : '#';
 
     return (
-        <DropdownMenu>
+        // modal={false}: skip Radix's scroll-lock + page-wide pointer-events lockdown on open.
+        // The flow page renders thousands of log rows; the modal lockdown walks that whole DOM,
+        // which made the menu take seconds to open. A non-modal action menu still closes on
+        // outside-click / Escape and is the standard fix for this on heavy pages.
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
                 <HeaderButton
                     className="shrink-0"
