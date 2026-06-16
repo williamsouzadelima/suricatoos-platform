@@ -360,31 +360,35 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             py = 2.6;
         }
 
-        // description
+        // description (tighter so the evidence block below can show real proof and still fit the slide)
+        const descH = 0.86;
         sf.addText(t('Description'), { x: 0.72, y: py, w: 6, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
-        sf.addText(f.description, { x: 0.72, y: py + 0.28, w: 11.8, h: 1.05, fontSize: 11, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+        sf.addText(f.description, { x: 0.72, y: py + 0.28, w: 11.8, h: descH, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.0 });
 
-        // evidence snippet (dark code box) — keep concise for a deck
-        let twoColY = py + 1.45;
+        // evidence snippet (dark code box) — the REAL tool-output proof, capped to 6 lines so the
+        // Impacto/Remediação row below still clears the footer (slide bottom rule at y≈7.12).
+        let twoColY = py + 0.28 + descH + 0.16;
         if (f.evidence) {
-            const evY = py + 1.4;
-            const codeLines = f.evidence.code.split('\n').slice(0, 5);
+            const evY = twoColY;
+            const codeLines = f.evidence.code.split('\n').slice(0, 6);
             sf.addText(f.evidence.caption, { x: 0.72, y: evY, w: 11.8, h: 0.26, fontSize: 8.5, italic: true, color: MUTED });
             // Highlight the vuln-proving payload in yellow within the dark code box.
             const codeRuns = highlightSegments(codeLines.join('\n')).map((seg) => ({
                 text: seg.text,
-                options: { fontFace: 'Consolas', fontSize: 9, color: seg.hot ? HOT_FG_HEX : 'E2E8F0', highlight: seg.hot ? HOT_BG_HEX : undefined },
+                options: { fontFace: 'Consolas', fontSize: 8.5, color: seg.hot ? HOT_FG_HEX : 'E2E8F0', highlight: seg.hot ? HOT_BG_HEX : undefined },
             }));
-            sf.addText(codeRuns, { x: 0.72, y: evY + 0.28, w: 11.8, h: 0.16 + codeLines.length * 0.2, fill: { color: INK }, valign: 'top', margin: 6, lineSpacingMultiple: 1.0 });
-            twoColY = evY + 0.32 + codeLines.length * 0.2 + 0.14;
+            const codeH = 0.14 + codeLines.length * 0.18;
+            sf.addText(codeRuns, { x: 0.72, y: evY + 0.26, w: 11.8, h: codeH, fill: { color: INK }, valign: 'top', margin: 6, lineSpacingMultiple: 1.0 });
+            twoColY = evY + 0.26 + codeH + 0.12;
         }
 
         // Impacto / Remediação two-column
         const colW = 5.78;
+        const colH = 1.15;
         sf.addText(t('Business impact'), { x: 0.72, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: primary, charSpacing: 0.5 });
-        sf.addText(f.businessImpact, { x: 0.72, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+        sf.addText(f.businessImpact, { x: 0.72, y: twoColY + 0.28, w: colW, h: colH, fontSize: 10, color: SLATE, valign: 'top', lineSpacingMultiple: 1.0 });
         sf.addText(t('Remediation'), { x: 0.72 + colW + 0.3, y: twoColY, w: colW, h: 0.26, fontSize: 9, bold: true, color: '1F9E6E', charSpacing: 0.5 });
-        sf.addText(f.remediation, { x: 0.72 + colW + 0.3, y: twoColY + 0.28, w: colW, h: 1.4, fontSize: 10.5, color: SLATE, valign: 'top', lineSpacingMultiple: 1.05 });
+        sf.addText(f.remediation, { x: 0.72 + colW + 0.3, y: twoColY + 0.28, w: colW, h: colH, fontSize: 10, color: SLATE, valign: 'top', lineSpacingMultiple: 1.0 });
     });
 
     // ── 4. Closing remediation-roadmap slide ──

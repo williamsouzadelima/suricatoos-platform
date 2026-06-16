@@ -75,7 +75,7 @@ const findingsDeriverSystemPrompt = `You are a senior penetration-test report an
 	`Read it and extract concrete, de-duplicated SECURITY FINDINGS, then return them by calling the ` + submitFindingsToolName + ` function. ` +
 	`Do NOT answer in free text — your entire answer must be the tool call.
 
-For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; an attack_path — a 3–5 step kill-chain from recon to impact, each step a short label (e.g. ["Recon","Param q","Injeção boolean/time","Dump do banco"]); repro_steps — concrete numbered reproduction steps a reviewer can follow to confirm the finding; the source_task_ids the finding was derived from; and a provenance map. Keep attack_path and repro_steps grounded ONLY in the execution data — the HONESTY RULES below apply to them too.
+For each finding provide: a concise title that NAMES THE WEAKNESS (e.g. "SQL Injection on /search" or "JWT alg=none authentication bypass" — NOT the agent task name like "run scans"); severity (critical|high|medium|low|info); a COMPLETE CVSS v3.1 vector string (CVSS:3.1/AV:.../AC:.../PR:.../UI:.../S:.../C:.../I:.../A:...) AND its matching base score; the CWE id (e.g. "CWE-89"); a category (e.g. "Web Application", "API", "Network", "Active Directory", "Configuration"); the affected assets (host[:port] or URL) taken ONLY from the execution; a clear description of the weakness and how it was confirmed; the business impact; likelihood and impact each 1-5; concrete remediation; a references list; an attack_path — a 3–5 step kill-chain from recon to impact, each step a short label (e.g. ["Recon","Param q","Injeção boolean/time","Dump do banco"]); repro_steps — concrete numbered reproduction steps a reviewer can follow to confirm the finding; evidence — the SINGLE strongest piece of RAW proof copied VERBATIM from the terminal output below (the request or command you sent WITH the payload, plus the part of the response that proves the issue — the status line and the exact bytes showing the effect, e.g. the reflected script, the dumped row, the accepted forged token). Quote the real bytes; do NOT summarize, paraphrase or invent output; keep it to the few proving lines (not the whole log) and preserve their original formatting; the source_task_ids the finding was derived from; and a provenance map. Keep attack_path and repro_steps grounded ONLY in the execution data — the HONESTY RULES below apply to them too.
 
 TAXONOMY — always classify each finding (these are standard mappings, not inventions):
 - Always set the cwe field AND add it to references, e.g. {"label":"CWE-89: SQL Injection"}.
@@ -357,7 +357,22 @@ var (
 	evidenceSignalRe = regexp.MustCompile(`(?i)(HTTP/[12]|\b(?:GET|POST|PUT|DELETE|PATCH) /|\bcurl\b|Authorization:|\bBearer |Set-Cookie|X-Auth|\bUNION\s+SELECT|SELECT\s.+\sFROM|'\s*OR\s|OR\s+1=1|sqlmap|<script|onerror=|javascript:|\.\./|%2e%2e|alg"?\s*:\s*"?none|eyJ[A-Za-z0-9_-]{8,}|vulnerab|\bpayload|\bbypass|\bexploit|flag\{|\bCVE-\d|\b(?:200|201|301|302|400|401|403|404|500)\b)`)
 	evidenceNoiseRe  = regexp.MustCompile(`(=>\s*\{|\}\)\(\)|;var |function\s*\(|\{class |return [a-z]\}|webpackChunk|__webpack|sourceMappingURL)`)
 	evidenceB64Re    = regexp.MustCompile(`[A-Za-z0-9+/]{400,}`)
+	// Noise stripped BEFORE scoring/windowing so the evidence budget holds real proof bytes, not
+	// terminal color codes or padding (the raw termlogs are full of ANSI escapes + blank runs).
+	ansiEscapeRe   = regexp.MustCompile("\x1b\\[[0-9;?]*[ -/]*[@-~]")
+	ctrlCharRe     = regexp.MustCompile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+	blankLinesRe   = regexp.MustCompile(`\n[ \t]*\n[ \t]*\n+`)
 )
+
+// sanitizeForLLM strips ANSI escape sequences + leftover control chars and collapses runs of blank
+// lines, so the evidence the analyst LLM sees (and the budget it is clipped to) is real tool output
+// rather than color codes. Mirror of the frontend stripControlChars, but applied at extraction time.
+func sanitizeForLLM(text string) string {
+	s := ansiEscapeRe.ReplaceAllString(text, "")
+	s = ctrlCharRe.ReplaceAllString(s, "")
+	s = blankLinesRe.ReplaceAllString(s, "\n\n")
+	return s
+}
 
 // evidenceScore rates how useful a terminal excerpt is as exploit evidence (higher = better).
 func evidenceScore(text string) int {
@@ -484,7 +499,8 @@ func (pc *providerController) buildFindingsContext(ctx context.Context, flow dat
 		if tl.TaskID.Valid {
 			tid = tl.TaskID.Int64
 		}
-		sterms = append(sterms, scoredTerm{text: strings.TrimSpace(tl.Text), tid: tid, score: evidenceScore(tl.Text)})
+		clean := strings.TrimSpace(sanitizeForLLM(tl.Text))
+		sterms = append(sterms, scoredTerm{text: clean, tid: tid, score: evidenceScore(clean)})
 	}
 	sort.SliceStable(sterms, func(i, j int) bool {
 		if sterms[i].score != sterms[j].score {
@@ -499,7 +515,7 @@ func (pc *providerController) buildFindingsContext(ctx context.Context, flow dat
 			if st.text == "" || st.score <= 0 {
 				continue // skip noise (dumped bundles, listings, base64)
 			}
-			chunk := evidenceWindow(st.text, 2800)
+			chunk := evidenceWindow(st.text, 3200)
 			if len(chunk) > budget {
 				break
 			}

@@ -133,6 +133,7 @@ const es: Record<string, string> = {
     'Generate retest report': 'Generar informe de reverificación',
     'Generating…': 'Generando…',
     '+{count} more': '+{count} más',
+    'Tool output (proof)': 'Salida de la herramienta (prueba)',
 };
 
 export default es;

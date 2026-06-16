@@ -318,7 +318,8 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
         const bestTerm = usefulTerms[0]?.tl;
         // up to 3 most-relevant terminal excerpts per task (only genuine evidence; noise is skipped)
         usefulTerms.slice(0, 3).forEach(({ tl }, ti) => {
-            const code = evidenceWindow(tl.text, 3500);
+            // strip ANSI/control chars BEFORE windowing so the excerpt is clean proof, not color codes
+            const code = evidenceWindow(stripControlChars(tl.text), 3500);
             if (!code.trim()) return;
             figN += 1;
             const fig: Figure = {
@@ -447,6 +448,16 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
             fig.findingIds = fig.taskId
                 ? finalFindings.filter((f) => f.sourceTaskIds?.includes(fig.taskId!)).map((f) => f.id)
                 : [];
+        }
+        // Strengthen each finding's inline evidence: show the REAL tool-output excerpt (the linked
+        // numbered figure) as the proof, demoting the AI's prose evidence to the explanatory caption.
+        // The report then carries verifiable request/response bytes instead of a summary sentence.
+        for (const f of finalFindings) {
+            const proof = figures.find((g) => g.kind !== 'screenshot' && g.code?.trim() && g.findingIds.includes(f.id));
+            if (proof?.code) {
+                const aiText = f.evidence?.code?.trim();
+                f.evidence = { caption: aiText ? clip(aiText, 220) : proof.caption || t('Tool output (proof)'), code: proof.code };
+            }
         }
     }
 
