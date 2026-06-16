@@ -132,6 +132,7 @@ const es: Record<string, string> = {
     'No findings were derived for this flow yet.': 'Aún no se derivaron hallazgos para este flujo.',
     'Generate retest report': 'Generar informe de reverificación',
     'Generating…': 'Generando…',
+    '+{count} more': '+{count} más',
 };
 
 export default es;

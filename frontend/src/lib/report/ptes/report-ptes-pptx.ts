@@ -328,19 +328,33 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             cx += rsW + 0.12;
         }
 
-        // kill-chain mini-path (from finding.attackPath) — last two beats are "hot"
+        // kill-chain mini-path (from finding.attackPath) — last two beats are "hot".
+        // Beats are scaled to fit the content width: at fixed width a 5+ beat chain ran off the
+        // right edge of the slide. We compute natural widths, then shrink them proportionally (and
+        // drop the font a notch when compressed) so the whole chain always stays within the margin.
         const path = f.attackPath ?? [];
         let py = 2.18;
         if (path.length > 0) {
-            let px = 0.72;
+            const START_X = 0.72;
+            const RIGHT_X = 12.6; // content right edge (matches the description/remediation blocks)
+            const ARROW_W = 0.22;
+            const ARROW_SLOT = ARROW_W + 0.06; // arrow + gaps around it
+            const arrowsTotal = path.length > 1 ? (path.length - 1) * ARROW_SLOT : 0;
+            const natural = path.map((b) => Math.min(2.6, 0.6 + b.length * 0.085));
+            const naturalSum = natural.reduce((a, b) => a + b, 0);
+            const budget = RIGHT_X - START_X - arrowsTotal;
+            const scale = naturalSum > budget ? budget / naturalSum : 1;
+            const widths = natural.map((w) => Math.max(0.45, w * scale));
+            const fontSize = scale < 0.85 ? 7.5 : 8.5;
+            let px = START_X;
             path.forEach((beat, i) => {
                 const hot = i >= path.length - 2;
-                const w = Math.min(2.6, 0.6 + beat.length * 0.085);
-                sf.addText(beat, { x: px, y: 2.16, w, h: 0.3, fontSize: 8.5, color: hot ? PATH_HOT_INK : MUTED, fill: { color: hot ? PATH_HOT_FILL : PATH_FILL }, align: 'center', valign: 'middle', rectRadius: 0.06, shape: pptx.ShapeType.roundRect });
-                px += w + 0.04;
+                const w = widths[i]!;
+                sf.addText(beat, { x: px, y: 2.16, w, h: 0.3, fontSize, color: hot ? PATH_HOT_INK : MUTED, fill: { color: hot ? PATH_HOT_FILL : PATH_FILL }, align: 'center', valign: 'middle', rectRadius: 0.06, shape: pptx.ShapeType.roundRect });
+                px += w + 0.03;
                 if (i < path.length - 1) {
-                    sf.addText('→', { x: px, y: 2.16, w: 0.22, h: 0.3, fontSize: 11, color: 'C8CBD2', align: 'center', valign: 'middle' });
-                    px += 0.24;
+                    sf.addText('→', { x: px, y: 2.16, w: ARROW_W, h: 0.3, fontSize: 11, color: 'C8CBD2', align: 'center', valign: 'middle' });
+                    px += ARROW_SLOT - 0.03;
                 }
             });
             py = 2.6;
@@ -391,9 +405,14 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         const winItems = items.filter((a) => a.window === win);
         sr.addShape(pptx.ShapeType.roundRect, { x, y: colTop, w: colW2, h: 0.42, rectRadius: 0.05, fill: { color: hex(WINDOW_COLOR[win]) } });
         sr.addText(windowLabel(win).toUpperCase(), { x: x + 0.15, y: colTop, w: colW2 - 0.3, h: 0.42, fontSize: 11, bold: true, color: 'FFFFFF', valign: 'middle', charSpacing: 1 });
+        // Cap at 5 rows with a tighter step so the column never runs into the footer note at y=6.55
+        // (6 rows × 0.72 starting at 3.08 reached y≈6.68 and overlapped it). Extra items roll up
+        // into a "+N more" line.
+        const MAX_ROWS = 5;
+        const STEP = 0.62;
         let ly = colTop + 0.58;
-        winItems.slice(0, 6).forEach((a) => {
-            const lines = a.f.remediation.length > 92 ? `${a.f.remediation.slice(0, 91)}…` : a.f.remediation;
+        winItems.slice(0, MAX_ROWS).forEach((a) => {
+            const lines = a.f.remediation.length > 80 ? `${a.f.remediation.slice(0, 79)}…` : a.f.remediation;
             sr.addText(
                 [
                     { text: `${a.f.id}  `, options: { bold: true, color: hex(SEVERITY[a.f.severity].color), fontFace: 'Consolas' } },
@@ -401,10 +420,13 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
                     { text: lines, options: { color: SLATE } },
                     { text: `   ${effortLabel(a.effort)} · ${a.etaDays}d`, options: { color: MUTED, italic: true } },
                 ],
-                { x, y: ly, w: colW2, h: 0.62, fontSize: 9, valign: 'top', lineSpacingMultiple: 1.0 },
+                { x, y: ly, w: colW2, h: 0.56, fontSize: 9, valign: 'top', lineSpacingMultiple: 1.0 },
             );
-            ly += 0.72;
+            ly += STEP;
         });
+        if (winItems.length > MAX_ROWS) {
+            sr.addText(tf('+{count} more', { count: winItems.length - MAX_ROWS }), { x, y: ly, w: colW2, h: 0.28, fontSize: 9, italic: true, color: MUTED });
+        }
         if (winItems.length === 0) sr.addText('—', { x, y: ly, w: colW2, h: 0.3, fontSize: 9, color: MUTED });
     });
     // strategic recommendation footer line

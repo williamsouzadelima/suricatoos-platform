@@ -180,6 +180,7 @@ const pt: Record<string, string> = {
     'No findings were derived for this flow yet.': 'Nenhum achado foi derivado para este fluxo ainda.',
     'Generate retest report': 'Gerar relatório de reteste',
     'Generating…': 'Gerando…',
+    '+{count} more': '+{count} mais',
 };
 
 export default pt;
