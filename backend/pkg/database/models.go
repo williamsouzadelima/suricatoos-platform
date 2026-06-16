@@ -926,6 +926,7 @@ type Finding struct {
 	Provenance     json.RawMessage `json:"provenance"`
 	CreatedAt      sql.NullTime    `json:"created_at"`
 	UpdatedAt      sql.NullTime    `json:"updated_at"`
+	RetestStatus   string          `json:"retest_status"`
 }
 
 type FindingDerivation struct {

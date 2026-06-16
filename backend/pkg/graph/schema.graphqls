@@ -304,6 +304,7 @@ type Finding {
   evidence: String
   sourceTaskIds: [ID!]!
   provenance: String
+  retestStatus: String!
   createdAt: Time!
   updatedAt: Time!
 }
@@ -1075,6 +1076,7 @@ type Mutation {
   # Flow management
   createFlow(modelProvider: String!, input: String!, resourceIds: [ID!]): Flow!
   deriveFindings(flowId: ID!, language: String): FindingDerivation!
+  setFindingRetestStatus(flowId: ID!, findingId: ID!, status: String!): Finding!
   putUserInput(flowId: ID!, input: String!, modelProvider: String, resourceIds: [ID!]): ResultType!
   stopFlow(flowId: ID!): ResultType!
   finishFlow(flowId: ID!): ResultType!

@@ -5,7 +5,7 @@ import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
 import { t, tf, useLocale } from '@/i18n';
 import type { LocaleCode } from '@/i18n/locales';
-import { useDeriveFindingsMutation, useFlowQuery, type FindingFragmentFragment } from '@/graphql/types';
+import { useDeriveFindingsMutation, useFlowQuery, useSetFindingRetestStatusMutation, type FindingFragmentFragment } from '@/graphql/types';
 import { Log } from '@/lib/log';
 import type { RetestStatus } from '@/lib/report/ptes/engagement';
 import {
@@ -44,42 +44,33 @@ const RETEST_OPTIONS: { key: string; value: RetestStatus }[] = [
 ];
 
 // Retest editor: set each finding's remediation status, then generate a retest-flavored report.
-// Statuses are kept client-side (localStorage per flow) — server-side persistence is a follow-up.
+// Statuses persist server-side via setFindingRetestStatus; the persisted value seeds the editor.
 function RetestPanel({
     deriving,
     findings,
-    flowId,
     generating,
     onGenerate,
+    onSetStatus,
 }: {
     deriving: boolean;
     findings: FindingFragmentFragment[];
-    flowId: string;
     generating: boolean;
     onGenerate: (statuses: Record<string, RetestStatus>, format: ReportFormat) => void;
+    onSetStatus: (findingId: string, status: RetestStatus) => void;
 }) {
-    const storageKey = `suricatoos:retest:${flowId}`;
-    const [statuses, setStatuses] = useState<Record<string, RetestStatus>>(() => {
-        try {
-            const raw = localStorage.getItem(storageKey);
-            return raw ? (JSON.parse(raw) as Record<string, RetestStatus>) : {};
-        } catch {
-            return {};
-        }
-    });
+    // Local edits override the persisted value for instant feedback; the mutation persists in the background.
+    const [edits, setEdits] = useState<Record<string, RetestStatus>>({});
     const [format, setFormat] = useState<ReportFormat>('pdf');
 
+    const statusOf = (f: FindingFragmentFragment): RetestStatus => edits[f.id] ?? (f.retestStatus as RetestStatus) ?? 'open';
+
     const setStatus = (id: string, value: RetestStatus): void => {
-        setStatuses((prev) => {
-            const next = { ...prev, [id]: value };
-            try {
-                localStorage.setItem(storageKey, JSON.stringify(next));
-            } catch {
-                // ignore storage errors (private mode, etc.)
-            }
-            return next;
-        });
+        setEdits((prev) => ({ ...prev, [id]: value }));
+        onSetStatus(id, value);
     };
+
+    const collectStatuses = (): Record<string, RetestStatus> =>
+        Object.fromEntries(findings.map((f) => [f.id, statusOf(f)]));
 
     return (
         <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -104,7 +95,7 @@ function RetestPanel({
                                     <select
                                         className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                                         onChange={(ev) => setStatus(f.id, ev.target.value as RetestStatus)}
-                                        value={statuses[f.id] ?? 'open'}
+                                        value={statusOf(f)}
                                     >
                                         {RETEST_OPTIONS.map((o) => (
                                             <option key={o.value} value={o.value}>
@@ -128,7 +119,7 @@ function RetestPanel({
                             <button
                                 className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:opacity-50"
                                 disabled={generating}
-                                onClick={() => onGenerate(statuses, format)}
+                                onClick={() => onGenerate(collectStatuses(), format)}
                                 type="button"
                             >
                                 {generating ? t('Generating…') : t('Generate retest report')}
@@ -187,6 +178,8 @@ function FlowReport() {
 
     // Backend LLM findings deriver — triggered once per PTES report; idempotent + cached server-side.
     const [deriveFindings] = useDeriveFindingsMutation();
+    // Persist a finding's retest status (server-side). Apollo updates the cached finding from the result.
+    const [setFindingRetestStatus] = useSetFindingRetestStatusMutation();
 
     const dataReady = !loading && !queryError && !!data?.flow;
 
@@ -289,6 +282,15 @@ function FlowReport() {
         // deriveFindings/refetch are stable Apollo refs; the ref guard makes this run once.
     }, [retest, dataReady, flowId]);
 
+    const handleSetRetestStatus = (findingId: string, status: RetestStatus): void => {
+        if (!flowId) {
+            return;
+        }
+        void setFindingRetestStatus({ variables: { findingId, flowId, status } }).catch((err) => {
+            Log.error('Failed to persist retest status:', err);
+        });
+    };
+
     const handleRetestGenerate = async (statuses: Record<string, RetestStatus>, format: ReportFormat): Promise<void> => {
         if (!data?.flow) {
             return;
@@ -374,9 +376,9 @@ function FlowReport() {
             <RetestPanel
                 deriving={retestDeriving}
                 findings={data?.findings ?? []}
-                flowId={flowId!}
                 generating={retestGenerating}
                 onGenerate={handleRetestGenerate}
+                onSetStatus={handleSetRetestStatus}
             />
         );
     }

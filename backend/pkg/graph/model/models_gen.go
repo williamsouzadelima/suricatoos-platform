@@ -238,6 +238,7 @@ type Finding struct {
 	Evidence       *string   `json:"evidence,omitempty"`
 	SourceTaskIds  []int64   `json:"sourceTaskIds"`
 	Provenance     *string   `json:"provenance,omitempty"`
+	RetestStatus   string    `json:"retestStatus"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 }

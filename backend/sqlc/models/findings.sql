@@ -18,6 +18,10 @@ INSERT INTO findings (
 -- name: DeleteFlowFindings :exec
 DELETE FROM findings WHERE flow_id = $1;
 
+-- name: SetFindingRetestStatus :one
+UPDATE findings SET retest_status = $2, updated_at = CURRENT_TIMESTAMP
+WHERE id = $1 AND flow_id = $3 RETURNING *;
+
 -- name: CreateFindingDerivation :one
 INSERT INTO finding_derivations (flow_id, status, model, provider)
 VALUES ($1, $2, $3, $4) RETURNING *;
