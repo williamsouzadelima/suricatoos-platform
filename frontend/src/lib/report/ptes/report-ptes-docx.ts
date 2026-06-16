@@ -26,8 +26,8 @@ import { CHART_SPECS } from './report-charts-sheet';
 import { stripControlChars } from './from-flow-llm';
 import { highlightSegments, HOT_FG_HEX } from './report-highlight';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
-import { PTES_PHASES, type Engagement, type Finding, type RemediationWindow, type Severity } from './engagement';
-import { actionItems, EFFORT, quickWins, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
+import { PTES_PHASES, type Contact, type Engagement, type Finding, type RemediationWindow, type Severity } from './engagement';
+import { actionItems, affectedHostsRoster, EFFORT, quickWins, RETEST_STATUS, SEVERITY, SEVERITY_ORDER, topVulnerabilities, WINDOW_COLOR, WINDOWS } from './theme';
 
 export type ChartImages = Record<string, string>; // key -> PNG data URI
 
@@ -227,6 +227,9 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             rows: [new TableRow({ children: [cellPlain([chartPara(a, aw, AlignmentType.CENTER)]), cellPlain([chartPara(b, bw, AlignmentType.CENTER)])] })],
         });
 
+    // When the engagement is a retest, the cover title carries a localized suffix.
+    const reportTitle = e.isRetest ? `${e.title} — ${t('Retest')}` : e.title;
+
     const heading = (n: number, title: string) => [
         new Paragraph({ spacing: { before: 220, after: 0 }, children: [txt({ text: `${t('SECTION')} ${n}`, bold: true, color: primary, size: 18 })] }),
         new Paragraph({
@@ -269,7 +272,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     const coverContent: (Paragraph | Table)[] = [
         brandRow,
         new Paragraph({ spacing: { before: 520, after: 60 }, children: [txt({ text: t('PENTEST REPORT · PTES'), bold: true, color: MUTED, size: 22 })] }),
-        new Paragraph({ spacing: { after: 80 }, children: [txt({ text: e.title, bold: true, color: INK, size: 56 })] }),
+        new Paragraph({ spacing: { after: 80 }, children: [txt({ text: reportTitle, bold: true, color: INK, size: 56 })] }),
         new Paragraph({ spacing: { after: 260 }, children: [txt({ text: tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client }), color: MUTED, size: 24 })] }),
         kpiCardsTable(e),
         new Paragraph({ spacing: { before: 320, after: 0 }, children: [] }),
@@ -282,6 +285,14 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
         ]),
         // OOXML requires a paragraph after a table inside a cell — keeps the nested layout valid.
         new Paragraph({ children: [] }),
+        // Typed contacts roster (client / pentester / reviewer), when provided.
+        ...(e.contacts?.length
+            ? [
+                  new Paragraph({ spacing: { before: 120, after: 60 }, children: [txt({ text: t('Contacts'), bold: true, color: INK, size: 24 })] }),
+                  contactsTable(e.contacts, primary),
+                  new Paragraph({ children: [] }),
+              ]
+            : []),
     ];
 
     // Indigo left rail + content, as a 2-column table (the rail is a thin filled cell).
@@ -305,6 +316,11 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     const items = actionItems(e.findings);
     const children: (Paragraph | Table)[] = [...cover];
 
+    // Confidentiality notice — dedicated block after the document control / cover, before the
+    // executive summary. Heading + the long source string fed through i18n.
+    children.push(new Paragraph({ spacing: { before: 60, after: 60 }, children: [txt({ text: t('Confidentiality notice'), bold: true, color: INK, size: 24 })] }));
+    children.push(body(t('This document contains proprietary and confidential information. All data discovered during testing and presented here was handled to preserve its privacy and secrecy. Duplication, redistribution or use, in whole or in part, by any means, requires prior consent.')));
+
     children.push(...heading(1, t('Executive Summary')));
     e.summaryNarrative.forEach((p) => children.push(body(p)));
     children.push(twoCharts('gauge', 230, 'donut', 150));
@@ -318,6 +334,11 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             ],
         }),
     );
+    // Consolidated executive-summary tables (Strati parity).
+    children.push(new Paragraph({ spacing: { before: 200, after: 60 }, children: [txt({ text: t('Top vulnerabilities'), bold: true, color: INK, size: 24 })] }));
+    children.push(topVulnTable(e.findings, primary));
+    children.push(new Paragraph({ spacing: { before: 200, after: 60 }, children: [txt({ text: t('Affected hosts and URLs'), bold: true, color: INK, size: 24 })] }));
+    children.push(affectedHostsTable(e.findings, primary));
 
     children.push(...heading(2, t('Attack Narrative')));
     children.push(body(t('From reconnaissance to impact: how isolated findings chain into a real path to compromise.')));
@@ -358,7 +379,7 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
     children.push(...heading(5, t('Detailed Findings')));
     children.push(findingsIndexTable(e.findings, primary));
     children.push(new Paragraph({ spacing: { before: 200, after: 60 }, children: [txt({ text: t('Finding details'), bold: true, color: INK, size: 24 })] }));
-    [...e.findings].sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss).forEach((f) => children.push(...findingBlock(f)));
+    [...e.findings].sort((a, b) => SEVERITY[b.severity].rank - SEVERITY[a.severity].rank || b.cvss - a.cvss).forEach((f) => children.push(...findingBlock(f, e.isRetest ?? false)));
 
     children.push(...heading(6, t('Action Plan')));
     children.push(body(t('Roadmap prioritized by risk and effort. Quick wins (high impact, low effort) come first; the timeline chart shows what takes the most and least time.')));
@@ -385,6 +406,10 @@ export function buildPtesDocx(e: Engagement, images: ChartImages): Document {
             }),
         ),
     );
+    // Trace cleanup attestation — near the legal notice / conclusion. Optional override, else the
+    // localized default statement.
+    children.push(sub(t('Trace cleanup')));
+    children.push(body(e.cleanupAttestation ?? t('After collecting the information and evidence shown above, the systems were restored exactly as found: any accounts created for the proof of concept were removed, and the exploits used during testing were properly deleted.')));
     children.push(sub(t('Notice')));
     children.push(body(tf('Report generated by {app} from an authorized engagement. Confidential content; distribute only to authorized parties. Proofs of concept were non-destructive and limited to the agreed scope.', { app: e.branding.appName })));
 
@@ -512,6 +537,71 @@ function kvTable(rows: [string, string][]) {
         ),
     });
 }
+// Clip remediation/recommendation text to keep the executive-summary tables scannable.
+const clip = (s: string, n = 140): string => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
+
+// ── Executive-summary consolidated tables (Strati parity) ────────────────────
+// "Top vulnerabilities": #ID / Vulnerability / Criticality (severity-colored) / Recommendation.
+function topVulnTable(findings: Finding[], primary: string): Table {
+    return new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: { ...noBorders(), insideHorizontal: { style: BorderStyle.SINGLE, size: 4, color: LINE } },
+        rows: [
+            new TableRow({ tableHeader: true, children: [hcell('#ID', primary, 8), hcell(t('Vulnerability'), primary, 40), hcell(t('Criticality'), primary, 14), hcell(t('Recommendation'), primary, 38)] }),
+            ...topVulnerabilities(findings).map((f) =>
+                new TableRow({
+                    children: [
+                        tcell([txt({ text: f.id, size: 20, color: SLATE })]),
+                        tcell([txt({ text: f.title, size: 20, color: SLATE })]),
+                        tcell([txt({ text: sevLabel(f.severity), bold: true, size: 20, color: SEVERITY[f.severity].color })]),
+                        tcell([txt({ text: clip(f.remediation), size: 20, color: SLATE })]),
+                    ],
+                }),
+            ),
+        ],
+    });
+}
+
+// "Affected hosts and URLs": Criticality (severity-colored) / Vulnerability / URL.
+function affectedHostsTable(findings: Finding[], primary: string): Table {
+    return new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: { ...noBorders(), insideHorizontal: { style: BorderStyle.SINGLE, size: 4, color: LINE } },
+        rows: [
+            new TableRow({ tableHeader: true, children: [hcell(t('Criticality'), primary, 16), hcell(t('Vulnerability'), primary, 44), hcell('URL', primary, 40)] }),
+            ...affectedHostsRoster(findings).map((r) =>
+                new TableRow({
+                    children: [
+                        tcell([txt({ text: sevLabel(r.severity), bold: true, size: 20, color: SEVERITY[r.severity].color })]),
+                        tcell([txt({ text: r.vuln, size: 20, color: SLATE })]),
+                        tcell([txt({ text: r.url, size: 20, color: INK, font: MONO })]),
+                    ],
+                }),
+            ),
+        ],
+    });
+}
+
+// Document-control contacts roster: Name / Role / Contact information.
+function contactsTable(contacts: Contact[], primary: string): Table {
+    return new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: { ...noBorders(), insideHorizontal: { style: BorderStyle.SINGLE, size: 4, color: LINE } },
+        rows: [
+            new TableRow({ tableHeader: true, children: [hcell(t('Name'), primary, 30), hcell(t('Role'), primary, 28), hcell(t('Contact information'), primary, 42)] }),
+            ...contacts.map((c) =>
+                new TableRow({
+                    children: [
+                        tcell([txt({ text: c.name, bold: true, size: 20, color: INK })]),
+                        tcell([txt({ text: c.role, size: 20, color: SLATE })]),
+                        tcell(c.info.split('\n').map((line) => txt({ text: line, size: 20, color: SLATE }))),
+                    ],
+                }),
+            ),
+        ],
+    });
+}
+
 function hcell(t: string, primary: string, w: number) {
     return new TableCell({ width: { size: w, type: WidthType.PERCENTAGE }, shading: { type: ShadingType.CLEAR, fill: primary }, margins: { top: 50, bottom: 50, left: 60, right: 60 }, children: [new Paragraph({ children: [txt({ text: t, bold: true, color: 'FFFFFF', size: 19 })] })] });
 }
@@ -579,7 +669,7 @@ function findingsIndexTable(findings: Finding[], primary: string) {
 // Direction-3 FindingCard for the DOCX: a single bordered card (thick severity left rail) holding
 // the header (id + severity pill), title, taxonomy chips, kill-chain path, description, evidence
 // code, numbered "Reprodução", and a two-column Impacto / Remediação. Mirrors report-book-pdf.tsx.
-function findingBlock(f: Finding): (Paragraph | Table)[] {
+function findingBlock(f: Finding, isRetest: boolean): (Paragraph | Table)[] {
     const sv = SEVERITY[f.severity];
     const cvssEst = est(f.provenance?.cvss);
     const sevEst = est(f.provenance?.severity);
@@ -609,6 +699,21 @@ function findingBlock(f: Finding): (Paragraph | Table)[] {
     tax.cves.forEach((c) => chips.push(chipCell(c, { border: LINE, color: SLATE })));
     if (tax.primaryAsset) chips.push(chipCell(tax.primaryAsset, { border: LINE, color: INK, mono: true }));
     inner.push(chipRowTable(chips));
+
+    // Retest status: only when the engagement is a retest. Label + a soft-filled colored pill
+    // matching the existing severity-chip look. Defaults to 'open' when the finding has no status.
+    if (isRetest) {
+        const rs = RETEST_STATUS[f.retestStatus ?? 'open'];
+        inner.push(
+            new Paragraph({
+                spacing: { before: 80, after: 0 },
+                children: [
+                    txt({ text: `${t('Retest status')}:  `, bold: true, color: MUTED, size: 20 }),
+                    txt({ text: ` ${t(rs.key)} `, bold: true, color: hx(rs.color), size: 19, shading: { type: ShadingType.CLEAR, fill: hx(rs.soft) } }),
+                ],
+            }),
+        );
+    }
 
     // Kill-chain mini-path: pills with arrows; the last two beats are emphasized (coral-tinted).
     if (tax.path.length > 0) {

@@ -19,12 +19,14 @@ import { t, tf } from '@/i18n';
 import type {
     AffectedAsset,
     Branding,
+    Contact,
     Engagement,
     Figure,
     FieldProvenance,
     Finding,
     PtesPhaseId,
     RemediationWindow,
+    RetestStatus,
     Severity,
 } from './engagement';
 
@@ -262,6 +264,13 @@ export interface FromFlowOptions {
     classification?: string;
     contact?: string;
     version?: string;
+    // Typed contacts for the report's contact table (Strati parity).
+    reviewer?: string; // reviewer name (CISO), shown as the "Revisor" contact
+    reviewerContact?: string; // reviewer email/phone
+    clientContact?: string; // client sponsor email/phone
+    // Retest mode: render a per-finding Status column and the "— Retest" title suffix.
+    retest?: boolean;
+    retestStatuses?: Record<string, RetestStatus>; // keyed by backend finding id
 }
 
 interface FindingSource {
@@ -402,7 +411,10 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
     }
 
     // Backend LLM-derived findings take precedence; the regex heuristics above are the fallback.
-    const llmFindings = data.findings && data.findings.length > 0 ? transformLlmFindingsToEngagement(data.findings) : [];
+    const llmFindings =
+        data.findings && data.findings.length > 0
+            ? transformLlmFindingsToEngagement(data.findings, options.retest ? options.retestStatuses : undefined)
+            : [];
 
     if (findings.length === 0 && llmFindings.length === 0) {
         findings.push({
@@ -461,16 +473,28 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
 
     const riskScore = riskScoreFromFindings(finalFindings);
     const appName = branding.appName;
+    const author = options.author ?? tf('{app} — Offensive Security Team', { app: appName });
+    const contact = options.contact ?? `security@${appName.toLowerCase().replace(/[^a-z0-9]+/g, '')}.com`;
+    const clientName = branding.clientName || t('Client');
+
+    // Typed contact table (Strati parity). Always include the testing team; include the client
+    // sponsor and reviewer rows only when their details were provided.
+    const contacts: Contact[] = [];
+    if (options.clientContact) contacts.push({ info: options.clientContact, name: clientName, role: t('Client') });
+    contacts.push({ info: contact, name: author, role: t('Pentester') });
+    if (options.reviewer) contacts.push({ info: options.reviewerContact ?? '', name: options.reviewer, role: t('Reviewer') });
 
     return {
         attackStory,
-        author: options.author ?? tf('{app} — Offensive Security Team', { app: appName }),
+        author,
         branding,
         classification: options.classification ?? 'CONFIDENCIAL',
-        client: branding.clientName || t('Client'),
-        contact: options.contact ?? `security@${appName.toLowerCase().replace(/[^a-z0-9]+/g, '')}.com`,
+        client: clientName,
+        contact,
+        contacts,
         figures,
         findings: finalFindings,
+        isRetest: options.retest ?? false,
         methodology: [
             { activities: [t('Scope definition, rules of engagement, and testing windows.')], phase: 'pre-engagement', title: t('Pre-engagement interactions') },
             { activities: [t('Gathering information about the targets and the attack surface.')], phase: 'intelligence', title: t('Intelligence gathering') },

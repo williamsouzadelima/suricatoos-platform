@@ -13,7 +13,7 @@ import { CHART_SPECS } from './report-charts-sheet';
 import { highlightSegments, HOT_BG_HEX, HOT_FG_HEX } from './report-highlight';
 import { SURICATOOS_LOGO_BADGE } from './report-logo-assets';
 import { type Engagement, type Finding, type RemediationWindow, type Severity } from './engagement';
-import { actionItems, COLORS, EFFORT, quickWins, SEVERITY, SEVERITY_ORDER, WINDOW_COLOR, WINDOWS } from './theme';
+import { actionItems, COLORS, EFFORT, quickWins, RETEST_STATUS, SEVERITY, SEVERITY_ORDER, topVulnerabilities, WINDOW_COLOR, WINDOWS } from './theme';
 
 export type ChartImages = Record<string, string>; // key -> PNG data URI
 
@@ -152,7 +152,8 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
     c.addText(e.classification, { x: 10.3, y: 0.64, w: 2.4, h: 0.4, fontSize: 11, bold: true, color: CORAL, align: 'center', valign: 'middle', charSpacing: 1, line: { color: CORAL, width: 1 }, rectRadius: 0.03, shape: pptx.ShapeType.roundRect });
 
     c.addText(t('PENTEST REPORT · PTES'), { x: 0.8, y: 1.92, w: 11.5, h: 0.38, fontSize: 13, bold: true, color: MUTED, charSpacing: 3 });
-    c.addText(e.title, { x: 0.78, y: 2.34, w: 11.8, h: 1.7, fontSize: 36, bold: true, color: INK, valign: 'top' });
+    const coverTitle = e.isRetest ? `${e.title} — ${t('Retest')}` : e.title;
+    c.addText(coverTitle, { x: 0.78, y: 2.34, w: 11.8, h: 1.7, fontSize: 36, bold: true, color: INK, valign: 'top' });
     c.addText(tf('Prepared by {author} for {client}', { author: e.branding.appName, client: e.client }), { x: 0.8, y: 4.08, w: 11.5, h: 0.42, fontSize: 15, color: MUTED });
 
     // 4 KPI tiles — same metrics/tints as the PDF cover.
@@ -188,24 +189,59 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         { x: 0.8, y: 6.5, w: 12, h: 0.4, fontSize: 12 },
     );
 
+    // Confidentiality notice — small print, bottom-left of the cover (Direction 3 furniture).
+    c.addText(
+        [
+            { text: `${t('Confidentiality notice')} — `, options: { bold: true, color: SLATE } },
+            { text: `${e.classification} · ${e.client}`, options: { color: MUTED } },
+        ],
+        { x: 0.8, y: 6.98, w: 11.7, h: 0.34, fontSize: 9, valign: 'middle' },
+    );
+
     // ── 2. Risk slide ── severity breakdown + OWASP coverage + MITRE techniques ──
     const s2 = pptx.addSlide({ masterName: 'BASE' });
     section(s2, t('Risk Overview'), t('Risk and Coverage'));
 
-    // Severity donut + breakdown legend (left column)
+    // Severity donut + breakdown legend (left column, side by side to free the lower-left band)
     s2.addText(t('Finding severity'), { x: 0.5, y: 1.7, w: 4, h: 0.32, fontSize: 13, bold: true, color: INK });
-    img(s2, 'donut', 0.7, 2.08, 2.0);
+    img(s2, 'donut', 0.55, 2.12, 1.55);
     SEVERITY_ORDER.forEach((sv, i) => {
-        const y = 4.4 + i * 0.4;
-        s2.addShape(pptx.ShapeType.rect, { x: 0.55, y: y + 0.07, w: 0.16, h: 0.16, fill: { color: hex(SEVERITY[sv].color) } });
+        const y = 2.18 + i * 0.33;
+        s2.addShape(pptx.ShapeType.rect, { x: 2.3, y: y + 0.07, w: 0.16, h: 0.16, fill: { color: hex(SEVERITY[sv].color) } });
         s2.addText(
             [
                 { text: `${sevLabel(sv)}  `, options: { color: SLATE, bold: true } },
                 { text: `${e.findings.filter((f) => f.severity === sv).length}`, options: { color: MUTED } },
             ],
-            { x: 0.8, y, w: 2.5, h: 0.32, fontSize: 12, valign: 'middle' },
+            { x: 2.55, y, w: 1.3, h: 0.3, fontSize: 12, valign: 'middle' },
         );
     });
+
+    // Top vulnerabilities — compact ranked table (ID / Vulnerability / Criticality), lower-left.
+    const topVulns = topVulnerabilities(e.findings, 8);
+    if (topVulns.length > 0) {
+        const tvX = 0.5;
+        const tvY = 4.05;
+        const tvW = 3.4;
+        const idW = 0.62;
+        const critW = 0.92;
+        const vulnW = tvW - idW - critW;
+        s2.addText(t('Top vulnerabilities'), { x: tvX, y: tvY, w: tvW, h: 0.3, fontSize: 13, bold: true, color: INK });
+        // header row
+        const headY = tvY + 0.36;
+        s2.addText('#ID', { x: tvX, y: headY, w: idW, h: 0.22, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, valign: 'middle' });
+        s2.addText(t('Vulnerability'), { x: tvX + idW, y: headY, w: vulnW, h: 0.22, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, valign: 'middle' });
+        s2.addText(t('Criticality'), { x: tvX + idW + vulnW, y: headY, w: critW, h: 0.22, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, align: 'center', valign: 'middle' });
+        const rowH = 0.2;
+        topVulns.forEach((f, i) => {
+            const ry = headY + 0.24 + i * rowH;
+            s2.addShape(pptx.ShapeType.rect, { x: tvX, y: ry + rowH - 0.012, w: tvW, h: 0.008, fill: { color: LINE } });
+            s2.addText(f.id, { x: tvX, y: ry, w: idW, h: rowH, fontSize: 8.5, bold: true, color: SLATE, fontFace: 'Consolas', valign: 'middle' });
+            const title = f.title.length > 34 ? `${f.title.slice(0, 33)}…` : f.title;
+            s2.addText(title, { x: tvX + idW, y: ry, w: vulnW, h: rowH, fontSize: 8.5, color: SLATE, valign: 'middle' });
+            s2.addText(sevLabel(f.severity), { x: tvX + idW + vulnW, y: ry, w: critW, h: rowH, fontSize: 8.5, bold: true, color: hex(SEVERITY[f.severity].color), align: 'center', valign: 'middle' });
+        });
+    }
 
     // OWASP Top 10 (2021) coverage grid (covered = indigo tint w/ count) — middle/right.
     const hay = (f: Finding) => `${f.owasp ?? ''} ${f.references.map((r) => r.label).join(' ')}`;
@@ -235,8 +271,9 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
         new Set(e.findings.map((f) => f.mitre ?? (hay(f).match(/T\d{4}(?:\.\d+)?/)?.[0] ?? '')).filter(Boolean)),
     );
     if (mitreObserved.length > 0) {
-        s2.addText(t('Observed MITRE ATT&CK techniques'), { x: 0.5, y: 5.95, w: 9, h: 0.32, fontSize: 13, bold: true, color: INK });
-        mitreObserved.slice(0, 10).forEach((t, i) => chip(s2, t, 0.5 + i * 1.22, 6.38, 1.12, { mono: true }));
+        // Right column, beneath the OWASP grid (the lower-left band now holds the top-vulns table).
+        s2.addText(t('Observed MITRE ATT&CK techniques'), { x: 4.0, y: 5.6, w: 8.7, h: 0.32, fontSize: 13, bold: true, color: INK });
+        mitreObserved.slice(0, 7).forEach((t, i) => chip(s2, t, 4.0 + i * 1.22, 6.04, 1.12, { mono: true }));
     }
 
     // ── 3. Findings — one slide per top finding (cap at most severe ~8) ──
@@ -274,6 +311,22 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             chip(sf, ch.text, cx, chipY, ch.w, { filled: ch.filled, mono: ch.mono });
             cx += ch.w + 0.12;
         });
+        // Retest status chip (only on retest engagements) — soft fill + status color, styled like
+        // the taxonomy chips but with the per-status palette from RETEST_STATUS.
+        if (e.isRetest) {
+            const rs = RETEST_STATUS[f.retestStatus ?? 'open'];
+            const statusText = `${t('Status')}: ${t(rs.key)}`;
+            const rsW = Math.min(2.8, 1.05 + statusText.length * 0.075);
+            sf.addText(statusText, {
+                x: cx, y: chipY, w: rsW, h: 0.34,
+                fontSize: 11, bold: true,
+                color: hex(rs.color),
+                fill: { color: hex(rs.soft) },
+                align: 'center', valign: 'middle',
+                rectRadius: 0.04, shape: pptx.ShapeType.roundRect,
+            });
+            cx += rsW + 0.12;
+        }
 
         // kill-chain mini-path (from finding.attackPath) — last two beats are "hot"
         const path = f.attackPath ?? [];
@@ -361,6 +414,43 @@ export function buildPtesPptx(e: Engagement, images: ChartImages): pptxgen {
             { text: tf('{count} high-impact, low-effort fixes accelerate risk reduction. A retest is recommended after remediating the critical findings.', { count: qw.length }), options: { color: SLATE } },
         ],
         { x: 0.5, y: 6.55, w: 12.3, h: 0.45, fontSize: 10, valign: 'middle' },
+    );
+
+    // ── 5. Closing slide ── contacts roster + trace-cleanup attestation ──
+    // Only rendered when there is something to show (typed contacts or a retest engagement always
+    // carries the cleanup attestation). Keeps the deck legible by isolating the closing furniture.
+    const contacts = e.contacts ?? [];
+    const sc = pptx.addSlide({ masterName: 'BASE' });
+    section(sc, t('Confidentiality notice'), e.isRetest ? `${t('Retest')} · ${t('Trace cleanup')}` : t('Trace cleanup'));
+
+    // Contacts roster (left column) — "name — role — info", styled like a compact card list.
+    if (contacts.length > 0) {
+        const cX = 0.5;
+        const cW = 6.0;
+        sc.addText(t('Contacts'), { x: cX, y: 1.8, w: cW, h: 0.3, fontSize: 13, bold: true, color: INK });
+        // header row
+        const hY = 2.16;
+        sc.addText(t('Name'), { x: cX, y: hY, w: 1.9, h: 0.24, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, valign: 'middle' });
+        sc.addText(t('Role'), { x: cX + 1.9, y: hY, w: 1.7, h: 0.24, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, valign: 'middle' });
+        sc.addText(t('Contact information'), { x: cX + 3.6, y: hY, w: cW - 3.6, h: 0.24, fontSize: 8, bold: true, color: MUTED, charSpacing: 0.5, valign: 'middle' });
+        let cy = hY + 0.3;
+        contacts.slice(0, 8).forEach((ct) => {
+            sc.addShape(pptx.ShapeType.rect, { x: cX, y: cy + 0.42, w: cW, h: 0.008, fill: { color: LINE } });
+            sc.addText(ct.name, { x: cX, y: cy, w: 1.9, h: 0.42, fontSize: 10, bold: true, color: INK, valign: 'middle' });
+            sc.addText(ct.role, { x: cX + 1.9, y: cy, w: 1.7, h: 0.42, fontSize: 10, color: SLATE, valign: 'middle' });
+            sc.addText(ct.info, { x: cX + 3.6, y: cy, w: cW - 3.6, h: 0.42, fontSize: 9.5, color: MUTED, valign: 'middle' });
+            cy += 0.5;
+        });
+    }
+
+    // Trace-cleanup attestation (right column, or full width when no contacts).
+    const tcX = contacts.length > 0 ? 6.9 : 0.5;
+    const tcW = contacts.length > 0 ? 5.9 : 12.3;
+    sc.addShape(pptx.ShapeType.roundRect, { x: tcX, y: 1.8, w: tcW, h: 0.5, rectRadius: 0.06, fill: { color: PANEL } });
+    sc.addText(t('Trace cleanup'), { x: tcX + 0.2, y: 1.8, w: tcW - 0.4, h: 0.5, fontSize: 12, bold: true, color: primary, valign: 'middle', charSpacing: 0.5 });
+    sc.addText(
+        e.cleanupAttestation ?? t('After collecting the information and evidence shown above, the systems were restored exactly as found: any accounts created for the proof of concept were removed, and the exploits used during testing were properly deleted.'),
+        { x: tcX, y: 2.5, w: tcW, h: 2.6, fontSize: 11, color: SLATE, valign: 'top', lineSpacingMultiple: 1.15 },
     );
 
     return pptx;

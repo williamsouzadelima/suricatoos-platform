@@ -147,6 +147,39 @@ const pt: Record<string, string> = {
     'Word (.docx)': 'Word (.docx)',
     'PowerPoint (.pptx)': 'PowerPoint (.pptx)',
     'Failed to generate report': 'Falha ao gerar o relatório',
+
+    // ── Report: Strati-parity tables / front matter / retest ─────────────
+    'Top vulnerabilities': 'Principais vulnerabilidades',
+    'Affected hosts and URLs': 'Hosts e URLs afetados',
+    Recommendation: 'Recomendação',
+    Vulnerability: 'Vulnerabilidade',
+    Criticality: 'Criticidade',
+    Contacts: 'Contatos',
+    Name: 'Nome',
+    Role: 'Cargo',
+    'Contact information': 'Informações de contato',
+    Pentester: 'Pentester',
+    Reviewer: 'Revisor',
+    'Confidentiality notice': 'Aviso de confidencialidade',
+    'This document contains proprietary and confidential information. All data discovered during testing and presented here was handled to preserve its privacy and secrecy. Duplication, redistribution or use, in whole or in part, by any means, requires prior consent.':
+        'Este documento contém informações proprietárias e confidenciais. Todos os dados encontrados durante os testes e aqui apresentados foram tratados de forma a garantir sua privacidade e sigilo. A duplicação, redistribuição ou uso, no todo ou em parte, por qualquer meio, requer consentimento prévio.',
+    'Trace cleanup': 'Limpeza de rastros',
+    'After collecting the information and evidence shown above, the systems were restored exactly as found: any accounts created for the proof of concept were removed, and the exploits used during testing were properly deleted.':
+        'Após a coleta das informações e evidências demonstradas acima, os sistemas foram restaurados exatamente conforme encontrados: os usuários criados para a prova de conceito foram removidos, assim como os exploits utilizados durante o teste foram devidamente excluídos.',
+    Retest: 'Reteste',
+    'Retest status': 'Status do reteste',
+    Open: 'Em aberto',
+    Fixed: 'Corrigida',
+    'Not fixed': 'Não corrigida',
+    'Accepted risk': 'Risco aceito',
+    'Retest of the engagement; each finding shows its current remediation status.':
+        'Reteste do engajamento; cada achado mostra seu status atual de remediação.',
+    'Set the remediation status of each finding, then generate the retest report.':
+        'Defina o status de remediação de cada achado e então gere o relatório de reteste.',
+    'Loading findings…': 'Carregando achados…',
+    'No findings were derived for this flow yet.': 'Nenhum achado foi derivado para este fluxo ainda.',
+    'Generate retest report': 'Gerar relatório de reteste',
+    'Generating…': 'Gerando…',
 };
 
 export default pt;

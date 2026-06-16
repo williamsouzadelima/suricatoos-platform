@@ -484,6 +484,8 @@ function FlowReportDropdown() {
     const reportHref = (type: 'executive' | 'ptes' | 'technical', format: 'docx' | 'pdf' | 'pptx'): string =>
         flowId ? `/flows/${flowId}/report?download=true&silent=true&type=${type}&format=${format}` : '#';
     const webViewHref = flowId ? `/flows/${flowId}/report` : '#';
+    // Retest opens the interactive editor (set each finding's status, then export) — no silent download.
+    const retestHref = flowId ? `/flows/${flowId}/report?type=ptes&retest=true` : '#';
 
     return (
         <DropdownMenu>
@@ -538,6 +540,12 @@ function FlowReportDropdown() {
                     <a href={reportHref('ptes', 'pptx')} rel="noopener noreferrer" target="_blank">
                         <Download className="size-4" />
                         {t('PowerPoint (.pptx)')}
+                    </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="flex items-center gap-2" disabled={isReportDisabled}>
+                    <a href={retestHref} rel="noopener noreferrer" target="_blank">
+                        <ExternalLink className="size-4" />
+                        {`${t('Retest')}…`}
                     </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
