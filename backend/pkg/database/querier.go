@@ -22,6 +22,7 @@ type Querier interface {
 	GetFinding(ctx context.Context, id int64) (Finding, error)
 	GetFlowFindings(ctx context.Context, flowID int64) ([]Finding, error)
 	GetLatestFlowDerivation(ctx context.Context, flowID int64) (FindingDerivation, error)
+	SetFindingRetestStatus(ctx context.Context, arg SetFindingRetestStatusParams) (Finding, error)
 	UpdateFindingDerivationStatus(ctx context.Context, arg UpdateFindingDerivationStatusParams) (FindingDerivation, error)
 	CreateFlow(ctx context.Context, arg CreateFlowParams) (Flow, error)
 	CreateFlowTemplate(ctx context.Context, arg CreateFlowTemplateParams) (FlowTemplate, error)

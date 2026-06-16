@@ -247,6 +247,7 @@ type ComplexityRoot struct {
 		References     func(childComplexity int) int
 		Remediation    func(childComplexity int) int
 		ReproSteps     func(childComplexity int) int
+		RetestStatus   func(childComplexity int) int
 		Severity       func(childComplexity int) int
 		SourceTaskIds  func(childComplexity int) int
 		Title          func(childComplexity int) int
@@ -413,6 +414,7 @@ type ComplexityRoot struct {
 		FinishFlow              func(childComplexity int, flowID int64) int
 		PutUserInput            func(childComplexity int, flowID int64, input string, modelProvider *string, resourceIds []int64) int
 		RenameFlow              func(childComplexity int, flowID int64, title string) int
+		SetFindingRetestStatus  func(childComplexity int, flowID int64, findingID int64, status string) int
 		StopAssistant           func(childComplexity int, flowID int64, assistantID int64) int
 		StopFlow                func(childComplexity int, flowID int64) int
 		TestAgent               func(childComplexity int, typeArg model.ProviderType, agentType model.AgentConfigType, agent model.AgentConfig) int
@@ -789,6 +791,7 @@ type ComplexityRoot struct {
 type MutationResolver interface {
 	CreateFlow(ctx context.Context, modelProvider string, input string, resourceIds []int64) (*model.Flow, error)
 	DeriveFindings(ctx context.Context, flowID int64, language *string) (*model.FindingDerivation, error)
+	SetFindingRetestStatus(ctx context.Context, flowID int64, findingID int64, status string) (*model.Finding, error)
 	PutUserInput(ctx context.Context, flowID int64, input string, modelProvider *string, resourceIds []int64) (model.ResultType, error)
 	StopFlow(ctx context.Context, flowID int64) (model.ResultType, error)
 	FinishFlow(ctx context.Context, flowID int64) (model.ResultType, error)
@@ -1901,6 +1904,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Finding.ReproSteps(childComplexity), true
 
+	case "Finding.retestStatus":
+		if e.complexity.Finding.RetestStatus == nil {
+			break
+		}
+
+		return e.complexity.Finding.RetestStatus(childComplexity), true
+
 	case "Finding.severity":
 		if e.complexity.Finding.Severity == nil {
 			break
@@ -2815,6 +2825,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.RenameFlow(childComplexity, args["flowId"].(int64), args["title"].(string)), true
+
+	case "Mutation.setFindingRetestStatus":
+		if e.complexity.Mutation.SetFindingRetestStatus == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_setFindingRetestStatus_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.SetFindingRetestStatus(childComplexity, args["flowId"].(int64), args["findingId"].(int64), args["status"].(string)), true
 
 	case "Mutation.stopAssistant":
 		if e.complexity.Mutation.StopAssistant == nil {
@@ -6488,6 +6510,92 @@ func (ec *executionContext) field_Mutation_renameFlow_argsTitle(
 
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("title"))
 	if tmp, ok := rawArgs["title"]; ok {
+		return ec.unmarshalNString2string(ctx, tmp)
+	}
+
+	var zeroVal string
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_setFindingRetestStatus_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	arg0, err := ec.field_Mutation_setFindingRetestStatus_argsFlowID(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["flowId"] = arg0
+	arg1, err := ec.field_Mutation_setFindingRetestStatus_argsFindingID(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["findingId"] = arg1
+	arg2, err := ec.field_Mutation_setFindingRetestStatus_argsStatus(ctx, rawArgs)
+	if err != nil {
+		return nil, err
+	}
+	args["status"] = arg2
+	return args, nil
+}
+func (ec *executionContext) field_Mutation_setFindingRetestStatus_argsFlowID(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (int64, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["flowId"]
+	if !ok {
+		var zeroVal int64
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("flowId"))
+	if tmp, ok := rawArgs["flowId"]; ok {
+		return ec.unmarshalNID2int64(ctx, tmp)
+	}
+
+	var zeroVal int64
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_setFindingRetestStatus_argsFindingID(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (int64, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["findingId"]
+	if !ok {
+		var zeroVal int64
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("findingId"))
+	if tmp, ok := rawArgs["findingId"]; ok {
+		return ec.unmarshalNID2int64(ctx, tmp)
+	}
+
+	var zeroVal int64
+	return zeroVal, nil
+}
+
+func (ec *executionContext) field_Mutation_setFindingRetestStatus_argsStatus(
+	ctx context.Context,
+	rawArgs map[string]interface{},
+) (string, error) {
+	// We won't call the directive if the argument is null.
+	// Set call_argument_directives_with_null to true to call directives
+	// even if the argument is null.
+	_, ok := rawArgs["status"]
+	if !ok {
+		var zeroVal string
+		return zeroVal, nil
+	}
+
+	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("status"))
+	if tmp, ok := rawArgs["status"]; ok {
 		return ec.unmarshalNString2string(ctx, tmp)
 	}
 
@@ -15820,6 +15928,50 @@ func (ec *executionContext) fieldContext_Finding_provenance(_ context.Context, f
 	return fc, nil
 }
 
+func (ec *executionContext) _Finding_retestStatus(ctx context.Context, field graphql.CollectedField, obj *model.Finding) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Finding_retestStatus(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.RetestStatus, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Finding_retestStatus(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Finding",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Finding_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Finding) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Finding_createdAt(ctx, field)
 	if err != nil {
@@ -20045,6 +20197,109 @@ func (ec *executionContext) fieldContext_Mutation_deriveFindings(ctx context.Con
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Mutation_deriveFindings_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_setFindingRetestStatus(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_setFindingRetestStatus(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().SetFindingRetestStatus(rctx, fc.Args["flowId"].(int64), fc.Args["findingId"].(int64), fc.Args["status"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.Finding)
+	fc.Result = res
+	return ec.marshalNFinding2ᚖsuricatoosᚋpkgᚋgraphᚋmodelᚐFinding(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_setFindingRetestStatus(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Finding_id(ctx, field)
+			case "flowId":
+				return ec.fieldContext_Finding_flowId(ctx, field)
+			case "title":
+				return ec.fieldContext_Finding_title(ctx, field)
+			case "severity":
+				return ec.fieldContext_Finding_severity(ctx, field)
+			case "cvssScore":
+				return ec.fieldContext_Finding_cvssScore(ctx, field)
+			case "cvssVector":
+				return ec.fieldContext_Finding_cvssVector(ctx, field)
+			case "cwe":
+				return ec.fieldContext_Finding_cwe(ctx, field)
+			case "category":
+				return ec.fieldContext_Finding_category(ctx, field)
+			case "affected":
+				return ec.fieldContext_Finding_affected(ctx, field)
+			case "description":
+				return ec.fieldContext_Finding_description(ctx, field)
+			case "businessImpact":
+				return ec.fieldContext_Finding_businessImpact(ctx, field)
+			case "likelihood":
+				return ec.fieldContext_Finding_likelihood(ctx, field)
+			case "impact":
+				return ec.fieldContext_Finding_impact(ctx, field)
+			case "remediation":
+				return ec.fieldContext_Finding_remediation(ctx, field)
+			case "references":
+				return ec.fieldContext_Finding_references(ctx, field)
+			case "attackPath":
+				return ec.fieldContext_Finding_attackPath(ctx, field)
+			case "reproSteps":
+				return ec.fieldContext_Finding_reproSteps(ctx, field)
+			case "evidence":
+				return ec.fieldContext_Finding_evidence(ctx, field)
+			case "sourceTaskIds":
+				return ec.fieldContext_Finding_sourceTaskIds(ctx, field)
+			case "provenance":
+				return ec.fieldContext_Finding_provenance(ctx, field)
+			case "retestStatus":
+				return ec.fieldContext_Finding_retestStatus(ctx, field)
+			case "createdAt":
+				return ec.fieldContext_Finding_createdAt(ctx, field)
+			case "updatedAt":
+				return ec.fieldContext_Finding_updatedAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Finding", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Mutation_setFindingRetestStatus_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -25173,6 +25428,8 @@ func (ec *executionContext) fieldContext_Query_findings(ctx context.Context, fie
 				return ec.fieldContext_Finding_sourceTaskIds(ctx, field)
 			case "provenance":
 				return ec.fieldContext_Finding_provenance(ctx, field)
+			case "retestStatus":
+				return ec.fieldContext_Finding_retestStatus(ctx, field)
 			case "createdAt":
 				return ec.fieldContext_Finding_createdAt(ctx, field)
 			case "updatedAt":
@@ -40499,6 +40756,11 @@ func (ec *executionContext) _Finding(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "provenance":
 			out.Values[i] = ec._Finding_provenance(ctx, field, obj)
+		case "retestStatus":
+			out.Values[i] = ec._Finding_retestStatus(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
 		case "createdAt":
 			out.Values[i] = ec._Finding_createdAt(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -41499,6 +41761,13 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		case "deriveFindings":
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_deriveFindings(ctx, field)
+			})
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "setFindingRetestStatus":
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_setFindingRetestStatus(ctx, field)
 			})
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
@@ -45526,6 +45795,10 @@ func (ec *executionContext) marshalNDefaultProvidersConfig2ᚖsuricatoosᚋpkg�
 		return graphql.Null
 	}
 	return ec._DefaultProvidersConfig(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNFinding2suricatoosᚋpkgᚋgraphᚋmodelᚐFinding(ctx context.Context, sel ast.SelectionSet, v model.Finding) graphql.Marshaler {
+	return ec._Finding(ctx, sel, &v)
 }
 
 func (ec *executionContext) marshalNFinding2ᚕᚖsuricatoosᚋpkgᚋgraphᚋmodelᚐFindingᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Finding) graphql.Marshaler {

@@ -413,7 +413,7 @@ export function transformFlowToEngagement(data: FlowQuery, branding: Branding, o
     // Backend LLM-derived findings take precedence; the regex heuristics above are the fallback.
     const llmFindings =
         data.findings && data.findings.length > 0
-            ? transformLlmFindingsToEngagement(data.findings, options.retest ? options.retestStatuses : undefined)
+            ? transformLlmFindingsToEngagement(data.findings, options.retest ? options.retestStatuses ?? {} : undefined)
             : [];
 
     if (findings.length === 0 && llmFindings.length === 0) {

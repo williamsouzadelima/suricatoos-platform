@@ -78,6 +78,7 @@ fragment findingFragment on Finding {
     evidence
     sourceTaskIds
     provenance
+    retestStatus
     createdAt
     updatedAt
 }
@@ -1129,6 +1130,12 @@ mutation deriveFindings($flowId: ID!, $language: String) {
         error
         createdAt
         updatedAt
+    }
+}
+
+mutation setFindingRetestStatus($flowId: ID!, $findingId: ID!, $status: String!) {
+    setFindingRetestStatus(flowId: $flowId, findingId: $findingId, status: $status) {
+        ...findingFragment
     }
 }
 

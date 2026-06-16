@@ -109,6 +109,28 @@ func (r *mutationResolver) DeriveFindings(ctx context.Context, flowID int64, lan
 	return converter.ConvertFindingDerivation(run), nil
 }
 
+// SetFindingRetestStatus is the resolver for the setFindingRetestStatus field.
+func (r *mutationResolver) SetFindingRetestStatus(ctx context.Context, flowID int64, findingID int64, status string) (*model.Finding, error) {
+	if _, err := validatePermissionWithFlowID(ctx, "findings.derive", flowID, r.DB); err != nil {
+		return nil, err
+	}
+	switch status {
+	case "open", "fixed", "not_fixed", "accepted":
+		// valid
+	default:
+		return nil, fmt.Errorf("invalid retest status %q (allowed: open, fixed, not_fixed, accepted)", status)
+	}
+	f, err := r.DB.SetFindingRetestStatus(ctx, database.SetFindingRetestStatusParams{
+		ID:           findingID,
+		RetestStatus: status,
+		FlowID:       flowID,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return converter.ConvertFinding(f), nil
+}
+
 // PutUserInput is the resolver for the putUserInput field.
 func (r *mutationResolver) PutUserInput(ctx context.Context, flowID int64, input string, modelProvider *string, resourceIds []int64) (model.ResultType, error) {
 	uid, err := validatePermissionWithFlowID(ctx, "flows.edit", flowID, r.DB)

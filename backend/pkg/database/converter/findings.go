@@ -35,6 +35,7 @@ func ConvertFinding(f database.Finding) *model.Finding {
 		Provenance:     rawJSONPtr(f.Provenance),
 		CreatedAt:      f.CreatedAt.Time,
 		UpdatedAt:      f.UpdatedAt.Time,
+		RetestStatus:   f.RetestStatus,
 	}
 }
 

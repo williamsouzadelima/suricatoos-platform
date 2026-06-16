@@ -95,7 +95,9 @@ export function transformLlmFindingsToEngagement(
             remediation: stripControlChars(bf.remediation ?? 'Definir e validar a correção a partir da análise do achado; reteste após a remediação.'),
             remediationEffort: EFFORT_BY_SEVERITY[sev],
             remediationWindow: WINDOW_BY_SEVERITY[sev],
-            retestStatus: retestStatuses ? retestStatuses[bf.id] ?? 'open' : undefined,
+            // Retest mode (retestStatuses provided): editor overrides win, else the value persisted
+            // on the finding (backend), else 'open'. Undefined outside retest mode so renderers hide it.
+            retestStatus: retestStatuses ? retestStatuses[bf.id] ?? (bf.retestStatus as RetestStatus) ?? 'open' : undefined,
             severity: sev,
             sourceTaskIds: bf.sourceTaskIds ?? [],
             status: 'confirmed',

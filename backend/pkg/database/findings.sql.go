@@ -22,7 +22,7 @@ INSERT INTO findings (
   "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance
 ) VALUES (
   $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21
-) RETURNING id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at
+) RETURNING id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at, retest_status
 `
 
 type CreateFindingParams struct {
@@ -99,6 +99,7 @@ func (q *Queries) CreateFinding(ctx context.Context, arg CreateFindingParams) (F
 		&i.Provenance,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.RetestStatus,
 	)
 	return i, err
 }
@@ -147,7 +148,7 @@ func (q *Queries) DeleteFlowFindings(ctx context.Context, flowID int64) error {
 }
 
 const getFinding = `-- name: GetFinding :one
-SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE id = $1
+SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at, retest_status FROM findings WHERE id = $1
 `
 
 func (q *Queries) GetFinding(ctx context.Context, id int64) (Finding, error) {
@@ -178,12 +179,13 @@ func (q *Queries) GetFinding(ctx context.Context, id int64) (Finding, error) {
 		&i.Provenance,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.RetestStatus,
 	)
 	return i, err
 }
 
 const getFlowFindings = `-- name: GetFlowFindings :many
-SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at FROM findings WHERE flow_id = $1
+SELECT id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at, retest_status FROM findings WHERE flow_id = $1
 ORDER BY (CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1
   WHEN 'medium' THEN 2 WHEN 'low' THEN 3 ELSE 4 END), created_at DESC
 `
@@ -222,6 +224,7 @@ func (q *Queries) GetFlowFindings(ctx context.Context, flowID int64) ([]Finding,
 			&i.Provenance,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.RetestStatus,
 		); err != nil {
 			return nil, err
 		}
@@ -253,6 +256,51 @@ func (q *Queries) GetLatestFlowDerivation(ctx context.Context, flowID int64) (Fi
 		&i.Error,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+	)
+	return i, err
+}
+
+const setFindingRetestStatus = `-- name: SetFindingRetestStatus :one
+UPDATE findings SET retest_status = $2, updated_at = CURRENT_TIMESTAMP
+WHERE id = $1 AND flow_id = $3
+RETURNING id, flow_id, derive_run_id, title, severity, cvss_score, cvss_vector, cwe, category, affected, description, business_impact, likelihood, impact, remediation, "references", attack_path, repro_steps, evidence, source_task_ids, evidence_refs, provenance, created_at, updated_at, retest_status
+`
+
+type SetFindingRetestStatusParams struct {
+	ID           int64  `json:"id"`
+	RetestStatus string `json:"retest_status"`
+	FlowID       int64  `json:"flow_id"`
+}
+
+func (q *Queries) SetFindingRetestStatus(ctx context.Context, arg SetFindingRetestStatusParams) (Finding, error) {
+	row := q.db.QueryRowContext(ctx, setFindingRetestStatus, arg.ID, arg.RetestStatus, arg.FlowID)
+	var i Finding
+	err := row.Scan(
+		&i.ID,
+		&i.FlowID,
+		&i.DeriveRunID,
+		&i.Title,
+		&i.Severity,
+		&i.CvssScore,
+		&i.CvssVector,
+		&i.Cwe,
+		&i.Category,
+		&i.Affected,
+		&i.Description,
+		&i.BusinessImpact,
+		&i.Likelihood,
+		&i.Impact,
+		&i.Remediation,
+		&i.References,
+		&i.AttackPath,
+		&i.ReproSteps,
+		&i.Evidence,
+		&i.SourceTaskIds,
+		&i.EvidenceRefs,
+		&i.Provenance,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.RetestStatus,
 	)
 	return i, err
 }

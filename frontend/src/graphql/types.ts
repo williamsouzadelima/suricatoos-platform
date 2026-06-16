@@ -368,6 +368,7 @@ export type FindingFragmentFragment = {
     evidence: string | null;
     sourceTaskIds: Array<string>;
     provenance: string | null;
+    retestStatus: string;
     createdAt: unknown;
     updatedAt: unknown;
 };
@@ -1117,6 +1118,14 @@ export type DeriveFindingsMutation = {
     };
 };
 
+export type SetFindingRetestStatusMutationVariables = Exact<{
+    flowId: string | number;
+    findingId: string | number;
+    status: string;
+}>;
+
+export type SetFindingRetestStatusMutation = { setFindingRetestStatus: FindingFragmentFragment };
+
 export type RenameFlowMutationVariables = Exact<{
     flowId: string | number;
     title: string;
@@ -1557,6 +1566,7 @@ export const FindingFragmentFragmentDoc = gql`
         evidence
         sourceTaskIds
         provenance
+        retestStatus
         createdAt
         updatedAt
     }
@@ -5529,6 +5539,56 @@ export type DeriveFindingsMutationResult = ApolloReactCommon.MutationResult<Deri
 export type DeriveFindingsMutationOptions = ApolloReactCommon.BaseMutationOptions<
     DeriveFindingsMutation,
     DeriveFindingsMutationVariables
+>;
+export const SetFindingRetestStatusDocument = gql`
+    mutation setFindingRetestStatus($flowId: ID!, $findingId: ID!, $status: String!) {
+        setFindingRetestStatus(flowId: $flowId, findingId: $findingId, status: $status) {
+            ...findingFragment
+        }
+    }
+    ${FindingFragmentFragmentDoc}
+`;
+export type SetFindingRetestStatusMutationFn = ApolloReactCommon.MutationFunction<
+    SetFindingRetestStatusMutation,
+    SetFindingRetestStatusMutationVariables
+>;
+
+/**
+ * __useSetFindingRetestStatusMutation__
+ *
+ * To run a mutation, you first call `useSetFindingRetestStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetFindingRetestStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setFindingRetestStatusMutation, { data, loading, error }] = useSetFindingRetestStatusMutation({
+ *   variables: {
+ *      flowId: // value for 'flowId'
+ *      findingId: // value for 'findingId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useSetFindingRetestStatusMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        SetFindingRetestStatusMutation,
+        SetFindingRetestStatusMutationVariables
+    >,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useMutation<SetFindingRetestStatusMutation, SetFindingRetestStatusMutationVariables>(
+        SetFindingRetestStatusDocument,
+        options,
+    );
+}
+export type SetFindingRetestStatusMutationHookResult = ReturnType<typeof useSetFindingRetestStatusMutation>;
+export type SetFindingRetestStatusMutationResult = ApolloReactCommon.MutationResult<SetFindingRetestStatusMutation>;
+export type SetFindingRetestStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    SetFindingRetestStatusMutation,
+    SetFindingRetestStatusMutationVariables
 >;
 export const RenameFlowDocument = gql`
     mutation renameFlow($flowId: ID!, $title: String!) {
