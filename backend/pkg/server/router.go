@@ -206,6 +206,20 @@ func NewRouter(
 
 	router := gin.Default()
 
+	// Liveness + readiness probes — public, unauthenticated, at the root path (before any auth or
+	// CORS/session middleware) so orchestrators/monitoring can probe without a token. /health is
+	// pure liveness (the process is serving); /ready also verifies the DB is reachable.
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"status": "ok"})
+	})
+	router.GET("/ready", func(c *gin.Context) {
+		if err := orm.DB().PingContext(c.Request.Context()); err != nil {
+			c.JSON(http.StatusServiceUnavailable, gin.H{"status": "not ready", "reason": "database unreachable"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"status": "ready"})
+	})
+
 	// Setup Cross-Origin Resource Sharing policy
 	config := cors.DefaultConfig()
 	if !slices.Contains(cfg.CorsOrigins, "*") {
