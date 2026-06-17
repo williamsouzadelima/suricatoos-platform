@@ -23,6 +23,11 @@
         "lib": ["es2023", "dom", "dom.iterable"],
         "jsx": "react-jsx",
 
+        /* baseUrl is deprecated in TS 6.0 (removed in 7.0). Silence the fatal config error so a
+           plain `tsc -p tsconfig.app.json` and IDE type-checking still run the full check instead
+           of aborting at TS5101. The CI gate passes --ignoreDeprecations on the CLI; this keeps
+           local DX in sync. Remove once baseUrl+paths are migrated to relative path mapping. */
+        "ignoreDeprecations": "6.0",
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
