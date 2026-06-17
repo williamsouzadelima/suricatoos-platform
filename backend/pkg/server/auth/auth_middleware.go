@@ -183,7 +183,12 @@ func (p *AuthMiddleware) tryProtoTokenAuthentication(c *gin.Context) (authResult
 	// try to validate as API token first (new format with JWT signing key)
 	apiClaims, apiErr := ValidateAPIToken(token, p.globalSalt)
 	if apiErr != nil {
-		return authResultFail, errors.New("token is invalid")
+		// A cryptographically-invalid Bearer token means "this auth method does not apply" — skip
+		// it (like the empty / no-prefix / default-salt cases above) so the chain can fall through
+		// to cookie auth. Returning Fail here let a stale or garbage Authorization header block an
+		// otherwise valid session cookie. Genuine denials of a VALID token (revoked / blocked /
+		// hash-mismatch, below) still return Fail.
+		return authResultSkip, fmt.Errorf("bearer token invalid, skipping token auth to allow cookie fallback: %w", apiErr)
 	}
 
 	// check token status and get privileges through cache
