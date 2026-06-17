@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"runtime/debug"
 	"slices"
 	"sync"
 	"time"
@@ -923,6 +924,23 @@ func (fw *flowWorker) WaitTaskCompletion(ctx context.Context) error {
 	}
 }
 
+// recoverPanic runs fn and converts a panic into an error. The worker loops drive LLM calls,
+// JSON (un)marshalling, tool-output parsers and docker exec — all panic-prone (nil deref,
+// index-out-of-range, type assertions). In Go an unrecovered panic on this detached goroutine's
+// stack terminates the ENTIRE process, taking down every other user's flow and the API server,
+// so a single malformed tool/provider response must not be allowed to escape. A recovered panic
+// is handled exactly like any other step error by the caller (logged, flow set to Waiting, loop
+// continues to the next input).
+func (fw *flowWorker) recoverPanic(what string, fn func() error) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			fw.logger.WithField("stack", string(debug.Stack())).Errorf("recovered panic in flow worker (%s): %v", what, r)
+			err = fmt.Errorf("panic in flow worker (%s): %v", what, r)
+		}
+	}()
+	return fn()
+}
+
 func (fw *flowWorker) worker() {
 	defer fw.wg.Done()
 
@@ -947,7 +965,7 @@ func (fw *flowWorker) worker() {
 		if !task.IsCompleted() && !task.IsWaiting() {
 			input := "continue after loading"
 			spanName := fmt.Sprintf("continue task %d: %s", task.GetTaskID(), task.GetTitle())
-			if err := fw.runTask(spanName, input, task); err != nil {
+			if err := fw.recoverPanic("continue task", func() error { return fw.runTask(spanName, input, task) }); err != nil {
 				if errors.Is(err, context.Canceled) {
 					getLogger(input, task).Info("flow are going to be stopped by user")
 					return
@@ -965,7 +983,13 @@ func (fw *flowWorker) worker() {
 
 	// process user input in regular job
 	for flin := range fw.input {
-		if task, err := fw.processInput(flin); err != nil {
+		var task TaskWorker
+		err := fw.recoverPanic("process input", func() error {
+			var e error
+			task, e = fw.processInput(flin)
+			return e
+		})
+		if err != nil {
 			if errors.Is(err, context.Canceled) {
 				getLogger(flin.input, task).Info("flow are going to be stopped by user")
 				return
