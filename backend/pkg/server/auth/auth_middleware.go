@@ -227,6 +227,12 @@ func (p *AuthMiddleware) tryProtoTokenAuthentication(c *gin.Context) (authResult
 		uuid = ""
 	}
 
+	// Defence in depth: ValidateAPIToken now requires exp (jwt.WithExpirationRequired), but guard
+	// the nil-able *NumericDate anyway so apiClaims.ExpiresAt.Unix() below can never panic.
+	if apiClaims.ExpiresAt == nil {
+		return authResultFail, errors.New("token missing expiration claim")
+	}
+
 	// set session fields similar to regular login
 	c.Set("uid", apiClaims.UID)
 	c.Set("uhash", apiClaims.UHASH)
