@@ -264,6 +264,16 @@ func (r *mutationResolver) DeleteFlow(ctx context.Context, flowID int64) (model.
 		r.Logger.WithError(err).Warnf("failed to clean up memory documents for deleted flow %d", flow.ID)
 	}
 
+	// Best-effort cleanup: drop this flow from the owner's favorites. DeleteFavoriteFlow goes
+	// through validatePermissionWithFlowID -> GetFlow, which filters out soft-deleted flows, so a
+	// favorited-then-deleted flow would otherwise leave a dangling, unremovable favorite entry.
+	if _, err := r.DB.DeleteFavoriteFlow(ctx, database.DeleteFavoriteFlowParams{
+		FlowID: flow.ID,
+		UserID: flow.UserID,
+	}); err != nil {
+		r.Logger.WithError(err).Warnf("failed to clean up favorite for deleted flow %d", flow.ID)
+	}
+
 	publisher := r.Subscriptions.NewFlowPublisher(flow.UserID, flow.ID)
 	publisher.FlowUpdated(ctx, flow, containers)
 	publisher.FlowDeleted(ctx, flow, containers)
