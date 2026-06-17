@@ -968,6 +968,12 @@ func getRecentMessages(chain []llms.MessageContent) []map[string]string {
 		return messages
 	}
 
+	// NewChainAST returns an empty AST (no error) for an empty/degenerate chain; guard before
+	// indexing the last section (mirrors the check at helpers.go:530).
+	if len(ast.Sections) == 0 {
+		return messages
+	}
+
 	lastSection := ast.Sections[len(ast.Sections)-1]
 	if len(lastSection.Body) == 0 {
 		return messages
@@ -1050,6 +1056,10 @@ func extractToolCallsFromChain(chain []llms.MessageContent) []map[string]string 
 		return toolCalls
 	}
 
+	if len(ast.Sections) == 0 {
+		return toolCalls
+	}
+
 	lastSection := ast.Sections[len(ast.Sections)-1]
 	if len(lastSection.Body) == 0 {
 		return toolCalls
@@ -1079,6 +1089,10 @@ func extractToolCallsFromChain(chain []llms.MessageContent) []map[string]string 
 func extractAgentPromptFromChain(chain []llms.MessageContent) string {
 	ast, err := cast.NewChainAST(chain, true)
 	if err != nil {
+		return ""
+	}
+
+	if len(ast.Sections) == 0 {
 		return ""
 	}
 

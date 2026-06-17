@@ -185,8 +185,7 @@ func WrapGenerateFromSinglePrompt(
 		return "", err
 	}
 
-	choices := resp.Choices
-	if len(choices) < 1 {
+	if resp == nil || len(resp.Choices) < 1 {
 		err = fmt.Errorf("empty response from model")
 		generation.End(
 			langfuse.WithGenerationMetadata(wrapMetadataWithStopReason(metadata, resp)),
@@ -305,7 +304,7 @@ func WrapGenerateContent(
 		return nil, err
 	}
 
-	if len(resp.Choices) < 1 {
+	if resp == nil || len(resp.Choices) < 1 {
 		err = fmt.Errorf("empty response from model")
 		generation.End(
 			langfuse.WithGenerationMetadata(wrapMetadataWithStopReason(metadata, resp)),
