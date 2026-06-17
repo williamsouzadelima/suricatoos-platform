@@ -320,9 +320,12 @@ func NewRouter(
 	privateUserGroup := api.Group("/")
 	privateUserGroup.Use(authMiddleware.AuthUserRequired)
 	{
-		setRolesGroup(privateGroup, roleService)
-		setUsersGroup(privateGroup, userService)
-		setTokensGroup(privateGroup, tokenService)
+		// These identity-management routes must run under privateUserGroup (interactive user
+		// session only) — NOT privateGroup, which also accepts a long-lived API token. Wiring
+		// them to privateGroup let an API token create users, change roles and mint/revoke tokens.
+		setRolesGroup(privateUserGroup, roleService)
+		setUsersGroup(privateUserGroup, userService)
+		setTokensGroup(privateUserGroup, tokenService)
 	}
 
 	if cfg.StaticURL != nil && cfg.StaticURL.Scheme != "" && cfg.StaticURL.Host != "" {
