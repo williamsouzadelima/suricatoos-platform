@@ -15,6 +15,7 @@ import (
 	"suricatoos/pkg/providers/provider"
 
 	"github.com/invopop/jsonschema"
+	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/langchaingo/llms"
 )
 
@@ -284,6 +285,9 @@ func snippet(s string, a, b int) string {
 // only the well-formed ones. It tolerates a truncated final object (LLM hit the token cap) and a
 // single internally-malformed object (which is simply skipped).
 func salvageFindings(s string) []LLMFinding {
+	if len(s) > 1<<20 { // 1 MiB — findings JSON is tiny (<=maxFindings); larger input is pathological/junk
+		return nil
+	}
 	idx := strings.Index(s, `"findings"`)
 	if idx < 0 {
 		return nil
@@ -293,7 +297,7 @@ func salvageFindings(s string) []LLMFinding {
 		return nil
 	}
 	body := s[idx+rel+1:]
-	var out []LLMFinding
+	out := make([]LLMFinding, 0, maxFindings)
 	for i := 0; i < len(body) && len(out) < maxFindings; {
 		for i < len(body) && body[i] != '{' {
 			if body[i] == ']' {
@@ -403,6 +407,9 @@ func evidenceScore(text string) int {
 // surfaces the relevant request/response instead of its (often irrelevant) head.
 func evidenceWindow(text string, max int) string {
 	t := strings.TrimSpace(text)
+	if max <= 0 {
+		return ""
+	}
 	r := []rune(t)
 	if len(r) <= max {
 		return t
@@ -437,9 +444,20 @@ func (pc *providerController) buildFindingsContext(ctx context.Context, flow dat
 	if err != nil {
 		return "", fmt.Errorf("failed to load tasks: %w", err)
 	}
-	subtasks, _ := pc.db.GetFlowSubtasks(ctx, flow.ID)
-	msglogs, _ := pc.db.GetFlowMsgLogs(ctx, flow.ID)
-	termlogs, _ := pc.db.GetFlowTermLogs(ctx, flow.ID)
+	// Subtasks/logs enrich the context but are not strictly required: on a load error, surface it
+	// (don't silently swallow) and continue with a partial — but still useful — context.
+	subtasks, err := pc.db.GetFlowSubtasks(ctx, flow.ID)
+	if err != nil {
+		logrus.WithError(err).WithField("flow_id", flow.ID).Warn("findings: failed to load subtasks; continuing with partial context")
+	}
+	msglogs, err := pc.db.GetFlowMsgLogs(ctx, flow.ID)
+	if err != nil {
+		logrus.WithError(err).WithField("flow_id", flow.ID).Warn("findings: failed to load msglogs; continuing with partial context")
+	}
+	termlogs, err := pc.db.GetFlowTermLogs(ctx, flow.ID)
+	if err != nil {
+		logrus.WithError(err).WithField("flow_id", flow.ID).Warn("findings: failed to load termlogs; continuing with partial context")
+	}
 
 	subByTask := map[int64][]database.Subtask{}
 	for _, s := range subtasks {
