@@ -65,11 +65,15 @@ type flowWorker struct {
 	taskWG  *sync.WaitGroup
 	taskCMX sync.Mutex
 	taskCCH chan struct{}
-	input   chan flowInput
-	flowCtx *FlowContext
-	dataDir string
-	docker  docker.DockerClient
-	logger  *logrus.Entry
+	// finishOnce makes teardown idempotent: FinishFlow and the DeleteFlow resolver can call
+	// Finish() concurrently. fw.input is intentionally NEVER closed (the worker exits on
+	// fw.ctx.Done()), so there is no close-of-closed / send-on-closed race to guard.
+	finishOnce sync.Once
+	input      chan flowInput
+	flowCtx    *FlowContext
+	dataDir    string
+	docker     docker.DockerClient
+	logger     *logrus.Entry
 }
 
 type newFlowWorkerCtx struct {
@@ -750,36 +754,46 @@ func (fw *flowWorker) Finish(ctx context.Context) error {
 	ctx, span := obs.Observer.NewSpan(ctx, obs.SpanKindInternal, "controller.flowWorker.Finish")
 	defer span.End()
 
-	if err := fw.finish(); err != nil {
-		return err
-	}
+	// Idempotent teardown — runs at most once even if FinishFlow and the DeleteFlow resolver
+	// race on the same worker. The loser of the Once blocks until the winner completes, then
+	// returns nil ("already finished"). We cancel the worker (it drains and exits on
+	// fw.ctx.Done()) and wait, but never close fw.input — so a concurrent PutInput can never
+	// hit a closed channel.
+	var ferr error
+	fw.finishOnce.Do(func() {
+		fw.cancel()
+		fw.wg.Wait()
 
-	for _, task := range fw.tc.ListTasks(ctx) {
-		if !task.IsCompleted() {
-			if err := task.Finish(ctx); err != nil {
-				return fmt.Errorf("failed to finish task %d: %w", task.GetTaskID(), err)
+		for _, task := range fw.tc.ListTasks(ctx) {
+			if !task.IsCompleted() {
+				if err := task.Finish(ctx); err != nil {
+					ferr = fmt.Errorf("failed to finish task %d: %w", task.GetTaskID(), err)
+					return
+				}
 			}
 		}
-	}
 
-	fw.awsMX.Lock()
-	defer fw.awsMX.Unlock()
+		fw.awsMX.Lock()
+		defer fw.awsMX.Unlock()
 
-	for _, aw := range fw.aws {
-		if err := aw.Finish(ctx); err != nil {
-			return fmt.Errorf("failed to finish assistant %d: %w", aw.GetAssistantID(), err)
+		for _, aw := range fw.aws {
+			if err := aw.Finish(ctx); err != nil {
+				ferr = fmt.Errorf("failed to finish assistant %d: %w", aw.GetAssistantID(), err)
+				return
+			}
 		}
-	}
 
-	if err := fw.flowCtx.Executor.Release(ctx); err != nil {
-		return fmt.Errorf("failed to release flow %d resources: %w", fw.flowCtx.FlowID, err)
-	}
+		if err := fw.flowCtx.Executor.Release(ctx); err != nil {
+			ferr = fmt.Errorf("failed to release flow %d resources: %w", fw.flowCtx.FlowID, err)
+			return
+		}
 
-	if err := fw.SetStatus(ctx, database.FlowStatusFinished); err != nil {
-		return fmt.Errorf("failed to set flow %d status: %w", fw.flowCtx.FlowID, err)
-	}
-
-	return nil
+		if err := fw.SetStatus(ctx, database.FlowStatusFinished); err != nil {
+			ferr = fmt.Errorf("failed to set flow %d status: %w", fw.flowCtx.FlowID, err)
+			return
+		}
+	})
+	return ferr
 }
 
 func (fw *flowWorker) Stop(ctx context.Context) error {
@@ -880,21 +894,6 @@ func (fw *flowWorker) switchProvider(ctx context.Context, prv provider.Provider)
 	return nil
 }
 
-func (fw *flowWorker) finish() error {
-	if err := fw.ctx.Err(); err != nil {
-		if errors.Is(err, context.Canceled) {
-			return nil
-		}
-		return fmt.Errorf("flow %d stop failed: %w", fw.flowCtx.FlowID, err)
-	}
-
-	fw.cancel()
-	close(fw.input)
-	fw.wg.Wait()
-
-	return nil
-}
-
 // signalTaskComplete broadcasts task completion to all goroutines currently
 // blocked in WaitTaskCompletion. It replaces the shared channel so that future
 // callers block on a fresh channel until the next task finishes.
@@ -981,26 +980,36 @@ func (fw *flowWorker) worker() {
 		}
 	}
 
-	// process user input in regular job
-	for flin := range fw.input {
-		var task TaskWorker
-		err := fw.recoverPanic("process input", func() error {
-			var e error
-			task, e = fw.processInput(flin)
-			return e
-		})
-		if err != nil {
-			if errors.Is(err, context.Canceled) {
-				getLogger(flin.input, task).Info("flow are going to be stopped by user")
-				return
-			} else {
-				getLogger(flin.input, task).WithError(err).Error("failed to process input")
-
-				// anyway there need to set flow status to Waiting new user input even an error happened
-				_ = fw.SetStatus(fw.ctx, database.FlowStatusWaiting)
+	// process user input in regular job. We exit on fw.ctx.Done() rather than on a channel
+	// close, so teardown never has to close fw.input — this eliminates the close-of-closed and
+	// send-on-closed races between finish() and a concurrent PutInput.
+	for {
+		select {
+		case <-fw.ctx.Done():
+			return
+		case flin, ok := <-fw.input:
+			if !ok {
+				return // defensive: nothing closes fw.input
 			}
-		} else {
-			getLogger(flin.input, task).Info("user input processed")
+			var task TaskWorker
+			err := fw.recoverPanic("process input", func() error {
+				var e error
+				task, e = fw.processInput(flin)
+				return e
+			})
+			if err != nil {
+				if errors.Is(err, context.Canceled) {
+					getLogger(flin.input, task).Info("flow are going to be stopped by user")
+					return
+				} else {
+					getLogger(flin.input, task).WithError(err).Error("failed to process input")
+
+					// anyway there need to set flow status to Waiting new user input even an error happened
+					_ = fw.SetStatus(fw.ctx, database.FlowStatusWaiting)
+				}
+			} else {
+				getLogger(flin.input, task).Info("user input processed")
+			}
 		}
 	}
 }

@@ -343,16 +343,17 @@ func (fc *flowController) GetFlow(ctx context.Context, flowID int64) (FlowWorker
 }
 
 func (fc *flowController) StopFlow(ctx context.Context, flowID int64) error {
+	// Hold fc.mx only for the map lookup, not across the blocking flow.Stop (which waits up to
+	// stopTaskTimeout). fc.mx also guards GetFlow/ListFlows/CreateFlow — the hot path of nearly
+	// every resolver — so holding it across the wait stalled every flow for all users.
 	fc.mx.Lock()
-	defer fc.mx.Unlock()
-
 	flow, ok := fc.flows[flowID]
+	fc.mx.Unlock()
 	if !ok {
 		return ErrFlowNotFound
 	}
 
-	err := flow.Stop(ctx)
-	if err != nil {
+	if err := flow.Stop(ctx); err != nil {
 		return fmt.Errorf("failed to stop flow %d: %w", flowID, err)
 	}
 
@@ -360,20 +361,24 @@ func (fc *flowController) StopFlow(ctx context.Context, flowID int64) error {
 }
 
 func (fc *flowController) FinishFlow(ctx context.Context, flowID int64) error {
+	// Look up under the lock, release it, then run the blocking Finish lock-free (same reason
+	// as StopFlow). Re-acquire only to delete the entry. flow.Finish is idempotent (sync.Once),
+	// so a FinishFlow/DeleteFlow race is safe; flow IDs are DB-assigned and never reused, so
+	// deleting after releasing the lock cannot clobber a fresh entry.
 	fc.mx.Lock()
-	defer fc.mx.Unlock()
-
 	flow, ok := fc.flows[flowID]
+	fc.mx.Unlock()
 	if !ok {
 		return ErrFlowNotFound
 	}
 
-	err := flow.Finish(ctx)
-	if err != nil {
+	if err := flow.Finish(ctx); err != nil {
 		return fmt.Errorf("failed to finish flow %d: %w", flowID, err)
 	}
 
+	fc.mx.Lock()
 	delete(fc.flows, flowID)
+	fc.mx.Unlock()
 
 	return nil
 }
