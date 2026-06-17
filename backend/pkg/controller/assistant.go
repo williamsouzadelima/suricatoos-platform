@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"runtime/debug"
 	"sync"
 	"time"
 
@@ -430,6 +431,20 @@ func LoadAssistantWorker(
 	return aw, nil
 }
 
+// recoverPanic runs fn and converts a panic into an error. PerformAgentChain drives LLM calls
+// and tool execution, which are panic-prone; an unrecovered panic on this detached goroutine's
+// stack would terminate the entire server process. A recovered panic is returned as an error and
+// handled like any other run failure, keeping the worker's select loop alive.
+func (aw *assistantWorker) recoverPanic(what string, fn func() error) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			aw.logger.WithField("stack", string(debug.Stack())).Errorf("recovered panic in assistant worker (%s): %v", what, r)
+			err = fmt.Errorf("panic in assistant worker (%s): %v", what, r)
+		}
+	}()
+	return fn()
+}
+
 func (aw *assistantWorker) worker() {
 	defer aw.wg.Done()
 
@@ -487,7 +502,9 @@ func (aw *assistantWorker) worker() {
 		case <-aw.ctx.Done():
 			return
 		case ain := <-aw.input:
-			err := perform(aw.ctx, ain.input, ain.useAgents)
+			err := aw.recoverPanic("perform", func() error {
+				return perform(aw.ctx, ain.input, ain.useAgents)
+			})
 			if err != nil {
 				aw.logger.WithError(err).Error("failed to perform assistant chain")
 			}
@@ -595,7 +612,15 @@ func (aw *assistantWorker) Stop(ctx context.Context) error {
 	ctx, span := obs.Observer.NewSpan(ctx, obs.SpanKindInternal, "controller.assistantWorker.Stop")
 	defer span.End()
 
-	aw.runST()
+	// worker() assigns the per-run cancel func under runMX (assistant.go:463-465), so reading it
+	// here without the lock is a data race — and can observe the stale no-op initial runST,
+	// silently failing to cancel the in-flight run. Capture it under the lock, then call it
+	// outside (we must NOT hold runMX across runWG.Wait(): perform() does runWG.Add(1) before
+	// acquiring runMX, so holding it through the wait would deadlock).
+	aw.runMX.Lock()
+	runST := aw.runST
+	aw.runMX.Unlock()
+	runST()
 	done := make(chan struct{})
 	timer := time.NewTimer(stopAssistantTimeout)
 	defer timer.Stop()
