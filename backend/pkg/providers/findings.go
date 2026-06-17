@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"suricatoos/pkg/database"
 	"suricatoos/pkg/providers/pconfig"
@@ -363,9 +364,9 @@ var (
 	evidenceB64Re    = regexp.MustCompile(`[A-Za-z0-9+/]{400,}`)
 	// Noise stripped BEFORE scoring/windowing so the evidence budget holds real proof bytes, not
 	// terminal color codes or padding (the raw termlogs are full of ANSI escapes + blank runs).
-	ansiEscapeRe   = regexp.MustCompile("\x1b\\[[0-9;?]*[ -/]*[@-~]")
-	ctrlCharRe     = regexp.MustCompile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
-	blankLinesRe   = regexp.MustCompile(`\n[ \t]*\n[ \t]*\n+`)
+	ansiEscapeRe = regexp.MustCompile("\x1b\\[[0-9;?]*[ -/]*[@-~]")
+	ctrlCharRe   = regexp.MustCompile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+	blankLinesRe = regexp.MustCompile(`\n[ \t]*\n[ \t]*\n+`)
 )
 
 // sanitizeForLLM strips ANSI escape sequences + leftover control chars and collapses runs of blank
@@ -386,7 +387,7 @@ func evidenceScore(text string) int {
 		return 0
 	}
 	score := len(evidenceSignalRe.FindAllStringIndex(t, 16)) * 6
-	score += strings.Count(t, "$ ") + strings.Count(t, "\n# ") // shell prompts = commands run
+	score += strings.Count(t, "$ ") + strings.Count(t, "\n# ")  // shell prompts = commands run
 	score -= len(evidenceNoiseRe.FindAllStringIndex(t, 40)) * 5 // minified JS / bundles
 	if evidenceB64Re.MatchString(t) {
 		score -= 8
@@ -622,8 +623,10 @@ func llmFindingToParams(flowID, runID int64, f LLMFinding) database.CreateFindin
 
 func clip(s string, max int) string {
 	s = strings.TrimSpace(strings.Join(strings.Fields(s), " "))
-	if len(s) > max {
-		return strings.TrimSpace(s[:max]) + "…"
+	// Truncate on a rune boundary: a raw byte slice (s[:max]) can split a multi-byte UTF-8
+	// character (e.g. accented pt-BR text) and corrupt the tail of the string.
+	if utf8.RuneCountInString(s) > max {
+		return strings.TrimSpace(string([]rune(s)[:max])) + "…"
 	}
 	return s
 }

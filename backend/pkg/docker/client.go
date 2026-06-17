@@ -537,9 +537,15 @@ func (dc *dockerClient) IsContainerRunning(ctx context.Context, containerID stri
 		return false, fmt.Errorf("container inspection failed: %w", err)
 	}
 
+	// State can be nil for a container that was created but never started; guard before
+	// dereferencing it (the health check below already assumed it could be absent).
+	if inspection.State == nil {
+		return false, nil
+	}
+
 	// Check both Running state and health status if available
 	isOperational := inspection.State.Running
-	if inspection.State != nil && inspection.State.Health != nil && inspection.State.Health.Status != "" {
+	if inspection.State.Health != nil && inspection.State.Health.Status != "" {
 		isOperational = isOperational && inspection.State.Health.Status != "unhealthy"
 	}
 
