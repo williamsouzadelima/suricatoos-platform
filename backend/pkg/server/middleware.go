@@ -34,3 +34,19 @@ func noCacheMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+// securityHeadersMiddleware sets conservative, SPA-safe security response headers on every response.
+// A Content-Security-Policy is intentionally NOT enforced here: the SPA relies on inline styles, so a
+// real CSP needs a report-only rollout first (tracked as a follow-up). These four headers are safe
+// for a standalone (never-framed) app and add defense against MIME-sniffing and clickjacking.
+func securityHeadersMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Header("X-Content-Type-Options", "nosniff")
+		c.Header("X-Frame-Options", "DENY")
+		c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
+		if c.Request.TLS != nil {
+			c.Header("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+		}
+		c.Next()
+	}
+}
