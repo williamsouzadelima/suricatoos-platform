@@ -46,6 +46,11 @@ func TestAuthTokenProtoRequiredAuthWithCookie(t *testing.T) {
 		server.Authorize(t, []string{})
 		assert.True(t, server.CallAndGetStatus(t))
 
+		// Regression: a stale/garbage Bearer header must NOT block a valid session cookie. A
+		// cryptographically-invalid token is skipped so the chain falls through to cookie auth.
+		assert.True(t, server.CallAndGetStatus(t, "Bearer not_a_token"))
+		assert.True(t, server.CallAndGetStatus(t, "Bearer garbage.jwt.value"))
+
 		server.Authorize(t, []string{"wrong.permission"})
 		assert.True(t, server.CallAndGetStatus(t))
 
