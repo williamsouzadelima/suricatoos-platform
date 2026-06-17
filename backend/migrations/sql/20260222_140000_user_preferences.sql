@@ -7,7 +7,8 @@ INSERT INTO privileges (role_id, name) VALUES
   (1, 'settings.user.subscribe'),
   (2, 'settings.user.view'),
   (2, 'settings.user.edit'),
-  (2, 'settings.user.subscribe');
+  (2, 'settings.user.subscribe')
+ON CONFLICT DO NOTHING;
 
 CREATE TABLE user_preferences (
   id             BIGINT       PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
