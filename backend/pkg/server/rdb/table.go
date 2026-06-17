@@ -333,9 +333,14 @@ func ApplyToChainDB(db *gorm.DB, funcs ...func(*gorm.DB) *gorm.DB) (tx *gorm.DB)
 	return db
 }
 
+// bcryptCost is the work factor for new password hashes. 12 (vs bcrypt's DefaultCost of 10) is the
+// modern baseline; it is backward-compatible — existing lower-cost hashes still verify with
+// CompareHashAndPassword (the cost is encoded in the stored hash), only NEW hashes use this.
+const bcryptCost = 12
+
 // EncryptPassword is function to prepare user data as a password
 func EncryptPassword(password string) (hpass []byte, err error) {
-	hpass, err = bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	hpass, err = bcrypt.GenerateFromPassword([]byte(password), bcryptCost)
 	return
 }
 
