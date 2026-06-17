@@ -48,12 +48,14 @@ const RETEST_OPTIONS: { key: string; value: RetestStatus }[] = [
 // Statuses persist server-side via setFindingRetestStatus; the persisted value seeds the editor.
 function RetestPanel({
     deriving,
+    error,
     findings,
     generating,
     onGenerate,
     onSetStatus,
 }: {
     deriving: boolean;
+    error: null | string;
     findings: FindingFragmentFragment[];
     generating: boolean;
     onGenerate: (statuses: Record<string, RetestStatus>, format: ReportFormat) => void;
@@ -126,6 +128,7 @@ function RetestPanel({
                                 {generating ? t('Generating…') : t('Generate retest report')}
                             </button>
                         </div>
+                        {error ? <p className="mt-3 text-sm text-red-600 dark:text-red-400">{error}</p> : null}
                     </>
                 )}
             </div>
@@ -156,6 +159,7 @@ function FlowReport() {
     // Retest mode: derive findings once so the editor can list them, then let the user disposition each.
     const [retestDeriving, setRetestDeriving] = useState(false);
     const [retestGenerating, setRetestGenerating] = useState(false);
+    const [retestError, setRetestError] = useState<null | string>(null);
     const retestDerived = useRef(false);
 
     const [prevFlowId, setPrevFlowId] = useState(flowId);
@@ -164,6 +168,10 @@ function FlowReport() {
         setPrevFlowId(flowId);
         setPdfPhase('idle');
         setPdfError(null);
+        // Reset the once-per-flow retest derivation guard and any stale error so switching
+        // between flow reports re-derives findings instead of showing the previous flow's.
+        retestDerived.current = false;
+        setRetestError(null);
     }
 
     const {
@@ -297,6 +305,7 @@ function FlowReport() {
             return;
         }
         setRetestGenerating(true);
+        setRetestError(null);
         try {
             const blob = await generatePtesReportFromFlow(data, toEngagementBranding(branding), format, {
                 retest: true,
@@ -305,6 +314,7 @@ function FlowReport() {
             downloadBlob(blob, `${generateFileName(data.flow)}_ptes_reteste.${format}`);
         } catch (err) {
             Log.error('Retest report generation failed:', err);
+            setRetestError(t('Failed to generate report'));
         } finally {
             setRetestGenerating(false);
         }
@@ -376,6 +386,7 @@ function FlowReport() {
         return (
             <RetestPanel
                 deriving={retestDeriving}
+                error={retestError}
                 findings={data?.findings ?? []}
                 generating={retestGenerating}
                 onGenerate={handleRetestGenerate}
