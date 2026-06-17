@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
+import { ErrorBoundary } from '@/components/shared/error-boundary';
 import Logo from '@/components/icons/logo';
 import Markdown from '@/components/shared/markdown';
 import { t, tf, useLocale } from '@/i18n';
@@ -396,4 +397,12 @@ function FlowReport() {
     );
 }
 
-export default FlowReport;
+// Wrap the report page in an error boundary so a transform/render bug degrades to a fallback
+// (with a reload action) instead of a blank white screen.
+export default function FlowReportPage() {
+    return (
+        <ErrorBoundary>
+            <FlowReport />
+        </ErrorBoundary>
+    );
+}

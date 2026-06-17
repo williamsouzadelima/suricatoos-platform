@@ -134,6 +134,10 @@ const es: Record<string, string> = {
     'Generating…': 'Generando…',
     '+{count} more': '+{count} más',
     'Tool output (proof)': 'Salida de la herramienta (prueba)',
+    'Something went wrong': 'Algo salió mal',
+    'An unexpected error occurred while rendering this page. Please reload and try again.':
+        'Ocurrió un error inesperado al renderizar esta página. Recargue e intente de nuevo.',
+    Reload: 'Recargar',
 };
 
 export default es;

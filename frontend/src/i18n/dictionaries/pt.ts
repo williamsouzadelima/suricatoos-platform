@@ -182,6 +182,10 @@ const pt: Record<string, string> = {
     'Generating…': 'Gerando…',
     '+{count} more': '+{count} mais',
     'Tool output (proof)': 'Saída da ferramenta (prova)',
+    'Something went wrong': 'Algo deu errado',
+    'An unexpected error occurred while rendering this page. Please reload and try again.':
+        'Ocorreu um erro inesperado ao renderizar esta página. Recarregue e tente novamente.',
+    Reload: 'Recarregar',
 };
 
 export default pt;
