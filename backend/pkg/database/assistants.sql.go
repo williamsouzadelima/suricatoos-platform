@@ -71,12 +71,17 @@ func (q *Queries) CreateAssistant(ctx context.Context, arg CreateAssistantParams
 const deleteAssistant = `-- name: DeleteAssistant :one
 UPDATE assistants
 SET deleted_at = CURRENT_TIMESTAMP
-WHERE id = $1
+WHERE id = $1 AND flow_id = $2
 RETURNING id, status, title, model, model_provider_name, language, functions, trace_id, flow_id, use_agents, msgchain_id, created_at, updated_at, deleted_at, model_provider_type, tool_call_id_template
 `
 
-func (q *Queries) DeleteAssistant(ctx context.Context, id int64) (Assistant, error) {
-	row := q.db.QueryRowContext(ctx, deleteAssistant, id)
+type DeleteAssistantParams struct {
+	ID     int64 `json:"id"`
+	FlowID int64 `json:"flow_id"`
+}
+
+func (q *Queries) DeleteAssistant(ctx context.Context, arg DeleteAssistantParams) (Assistant, error) {
+	row := q.db.QueryRowContext(ctx, deleteAssistant, arg.ID, arg.FlowID)
 	var i Assistant
 	err := row.Scan(
 		&i.ID,

@@ -94,5 +94,5 @@ RETURNING *;
 -- name: DeleteAssistant :one
 UPDATE assistants
 SET deleted_at = CURRENT_TIMESTAMP
-WHERE id = $1
+WHERE id = $1 AND flow_id = $2
 RETURNING *;

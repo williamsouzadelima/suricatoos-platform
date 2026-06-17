@@ -575,7 +575,13 @@ func (fw *flowWorker) DeleteAssistant(ctx context.Context, assistantID int64) er
 		delete(fw.aws, assistantID)
 	}
 
-	if assistant, err := fw.flowCtx.DB.DeleteAssistant(ctx, assistantID); err != nil {
+	// Scope the delete to this worker's flow as defence in depth: the destructive query is now
+	// authoritative (WHERE id AND flow_id) rather than relying on the caller having pre-checked
+	// ownership, so a wrong-flow assistant id can never be soft-deleted.
+	if assistant, err := fw.flowCtx.DB.DeleteAssistant(ctx, database.DeleteAssistantParams{
+		ID:     assistantID,
+		FlowID: fw.flowCtx.FlowID,
+	}); err != nil {
 		return fmt.Errorf("failed to delete assistant %d: %w", assistantID, err)
 	} else {
 		fw.flowCtx.Publisher.AssistantDeleted(ctx, assistant)

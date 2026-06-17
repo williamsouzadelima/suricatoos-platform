@@ -42,7 +42,7 @@ type Querier interface {
 	CreateUserPrompt(ctx context.Context, arg CreateUserPromptParams) (Prompt, error)
 	CreateVectorStoreLog(ctx context.Context, arg CreateVectorStoreLogParams) (Vecstorelog, error)
 	DeleteAPIToken(ctx context.Context, id int64) (ApiToken, error)
-	DeleteAssistant(ctx context.Context, id int64) (Assistant, error)
+	DeleteAssistant(ctx context.Context, arg DeleteAssistantParams) (Assistant, error)
 	DeleteFavoriteFlow(ctx context.Context, arg DeleteFavoriteFlowParams) (UserPreference, error)
 	DeleteFlow(ctx context.Context, id int64) (Flow, error)
 	DeleteFlowAssistantLog(ctx context.Context, id int64) error
