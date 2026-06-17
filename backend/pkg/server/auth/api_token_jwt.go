@@ -43,7 +43,7 @@ func ValidateAPIToken(tokenString, globalSalt string) (*models.APITokenClaims, e
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return MakeJWTSigningKey(globalSalt), nil
-	})
+	}, jwt.WithExpirationRequired())
 	if err != nil {
 		if errors.Is(err, jwt.ErrTokenMalformed) {
 			return nil, fmt.Errorf("token is malformed")

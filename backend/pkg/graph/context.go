@@ -2,6 +2,7 @@ package graph
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"regexp"
@@ -113,6 +114,12 @@ func validatePermissionWithFlowID(
 
 	flow, err := db.GetFlow(ctx, flowID)
 	if err != nil {
+		// Don't leak whether the flow exists: a non-existent / soft-deleted flow (sql.ErrNoRows)
+		// must be indistinguishable from one owned by another user, otherwise an authenticated
+		// attacker can enumerate valid flow IDs across the flow-scoped resolvers.
+		if errors.Is(err, sql.ErrNoRows) {
+			return 0, fmt.Errorf("not permitted")
+		}
 		return 0, err
 	}
 
