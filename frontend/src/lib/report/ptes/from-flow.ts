@@ -56,7 +56,7 @@ const SIG_RE =
 const NOISE_RE = /=>\s*\{|\}\)\(\)|;var |function\s*\(|\{class |return [a-z]\}|webpackChunk|__webpack|sourceMappingURL/g;
 const B64_RE = /[A-Za-z0-9+/]{400,}/;
 
-const scoreEvidence = (raw: null | string | undefined): number => {
+export const scoreEvidence = (raw: null | string | undefined): number => {
     const t = stripControlChars(raw ?? '').trim();
     const n = t.length;
     if (!n) return 0;
@@ -73,7 +73,7 @@ const scoreEvidence = (raw: null | string | undefined): number => {
 
 // Return up to `max` chars centred on the first exploit signal (preserving line breaks), so a long
 // log still surfaces the relevant request/response rather than its irrelevant head.
-const evidenceWindow = (raw: null | string | undefined, max: number): string => {
+export const evidenceWindow = (raw: null | string | undefined, max: number): string => {
     const t = stripControlChars(raw ?? '')
         .replace(/[ \t]+\n/g, '\n')
         .trim();
@@ -133,7 +133,7 @@ const buildJoin = (data: FlowQuery): FlowJoin => {
 // 2. EXTRACT — deterministic parser over real tool output (zero hallucination)
 // ---------------------------------------------------------------------------------------------
 
-interface ParsedFacts {
+export interface ParsedFacts {
     cves: string[]; // CVE-YYYY-NNNN
     hosts: Set<string>; // ip / hostname
     nuclei: { matched: string; severity: Severity; templateId: string }[];
@@ -152,7 +152,7 @@ const SEVERITY_WORDS: Record<string, Severity> = {
 
 const isNoiseHost = (h: string): boolean => /^(127\.|0\.0\.0\.0|localhost$)/.test(h);
 
-const parseFacts = (texts: string[]): ParsedFacts => {
+export const parseFacts = (texts: string[]): ParsedFacts => {
     const facts: ParsedFacts = { cves: [], hosts: new Set(), nuclei: [], ports: [], urls: [] };
     const cveSet = new Set<string>();
     const urlSet = new Set<string>();
@@ -196,7 +196,7 @@ const SEVERITY_HINTS: { re: RegExp; severity: Severity }[] = [
     { re: /\b(divulga[çc][ãa]o de informa|information disclosure|verbose|banner|missing header|cabe[çc]alho ausente|tlsv1\.0|baixo)\b/i, severity: 'low' },
     { re: /\b(informativ|informational|enumera[çc][ãa]o|recon|coleta)\b/i, severity: 'info' },
 ];
-const guessSeverity = (text: string): Severity => SEVERITY_HINTS.find((h) => h.re.test(text))?.severity ?? 'medium';
+export const guessSeverity = (text: string): Severity => SEVERITY_HINTS.find((h) => h.re.test(text))?.severity ?? 'medium';
 
 const CVSS_BY_SEVERITY: Record<Severity, number> = { critical: 9.1, high: 7.5, info: 0, low: 3.1, medium: 5.4 };
 const LIKELIHOOD_BY_SEVERITY: Record<Severity, 1 | 2 | 3 | 4 | 5> = { critical: 4, high: 4, info: 1, low: 2, medium: 3 };
