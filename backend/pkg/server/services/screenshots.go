@@ -350,5 +350,14 @@ func (s *ScreenshotService) GetFlowScreenshotFile(c *gin.Context) {
 	}
 
 	flowDirName := fmt.Sprintf("flow-%d", resp.FlowID)
-	c.File(filepath.Join(s.dataDir, "screenshots", flowDirName, resp.Name))
+	// Defense-in-depth: screenshot names are stored as bare filenames; never let a name escape the
+	// flow's directory via path traversal. filepath.Base strips any directory components — if that
+	// changes the value, it contained separators/traversal, so reject it.
+	name := filepath.Base(resp.Name)
+	if name != resp.Name || name == "." || name == ".." {
+		logger.FromContext(c).Warnf("rejecting screenshot with non-bare name: %q", resp.Name)
+		response.Error(c, response.ErrScreenshotsNotFound, fmt.Errorf("invalid screenshot path"))
+		return
+	}
+	c.File(filepath.Join(s.dataDir, "screenshots", flowDirName, name))
 }
