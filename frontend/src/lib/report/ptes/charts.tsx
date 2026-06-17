@@ -184,6 +184,11 @@ export function RiskMatrix({ findings, size = 250 }: { findings: Finding[]; size
 
 // ── Attack chain strip (storytelling summary) ───────────────────────────────
 export function AttackChainStrip({ nodes, width = 507 }: { nodes: { n: number; label: string }[]; width?: number }) {
+    // An empty chain would make seg = width/0 = Infinity and feed NaN/Infinity coordinates into
+    // the PDF SVG; render nothing instead.
+    if (nodes.length === 0) {
+        return null;
+    }
     const seg = width / nodes.length;
     const h = 54;
     const cy = 17;
