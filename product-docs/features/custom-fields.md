@@ -13,7 +13,7 @@ The built-in models cover most needs, but every organisation has attributes of i
 Custom fields are available on **Projects**, **Assets**, and **Applied controls** (policies share the applied-control fields).
 
 {% hint style="warning" %}
-**Use them sparingly.** CISO Assistant's built-in data model is already rich — reach for a custom field only when an attribute is genuinely specific to your organisation. Over-using them fragments your data and your reporting, and that complexity is yours to maintain.
+**Use them sparingly.** Suricatoos CISO's built-in data model is already rich — reach for a custom field only when an attribute is genuinely specific to your organisation. Over-using them fragments your data and your reporting, and that complexity is yours to maintain.
 
 If an attribute is generic enough to be useful to everyone, **tell us** rather than approximating it with a custom field — we'd much rather add it as a first-class, properly-modelled field. [Get in touch](https://intuitem.com/) or open an issue.
 

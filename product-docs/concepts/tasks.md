@@ -4,7 +4,7 @@ description: Recurring and one-off operational work tracked against assignees, s
 
 # Tasks
 
-Tasks are how CISO Assistant tracks the operational work that keeps controls effective: the weekly access review, the monthly backup test, the quarterly policy refresh, the one-off offboarding checklist. They are deliberately separate from applied controls — a control says _what is done_; a task says _that someone has actually done it on a given date_.
+Tasks are how Suricatoos CISO tracks the operational work that keeps controls effective: the weekly access review, the monthly backup test, the quarterly policy refresh, the one-off offboarding checklist. They are deliberately separate from applied controls — a control says _what is done_; a task says _that someone has actually done it on a given date_.
 
 ## Mental model
 

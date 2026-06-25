@@ -18,7 +18,7 @@ product-docs/
 │   └── assets/                  # screenshots and downloadable templates
 ├── introduction/                # philosophy and vocabulary
 ├── concepts/                    # the central objects (domains, audits, controls, …)
-├── installation/                # getting CISO Assistant running
+├── installation/                # getting Suricatoos CISO running
 ├── configuration/               # organisation setup, IAM, SSO, libraries, settings
 ├── guides/                   # end-to-end walkthroughs
 ├── features/                    # catalogue of shipped capabilities

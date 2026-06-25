@@ -1,4 +1,4 @@
-subject: "CISO Assistant: You have been assigned to '${scenario_name}'"
+subject: "Suricatoos CISO: You have been assigned to '${scenario_name}'"
 body: |
   Hello,
 
@@ -11,6 +11,6 @@ body: |
   - Treatment: ${scenario_treatment}
   - Domain: ${folder_name}
 
-  Log in to your CISO Assistant portal to view and manage this risk scenario: [Go to CISO Assistant](${ciso_assistant_url})
+  Log in to your Suricatoos CISO portal to view and manage this risk scenario: [Go to Suricatoos CISO](${ciso_assistant_url})
 
   Thank you.

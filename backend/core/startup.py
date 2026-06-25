@@ -1564,7 +1564,7 @@ AUDITEE_PERMISSIONS_LIST = [
 
 def startup(sender=None, **kwargs):
     """
-    Implement CISO Assistant 1.0 default Roles and User Groups during migrate.
+    Implement Suricatoos CISO 1.0 default Roles and User Groups during migrate.
     This makes sure root folder and global groups are defined before any other
     object is created.  Create superuser if CISO_ASSISTANT_SUPERUSER_EMAIL defined.
 

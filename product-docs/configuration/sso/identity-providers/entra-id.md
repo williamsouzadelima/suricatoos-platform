@@ -1,5 +1,5 @@
 ---
-description: Configure Microsoft Entra ID as an Identity Provider for CISO Assistant
+description: Configure Microsoft Entra ID as an Identity Provider for Suricatoos CISO
 ---
 
 # Microsoft Entra ID
@@ -29,22 +29,22 @@ Go into your **Azure portal home**
 
 
     <figure><img src="../../../.gitbook/assets/entra-sso-step-5-2.png" alt=""><figcaption></figcaption></figure>
-6. In the first box **Basic SAML Configuration**, specify the **Entity ID**, it has to be the same than <mark style="color:purple;">**SP Entity ID**</mark> in CISO Assistant (see next screenshot)
+6. In the first box **Basic SAML Configuration**, specify the **Entity ID**, it has to be the same than <mark style="color:purple;">**SP Entity ID**</mark> in Suricatoos CISO (see next screenshot)
 7.  Add the **Reply URL**: `<base_url>/api/accounts/saml/0/acs/`  (for example with localhost: `https://localhost:8443/api/accounts/saml/0/acs/`)<br>
 
     <figure><img src="../../../.gitbook/assets/entra-sso-step-6-7.png" alt=""><figcaption></figcaption></figure>
-8. In the third box **SAML Certificates**, copy the **App Federation Metadata Url** as it is the <mark style="color:purple;">**Metadata URL**</mark>  in CISO Assistant (see next screenshot)
-9.  In the fourth box **Set up \<App\_name>**, copy the **Microsoft Entra Identifier** as it is the <mark style="color:purple;">**IdP Entity ID**</mark> in CISO Assistant<br>
+8. In the third box **SAML Certificates**, copy the **App Federation Metadata Url** as it is the <mark style="color:purple;">**Metadata URL**</mark>  in Suricatoos CISO (see next screenshot)
+9.  In the fourth box **Set up \<App\_name>**, copy the **Microsoft Entra Identifier** as it is the <mark style="color:purple;">**IdP Entity ID**</mark> in Suricatoos CISO<br>
 
     <figure><img src="../../../.gitbook/assets/entra-sso-step-8-9.png" alt=""><figcaption></figcaption></figure>
-10. Make sure you use the same Identifier (Entity ID) that you've set earlier and appear on block 1, on CISO Assistant SP Entity ID:\
+10. Make sure you use the same Identifier (Entity ID) that you've set earlier and appear on block 1, on Suricatoos CISO SP Entity ID:\
     <img src="../../../.gitbook/assets/image (10).png" alt="" data-size="original">&#x20;
-11. Click on **Users and groups** in the sidebar menu, and **Add user/group** to give them access to CISO Assistant with SSO. The matching key will be the email and you'll be able to grant their permissions on the applications.<br>
+11. Click on **Users and groups** in the sidebar menu, and **Add user/group** to give them access to Suricatoos CISO with SSO. The matching key will be the email and you'll be able to grant their permissions on the applications.<br>
 
     <figure><img src="../../../.gitbook/assets/entra-sso-step-10.png" alt=""><figcaption></figcaption></figure>
 
 
-12. You can now [configure CISO Assistant](../#configure-ciso-assistant-with-saml) with the <mark style="color:purple;">**3 parameters**</mark> you've retrieved.
+12. You can now [configure Suricatoos CISO](../#configure-suricatoos-ciso-with-saml) with the <mark style="color:purple;">**3 parameters**</mark> you've retrieved.
 {% endtab %}
 
 {% tab title="OIDC" %}
@@ -135,5 +135,5 @@ You have successfully configured OpenID Connect (OIDC) integration with EntraID.
 {% endtabs %}
 
 {% hint style="warning" %}
-<mark style="color:orange;">Adding a user in your Entra application doesn't automatically create the user on CISO Assistant</mark>
+<mark style="color:orange;">Adding a user in your Entra application doesn't automatically create the user on Suricatoos CISO</mark>
 {% endhint %}

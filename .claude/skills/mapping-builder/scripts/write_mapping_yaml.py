@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Emit a CISO Assistant mapping library YAML.
+"""Emit a Suricatoos CISO mapping library YAML.
 
 Reads a JSON file describing the mapping (metadata + verdicts) and writes a
 .yaml file matching the schema used by backend/library/libraries/mapping-*.yaml.
@@ -248,7 +248,7 @@ def write_yaml(library: dict, output_path: Path) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(
-        description="Write a CISO Assistant mapping library YAML."
+        description="Write a Suricatoos CISO mapping library YAML."
     )
     p.add_argument(
         "spec_json", help="Path to the JSON spec file (see module docstring)"

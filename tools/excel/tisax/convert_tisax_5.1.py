@@ -1,5 +1,5 @@
 """
-Simple script to convert TISAX v5.1 excel in a CISO Assistant Excel file
+Simple script to convert TISAX v5.1 excel in a Suricatoos CISO Excel file
 Source;  https://portal.enx.com/isa6-en.xlsx
 """
 
@@ -11,7 +11,7 @@ from openpyxl.styles import numbers
 
 parser = argparse.ArgumentParser(
     prog="convert_tisax_5.1",
-    description="convert TISAX controls offical v5.1 Excel file to CISO Assistant Excel file",
+    description="convert TISAX controls offical v5.1 Excel file to Suricatoos CISO Excel file",
 )
 
 parser.add_argument("filename", help="name of official TISAX Excel file")

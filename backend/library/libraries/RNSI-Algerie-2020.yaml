@@ -3,7 +3,7 @@ locale: fr
 ref_id: RNSI-ALGERIE-2020
 name: "R\xE9f\xE9rentiel National de S\xE9curit\xE9 de l\u2019Information Alg\xE9\
   rie V2020 Par EKSEC.net"
-description: "\"EKSEC est fier de contribuer \xE0 la CISO Assistant Community et \xE0\
+description: "\"EKSEC est fier de contribuer \xE0 la Suricatoos CISO Community et \xE0\
   \ l\u2019Alg\xE9rie en int\xE9grant le R\xE9f\xE9rentiel National de S\xE9curit\xE9\
   \ de l\u2019Information (RNSI) de l'Alg\xE9rie.\n\nLe R\xE9f\xE9rentiel National\
   \ de S\xE9curit\xE9 de l'Information (RNSI) 2020 est la deuxi\xE8me version du cadre\
@@ -33,7 +33,7 @@ objects:
     urn: urn:intuitem:risk:framework:RNSI-ALGERIE-2020
     ref_id: ' RNSI-Algerie-2020'
     name: RNSI-Algerie-2020
-    description: "EKSEC est fier de contribuer \xE0 la CISO Assistant Community et\
+    description: "EKSEC est fier de contribuer \xE0 la Suricatoos CISO Community et\
       \ \xE0 l\u2019Alg\xE9rie en int\xE9grant le R\xE9f\xE9rentiel National de S\xE9\
       curit\xE9 de l\u2019Information (RNSI) de l'Alg\xE9rie.\n\nLe R\xE9f\xE9rentiel\
       \ National de S\xE9curit\xE9 de l'Information (RNSI) 2020 est la deuxi\xE8me\

@@ -1,10 +1,10 @@
-# Event streaming in CISO Assistant
+# Event streaming in Suricatoos CISO
 
-## CISO Assistant Kafka consumer specification
+## Suricatoos CISO Kafka consumer specification
 
 ### Overview
 
-The consumer is built for CISO Assistant and is responsible for processing messages that trigger successive API requests. Key features include:
+The consumer is built for Suricatoos CISO and is responsible for processing messages that trigger successive API requests. Key features include:
 
 - Avro Serialization with a Schema Registry to manage potential schema evolutions and maintain backward compatibility.
 - Support for multiple use cases with clearly defined payload structures.

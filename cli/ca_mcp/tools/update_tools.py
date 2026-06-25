@@ -1,4 +1,4 @@
-"""Update MCP tools for CISO Assistant"""
+"""Update MCP tools for Suricatoos CISO"""
 
 from ..client import (
     make_get_request,

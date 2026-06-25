@@ -2,7 +2,7 @@
 
 A **library** is a bundled set of catalog objects — frameworks, threats, risk matrices, reference controls, mappings, security advisories, CWE entries — distributed as a YAML file.
 
-Libraries are how content gets into CISO Assistant. They make the platform extensible: anything from a regulator's framework to a vendor's threat feed to your organisation's internal control catalogue is just another library.
+Libraries are how content gets into Suricatoos CISO. They make the platform extensible: anything from a regulator's framework to a vendor's threat feed to your organisation's internal control catalogue is just another library.
 
 ## Mental model
 

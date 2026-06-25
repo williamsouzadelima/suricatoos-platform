@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Vous avez été affecté à '${exception_name}'"
+subject: "Suricatoos CISO: Vous avez été affecté à '${exception_name}'"
 body: |
   Bonjour,
 
@@ -12,6 +12,6 @@ body: |
   - Date d'expiration : ${expiration_date}
   - Domaine : ${folder_name}
 
-  Connectez-vous à votre portail CISO Assistant pour consulter et gérer cette dérogation de sécurité : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Connectez-vous à votre portail Suricatoos CISO pour consulter et gérer cette dérogation de sécurité : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

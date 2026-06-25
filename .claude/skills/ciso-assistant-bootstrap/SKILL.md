@@ -1,17 +1,17 @@
 ---
 name: ciso-assistant-bootstrap
 description: |
-  Bootstrap CISO Assistant for new users by guiding them through initial setup. Use when:
-  (1) User wants to set up CISO Assistant from scratch
-  (2) User mentions "bootstrap", "initial setup", "getting started", or "onboarding" with CISO Assistant
+  Bootstrap Suricatoos CISO for new users by guiding them through initial setup. Use when:
+  (1) User wants to set up Suricatoos CISO from scratch
+  (2) User mentions "bootstrap", "initial setup", "getting started", or "onboarding" with Suricatoos CISO
   (3) User needs help creating their organizational structure, loading frameworks, or configuring risk assessments
 
   Covers: domains/folders, perimeters, industry-based framework selection, assets, risk assessment type (qualitative vs quantitative), third-party entities and solutions, and compliance vs risk focus.
 ---
 
-# CISO Assistant Bootstrap
+# Suricatoos CISO Bootstrap
 
-Guide users through CISO Assistant initial setup using MCP server tools.
+Guide users through Suricatoos CISO initial setup using MCP server tools.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ Before starting:
    - Ensure `API_URL` and `TOKEN` environment variables are set
    - As a last resort, fall back to direct API calls (see Fallback section)
 
-3. **Backend must be running** - CISO Assistant backend at the configured `API_URL`
+3. **Backend must be running** - Suricatoos CISO backend at the configured `API_URL`
 
 ## Bootstrap Flow
 
@@ -114,7 +114,7 @@ Execute MCP tools in this order:
 ### 4. Example Bootstrap Session
 
 ```
-User: "I want to set up CISO Assistant for my healthcare startup"
+User: "I want to set up Suricatoos CISO for my healthcare startup"
 
 1. Verify MCP connectivity:
    get_folders()  # Confirm MCP server responds

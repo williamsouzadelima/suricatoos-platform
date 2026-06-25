@@ -1,10 +1,10 @@
 ---
-description: Four ways to help CISO Assistant grow
+description: Four ways to help Suricatoos CISO grow
 ---
 
 # Contributing
 
-CISO Assistant is open source and improves through community contributions. There are four main paths in, depending on what you want to add:
+Suricatoos CISO is open source and improves through community contributions. There are four main paths in, depending on what you want to add:
 
 - [**Frameworks and libraries**](framework.md) — submit a new framework, mapping, threat catalogue, risk matrix, or reference-control set.
 - [**Code (features and fixes)**](code.md) — bug fixes, performance improvements, new capabilities. Dev setup, conventions, PR flow.

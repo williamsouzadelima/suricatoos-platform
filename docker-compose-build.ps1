@@ -34,12 +34,12 @@ function Invoke-DockerCompose {
 function Prepare-MetaFile {
     $version = (& git describe --tags --always)
     if ($LASTEXITCODE -ne 0) {
-        throw "Unable to determine CISO Assistant version with git describe."
+        throw "Unable to determine Suricatoos CISO version with git describe."
     }
 
     $build = (& git rev-parse --short HEAD)
     if ($LASTEXITCODE -ne 0) {
-        throw "Unable to determine CISO Assistant build with git rev-parse."
+        throw "Unable to determine Suricatoos CISO build with git rev-parse."
     }
 
     $meta = "CISO_ASSISTANT_VERSION=$version`nCISO_ASSISTANT_BUILD=$build`n"
@@ -111,8 +111,8 @@ try {
     Invoke-DockerCompose exec backend uv run python manage.py createsuperuser
 
     Write-Host ""
-    Write-Host "CISO Assistant is ready!" -ForegroundColor Green
-    Write-Host "Connect to CISO Assistant on `"https://localhost:8443`"" -ForegroundColor Green
+    Write-Host "Suricatoos CISO is ready!" -ForegroundColor Green
+    Write-Host "Connect to Suricatoos CISO on `"https://localhost:8443`"" -ForegroundColor Green
     Write-Host "For successive runs, you can now use `"docker compose -f $DockerComposeFile up`"" -ForegroundColor Green
     Write-Host "If the webpage doesn't load, please wait 2-3 minutes" -ForegroundColor Green
 }

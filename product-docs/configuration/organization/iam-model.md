@@ -1,16 +1,16 @@
 ---
-description: Deep dive into CISO Asisstant IAM model
+description: Deep dive into Suricatoos CISO IAM model
 ---
 
 # Understanding the IAM model
 
-Access security is a foundational aspect of any risk or compliance management platform. In this article, we’ll explore how **authentication**, **authorization**, and **accounting** — the three pillars of the AAA model — are structured and applied within **CISO Assistant**.
+Access security is a foundational aspect of any risk or compliance management platform. In this article, we’ll explore how **authentication**, **authorization**, and **accounting** — the three pillars of the AAA model — are structured and applied within **Suricatoos CISO**.
 
 ***
 
 ### 1. Authentication: SAML vs OIDC <a href="#ember923" id="ember923"></a>
 
-CISO Assistant integrates with leading identity providers (IdPs) via **SAML** and **OIDC**, enabling secure and seamless single sign-on (SSO).
+Suricatoos CISO integrates with leading identity providers (IdPs) via **SAML** and **OIDC**, enabling secure and seamless single sign-on (SSO).
 
 #### SAML <a href="#ember925" id="ember925"></a>
 
@@ -30,7 +30,7 @@ CISO Assistant integrates with leading identity providers (IdPs) via **SAML** an
 
 ### 2. MFA <a href="#ember930" id="ember930"></a>
 
-Multi-Factor Authentication (MFA) is critical for access protection. CISO Assistant supports MFA in two distinct modes, depending on how users authenticate:
+Multi-Factor Authentication (MFA) is critical for access protection. Suricatoos CISO supports MFA in two distinct modes, depending on how users authenticate:
 
 #### SSO-Based Authentication (SAML / federated OIDC) <a href="#ember932" id="ember932"></a>
 
@@ -39,18 +39,18 @@ Multi-Factor Authentication (MFA) is critical for access protection. CISO Assist
 
 #### Local Authentication <a href="#ember934" id="ember934"></a>
 
-* for local accounts, CISO Assistant includes native MFA
+* for local accounts, Suricatoos CISO includes native MFA
 * based on **TOTP** (e.g., Google/Microsoft Authenticators)
 
 ***
 
 ### 3. Authorization: Structured and Hierarchical RBAC <a href="#ember936" id="ember936"></a>
 
-CISO Assistant implements a robust **Role-Based Access Control (RBAC)** model that balances flexibility, clarity, and operational simplicity.
+Suricatoos CISO implements a robust **Role-Based Access Control (RBAC)** model that balances flexibility, clarity, and operational simplicity.
 
 #### Fine-Grained Permissions <a href="#ember938" id="ember938"></a>
 
-Each object type has granular **CRUD permissions** (create, read, update, delete). This model applies across all business entities: users, backups, risks, policies, incidents, data processing, and more. There are more than 200 permissions in CISO Assistant.
+Each object type has granular **CRUD permissions** (create, read, update, delete). This model applies across all business entities: users, backups, risks, policies, incidents, data processing, and more. There are more than 200 permissions in Suricatoos CISO.
 
 #### Predefined Roles <a href="#ember940" id="ember940"></a>
 
@@ -98,7 +98,7 @@ Groups act as the central pivot for managing access:
 
 ### 4. Machine Identity: Personal Access Tokens with Expiration & Control <a href="#ember956" id="ember956"></a>
 
-CISO Assistant doesn’t just secure human access — it also supports secure, auditable access for **automated systems** and **integrations** through **Personal Access Tokens (PATs)**.
+Suricatoos CISO doesn’t just secure human access — it also supports secure, auditable access for **automated systems** and **integrations** through **Personal Access Tokens (PATs)**.
 
 #### Definition <a href="#ember958" id="ember958"></a>
 
@@ -121,13 +121,13 @@ A **Personal Access Token** is a time-limited secret that allows a script, CI/CD
 
 ### 5. Illustration <a href="#ember969" id="ember969"></a>
 
-The following schematic illustrates the fundamental concepts of IAM in CISO Assistant.
+The following schematic illustrates the fundamental concepts of IAM in Suricatoos CISO.
 
 <figure><img src="../../.gitbook/assets/rbac.png" alt=""><figcaption></figcaption></figure>
 
 ### 6. Publication mechanism
 
-All objects of CISO Assistant support a built-in flag called _**is\_published.**_&#x20;
+All objects of Suricatoos CISO support a built-in flag called _**is\_published.**_&#x20;
 
 Objects with the flag _is\_published_ are visible in subdomains as if they were attached to each subdomain of the object's domain. This mechanism only concerns visibility, not creation/udpate/deletion.\
 All objects are currently published, except assessments (audits, risk analysis, BIA, entitiy assessments)
@@ -142,7 +142,7 @@ You can attach this object to a subdomain (e.g. named "published"), and add ever
 
 ### 7. Accounting: Full Audit and Traceability <a href="#ember965" id="ember965"></a>
 
-CISO Assistant includes native tracking of all key actions:
+Suricatoos CISO includes native tracking of all key actions:
 
 * logins, restorations, configuration changes, approvals…
 * a searchable audit log accessible via the UI or API
@@ -151,7 +151,7 @@ CISO Assistant includes native tracking of all key actions:
 
 ### In Summary <a href="#ember969" id="ember969"></a>
 
-CISO Assistant's AAA model is built on:
+Suricatoos CISO's AAA model is built on:
 
 * **Open standards** (SAML, OIDC, TOTP, RBAC)
 * A **structured yet manageable authorization system**

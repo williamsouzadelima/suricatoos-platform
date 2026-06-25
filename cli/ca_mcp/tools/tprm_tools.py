@@ -1,4 +1,4 @@
-"""TPRM (Third-Party Risk Management) MCP tools for CISO Assistant"""
+"""TPRM (Third-Party Risk Management) MCP tools for Suricatoos CISO"""
 
 from ..client import (
     make_get_request,

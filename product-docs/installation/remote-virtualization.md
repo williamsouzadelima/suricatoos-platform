@@ -1,5 +1,5 @@
 ---
-description: Experimenting CISO Assistant through remote server or hypervisor
+description: Experimenting Suricatoos CISO through remote server or hypervisor
 ---
 
 # Remote/Virtualization
@@ -94,7 +94,7 @@ _Notes:_
 
 ### Legacy - Kept for reference purposes&#x20;
 
-Let's say that you want to setup or experiment with CISO Assistant on a Network or Virtualized environment (eg. Hypervisor) on a remote host, for instance, to use with multiple users:
+Let's say that you want to setup or experiment with Suricatoos CISO on a Network or Virtualized environment (eg. Hypervisor) on a remote host, for instance, to use with multiple users:
 
 
 
@@ -122,4 +122,4 @@ You're all set, and you can simply run:
 ./docker-compose.sh
 ```
 
-Your CISO Assistant can be reached now from  `https://cool-vm:8443`, and you can skip the SSL warning for the self-signed certificate.
+Your Suricatoos CISO can be reached now from  `https://cool-vm:8443`, and you can skip the SSL warning for the self-signed certificate.

@@ -1,4 +1,4 @@
-subject: "CISO Assistant : Votre affectation sur '${assessment_name}' a été ${decision}"
+subject: "Suricatoos CISO : Votre affectation sur '${assessment_name}' a été ${decision}"
 body: |
   Bonjour,
 
@@ -8,6 +8,6 @@ body: |
   - Décision : ${decision}
   ${reviewer_observation}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour plus de détails : [Accéder à CISO Assistant](${ciso_assistant_url}/auditee-dashboard)
+  Veuillez vous connecter à votre portail Suricatoos CISO pour plus de détails : [Accéder à Suricatoos CISO](${ciso_assistant_url}/auditee-dashboard)
 
   Merci.

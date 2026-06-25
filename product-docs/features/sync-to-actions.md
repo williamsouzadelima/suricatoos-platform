@@ -68,7 +68,7 @@ The applied control's **status field** is the input signal; the assessment's res
 
 ## When to use it
 
-- **You manage controls in CISO Assistant as the source of truth.** Their status (Active / In progress / Degraded / Deprecated) reflects reality, so propagating it to the assessment side keeps the audit and the risk register honest with one click.
+- **You manage controls in Suricatoos CISO as the source of truth.** Their status (Active / In progress / Degraded / Deprecated) reflects reality, so propagating it to the assessment side keeps the audit and the risk register honest with one click.
 - **End-of-cycle reconciliation.** Run sync before an external review so the audit and risk states match the ground truth in the action plan.
 - **Continuous compliance.** Turn on auto-sync on the audits and risk assessments you want to keep "always fresh".
 

@@ -1,13 +1,13 @@
 ---
 name: reference-controls-enricher
-description: Enrich a CISO Assistant framework YAML by linking each assessable requirement to reference control URNs from the central doc-pol library (CISO Assistant Key Reference Controls). Produces a reviewable xlsx and patches the framework YAML in place. Use when the user asks to "add reference controls to framework X", "link doc-pol controls to requirements", "wire up applied-control suggestions for framework Y", or wants to contribute a reference-control-enriched framework to backend/library/libraries/.
+description: Enrich a Suricatoos CISO framework YAML by linking each assessable requirement to reference control URNs from the central doc-pol library (Suricatoos CISO Key Reference Controls). Produces a reviewable xlsx and patches the framework YAML in place. Use when the user asks to "add reference controls to framework X", "link doc-pol controls to requirements", "wire up applied-control suggestions for framework Y", or wants to contribute a reference-control-enriched framework to backend/library/libraries/.
 ---
 
 # Reference Controls Enricher
 
 ## What this skill does
 
-For a given framework YAML, walk every assessable requirement and propose 1–5 reference control URNs from the central doc-pol library (the CISO Assistant Key Reference Controls). Outputs:
+For a given framework YAML, walk every assessable requirement and propose 1–5 reference control URNs from the central doc-pol library (the Suricatoos CISO Key Reference Controls). Outputs:
 
 - a reviewable xlsx per framework
 - a YAML patch applied in place (adds URNs to each requirement's `reference_controls` field, adds `doc-pol` to `dependencies`)

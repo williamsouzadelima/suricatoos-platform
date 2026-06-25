@@ -1,6 +1,6 @@
 # Risk assessments
 
-A **risk assessment** (also called a _risk study_) is a scenario-based evaluation of risk over a perimeter. CISO Assistant supports qualitative approaches (configurable risk matrices), quantitative approaches (Monte Carlo over loss distributions), and the structured EBIOS RM methodology.
+A **risk assessment** (also called a _risk study_) is a scenario-based evaluation of risk over a perimeter. Suricatoos CISO supports qualitative approaches (configurable risk matrices), quantitative approaches (Monte Carlo over loss distributions), and the structured EBIOS RM methodology.
 
 The platform follows the ISO 27005 risk-management workflow.
 
@@ -37,7 +37,7 @@ A risk assessment encompasses three steps:
 - **Risk analysis** — assessing probability, impact, and strength of knowledge for each scenario.
 - **Risk evaluation** — done automatically based on the selected risk matrix.
 
-In CISO Assistant, **risk treatment is combined with the risk assessment** rather than tracked as a separate phase.
+In Suricatoos CISO, **risk treatment is combined with the risk assessment** rather than tracked as a separate phase.
 
 ## Risk scenario
 
@@ -45,7 +45,7 @@ Scenarios can be defined directly from the risk-assessment view or separately vi
 
 ## Risk levels: inherent, current, residual
 
-CISO Assistant tracks three risk levels for each scenario, reflecting where the organisation stands along the treatment journey:
+Suricatoos CISO tracks three risk levels for each scenario, reflecting where the organisation stands along the treatment journey:
 
 - **Inherent risk** — the natural level of the scenario _without any controls in place_. The starting point. Surfaced in the UI when the `inherent_risk` feature flag is on.
 - **Current risk** — the level given the applied controls _already in place_. The state of risk today.
@@ -55,7 +55,7 @@ Each level has its own probability, impact, and overall level fields. The assess
 
 ## Risk acceptance
 
-Risk acceptance is when an organisation or individual decides to tolerate a certain level of risk without taking further action to reduce it. CISO Assistant provides a workflow to capture formal approval of risk acceptances by management — the approver must hold the **Approver** role.
+Risk acceptance is when an organisation or individual decides to tolerate a certain level of risk without taking further action to reduce it. Suricatoos CISO provides a workflow to capture formal approval of risk acceptances by management — the approver must hold the **Approver** role.
 
 For the formal definition, see [ISO 31073:2022, term 3.3.32 — risk acceptance](https://www.iso.org/obp/ui/#iso:std:iso:31073:ed-1:v1:en:term:3.3.32).
 
@@ -63,7 +63,7 @@ For the formal definition, see [ISO 31073:2022, term 3.3.32 — risk acceptance]
 
 Risk levels are calculated as a function of the probability and impact of a scenario, using a configurable **risk matrix**. Matrices are imported from libraries — pick one of the built-in matrices or define your own via a custom library.
 
-Most organisations define an official matrix to be used for all risk assessments, but CISO Assistant lets you choose a different matrix per assessment when needed. The matrix **can be changed** after the assessment has been created. When you do, each scenario's existing probability and impact values are clamped to the new scale's bounds — a score that falls outside the new range is clipped to the nearest valid value, and unrated scenarios stay unrated. There is no proportional rescaling, so review the scenarios afterwards and correct any score that no longer reflects your intent.
+Most organisations define an official matrix to be used for all risk assessments, but Suricatoos CISO lets you choose a different matrix per assessment when needed. The matrix **can be changed** after the assessment has been created. When you do, each scenario's existing probability and impact values are clamped to the new scale's bounds — a score that falls outside the new range is clipped to the nearest valid value, and unrated scenarios stay unrated. There is no proportional rescaling, so review the scenarios afterwards and correct any score that no longer reflects your intent.
 
 ## Related
 

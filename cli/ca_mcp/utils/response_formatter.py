@@ -102,7 +102,7 @@ def http_error_response(status_code: int, error_text: str) -> str:
         return error_response(
             "Authentication Failed",
             "API token is invalid or expired",
-            "Inform the user to check their CISO Assistant API token configuration",
+            "Inform the user to check their Suricatoos CISO API token configuration",
             retry_allowed=False,
         )
     elif status_code == 403:
@@ -122,7 +122,7 @@ def http_error_response(status_code: int, error_text: str) -> str:
     elif status_code >= 500:
         return error_response(
             "Server Error",
-            f"CISO Assistant server error: {error_text}",
+            f"Suricatoos CISO server error: {error_text}",
             "Inform the user that the server is experiencing issues",
             retry_allowed=False,
         )

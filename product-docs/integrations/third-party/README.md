@@ -1,5 +1,5 @@
 ---
-description: Integrate CISO Assistant with third-party providers
+description: Integrate Suricatoos CISO with third-party providers
 ---
 
 # Third-party integrations

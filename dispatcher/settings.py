@@ -114,7 +114,7 @@ def init_config(y, interactive):
         # Prompt interactively for each setting, using env variables as defaults.
 
         rest_url = click.prompt(
-            "Enter the API URL for the dispatcher. This is the exposed URL of the CISO Assistant backend's API.",
+            "Enter the API URL for the dispatcher. This is the exposed URL of the Suricatoos CISO backend's API.",
             default=os.getenv("API_URL", "https://localhost:8443"),
         )
         verify_default = os.getenv("VERIFY_CERTIFICATE", "True") == "True"
@@ -124,7 +124,7 @@ def init_config(y, interactive):
         )
 
         access_token = click.prompt(
-            "Enter the Personal Access Token used to authenticate the dispatcher to the CISO Assistant API.",
+            "Enter the Personal Access Token used to authenticate the dispatcher to the Suricatoos CISO API.",
             hide_input=True,
             show_default=False,
             default=os.getenv("USER_TOKEN", ""),

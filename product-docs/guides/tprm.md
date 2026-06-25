@@ -4,7 +4,7 @@
 
 #### 1. Access Third Parties Section
 
-Click "Third parties" to open the third-party management area in CISO Assistant.
+Click "Third parties" to open the third-party management area in Suricatoos CISO.
 
 ![Access Third Parties Section](https://static.guidde.com/v0/qg%2FIEuhINveF1g6sYuIJ0IpcFfUJDz2%2FhLVvBdoDyaNiZmFPgBPi4z%2Fpzw8eBkWtkHH8M4G9DdLoe_doc.png?alt=media\&token=4427f6fb-158e-4dd0-9f73-6a59cb62c62a)
 

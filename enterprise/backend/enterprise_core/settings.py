@@ -100,7 +100,7 @@ MODULE_PATHS = {"serializers": "enterprise_core.serializers"}
 ROUTES = {}
 MODULES = {}
 
-logger.info("Launching CISO Assistant Enterprise")
+logger.info("Launching Suricatoos CISO Enterprise")
 
 logger.info("BASE_DIR: %s", BASE_DIR)
 logger.info("VERSION: %s", VERSION)
@@ -693,8 +693,8 @@ PASSWORD_HASHERS = [
 ]
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "CISO Assistant API - Experimental",
-    "DESCRIPTION": "CISO Assistant - API Documentation for automating all your GRC needs",
+    "TITLE": "Suricatoos CISO API - Experimental",
+    "DESCRIPTION": "Suricatoos CISO - API Documentation for automating all your GRC needs",
     "VERSION": "0.7.0",
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS

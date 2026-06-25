@@ -8,7 +8,7 @@ from collections import defaultdict
 
 parser = argparse.ArgumentParser(
     prog="prepare_mapping.py",
-    description="prepare a mapping excel file for CISO Assistant",
+    description="prepare a mapping excel file for Suricatoos CISO",
 )
 parser.add_argument("source_yaml")
 parser.add_argument("target_yaml")

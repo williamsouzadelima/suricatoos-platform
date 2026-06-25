@@ -1,1 +1,1 @@
-"""Utilities for CISO Assistant MCP"""
+"""Utilities for Suricatoos CISO MCP"""

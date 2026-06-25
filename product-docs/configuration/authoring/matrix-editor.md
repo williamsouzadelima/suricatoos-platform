@@ -211,7 +211,7 @@ The **Export YAML** button auto-saves the current draft, then downloads it as a 
 - All four object lists (probability, impact, risk, grid) including hex colours and translations.
 - The matrix's URN.
 
-The exported file is ready to ship to other CISO Assistant instances, to source control, or to a community library catalogue.
+The exported file is ready to ship to other Suricatoos CISO instances, to source control, or to a community library catalogue.
 
 ## What the editor doesn't do (yet)
 

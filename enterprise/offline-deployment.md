@@ -1,6 +1,6 @@
 # Offline Deployment Guide
 
-This guide explains how to prepare CISO Assistant for production deployment on an air-gapped server (without internet access).
+This guide explains how to prepare Suricatoos CISO for production deployment on an air-gapped server (without internet access).
 You need to have a Pro on-premises plan to use this.
 
 ## Overview
@@ -202,7 +202,7 @@ Create `/etc/systemd/system/ciso-assistant-backend.service`:
 
 ```ini
 [Unit]
-Description=CISO Assistant Backend Service
+Description=Suricatoos CISO Backend Service
 After=network.target
 
 [Service]
@@ -226,7 +226,7 @@ Create `/etc/systemd/system/ciso-assistant-huey.service`:
 
 ```ini
 [Unit]
-Description=CISO Assistant Huey Background Tasks
+Description=Suricatoos CISO Huey Background Tasks
 After=network.target
 
 [Service]
@@ -249,7 +249,7 @@ Create `/etc/systemd/system/ciso-assistant-frontend.service`:
 
 ```ini
 [Unit]
-Description=CISO Assistant Frontend (SvelteKit SSR)
+Description=Suricatoos CISO Frontend (SvelteKit SSR)
 After=network.target
 
 [Service]

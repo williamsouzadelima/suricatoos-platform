@@ -1,6 +1,6 @@
 # Evidence
 
-**Evidence** is anything that substantiates a claim in CISO Assistant — that a control has been implemented, that a requirement is met, or that a process is being followed as described.
+**Evidence** is anything that substantiates a claim in Suricatoos CISO — that a control has been implemented, that a requirement is met, or that a process is being followed as described.
 
 Evidence is the connective tissue between what the audit asks and what the organisation actually does.
 

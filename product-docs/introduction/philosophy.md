@@ -1,10 +1,10 @@
 # Philosophy
 
-CISO Assistant is built around a small set of design principles. A lot of object boundaries, naming choices, and workflow shapes only make sense once you have these in mind.
+Suricatoos CISO is built around a small set of design principles. A lot of object boundaries, naming choices, and workflow shapes only make sense once you have these in mind.
 
 ## Applied controls at the centre
 
-The **applied control** is the unifying object in CISO Assistant. Everything the organisation _does_ to manage risk and prove compliance is captured as an applied control — a technical safeguard, an organisational process, a documented policy, a tested recovery plan. Once that's in place, the rest of the platform connects to it:
+The **applied control** is the unifying object in Suricatoos CISO. Everything the organisation _does_ to manage risk and prove compliance is captured as an applied control — a technical safeguard, an organisational process, a documented policy, a tested recovery plan. Once that's in place, the rest of the platform connects to it:
 
 - An **audit** assesses requirements; each requirement assessment links to the applied controls that satisfy it.
 - A **risk scenario** lowers its current and residual levels by attaching the applied controls in place and planned.

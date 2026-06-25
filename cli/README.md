@@ -1,6 +1,6 @@
-# CISO Assistant CLI (CLICA)
+# Suricatoos CISO CLI (CLICA)
 
-CLICA is a command-line interface tool for interacting with the CISO Assistant REST API. It provides powerful functionality for importing and managing cybersecurity data, including risk assessments, assets, controls, and evidence.
+CLICA is a command-line interface tool for interacting with the Suricatoos CISO REST API. It provides powerful functionality for importing and managing cybersecurity data, including risk assessments, assets, controls, and evidence.
 
 ## Table of Contents
 
@@ -39,11 +39,11 @@ Runtime dependencies are declared in [`pyproject.toml`](./pyproject.toml) and pi
 
 ## Authentication Setup
 
-CLICA uses Personal Access Tokens (PAT) for authentication with the CISO Assistant API.
+CLICA uses Personal Access Tokens (PAT) for authentication with the Suricatoos CISO API.
 
-### Step 1: Generate a PAT in CISO Assistant
+### Step 1: Generate a PAT in Suricatoos CISO
 
-1. Log into your CISO Assistant instance
+1. Log into your Suricatoos CISO instance
 2. Select "My Profile"
 3. Go to "Settings"
 4. Generate a new Personal Access Token
@@ -61,8 +61,8 @@ VERIFY_CERTIFICATE=true
 
 **Configuration Parameters:**
 
-- `TOKEN`: Your Personal Access Token from CISO Assistant
-- `API_URL`: The base URL of your CISO Assistant API endpoint
+- `TOKEN`: Your Personal Access Token from Suricatoos CISO
+- `API_URL`: The base URL of your Suricatoos CISO API endpoint
 - `VERIFY_CERTIFICATE`: Set to `false` if using self-signed certificates (not recommended for production)
 
 ## Configuration
@@ -76,11 +76,11 @@ The CLI uses environment variables for configuration. Make sure your `.clica.env
 
 ### Query Commands
 
-These commands retrieve information from your CISO Assistant instance:
+These commands retrieve information from your Suricatoos CISO instance:
 
 #### `get_folders`
 
-Retrieves all available folders/domains from your CISO Assistant instance.
+Retrieves all available folders/domains from your Suricatoos CISO instance.
 
 ```bash
 uv run clica.py get-folders
@@ -90,7 +90,7 @@ uv run clica.py get-folders
 
 #### `get_perimeters`
 
-Lists all available perimeters in your CISO Assistant instance.
+Lists all available perimeters in your Suricatoos CISO instance.
 
 ```bash
 uv run clica.py get-perimeters
@@ -171,7 +171,7 @@ uv run clica.py upload-attachment \
 
 #### `backup_full`
 
-Creates a complete backup of your CISO Assistant instance using a memory-efficient streaming approach. Supports resume capability for interrupted backups.
+Creates a complete backup of your Suricatoos CISO instance using a memory-efficient streaming approach. Supports resume capability for interrupted backups.
 
 ```bash
 uv run clica.py backup-full --dest-dir ./db --batch-size 200 --resume
@@ -214,7 +214,7 @@ uv run clica.py backup-full --dest-dir ./db --batch-size 200 --resume
 
 #### `restore_full`
 
-Restores a complete backup of your CISO Assistant instance using a memory-efficient streaming approach. Supports resume capability for interrupted restores.
+Restores a complete backup of your Suricatoos CISO instance using a memory-efficient streaming approach. Supports resume capability for interrupted restores.
 
 ```bash
 uv run clica.py restore-full --src-dir ./db --verify-hashes
@@ -260,7 +260,7 @@ uv run clica.py restore-full --src-dir ./db --verify-hashes
 - Server validates uploaded file hashes and skips if they match existing attachments
 
 > [!WARNING]
-> Restoring a backup will **replace all existing data** in your CISO Assistant instance. Make sure you have a current backup before performing a restore operation.
+> Restoring a backup will **replace all existing data** in your Suricatoos CISO instance. Make sure you have a current backup before performing a restore operation.
 
 > [!TIP]
 > **Best Practices:**
@@ -307,7 +307,7 @@ CLICA includes Model Context Protocol (MCP) integration for use with Claude Desk
 
 ### Available MCP Tools
 
-- `get_risk_scenarios()`: Retrieve risk scenarios from CISO Assistant
+- `get_risk_scenarios()`: Retrieve risk scenarios from Suricatoos CISO
 - `get_applied_controls()`: Retrieve applied controls/action plan
 - `get_audits_progress()`: Retrieve compliance assessment progress
 
@@ -373,7 +373,7 @@ uv run clica.py backup-full --dest-dir "/var/backups/ciso-assistant/$(date +%Y-%
 
 For additional support:
 
-1. Check the CISO Assistant documentation
+1. Check the Suricatoos CISO documentation
 2. Verify your API endpoint is accessible
 3. Review the Data Wizard templates for proper formatting
 4. Ensure all required dependencies are installed

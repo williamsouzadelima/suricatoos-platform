@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-ciso-assistant",
   "version": "1.0.0",
-  "description": "Custom n8n node to interact with CISO Assistant API",
+  "description": "Custom n8n node to interact with Suricatoos CISO API",
   "license": "AGPL",
   "homepage": "https://github.com/intuitem/ciso-assistant-community",
   "author": {

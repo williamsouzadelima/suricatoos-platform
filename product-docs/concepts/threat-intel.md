@@ -4,11 +4,11 @@ description: Catalogued vulnerabilities, weaknesses, and the feeds that enrich t
 
 # Threat intelligence
 
-The **threat intelligence** layer holds the catalogued knowledge CISO Assistant uses to prioritise vulnerabilities, qualify incidents, and connect operational findings to the wider security ecosystem. Today it covers security advisories, weakness catalogues, and a small set of public enrichment feeds; the surface is expected to grow significantly in upcoming releases.
+The **threat intelligence** layer holds the catalogued knowledge Suricatoos CISO uses to prioritise vulnerabilities, qualify incidents, and connect operational findings to the wider security ecosystem. Today it covers security advisories, weakness catalogues, and a small set of public enrichment feeds; the surface is expected to grow significantly in upcoming releases.
 
 ## Security advisories
 
-A **security advisory** is a catalogued security warning published by a vendor, CERT, or standards body. CISO Assistant supports four sources today:
+A **security advisory** is a catalogued security warning published by a vendor, CERT, or standards body. Suricatoos CISO supports four sources today:
 
 - **CVE** — the MITRE/NIST CVE Program identifiers (`CVE-YYYY-NNNN`).
 - **EUVD** — the EU Vulnerability Database (post-NIS2 European equivalent).
@@ -32,7 +32,7 @@ CWEs ship as their own catalog library; loading the CWE library makes the entrie
 
 ## How they connect to vulnerabilities
 
-A **vulnerability** in CISO Assistant is the organisation-specific record — "we have this exposed in our environment, here's the SLA". It links to:
+A **vulnerability** in Suricatoos CISO is the organisation-specific record — "we have this exposed in our environment, here's the SLA". It links to:
 
 - One or more **security advisories** — the upstream finding(s) it corresponds to.
 - One or more **CWEs** — the weakness categories it belongs to.

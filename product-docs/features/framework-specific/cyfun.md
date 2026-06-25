@@ -6,7 +6,7 @@ description: Excel self-assessment export aligned with Belgium's Centre for Cybe
 
 The [Centre for Cybersecurity Belgium](https://atwork.safeonweb.be/tools-resources/cyberfundamentals-framework) (CCB) publishes the **CyberFundamentals** framework as a self-assessment Excel workbook with a specific layout: one sheet per NIST CSF function (GOVERN, IDENTIFY, PROTECT, DETECT, RESPOND, RECOVER), rows pre-populated with controls, and answer cells where the responder records their posture.
 
-CISO Assistant can export an existing CyFun audit directly into that workbook so you can submit the file to the CCB without retyping any data.
+Suricatoos CISO can export an existing CyFun audit directly into that workbook so you can submit the file to the CCB without retyping any data.
 
 ## How it works
 

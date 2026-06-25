@@ -1,12 +1,12 @@
-# CISO Assistant MCP Setup Guide
+# Suricatoos CISO MCP Setup Guide
 
-This guide explains how to connect your AI assistant to CISO Assistant using the Model Context Protocol (MCP). Once set up, you'll be able to ask your AI to create risk assessments, manage compliance audits, track controls, and much more - all through natural conversation.
+This guide explains how to connect your AI assistant to Suricatoos CISO using the Model Context Protocol (MCP). Once set up, you'll be able to ask your AI to create risk assessments, manage compliance audits, track controls, and much more - all through natural conversation.
 
 ## What is MCP?
 
-MCP (Model Context Protocol) allows AI assistants like Claude to interact with external tools and services. Think of it as giving your AI a set of capabilities to read and write data in CISO Assistant.
+MCP (Model Context Protocol) allows AI assistants like Claude to interact with external tools and services. Think of it as giving your AI a set of capabilities to read and write data in Suricatoos CISO.
 
-The CISO Assistant MCP server provides **80+ tools** covering:
+The Suricatoos CISO MCP server provides **80+ tools** covering:
 - Risk management (assessments, scenarios, matrices)
 - Compliance audits (frameworks, requirements)
 - Asset management
@@ -20,17 +20,17 @@ The MCP server uses **stdio (standard input/output)** transport instead of HTTP.
 
 1. **Local file access** - stdio allows the server to read and process local files on your machine, which HTTP-based servers cannot do securely.
 
-2. **Network control** - All API calls to CISO Assistant go through your local machine. You have full visibility and control over network traffic, and can use your existing firewall rules and proxies.
+2. **Network control** - All API calls to Suricatoos CISO go through your local machine. You have full visibility and control over network traffic, and can use your existing firewall rules and proxies.
 
 3. **No open ports** - Unlike HTTP servers, stdio doesn't require opening any ports on your machine, reducing your attack surface.
 
 4. **Simpler security model** - The AI client spawns the MCP server as a subprocess. No need for API keys between the client and MCP server, or dealing with CORS and network authentication.
 
-5. **Works offline** - The MCP server itself runs locally. Only the actual CISO Assistant API calls require network access.
+5. **Works offline** - The MCP server itself runs locally. Only the actual Suricatoos CISO API calls require network access.
 
 ## Step 0: Get the MCP Server Code
 
-The MCP server code is included in the CISO Assistant repository. You need to download it to your machine first.
+The MCP server code is included in the Suricatoos CISO repository. You need to download it to your machine first.
 
 ### Option A: Clone with Git (recommended)
 
@@ -57,7 +57,7 @@ This makes it easy to update later with `git pull`.
 
 Before you begin, make sure you have:
 
-1. **CISO Assistant running** - Either locally or on a server (can be the same machine or a remote server)
+1. **Suricatoos CISO running** - Either locally or on a server (can be the same machine or a remote server)
 2. **Python 3.12+** installed
 3. **uv** package manager (recommended) - Install with:
    ```bash
@@ -70,9 +70,9 @@ Before you begin, make sure you have:
 
 ## Step 1: Generate a Personal Access Token (PAT)
 
-You need a token to authenticate the MCP server with CISO Assistant:
+You need a token to authenticate the MCP server with Suricatoos CISO:
 
-1. Log in to CISO Assistant
+1. Log in to Suricatoos CISO
 2. Click on your profile icon (top right)
 3. Go to **Settings** → **Personal Access Tokens**
 4. Click **Create Token**
@@ -83,7 +83,7 @@ You need a token to authenticate the MCP server with CISO Assistant:
 
 ## Step 2: Configure the MCP Server
 
-Navigate to the `cli` folder in your CISO Assistant installation:
+Navigate to the `cli` folder in your Suricatoos CISO installation:
 
 ```bash
 cd /path/to/ciso-assistant-community/cli
@@ -101,7 +101,7 @@ Edit `.mcp.env` with your details:
 # Your Personal Access Token from Step 1
 TOKEN=your-token-here
 
-# Your CISO Assistant API URL
+# Your Suricatoos CISO API URL
 API_URL=http://localhost:8000/api
 
 # Set to "true" if using HTTPS with a valid certificate
@@ -235,9 +235,9 @@ After saving the config file, completely quit and restart Claude Desktop. The MC
 ### Verify it works
 
 In Claude Desktop, try asking:
-> "What folders exist in CISO Assistant?"
+> "What folders exist in Suricatoos CISO?"
 
-If configured correctly, Claude will use the MCP tools to query your CISO Assistant instance.
+If configured correctly, Claude will use the MCP tools to query your Suricatoos CISO instance.
 
 ---
 
@@ -300,7 +300,7 @@ where uv  # Windows
 ### Verify it works
 
 Start Claude Code and ask:
-> "List all risk assessments in CISO Assistant"
+> "List all risk assessments in Suricatoos CISO"
 
 ---
 
@@ -317,7 +317,7 @@ LM Studio supports MCP servers through an `mcp.json` configuration file, similar
 5. Click the **Install** button
 6. Select **Edit mcp.json**
 
-### Step 2: Add the CISO Assistant server
+### Step 2: Add the Suricatoos CISO server
 
 Add the following configuration to your `mcp.json`:
 
@@ -380,7 +380,7 @@ Save the `mcp.json` file and restart LM Studio for the changes to take effect
 
 ### "Connection refused" or "Cannot connect to API"
 
-- Make sure CISO Assistant is running
+- Make sure Suricatoos CISO is running
 - Verify the `API_URL` is correct
 - Check if you can access the API in your browser: `http://localhost:8000/api/`
 
@@ -450,7 +450,7 @@ Once connected, try these example prompts:
 
 ## Need Help?
 
-- **CISO Assistant Documentation:** https://intuitem.gitbook.io
+- **Suricatoos CISO Documentation:** https://intuitem.gitbook.io
 - **GitHub Issues:** https://github.com/intuitem/ciso-assistant-community/issues
 - **Community Discord:** Check the repository for invite links
 
@@ -460,6 +460,6 @@ Once connected, try these example prompts:
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `TOKEN` | Yes | - | Personal Access Token from CISO Assistant |
-| `API_URL` | No | `http://localhost:8000/api` | CISO Assistant API endpoint |
+| `TOKEN` | Yes | - | Personal Access Token from Suricatoos CISO |
+| `API_URL` | No | `http://localhost:8000/api` | Suricatoos CISO API endpoint |
 | `VERIFY_CERTIFICATE` | No | `false` | SSL certificate verification |

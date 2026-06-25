@@ -7,11 +7,11 @@ if (Test-Path "db/ciso-assistant.sqlite3") {
     exit 1
 }
 
-Write-Host "Starting CISO Assistant services..." -ForegroundColor Cyan
+Write-Host "Starting Suricatoos CISO services..." -ForegroundColor Cyan
 docker compose pull
 
 Write-Host ""
-Write-Host "Waiting for CISO Assistant backend to be ready, please wait..." -ForegroundColor Cyan
+Write-Host "Waiting for Suricatoos CISO backend to be ready, please wait..." -ForegroundColor Cyan
 docker compose up -d
 
 do {
@@ -36,4 +36,4 @@ docker compose exec backend uv run python manage.py createsuperuser
 
 Write-Host ""
 Write-Host "Initialization complete!" -ForegroundColor Green
-Write-Host "You can now access CISO Assistant at https://localhost:8443 (or the host:port you've specified)" -ForegroundColor Green
+Write-Host "You can now access Suricatoos CISO at https://localhost:8443 (or the host:port you've specified)" -ForegroundColor Green

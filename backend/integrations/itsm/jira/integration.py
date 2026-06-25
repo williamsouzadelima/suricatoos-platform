@@ -49,11 +49,11 @@ JIRA_CONFIG_SCHEMA = {
             "issue_type": {"type": "string", "default": "Task"},
             "field_map": {
                 "type": "object",
-                "description": "Map of CISO Assistant fields to Jira field IDs",
+                "description": "Map of Suricatoos CISO fields to Jira field IDs",
             },
             "value_map": {
                 "type": "object",
-                "description": "Map of CISO Assistant choice values to Jira choice values, keyed by field",
+                "description": "Map of Suricatoos CISO choice values to Jira choice values, keyed by field",
             },
             "enable_incoming_sync": {"type": "boolean", "default": True},
             "enable_outgoing_sync": {"type": "boolean", "default": True},

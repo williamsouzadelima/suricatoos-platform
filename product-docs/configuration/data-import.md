@@ -278,7 +278,7 @@ The framework needs to be loaded and when clicking on it, you'll see a button to
 
 ## Risk assessment&#x20;
 
-The risk assessment is an advanced object that needs special considerations. Make sure to pick the matrix that will be used to map your labels to the values on CISO Assistant. If you have a specific matrix, you should start by including it as a custom library.
+The risk assessment is an advanced object that needs special considerations. Make sure to pick the matrix that will be used to map your labels to the values on Suricatoos CISO. If you have a specific matrix, you should start by including it as a custom library.
 
 inherent\_level, current\_level and residual\_level are kept on the excel sample just for visual aid. The application computes them based on impact and probability  to ensure consistency with the matrix definition.
 
@@ -466,9 +466,9 @@ The Excel export produced by [Agile Risk Manager](https://www.all4tec.com/agile-
 
 Selected in the wizard as **EBIOS RM Study (ARM)**.
 
-### CISO Assistant — Excel
+### Suricatoos CISO — Excel
 
-The Excel format produced by CISO Assistant's own EBIOS RM study export — sheets prefixed `1.1 Study`, `1.3 Feared Events`, `2.1 RO/TO`, and so on. This is the round-trip format: export, edit, re-import.
+The Excel format produced by Suricatoos CISO's own EBIOS RM study export — sheets prefixed `1.1 Study`, `1.3 Feared Events`, `2.1 RO/TO`, and so on. This is the round-trip format: export, edit, re-import.
 
 Selected in the wizard as **EBIOS RM Study (Excel)**.
 
@@ -698,7 +698,7 @@ The file has to be divided into 3 sheets namely "Entities", "Solutions" and "Con
 
 ## Folders
 
-Folders (domains) are the top-level organisational units in CISO Assistant. Importing them lets you pre-populate a domain hierarchy before importing other objects.
+Folders (domains) are the top-level organisational units in Suricatoos CISO. Importing them lets you pre-populate a domain hierarchy before importing other objects.
 
 #### Supported fields
 
@@ -720,7 +720,7 @@ Folders (domains) are the top-level organisational units in CISO Assistant. Impo
 
 ## Tasks (incoming)
 
-Tasks in CISO Assistant are modelled as **TaskTemplates** (definitions) with **TaskNodes** (individual occurrences). A non-recurrent task has one node; recurrent tasks generate one node per scheduled occurrence.
+Tasks in Suricatoos CISO are modelled as **TaskTemplates** (definitions) with **TaskNodes** (individual occurrences). A non-recurrent task has one node; recurrent tasks generate one node per scheduled occurrence.
 
 The wizard imports both in a single multi-sheet Excel file: a **Summary** sheet for the templates, plus one sheet per template that contains its past occurrences. A flat CSV upload is also accepted and imports templates only.
 

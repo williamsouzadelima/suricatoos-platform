@@ -164,7 +164,7 @@
 </script>
 
 <svelte:head>
-	<title>{clientSettings.settings.name || 'CISO Assistant'} | {safeTranslate(displayTitle)}</title>
+	<title>{clientSettings.settings.name || 'Suricatoos CISO'} | {safeTranslate(displayTitle)}</title>
 </svelte:head>
 
 <!-- App Shell -->

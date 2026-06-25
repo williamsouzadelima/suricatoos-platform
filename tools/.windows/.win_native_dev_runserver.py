@@ -1,7 +1,7 @@
 """
 Native Windows development runserver entrypoint
 
-Place this script at the following path from the CISO Assistant repository root:
+Place this script at the following path from the Suricatoos CISO repository root:
 backend/.win_native_dev_runserver.py
 
 Django's default development server listen backlog is small. In native Windows

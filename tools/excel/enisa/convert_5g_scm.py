@@ -1,5 +1,5 @@
 """
-Simple script to convert ENISA's 5G Security Controls Matrix v1.3 Excel in a CISO Assistant Excel file
+Simple script to convert ENISA's 5G Security Controls Matrix v1.3 Excel in a Suricatoos CISO Excel file
 Source: https://www.enisa.europa.eu/publications/5g-security-controls-matrix
 """
 
@@ -11,7 +11,7 @@ from openpyxl.styles import numbers
 
 parser = argparse.ArgumentParser(
     prog="convert_5g_scm",
-    description="convert 5G Security Controls Matrix v1.3 Excel file to CISO Assistant Excel file",
+    description="convert 5G Security Controls Matrix v1.3 Excel file to Suricatoos CISO Excel file",
 )
 
 parser.add_argument("filename", help="name of 5G SCM Excel file")

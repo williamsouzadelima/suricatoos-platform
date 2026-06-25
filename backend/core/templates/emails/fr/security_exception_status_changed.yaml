@@ -1,4 +1,4 @@
-subject: "CISO Assistant: La dérogation de sécurité '${exception_name}' est maintenant ${new_status}"
+subject: "Suricatoos CISO: La dérogation de sécurité '${exception_name}' est maintenant ${new_status}"
 body: |
   Bonjour,
 
@@ -10,6 +10,6 @@ body: |
   - Modifié par : ${actor_name}
   - Domaine : ${folder_name}
 
-  Connectez-vous à votre portail CISO Assistant pour consulter cette dérogation de sécurité : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Connectez-vous à votre portail Suricatoos CISO pour consulter cette dérogation de sécurité : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

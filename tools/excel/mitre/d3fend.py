@@ -1,4 +1,4 @@
-# d3fend library generator for CISO Assistant
+# d3fend library generator for Suricatoos CISO
 
 import csv
 from openpyxl import Workbook

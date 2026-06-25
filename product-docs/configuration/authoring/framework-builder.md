@@ -314,7 +314,7 @@ Errors render inline against the offending node (with a `node-{id}` or `question
 The **Export YAML** button in the toolbar downloads the current **published** state as a library-ready YAML file. The export uses the v2 library format and includes the full framework — meta, requirement tree, questions, choices, IGs, outcomes, scoring scale, translations. The resulting file is what you'd ship to:
 
 - A community library catalogue.
-- Another CISO Assistant instance.
+- Another Suricatoos CISO instance.
 - Source control as a versioned artefact.
 
 If you have unpublished draft changes, a warning icon flags that the export reflects what's live, not your draft — publish first if you want the draft included.

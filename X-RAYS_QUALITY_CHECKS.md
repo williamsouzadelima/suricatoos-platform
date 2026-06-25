@@ -1,6 +1,6 @@
 # X-rays Quality Check Rules
 
-X-rays is CISO Assistant's quality assurance feature that automatically analyzes risk assessments and compliance assessments to identify potential issues, inconsistencies, and areas requiring attention.
+X-rays is Suricatoos CISO's quality assurance feature that automatically analyzes risk assessments and compliance assessments to identify potential issues, inconsistencies, and areas requiring attention.
 
 ## Overview
 

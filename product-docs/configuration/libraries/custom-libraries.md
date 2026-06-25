@@ -4,13 +4,13 @@
 **NOTE:** This section is still under reworking. For complementary informations, please refer to the [**dedicated README on GitHub**](https://github.com/intuitem/ciso-assistant-community/blob/main/tools/README.md).
 {% endhint %}
 
-This documentation explains how to create, maintain and evolve **custom libraries** for CISO Assistant using **Excel**, **YAML**, and the official **tools provided in the community repository**.
+This documentation explains how to create, maintain and evolve **custom libraries** for Suricatoos CISO using **Excel**, **YAML**, and the official **tools provided in the community repository**.
 
 ***
 
-## 1. What is a Library in CISO Assistant?
+## 1. What is a Library in Suricatoos CISO?
 
-A **library** is a container that bundles one or more governance objects that can be imported into CISO Assistant.
+A **library** is a container that bundles one or more governance objects that can be imported into Suricatoos CISO.
 
 A single library may contain:
 
@@ -71,7 +71,7 @@ Frameworks are hierarchical by nature.
 * Depth starts at `1`
 * Deeper levels represent nested structures
 
-CISO Assistant supports deep hierarchies, but **depths above 6 are strongly discouraged** for readability.
+Suricatoos CISO supports deep hierarchies, but **depths above 6 are strongly discouraged** for readability.
 
 ### 2.4 URNs and ref\_id
 
@@ -146,13 +146,13 @@ Populate the `_content` tabs with requirements.
 {% step %}
 ### Convert Excel to YAML
 
-Use the conversion tool to generate a CISO Assistant-compatible YAML library.
+Use the conversion tool to generate a Suricatoos CISO-compatible YAML library.
 {% endstep %}
 
 {% step %}
-### Import the library into CISO Assistant
+### Import the library into Suricatoos CISO
 
-Upload and validate the generated YAML in CISO Assistant.
+Upload and validate the generated YAML in Suricatoos CISO.
 {% endstep %}
 
 {% step %}
@@ -225,7 +225,7 @@ Open `example_framework.xlsx` in Excel or LibreOffice and explore the tabs and c
 {% endstep %}
 
 {% step %}
-If you would like to see what this example looks like directly in CISO Assistant, convert it using the standard conversion tool:
+If you would like to see what this example looks like directly in Suricatoos CISO, convert it using the standard conversion tool:
 
 {% code title="Convert the example" %}
 ```shell
@@ -266,7 +266,7 @@ Mandatory fields include:
 * `packager`
 
 {% hint style="warning" %}
-Versioning is critical. If the custom framework is already imported into CISO Assistant and the version number has not been incremented, CISO Assistant will not suggest an update.
+Versioning is critical. If the custom framework is already imported into Suricatoos CISO and the version number has not been incremented, Suricatoos CISO will not suggest an update.
 {% endhint %}
 
 ### 4.5 Framework definition Tabs
@@ -403,7 +403,7 @@ A risk matrix is defined using:
   * The risk grid mapping probability × impact to risk
 
 The grid defines the logical relationship between values.\
-The visual rendering (orientation, colors, layout) is handled by the CISO Assistant interface.
+The visual rendering (orientation, colors, layout) is handled by the Suricatoos CISO interface.
 
 #### **Important Note: Use Existing Examples**
 
@@ -428,7 +428,7 @@ All tools described below are located in the [`/tools`](https://github.com/intui
 These tools are designed to:
 
 * Reduce human errors
-* Enforce the CISO Assistant data model
+* Enforce the Suricatoos CISO data model
 * Make libraries easier to maintain over time
 
 You do **not** need to use all tools in every project. Each tool addresses a **specific user intent**, described below.
@@ -519,13 +519,13 @@ After running this tool, the `library_meta` tab and the framework `_meta` tab us
 
 This is the **most frequently used tool**.
 
-It converts one or more Excel files into **CISO Assistant-compatible YAML libraries**.
+It converts one or more Excel files into **Suricatoos CISO-compatible YAML libraries**.
 
 #### Typical use cases
 
 * Generating a YAML file from an Excel framework
 * Validating Excel consistency
-* Importing libraries into CISO Assistant
+* Importing libraries into Suricatoos CISO
 * Updating an existing framework
 
 #### Basic usage (recommended for most users)
@@ -619,9 +619,9 @@ python3 convert_v1_to_v2.py old_framework.xlsx
 This produces a new v2-compatible file.
 
 {% hint style="danger" %}
-If you use `convert_library_v2.py` on an Excel file converted into v2, the YAML structure may be completely different from your original YAML file and break your audits if you import it into CISO Assistant!
+If you use `convert_library_v2.py` on an Excel file converted into v2, the YAML structure may be completely different from your original YAML file and break your audits if you import it into Suricatoos CISO!
 
-You can use the `convert_v1_to_v2.py` script if you created your framework using the v1 format and provided that you **HAVE NOT YET** imported your framework into CISO Assistant.
+You can use the `convert_v1_to_v2.py` script if you created your framework using the v1 format and provided that you **HAVE NOT YET** imported your framework into Suricatoos CISO.
 
 You can also use it if you notice that the URNs in the YAML file created with the v2 version of your framework are identical to the URNs in the YAML file of the v1 version of your framework. You can also try using the script's compatibility modes to recover the old structure.
 {% endhint %}
@@ -690,11 +690,11 @@ The conversion tool will:
 
 ***
 
-## 7. Importing a Custom Library into CISO Assistant
+## 7. Importing a Custom Library into Suricatoos CISO
 
-Once your Excel file has been successfully converted into a YAML file, the final step is to **import the library into CISO Assistant**.
+Once your Excel file has been successfully converted into a YAML file, the final step is to **import the library into Suricatoos CISO**.
 
-This operation is performed directly from the CISO Assistant interface and does not require any additional tooling.
+This operation is performed directly from the Suricatoos CISO interface and does not require any additional tooling.
 
 ### 7.1 Prerequisites
 
@@ -707,7 +707,7 @@ Before importing your library, make sure that:
 
 {% stepper %}
 {% step %}
-### **Open CISO Assistant**
+### **Open Suricatoos CISO**
 
 
 {% endstep %}
@@ -750,7 +750,7 @@ Your custom framework will appear in the list (you can search it in the search b
 
 ### 7.4 Common import errors
 
-If the import fails, CISO Assistant will display an explicit error message.
+If the import fails, Suricatoos CISO will display an explicit error message.
 
 Common causes include:
 
@@ -789,7 +789,7 @@ This validation step ensures that:
 
 Always increment `version` in the `library_meta` sheet.
 
-If the version is unchanged, CISO Assistant will ignore the update.
+If the version is unchanged, Suricatoos CISO will ignore the update.
 
 ### 8.2 URN Stability
 

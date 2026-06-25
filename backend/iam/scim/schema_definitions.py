@@ -1,6 +1,6 @@
 """
 SCIM 2.0 schema and resource-type definitions exposed via /Schemas and
-/ResourceTypes. These advertise which attributes and resources CISO Assistant
+/ResourceTypes. These advertise which attributes and resources Suricatoos CISO
 supports, so IdP provisioning connectors can configure themselves automatically.
 
 Each schema dict closely follows RFC 7643 (Core Schema) — only the attributes we
@@ -72,7 +72,7 @@ USER_SCHEMA = {
             "type": "complex",
             "multiValued": True,
             "description": (
-                "Email addresses for the user. CISO Assistant stores a single "
+                "Email addresses for the user. Suricatoos CISO stores a single "
                 "email per user; only the entry marked as primary is persisted "
                 "(or the first entry if none is marked primary). Additional "
                 "entries are accepted for SCIM compatibility but not retained."

@@ -4,7 +4,7 @@ Available on the PRO plan.
 
 # Branding
 
-Branding settings let you replace the default CISO Assistant visuals with your organisation's identity — useful when the platform is deployed for end-customers, when a parent company hosts multiple subsidiaries, or simply to align the UI with internal design guidelines.
+Branding settings let you replace the default Suricatoos CISO visuals with your organisation's identity — useful when the platform is deployed for end-customers, when a parent company hosts multiple subsidiaries, or simply to align the UI with internal design guidelines.
 
 ## Settings
 

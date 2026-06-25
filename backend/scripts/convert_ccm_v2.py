@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert the official CCM Excel file to a CISO Assistant Excel workbook that follows
+Convert the official CCM Excel file to a Suricatoos CISO Excel workbook that follows
 the v2 format (library_meta, framework_meta/_content, implementation_groups, answers).
 """
 
@@ -235,7 +235,7 @@ def build_v2_workbook(
 def main():
     parser = argparse.ArgumentParser(
         prog="convert_ccm_v2",
-        description="Convert CCM official Excel file to a CISO Assistant v2 Excel file.",
+        description="Convert CCM official Excel file to a Suricatoos CISO v2 Excel file.",
     )
     parser.add_argument("filename", help="Path to the CCM Excel file")
     parser.add_argument("-p", "--packager", help="Name of the packager entity")

@@ -1,5 +1,5 @@
 /**
- * Custom error class for CISO Assistant operations
+ * Custom error class for Suricatoos CISO operations
  */
 export class CisoAssistantError extends Error {
   constructor(

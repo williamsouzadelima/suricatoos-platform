@@ -1,4 +1,4 @@
-subject: "CISO Assistant : Votre affectation sur '${assessment_name}' a démarré"
+subject: "Suricatoos CISO : Votre affectation sur '${assessment_name}' a démarré"
 body: |
   Bonjour,
 
@@ -8,6 +8,6 @@ body: |
   - Référentiel : ${framework_name}
   - Date d'échéance : ${due_date}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour commencer votre évaluation : [Accéder à CISO Assistant](${ciso_assistant_url}/auditee-dashboard)
+  Veuillez vous connecter à votre portail Suricatoos CISO pour commencer votre évaluation : [Accéder à Suricatoos CISO](${ciso_assistant_url}/auditee-dashboard)
 
   Merci.

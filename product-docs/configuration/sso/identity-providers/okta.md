@@ -1,5 +1,5 @@
 ---
-description: Configure Okta as an Identity Provider for CISO Assistant
+description: Configure Okta as an Identity Provider for Suricatoos CISO
 ---
 
 # Okta
@@ -19,7 +19,7 @@ Go into your **Okta admin console** (it should look like this: `https://<your_ur
 
     <figure><img src="../../../.gitbook/assets/Screenshot(3).png" alt=""><figcaption></figcaption></figure>
 5. Add the **Single sign-on** **URL**: `<base_url>/api/accounts/saml/0/acs/`  (for example with localhost: `https://localhost:8443/api/accounts/saml/0/acs/`) (see screenshot below)
-6. Add the **Audience URI (**<mark style="color:purple;">**SP Entity ID**</mark>**),** it has to be the same than <mark style="color:purple;">**SP Entity ID**</mark> in CISO Assistant (see screenshot below)
+6. Add the **Audience URI (**<mark style="color:purple;">**SP Entity ID**</mark>**),** it has to be the same than <mark style="color:purple;">**SP Entity ID**</mark> in Suricatoos CISO (see screenshot below)
 7.  Choose **Email** as the **Application username**&#x20;
 
     <figure><img src="../../../.gitbook/assets/Screenshot(4).png" alt=""><figcaption></figcaption></figure>
@@ -38,8 +38,8 @@ Go into your **Okta admin console** (it should look like this: `https://<your_ur
     <figure><img src="../../../.gitbook/assets/Screenshot(7).png" alt=""><figcaption></figcaption></figure>
 10. In the **Settings** box inside **SAML 2.0:**
 
-    * Copy  the <mark style="color:purple;">**Metadata URL**</mark> and paste it into the <mark style="color:purple;">**Metadata URL**</mark> field in CISO Assistant
-    * Copy the **Issuer** url and paste it into the <mark style="color:purple;">**IdP Entity ID**</mark> field in CISO Assistant
+    * Copy  the <mark style="color:purple;">**Metadata URL**</mark> and paste it into the <mark style="color:purple;">**Metadata URL**</mark> field in Suricatoos CISO
+    * Copy the **Issuer** url and paste it into the <mark style="color:purple;">**IdP Entity ID**</mark> field in Suricatoos CISO
 
 
 
@@ -52,7 +52,7 @@ Go into your **Okta admin console** (it should look like this: `https://<your_ur
     <figure><img src="../../../.gitbook/assets/Screenshot(10).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-<mark style="color:orange;">Add a user in your application doesn't automatically create the user on CISO Assistant</mark>
+<mark style="color:orange;">Add a user in your application doesn't automatically create the user on Suricatoos CISO</mark>
 {% endhint %}
 
-You can now [configure CISO Assistant](../saml.md#configure-ciso-assistant-with-saml) with the <mark style="color:purple;">**3 parameters**</mark> you've retrieved.
+You can now [configure Suricatoos CISO](../saml.md#configure-suricatoos-ciso-with-saml) with the <mark style="color:purple;">**3 parameters**</mark> you've retrieved.

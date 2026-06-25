@@ -6,7 +6,7 @@ The PDF uses a stable document structure:
 - IGP tables use either 2 columns (Not Achieved / Achieved) or 3 columns
   (Not Achieved / Partially Achieved / Achieved).
 
-The CISO Assistant library only keeps the "Achieved" IGP statements as assessable
+The Suricatoos CISO library only keeps the "Achieved" IGP statements as assessable
 requirements, following the existing CAF 3.2 workbook structure.
 """
 
@@ -602,7 +602,7 @@ def build_caf_workbook(pdf_path: Path, output_path: Path) -> list[ContentRow]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Build the NCSC CAF 4.0 CISO Assistant workbook from the PDF."
+        description="Build the NCSC CAF 4.0 Suricatoos CISO workbook from the PDF."
     )
     parser.add_argument(
         "-p", "--pdf",

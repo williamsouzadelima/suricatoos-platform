@@ -2,9 +2,9 @@
 
 The `example_framework.xlsx` file will help you understand the structure of a framework. 
 
-The `prepare_framework_v2.py` script can be used to create an Excel file with the base structure of a CISO Assistant framework in v2 format.
+The `prepare_framework_v2.py` script can be used to create an Excel file with the base structure of a Suricatoos CISO framework in v2 format.
 
-The `convert_library_v2.py` script can be used to transform an Excel file to a CISO Assistant library.
+The `convert_library_v2.py` script can be used to transform an Excel file to a Suricatoos CISO library.
 
 The `convert_library_v1.py` script is the previous version working on the previous Excel file format.
 
@@ -18,7 +18,7 @@ The structure of an Excel framework file may not be very easy to understand at f
 
 The sheets and cells are colored to make it easier to understand the structure of the file, and notes have also been added to some cells. If a cell has a note, you will find a colored triangle at the top right of the cell (red in Excel, brown in LibreOffice). Hover your mouse over the cell with this triangle to see the note.
 
-This file can be converted with `convert_library_v2.py` and imported into CISO Assistant to see how it looks.
+This file can be converted with `convert_library_v2.py` and imported into Suricatoos CISO to see how it looks.
 
 Before opening a support ticket concerning the creation of a framework, we recommend to take a look at the example framework.
 
@@ -97,7 +97,7 @@ python convert_library_v2.py your_library_file.xlsx
 
 `your_library_file.yaml` will be generated in the same directory. In most cases, this command line will suffice.
 
-The resulting YAML file adheres to the CISO Assistant schema and can be directly imported into the platform.
+The resulting YAML file adheres to the Suricatoos CISO schema and can be directly imported into the platform.
 
 When the `--compat` flag is omitted or when the compatibility mode is different from `1`, URNs for nodes without a `ref_id` are constructed using the `parent_urn`. This format is simpler to understand and maintain compared to the legacy `nodeXXX` suffix system.
 
@@ -118,7 +118,7 @@ This will modify your original file (in our case, `your_v1_library_file.xlsx`) a
 
 ## About framework Updates
 
-If you want to update a framework, don't forget to increment the version number in the `version` field of the `library_meta` sheet before converting it to YAML. Otherwise, if the version number of the framework file is lower than or equal to the version number of the old version of your already imported framework in CISO Assistant, your framework will not be updated and CISO Assistant will not suggest to update the framework in your loaded libraries.
+If you want to update a framework, don't forget to increment the version number in the `version` field of the `library_meta` sheet before converting it to YAML. Otherwise, if the version number of the framework file is lower than or equal to the version number of the old version of your already imported framework in Suricatoos CISO, your framework will not be updated and Suricatoos CISO will not suggest to update the framework in your loaded libraries.
 
 
 <details>

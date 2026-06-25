@@ -1,6 +1,6 @@
 # Findings assessments
 
-A **findings assessment** — called **Follow-up** in the UI — tracks the issues raised by a review and drives their remediation through to closure. Findings can come from a CISO Assistant audit, an internal security review, a penetration test, an external assessor's report, or any other source.
+A **findings assessment** — called **Follow-up** in the UI — tracks the issues raised by a review and drives their remediation through to closure. Findings can come from a Suricatoos CISO audit, an internal security review, a penetration test, an external assessor's report, or any other source.
 
 It's the place where the action plan meets reality: each non-compliance, observation, or recommendation gets an assignee, a due date, and a status, and is followed all the way to "fixed".
 

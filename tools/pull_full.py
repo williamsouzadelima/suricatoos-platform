@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pull all objects of a CISO Assistant model from the API as full JSON.
+"""Pull all objects of a Suricatoos CISO model from the API as full JSON.
 
 The `list` endpoint returns a lightweight serializer that drops per-row fields.
 Full fidelity comes either from the detail endpoint one object per call

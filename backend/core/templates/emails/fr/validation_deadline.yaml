@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Échéance de validation dans ${days} jour(s)"
+subject: "Suricatoos CISO: Échéance de validation dans ${days} jour(s)"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${validation_list}
 
-  Veuillez examiner et traiter ces demandes avant l'échéance : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez examiner et traiter ces demandes avant l'échéance : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

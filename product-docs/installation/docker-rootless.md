@@ -4,10 +4,10 @@ description: Deployment documentation for rootless containers
 
 # Docker rootless configuration
 
-> Since V3.16, CISO Assistant now runs as non-root user 1001:1001 by default across all compose templates.
+> Since V3.16, Suricatoos CISO now runs as non-root user 1001:1001 by default across all compose templates.
 
 {% hint style="warning" %}
-If you already have a local instance of CISO Assistant, please refer to the migration guide&#x20;
+If you already have a local instance of Suricatoos CISO, please refer to the migration guide&#x20;
 {% endhint %}
 
 ## Fresh install&#x20;
@@ -28,13 +28,13 @@ If you are new from Ciso-Assistant, you will automatically be deployed with a ro
 
 ## Migration guide
 
-You already have a self-hosted Ciso Assistant (Community version or On-Premise Pro version) and you want to know all the options you have:
+You already have a self-hosted Suricatoos CISO (Community version or On-Premise Pro version) and you want to know all the options you have:
 
 <details>
 
-<summary>I want a rootless Docker and I am currently running CISO Assistant with pre-built images</summary>
+<summary>I want a rootless Docker and I am currently running Suricatoos CISO with pre-built images</summary>
 
-#### You are using <mark style="color:$primary;">docker-compose.yml</mark> to deploy Ciso Assistant
+#### You are using <mark style="color:$primary;">docker-compose.yml</mark> to deploy Suricatoos CISO
 
 ```
 git pull
@@ -50,7 +50,7 @@ docker compose up -d
 
 Your new containers should be root-less!
 
-#### You are using a <mark style="color:$primary;">custom .yml</mark> to deploy Ciso Assistant
+#### You are using a <mark style="color:$primary;">custom .yml</mark> to deploy Suricatoos CISO
 
 If you have any doubt about updating your custom .yml, do not hesitate to contact us on our Discord or Support portal.&#x20;
 
@@ -60,7 +60,7 @@ If you have any doubt about updating your custom .yml, do not hesitate to contac
 
 <details>
 
-<summary>I want a rootless Docker and I am currently running CISO Assistant with local images</summary>
+<summary>I want a rootless Docker and I am currently running Suricatoos CISO with local images</summary>
 
 ```
 git pull

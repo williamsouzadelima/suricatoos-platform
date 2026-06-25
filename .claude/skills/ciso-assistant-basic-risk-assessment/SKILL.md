@@ -1,7 +1,7 @@
 ---
 name: ciso-assistant-basic-risk-assessment
 description: |
-  Guide users through a basic risk assessment workflow in CISO Assistant, from asset identification to scenario creation. Use when:
+  Guide users through a basic risk assessment workflow in Suricatoos CISO, from asset identification to scenario creation. Use when:
   (1) User wants to start a risk assessment from scratch
   (2) User mentions "risk assessment", "identify risks", "threat scenarios", or "risk register"
   (3) User asks about qualitative vs quantitative risk approaches
@@ -10,14 +10,14 @@ description: |
   Covers: risk approach selection (qualitative/quantitative), organizational context gathering, asset identification (primary/supporting), threat catalog usage, scenario generation from threat-asset combinations, risk assessment/study creation.
 ---
 
-# CISO Assistant Basic Risk Assessment
+# Suricatoos CISO Basic Risk Assessment
 
 Guide users through risk assessment setup using MCP server tools.
 
 ## Prerequisites
 
 1. **Verify MCP server connectivity** - Test with `get_folders()`
-2. **Backend must be running** - CISO Assistant backend at configured URL
+2. **Backend must be running** - Suricatoos CISO backend at configured URL
 3. **If MCP tools unavailable** - Fall back to direct API calls (see bootstrap skill)
 
 ---

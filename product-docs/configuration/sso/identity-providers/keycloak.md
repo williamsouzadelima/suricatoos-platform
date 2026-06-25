@@ -1,11 +1,11 @@
 ---
-description: Configure Keycloak as an Identity Provider for CISO Assistant
+description: Configure Keycloak as an Identity Provider for Suricatoos CISO
 ---
 
 # Keycloak
 
 {% hint style="danger" %}
-<mark style="color:red;">If Keycloak and CISO Assistant are both deployed locally with docker, you'll need to make sure that both containers can communicate together. You can do this with a</mark> [<mark style="color:red;">bridge network</mark>](https://docs.docker.com/engine/network/drivers/bridge/)<mark style="color:red;">.</mark>
+<mark style="color:red;">If Keycloak and Suricatoos CISO are both deployed locally with docker, you'll need to make sure that both containers can communicate together. You can do this with a</mark> [<mark style="color:red;">bridge network</mark>](https://docs.docker.com/engine/network/drivers/bridge/)<mark style="color:red;">.</mark>
 {% endhint %}
 
 {% tabs %}
@@ -75,14 +75,14 @@ Go into your **Keycloak admin console**
 7.  Once your client is created, you can find its **Client secret** under the **Credentials** tab. You can copy it from there
 
     <figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
-8.  Go into **Realm settings > General** to find the <mark style="color:purple;">**OpenID Endpoint Configuration**</mark><mark style="color:purple;">,</mark> which you will have to paste into CISO Assistant's **Server URL** SSO parameter
+8.  Go into **Realm settings > General** to find the <mark style="color:purple;">**OpenID Endpoint Configuration**</mark><mark style="color:purple;">,</mark> which you will have to paste into Suricatoos CISO's **Server URL** SSO parameter
 
     <figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
 {% hint style="warning" %}
-<mark style="color:orange;">Adding a user in your application doesn't automatically create the user on CISO Assistant</mark>
+<mark style="color:orange;">Adding a user in your application doesn't automatically create the user on Suricatoos CISO</mark>
 {% endhint %}
 
-You can now [configure CISO Assistant](../saml.md#configure-ciso-assistant-with-saml) with the <mark style="color:purple;">**parameters**</mark> you've retrieved.
+You can now [configure Suricatoos CISO](../saml.md#configure-suricatoos-ciso-with-saml) with the <mark style="color:purple;">**parameters**</mark> you've retrieved.

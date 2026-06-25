@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Tâche à échéance dans ${days_remaining} jour(s)"
+subject: "Suricatoos CISO: Tâche à échéance dans ${days_remaining} jour(s)"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${task_list}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour réviser et compléter ces tâches : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez vous connecter à votre portail Suricatoos CISO pour réviser et compléter ces tâches : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

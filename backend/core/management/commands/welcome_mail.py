@@ -16,7 +16,7 @@ class Command(BaseCommand):
         try:
             admin.mailing(
                 email_template_name="registration/first_connexion_email.html",
-                subject="Welcome to CISO Assistant!",
+                subject="Welcome to Suricatoos CISO!",
             )
             logger.info("Welcome email sent successfully", recipient=admin.email)
             self.stdout.write(self.style.SUCCESS("Welcome mail sent successfully"))

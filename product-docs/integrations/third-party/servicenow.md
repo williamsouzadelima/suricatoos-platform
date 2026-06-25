@@ -4,13 +4,13 @@ description: ServiceNow Integration Guide
 
 # ServiceNow
 
-This guide details how to configure the bidirectional synchronization between **CISO Assistant** and **ServiceNow**. This integration allows you to:
+This guide details how to configure the bidirectional synchronization between **Suricatoos CISO** and **ServiceNow**. This integration allows you to:
 
-* Automatically create ServiceNow records (e.g. GRC Controls) from CISO Assistant.
-* Sync updates (Status, Priority, etc.) from CISO Assistant to ServiceNow.
-* Receive real-time updates from ServiceNow back into CISO Assistant via Webhooks.
+* Automatically create ServiceNow records (e.g. GRC Controls) from Suricatoos CISO.
+* Sync updates (Status, Priority, etc.) from Suricatoos CISO to ServiceNow.
+* Receive real-time updates from ServiceNow back into Suricatoos CISO via Webhooks.
 
-For now, you are only able to sync CISO Assistant's applied controls to a ServiceNow table.
+For now, you are only able to sync Suricatoos CISO's applied controls to a ServiceNow table.
 
 ***
 
@@ -20,7 +20,7 @@ Before starting, ensure you have:
 
 1. **ServiceNow Credentials:** A service account with permissions to read/write to your target table (e.g., `grc_control`) and access the REST API.
 2. **ServiceNow Admin Access:** Required to create **Outbound REST Messages** and **Business Rules** for the inbound sync.
-3. **CISO Assistant Details:**
+3. **Suricatoos CISO Details:**
    * Your Instance URL.
    * The **Webhook Secret** generated in your Integration Configuration panel.
 
@@ -28,7 +28,7 @@ Before starting, ensure you have:
 
 ### Part 1: Outgoing Sync
 
-First, configure CISO Assistant to connect to your ServiceNow instance.
+First, configure Suricatoos CISO to connect to your ServiceNow instance.
 
 1. **Create Integration:**
    * Go to **Settings > Integrations**.
@@ -43,7 +43,7 @@ First, configure CISO Assistant to connect to your ServiceNow instance.
        <figure><img src="../../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 3. **Discovery & Mapping:**
    * **Target Table:** Select the ServiceNow table you want to sync with (e.g., `Control [grc_control]`).
-   * **Field Mapping:** Map CISO Assistant fields (Name, Description, Status) to the corresponding ServiceNow columns.
+   * **Field Mapping:** Map Suricatoos CISO fields (Name, Description, Status) to the corresponding ServiceNow columns.
    *   **Value Mapping:** For "Choice" fields like **Status** and **Priority**, map your local values (e.g., `In Progress`) to the specific ServiceNow logic (e.g., `2 - Work in Progress`).<br>
 
        <figure><img src="../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
@@ -55,7 +55,7 @@ First, configure CISO Assistant to connect to your ServiceNow instance.
 
 If you with to receive updates from ServiceNow, you first have to enable incoming sync in the ServiceNow integration settings panel.
 
-### Configure incoming sync in CISO Assistant
+### Configure incoming sync in Suricatoos CISO
 
 1. **Generate** a shared secret.
 2. This secret is only shown once, make sure you **Copy** it before proceeding.
@@ -64,7 +64,7 @@ If you with to receive updates from ServiceNow, you first have to enable incomin
 
 ### Configure ServiceNow
 
-To receive updates _from_ ServiceNow, you must configure a **Business Rule** that pushes data to CISO Assistant.
+To receive updates _from_ ServiceNow, you must configure a **Business Rule** that pushes data to Suricatoos CISO.
 
 #### Create the Outbound REST Message
 
@@ -108,7 +108,7 @@ This triggers the sync whenever a record changes.
 1. Navigate to **System Definition > Business Rules**.\
    ![ServiceNow navigation to System Definition > Business Rules](<../../.gitbook/assets/image (72).png>)
 2. Click **New**.
-3. **Name:** `Push to CISO Assistant`.
+3. **Name:** `Push to Suricatoos CISO`.
 4. **Table:** Select the same table you chose in Part 1 (e.g., `Control`).
 5. **Advanced:** Check this box.
 6. **When to run:**
@@ -179,13 +179,13 @@ Click **Submit**.<br>
 
 ### Usage
 
-Once the integration is configured and enabled, CISO Assistant will start synchronizing applied controls with ServiceNow records.
+Once the integration is configured and enabled, Suricatoos CISO will start synchronizing applied controls with ServiceNow records.
 
 * For each applied control, a new record will be created in the configured ServiceNow table if you check 'Create remote object' in the applied control creation form.
 * The ServiceNow record will contain information from the applied control, such as its name, description, and status.
-* A link to the ServiceNow record will be displayed on the applied control page in CISO Assistant.
+* A link to the ServiceNow record will be displayed on the applied control page in Suricatoos CISO.
 
-The synchronization is automatic. Any update on an applied control in CISO Assistant will be reflected in the corresponding ServiceNow record.
+The synchronization is automatic. Any update on an applied control in Suricatoos CISO will be reflected in the corresponding ServiceNow record.
 
 #### Attaching an applied control to a ServiceNow record
 
@@ -195,7 +195,7 @@ There are several ways to link an applied control to a ServiceNow record:
   * Open the `Integrations` dropdown menu located at the bottom of the form
   * Select the `ServiceNow` integration provider
   * Check the `Create remote object` checkbox.
-  * This will create a ServiceNow record on the board specified in CISO Assistant's ServiceNow integration settings. This record will then be linked to the applied control.
+  * This will create a ServiceNow record on the board specified in Suricatoos CISO's ServiceNow integration settings. This record will then be linked to the applied control.
 
 <figure><img src="../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
 
@@ -217,14 +217,14 @@ There are several ways to link an applied control to a ServiceNow record:
 
 #### How to Verify
 
-1. Create a new Control in CISO Assistant. Check ServiceNow to see if the record appears.
-2. Update the **State** of that record in ServiceNow. Refresh CISO Assistant to see the status change.
+1. Create a new Control in Suricatoos CISO. Check ServiceNow to see if the record appears.
+2. Update the **State** of that record in ServiceNow. Refresh Suricatoos CISO to see the status change.
 
 #### Common Errors
 
 | **Symptom**                         | **Cause**       | **Solution**                                                                                                                        |
 | ----------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **HTTP 401/403 in ServiceNow Logs** | Secret Mismatch | Ensure the `X-CISO-Secret` header in ServiceNow matches the Webhook Secret in CISO Assistant exactly.                               |
+| **HTTP 401/403 in ServiceNow Logs** | Secret Mismatch | Ensure the `X-CISO-Secret` header in ServiceNow matches the Webhook Secret in Suricatoos CISO exactly.                               |
 | **"RESTMessageV2 is not defined"**  | Scope Issue     | Ensure the script uses the correct **API Name** for the REST Message (e.g., `x_scope_ciso_sync`).                                   |
-| **CISO Assistant doesn't update**   | Missing Filter  | Check the Business Rule filter conditions. Ensure the change you made (e.g., just changing a description) is covered by the filter. |
+| **Suricatoos CISO doesn't update**   | Missing Filter  | Check the Business Rule filter conditions. Ensure the change you made (e.g., just changing a description) is covered by the filter. |
 | **Dropdowns empty in Setup**        | Permissions     | Ensure the service account has read access to `sys_db_object` and `sys_dictionary`.                                                 |

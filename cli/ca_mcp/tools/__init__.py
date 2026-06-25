@@ -1,1 +1,1 @@
-"""MCP tools for CISO Assistant"""
+"""MCP tools for Suricatoos CISO"""

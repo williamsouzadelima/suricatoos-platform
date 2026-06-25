@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 
-# Starts the CISO Assistant backend with the right native Windows development
-# settings. Place this script at the root of the CISO Assistant project, next to
+# Starts the Suricatoos CISO backend with the right native Windows development
+# settings. Place this script at the root of the Suricatoos CISO project, next to
 # the backend/ directory.
 
 $ErrorActionPreference = "Stop"
@@ -16,7 +16,7 @@ $PythonRelativeExecutablePath = ".venv\Scripts\python.exe"
 $PythonExecutablePath = Join-Path $ProjectDir $PythonRelativeExecutablePath
 
 # Compatibility fallback for local workspaces where the virtual environment is
-# stored one directory above the CISO Assistant repository.
+# stored one directory above the Suricatoos CISO repository.
 $ParentPythonExecutablePath = Join-Path (Split-Path -Parent $ProjectDir) $PythonRelativeExecutablePath
 $SelectedPythonExecutablePath = if (Test-Path -LiteralPath $PythonExecutablePath -PathType Leaf) {
     $PythonExecutablePath

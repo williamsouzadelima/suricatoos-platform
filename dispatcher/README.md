@@ -1,12 +1,12 @@
-# CISO Assistant Dispatcher
+# Suricatoos CISO Dispatcher
 
-The **CISO Assistant Dispatcher** is a command-line tool that bridges event-driven messaging with the CISO Assistant API to orchestrate actions based on incoming Kafka messages.
+The **Suricatoos CISO Dispatcher** is a command-line tool that bridges event-driven messaging with the Suricatoos CISO API to orchestrate actions based on incoming Kafka messages.
 
 ## Prerequisites
 
 - **Python 3.8+**
 - A running Kafka cluster (can be any Kafka-compatible cluster, e.g. [Redpanda](https://redpanda.com/))
-- Access to the CISO Assistant REST API
+- Access to the Suricatoos CISO REST API
 - Required Python packages (see [Installation](#installation) below)
 
 ## Running the dispatcher as a CLI tool
@@ -85,8 +85,8 @@ You can configure the dispatcher using environment variables, the `init-config` 
 ```bash
 DEBUG=True/False # Set to true to enable debug logging
 
-API_URL=https://localhost:8443 # The URL of the CISO Assistant REST API
-USER_TOKEN=your_ciso_assistant_access_token # Personal Access Token used to authenticate to the CISO Assistant API
+API_URL=https://localhost:8443 # The URL of the Suricatoos CISO REST API
+USER_TOKEN=your_ciso_assistant_access_token # Personal Access Token used to authenticate to the Suricatoos CISO API
 VERIFY_CERTIFICATE=True/False # Set to True to verify SSL certificates between the dispatcher and API
 BOOTSTRAP_SERVERS=localhost:9092 # The Kafka bootstrap servers, comma separated list
 KAFKA_USE_AUTH=False # Set to True to enable authentication to Kafka
@@ -121,12 +121,12 @@ credentials:
 
 Update this file with your actual access token.
 
-### Authentication to the CISO Assistant API
+### Authentication to the Suricatoos CISO API
 
-The dispatcher authenticates with a Personal Access Token (PAT) that you generate in CISO Assistant (from your user profile). Set it via the `USER_TOKEN` environment variable, in the configuration file, or during interactive configuration with `init-config -i`.
+The dispatcher authenticates with a Personal Access Token (PAT) that you generate in Suricatoos CISO (from your user profile). Set it via the `USER_TOKEN` environment variable, in the configuration file, or during interactive configuration with `init-config -i`.
 
 > [!IMPORTANT]
-> The token is tied to a CISO Assistant user and inherits their permissions. Issue it from a dedicated service account scoped to only what the dispatcher needs.
+> The token is tied to a Suricatoos CISO user and inherits their permissions. Issue it from a dedicated service account scoped to only what the dispatcher needs.
 
 PATs are issued from an authenticated session, so MFA on the account stays effective. If the API returns `401`, the token is invalid or expired — generate a new PAT and update `USER_TOKEN`.
 
@@ -250,7 +250,7 @@ Fields:
 
 ### Selectors
 
-A selector is an object used to identify the target resource in CISO Assistant. It contains key/value pairs that are used to filter the resource. These can be any filters that are supported by the CISO Assistant API (e.g. `ref_id`, `name`, `eta`...).
+A selector is an object used to identify the target resource in Suricatoos CISO. It contains key/value pairs that are used to filter the resource. These can be any filters that are supported by the Suricatoos CISO API (e.g. `ref_id`, `name`, `eta`...).
 
 You can find the full list of supported filters in the API specification, accessible on `<CISO_ASSISTANT_API_URL>/schema/swagger/`
 
@@ -274,11 +274,11 @@ Set to `single` if not specified. This can be either `single` or `multiple`. Thi
 
 The dispatcher can be used as a CLI tool or deployed as a service. To deploy it as a service, you can use Docker or any other containerization tool.
 
-Out of the box, we provide a Dockerfile and the `make_config.py` script to generate a docker compose file containing CISO Assistant and the dispatcher.
+Out of the box, we provide a Dockerfile and the `make_config.py` script to generate a docker compose file containing Suricatoos CISO and the dispatcher.
 
 The `make_config.py` script is accessible under `config/make_config.py`. Please refer to the readme file in the `config` directory for more information on how to use it.
 
 ## Contributing
 
 > [!NOTE]
-> If CISO Assistant is deployed using the `runserver` command, do not forget to append `/api` to the URL. For example, `http://localhost:8000/api`.
+> If Suricatoos CISO is deployed using the `runserver` command, do not forget to append `/api` to the URL. For example, `http://localhost:8000/api`.

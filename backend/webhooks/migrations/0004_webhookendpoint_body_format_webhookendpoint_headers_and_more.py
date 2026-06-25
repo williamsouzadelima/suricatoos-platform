@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name="body_format",
             field=models.CharField(
                 choices=[
-                    ("ciso_native", "CISO Assistant (HMAC-signed)"),
+                    ("ciso_native", "Suricatoos CISO (HMAC-signed)"),
                     ("ocsf", "OCSF"),
                     ("raw", "Raw LogEntry"),
                 ],

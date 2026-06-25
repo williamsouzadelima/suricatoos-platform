@@ -64,7 +64,7 @@ jobs:
           tags: |
             type=raw,value=${{ needs.prepare.outputs.version }}
           labels: |
-            org.opencontainers.image.title=CISO Assistant Enterprise Frontend
+            org.opencontainers.image.title=Suricatoos CISO Enterprise Frontend
             org.opencontainers.image.description=Enterprise GRC platform for cybersecurity compliance and risk management
             org.opencontainers.image.vendor=intuitem
             org.opencontainers.image.licenses=LicenseRef-intuitem-Commercial
@@ -126,7 +126,7 @@ jobs:
           tags: |
             type=raw,value=${{ needs.prepare.outputs.version }}
           labels: |
-            org.opencontainers.image.title=CISO Assistant Enterprise Backend
+            org.opencontainers.image.title=Suricatoos CISO Enterprise Backend
             org.opencontainers.image.description=Enterprise GRC platform for cybersecurity compliance and risk management
             org.opencontainers.image.vendor=intuitem
             org.opencontainers.image.licenses=LicenseRef-intuitem-Commercial
@@ -167,7 +167,7 @@ jobs:
 
           # Frontend
           docker buildx imagetools create \
-            --annotation "index:org.opencontainers.image.title=CISO Assistant Enterprise Frontend" \
+            --annotation "index:org.opencontainers.image.title=Suricatoos CISO Enterprise Frontend" \
             --annotation "index:org.opencontainers.image.description=Enterprise GRC platform for cybersecurity compliance and risk management" \
             --annotation "index:org.opencontainers.image.vendor=intuitem" \
             --annotation "index:org.opencontainers.image.licenses=LicenseRef-intuitem-Commercial" \
@@ -184,7 +184,7 @@ jobs:
 
           # Backend
           docker buildx imagetools create \
-            --annotation "index:org.opencontainers.image.title=CISO Assistant Enterprise Backend" \
+            --annotation "index:org.opencontainers.image.title=Suricatoos CISO Enterprise Backend" \
             --annotation "index:org.opencontainers.image.description=Enterprise GRC platform for cybersecurity compliance and risk management" \
             --annotation "index:org.opencontainers.image.vendor=intuitem" \
             --annotation "index:org.opencontainers.image.licenses=LicenseRef-intuitem-Commercial" \

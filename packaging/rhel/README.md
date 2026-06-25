@@ -1,6 +1,6 @@
-# CISO Assistant - Air-Gapped RPM Package
+# Suricatoos CISO - Air-Gapped RPM Package
 
-This directory contains everything needed to build and deploy CISO Assistant as a fully self-contained RPM package for air-gapped RHEL systems.
+This directory contains everything needed to build and deploy Suricatoos CISO as a fully self-contained RPM package for air-gapped RHEL systems.
 
 ## Overview
 
@@ -20,7 +20,7 @@ The RPM package includes:
 
 ```
 ┌─────────────────────────────────────────┐
-│         CISO Assistant RPM              │
+│         Suricatoos CISO RPM              │
 ├─────────────────────────────────────────┤
 │  Frontend (SvelteKit/Node.js)  :3000    │
 │           ↓ HTTP API calls              │
@@ -206,7 +206,7 @@ sudo journalctl -u ciso-assistant-backend -f
 sudo journalctl -u ciso-assistant-huey -f
 sudo journalctl -u ciso-assistant-frontend -f
 
-# View all CISO Assistant logs together
+# View all Suricatoos CISO logs together
 sudo journalctl -u ciso-assistant-* -f
 ```
 
@@ -389,4 +389,4 @@ server {
 
 ## License
 
-CISO Assistant Community Edition is licensed under AGPLv3.
+Suricatoos CISO Community Edition is licensed under AGPLv3.

@@ -9,16 +9,16 @@ hidden: true
 {% endhint %}
 
 {% hint style="warning" %}
-**WARNING:** This section refers to the `v1` format of frameworks. The `v1` format is deprecated. If you created your framework following this documentation and provided that you _**HAVE NOT YET**_ imported your framework into CISO Assistant, we strongly recommend updating your Excel file in `v2` format using the [`convert_v1_to_v2.py`](https://github.com/intuitem/ciso-assistant-community/tree/main/tools#-convert_v1_to_v2py) script.
+**WARNING:** This section refers to the `v1` format of frameworks. The `v1` format is deprecated. If you created your framework following this documentation and provided that you _**HAVE NOT YET**_ imported your framework into Suricatoos CISO, we strongly recommend updating your Excel file in `v2` format using the [`convert_v1_to_v2.py`](https://github.com/intuitem/ciso-assistant-community/tree/main/tools#-convert_v1_to_v2py) script.
 {% endhint %}
 
-CISO Assistant allows you to manage your custom frameworks. The format is a text-based YAML file that you can customize, but it can be tricky to maintain and debug. To manage this, we've introduced a simpler approach to convert Excel sheets using the `convert_library.py` utility available at the [`/tools`](https://github.com/intuitem/ciso-assistant-community/tree/main/tools) of the [Github](https://github.com/intuitem/ciso-assistant-community/) repository root.
+Suricatoos CISO allows you to manage your custom frameworks. The format is a text-based YAML file that you can customize, but it can be tricky to maintain and debug. To manage this, we've introduced a simpler approach to convert Excel sheets using the `convert_library.py` utility available at the [`/tools`](https://github.com/intuitem/ciso-assistant-community/tree/main/tools) of the [Github](https://github.com/intuitem/ciso-assistant-community/) repository root.
 
 ### Structure
 
 <figure><img src="../../.gitbook/assets/Framework Structure.png" alt=""><figcaption><p>Hierarchy-based file</p></figcaption></figure>
 
-The first thing to consider is structuring your requirements into a hierarchy, as illustrated in the example above. Most standards, frameworks, and law documents are already organized this way. This is the depth concept and CISO Assistant has been tested with nodes up to the 8th level depth (documents beyond 6 are mostly hard to read anyway)
+The first thing to consider is structuring your requirements into a hierarchy, as illustrated in the example above. Most standards, frameworks, and law documents are already organized this way. This is the depth concept and Suricatoos CISO has been tested with nodes up to the 8th level depth (documents beyond 6 are mostly hard to read anyway)
 
 Then, the other vital aspect to think about will be which items are actually assessable. For instance, the categories, sections, and subsections are for organization and, therefore, won't be assessable unlike the requirements.
 
@@ -40,7 +40,7 @@ Implementation groups are an optional argument that can be used to create subset
 6. Edit the first tab (`library_meta`) to describe your framework metadata
    1. Implementation groups and score descriptions are optional, so if they don't apply, you can simply remove lines
 7. Edit the Excel sheet according to the expected hierarchy.
-   1. The order of the items is essential and will be used to build the tree on CISO Assistant. So make sure you're following the previously described structure
+   1. The order of the items is essential and will be used to build the tree on Suricatoos CISO. So make sure you're following the previously described structure
 8. From the tools folder, run\
    \
    `python3 convert_library_v2.py myframework/my-custom-framework.xlsx`\
@@ -50,7 +50,7 @@ Implementation groups are an optional argument that can be used to create subset
 
 ### importing
 
-1. Open CISO Assistant. On the side menu, go to `Governance/Libraries` then to the `Libraries store` tab
+1. Open Suricatoos CISO. On the side menu, go to `Governance/Libraries` then to the `Libraries store` tab
 2. Scroll down to get to `Upload your own library` section and select your file.
 3. If the file is consistent and correct, you'll get a confirmation and it will get straight ahead to your imported frameworks under `Compliance/Frameworks` section
 

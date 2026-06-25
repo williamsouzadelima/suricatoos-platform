@@ -1,5 +1,5 @@
 """
-simple script to transform the official CCM Excel file to another Excel file for CISO assistant framework conversion tool
+simple script to transform the official CCM Excel file to another Excel file for Suricatoos CISO framework conversion tool
 """
 
 import openpyxl
@@ -23,7 +23,7 @@ def pretify_content(content):
 
 parser = argparse.ArgumentParser(
     prog="convert_ccm",
-    description="convert CCM controls offical Excel file to CISO Assistant Excel file",
+    description="convert CCM controls offical Excel file to Suricatoos CISO Excel file",
 )
 parser.add_argument("filename", help="name of CCM controls Excel file")
 parser.add_argument("packager", help="name of packager entity")

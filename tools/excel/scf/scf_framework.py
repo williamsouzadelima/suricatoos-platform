@@ -1,5 +1,5 @@
 """
-Script to transform a SCF Framework Excel source file into a structured destination file for CISO Assistant.
+Script to transform a SCF Framework Excel source file into a structured destination file for Suricatoos CISO.
 
 Input:
     - Excel file with a sheet named "SCF 2025.2.2" (change "sheet_name" value for future updates)

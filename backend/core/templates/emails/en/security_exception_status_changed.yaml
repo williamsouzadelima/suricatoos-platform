@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Security exception '${exception_name}' is now ${new_status}"
+subject: "Suricatoos CISO: Security exception '${exception_name}' is now ${new_status}"
 body: |
   Hello,
 
@@ -10,6 +10,6 @@ body: |
   - Updated by: ${actor_name}
   - Domain: ${folder_name}
 
-  Log in to your CISO Assistant portal to view this security exception: [Go to CISO Assistant](${ciso_assistant_url})
+  Log in to your Suricatoos CISO portal to view this security exception: [Go to Suricatoos CISO](${ciso_assistant_url})
 
   Thank you.

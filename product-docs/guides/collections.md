@@ -4,7 +4,7 @@ description: Step-by-step walkthrough for building and curating a collection
 
 # Managing a collection
 
-A **collection** is a hand-curated bundle of GRC objects — audits, risk studies, evidences, policies, exceptions — grouped under a single name. It's the building block CISO Assistant uses for "scope" wherever scope matters: a project's perimeter, an accreditation's evidence pack, or any custom roll-up you want to query as a unit.
+A **collection** is a hand-curated bundle of GRC objects — audits, risk studies, evidences, policies, exceptions — grouped under a single name. It's the building block Suricatoos CISO uses for "scope" wherever scope matters: a project's perimeter, an accreditation's evidence pack, or any custom roll-up you want to query as a unit.
 
 See [Project management](../concepts/project-management.md) for how collections, projects, and accreditations fit together.
 
@@ -14,7 +14,7 @@ Collections live under the **Project management** module. If the sidebar doesn't
 
 ## What a collection holds
 
-A collection is a thin envelope around nine many-to-many relationships. Anything in CISO Assistant that can live in a project's scope can sit inside a collection:
+A collection is a thin envelope around nine many-to-many relationships. Anything in Suricatoos CISO that can live in a project's scope can sit inside a collection:
 
 - **Audits** (`compliance_assessments`)
 - **Risk assessments**

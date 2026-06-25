@@ -125,7 +125,7 @@ class PersonalAccessTokenViewSet(views.APIView):
             expiry_days = int(request.data.get("expiry", 30))
             if expiry_days <= 0:
                 raise ValueError
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             return Response(
                 {"error": "Expiry must be a positive integer (days)."},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -288,7 +288,7 @@ class PasswordResetView(views.APIView):
                     )
                     associated_user.mailing(
                         email_template_name="registration/password_reset_email.html",
-                        subject=_("CISO Assistant: Password Reset"),
+                        subject=_("Suricatoos CISO: Password Reset"),
                     )
                     logger.info(
                         "Password reset email request processed", recipient=email

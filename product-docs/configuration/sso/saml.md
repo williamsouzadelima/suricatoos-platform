@@ -10,11 +10,11 @@
 
 {% tabs %}
 {% tab title="General configuration" %}
-### Configure CISO Assistant with SAML
+### Configure Suricatoos CISO with SAML
 
-Once you've retrieved the **IdP Entity ID,** the **Metadata URL** and the **Entity ID** from your provider (see the list of providers for specific details), the configuration on CISO Assistant is pretty simple.
+Once you've retrieved the **IdP Entity ID,** the **Metadata URL** and the **Entity ID** from your provider (see the list of providers for specific details), the configuration on Suricatoos CISO is pretty simple.
 
-1.  Log in into CISO Assistant as an **administrator > Extra > Settings**<br>
+1.  Log in into Suricatoos CISO as an **administrator > Extra > Settings**<br>
 
     <figure><img src="../../.gitbook/assets/Screenshot 2024-09-02 12.31.25.png" alt=""><figcaption></figcaption></figure>
 2.  **Enable SSO**
@@ -50,5 +50,5 @@ Once you've retrieved the **IdP Entity ID,** the **Metadata URL** and the **Enti
 {% endtabs %}
 
 {% hint style="warning" %}
-<mark style="color:orange;">Be aware that the user needs to be created on CISO Assistant to be authenticated with SSO.</mark>
+<mark style="color:orange;">Be aware that the user needs to be created on Suricatoos CISO to be authenticated with SSO.</mark>
 {% endhint %}

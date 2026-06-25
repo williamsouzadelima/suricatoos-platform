@@ -37,7 +37,7 @@ auth_data = dict()
 
 @click.group()
 def cli():
-    """The CISO Assistant dispatcher is a command line tool that consumes messages from a Kafka topic and processes them."""
+    """The Suricatoos CISO dispatcher is a command line tool that consumes messages from a Kafka topic and processes them."""
     pass
 
 
@@ -115,7 +115,7 @@ def consume():
                         if e.response.status_code == 401:
                             logger.error(
                                 "Authentication failed (401). The access token is invalid or expired. "
-                                "Provision a new Personal Access Token in CISO Assistant and update USER_TOKEN."
+                                "Provision a new Personal Access Token in Suricatoos CISO and update USER_TOKEN."
                             )
                             raise
                         raise

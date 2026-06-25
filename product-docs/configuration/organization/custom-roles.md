@@ -10,21 +10,21 @@ description: Fine-grained permissions management
 
 Custom roles allow you to refine access control when very specific permissions need to be granted to a user.
 
-In CISO Assistant, **domains are the primary mechanism for restricting access**. Custom roles should only be created when domain-based restrictions are insufficient.
+In Suricatoos CISO, **domains are the primary mechanism for restricting access**. Custom roles should only be created when domain-based restrictions are insufficient.
 
 Keep in mind that custom roles increase IAM complexity and make access reviews more difficult. In most cases, the default roles are sufficient.
 
-## [Custom roles for CISO Assistant](https://app.guidde.com/playbooks/7f23K23PveNou6UuXdYRFe)
+## [Custom roles for Suricatoos CISO](https://app.guidde.com/playbooks/7f23K23PveNou6UuXdYRFe)
 
 {% embed url="https://app.guidde.com/share/playbooks/7f23K23PveNou6UuXdYRFe" %}
 
 Learn how to create and customize roles such as DPO and OPS within your organization
 
-#### Sign in as an Admin on your CISO Assistant instance and follow the steps below.
+#### Sign in as an Admin on your Suricatoos CISO instance and follow the steps below.
 
 #### 1. Introduction
 
-This guide walks you through setting permissions and assigning user groups to streamline your CISO Assistant's role management.
+This guide walks you through setting permissions and assigning user groups to streamline your Suricatoos CISO's role management.
 
 ![Introduction](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2F7f23K23PveNou6UuXdYRFe%2FwnYkQJKg93YsBNv3CKitCs_doc.png?alt=media\&token=42671f9e-75f0-431c-8c01-8eb22f15b73f)
 

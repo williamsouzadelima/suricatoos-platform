@@ -149,7 +149,7 @@ class SecurityAdvisoryViewSet(BaseModelViewSet):
                     direct = httpx.get(
                         f"https://euvdservices.enisa.europa.eu/api/enisaid",
                         params={"id": lookup_id},
-                        headers={"User-Agent": "CISO-Assistant/1.0"},
+                        headers={"User-Agent": "Suricatoos-CISO/1.0"},
                         timeout=_get_timeout(),
                     )
                     direct.raise_for_status()

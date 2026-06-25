@@ -1,6 +1,6 @@
 ---
 description: >-
-  CISO Assistant can emit its operational logs as line-delimited JSON so a SIEM
+  Suricatoos CISO can emit its operational logs as line-delimited JSON so a SIEM
   (Microsoft Sentinel, Azure Data Explorer, Splunk, Elastic) can ingest them
   without custom parsing. This page explains how to enable it and what the
   records look like.

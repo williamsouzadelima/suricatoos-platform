@@ -1,6 +1,6 @@
 # Security intelligence feeds
 
-CISO Assistant can optionally enrich its vulnerability and security-advisory catalogues by polling external threat-intelligence feeds. These switches control which feeds are active and how the platform reaches them.
+Suricatoos CISO can optionally enrich its vulnerability and security-advisory catalogues by polling external threat-intelligence feeds. These switches control which feeds are active and how the platform reaches them.
 
 All feeds are **off by default** — they make outbound network calls, so opt in deliberately.
 

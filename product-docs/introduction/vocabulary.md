@@ -1,11 +1,11 @@
 # Vocabulary
 
-A glossary of the terms used in CISO Assistant. Where a user-facing term differs from the internal model name, both are given.
+A glossary of the terms used in Suricatoos CISO. Where a user-facing term differs from the internal model name, both are given.
 
 ## A
 
 - **Accreditation** — Formal authorisation that a system, environment, or product has met security and compliance requirements. Captured as an object in project-management workflows, often required for go-live.
-- **Actor** — The unifying handle for anyone who can own or be assigned work in CISO Assistant. An actor wraps exactly one of three underlying objects: a [User](#u), a [Team](#t), or an [Entity](#e). Auto-created when its underlying object is created — not managed directly. See [Actors and teams](../concepts/actors-and-teams.md).
+- **Actor** — The unifying handle for anyone who can own or be assigned work in Suricatoos CISO. An actor wraps exactly one of three underlying objects: a [User](#u), a [Team](#t), or an [Entity](#e). Auto-created when its underlying object is created — not managed directly. See [Actors and teams](../concepts/actors-and-teams.md).
 - **Applied control** — The main building block of the action plan: a concrete action your team has implemented or will implement. It can be technical, organisational, a process, a policy, a piece of documentation — anything that materially changes risk or compliance posture. Applied controls are always defined by the organisation and can be attached to the global domain or to a specific domain. They may derive from a reference control for consistency, or be created independently.
 - **Asset** — Anything of value worth protecting. **Primary assets** are core resources directly contributing to the organisation's main objectives (business processes, data, intellectual property). **Supporting assets** indirectly aid primary functions (IT systems, services, locations, people).
 - **Asset assessment** — A per-asset row inside a business impact analysis, capturing recovery posture (documented, tested, targets met), associated controls, evidence, and the escalation thresholds that describe how impact grows over time.
@@ -22,11 +22,11 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 ## C
 
 - **Campaign** — An orchestration object for running many audits in parallel — for example, one audit per perimeter against the same framework. PRO feature.
-- **Catalog object** — A reusable building block of CISO Assistant: framework, threat, risk matrix, reference control, mapping, security advisory, CWE. Catalog objects are packaged into libraries.
+- **Catalog object** — A reusable building block of Suricatoos CISO: framework, threat, risk matrix, reference control, mapping, security advisory, CWE. Catalog objects are packaged into libraries.
 - **Compliance assessment** — Internal model name for an **audit**. See **Audit**.
 - **Contract** — A third-party agreement attached to a supplier entity or solution, with terms, dates, and renewal information.
 - **Control** — Generic term. Disambiguate against **applied control** (concrete instance) and **reference control** (template).
-- **Current risk** — The risk level given the **applied controls already in place** — the state of risk today. The middle tier of CISO Assistant's three-tier model: inherent (no controls) → current (existing controls) → residual (existing + planned controls).
+- **Current risk** — The risk level given the **applied controls already in place** — the state of risk today. The middle tier of Suricatoos CISO's three-tier model: inherent (no controls) → current (existing controls) → residual (existing + planned controls).
 - **Custom field** (also _custom attribute_) — An organisation-defined attribute that can be attached to platform objects (projects, risks, assets, suppliers, contracts, and more) to capture typed, filterable, searchable metadata beyond the built-in fields.
 - **CWE** — Common Weakness Enumeration. A catalogued category of software weakness, used to tag vulnerabilities and security advisories.
 
@@ -39,7 +39,7 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 - **Data subject** — The category of individuals whose personal data is processed (customers, employees, prospects, etc.). Surfaces in the privacy register and right-request workflows.
 - **Data transfer** — A record of cross-border or cross-entity movement of personal data, with destination, legal basis, and safeguards.
 - **Document revision** — A single revision of a [Managed document](#m). Carries a version number and a lifecycle status (draft → in review → change requested → validated → published → deprecated).
-- **Domain** — The top-level container in CISO Assistant: a business unit, subsidiary, project, or any boundary used for organising work and isolating permissions via role-based access control. Sub-domains nest underneath. Internally a `Folder`. _Demo_ and _Starter_ are reserved for internal features.
+- **Domain** — The top-level container in Suricatoos CISO: a business unit, subsidiary, project, or any boundary used for organising work and isolating permissions via role-based access control. Sub-domains nest underneath. Internally a `Folder`. _Demo_ and _Starter_ are reserved for internal features.
 
 ## E
 
@@ -67,7 +67,7 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 ## I
 
 - **Incident** — A security or operational event being investigated or tracked. Distinct from a **risk** (potential) or a **vulnerability** (weakness).
-- **Inherent risk** — The natural risk level of a scenario _without any applied controls_. The top tier of CISO Assistant's three-tier model — useful for ranking scenarios by their underlying severity, independently of the mitigation already in place. Surfaced in the UI when the `inherent_risk` feature flag is on.
+- **Inherent risk** — The natural risk level of a scenario _without any applied controls_. The top tier of Suricatoos CISO's three-tier model — useful for ranking scenarios by their underlying severity, independently of the mitigation already in place. Surfaced in the UI when the `inherent_risk` feature flag is on.
 
 ## J
 
@@ -101,11 +101,11 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 - **Perimeter** — A scoped subset of a domain that an audit or risk assessment applies to. Unlike a domain, a perimeter does **not** enforce role-based access control. Perimeters were previously called "Projects".
 - **Personal access token** (PAT) — A long-lived authentication token a user can issue from their profile to authenticate API calls. Alternative to session-based login; used by scripts, integrations, the CLI, and the MCP server.
 - **Personal data** — In a privacy register, any data referring to an identified or identifiable individual.
-- **Policy** — A specific type of applied control: a document describing what is expected from some part of your stakeholders. Lives in CISO Assistant so its lifecycle can be managed alongside the rest of your controls.
+- **Policy** — A specific type of applied control: a document describing what is expected from some part of your stakeholders. Lives in Suricatoos CISO so its lifecycle can be managed alongside the rest of your controls.
 - **Preset** — A reusable template describing a guided workflow: a set of starter objects to scaffold (audit, risk assessment, etc.) plus an ordered list of steps to follow. Library-backed or authored locally; applied to a domain to produce a [Journey](#j).
 - **Processing** — In a privacy register, an activity that operates on personal data (collection, storage, transfer, deletion). Captures purpose, lawful basis, recipients, and retention.
 - **Processing nature** — A catalogued type of processing operation (collection, storage, transfer, disclosure, deletion, …) used to characterise a processing.
-- **Project** — In the project-management module, a planned initiative with deliverables and milestones. Distinct from the legacy meaning of "project" in older CISO Assistant documentation — see **Perimeter**.
+- **Project** — In the project-management module, a planned initiative with deliverables and milestones. Distinct from the legacy meaning of "project" in older Suricatoos CISO documentation — see **Perimeter**.
 - **Purpose** — In a privacy register, the lawful reason for which personal data is processed.
 
 ## Q
@@ -123,7 +123,7 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 - **Requirement** — A single normative statement inside a framework.
 - **Requirement assessment** — The evaluation of one requirement inside an audit (status, score, evidence, applied controls).
 - **Requirement mapping set** — Internal model name for the catalog object backing a **mapping** library. See **Mapping**.
-- **Residual risk** — The risk level expected once all _planned_ applied controls have been implemented — the target state of the action plan. The bottom tier of CISO Assistant's three-tier model (inherent → current → residual), and the figure used as input to risk-acceptance decisions.
+- **Residual risk** — The risk level expected once all _planned_ applied controls have been implemented — the target state of the action plan. The bottom tier of Suricatoos CISO's three-tier model (inherent → current → residual), and the figure used as input to risk-acceptance decisions.
 - **Responsibility matrix** — An assignment of actors to activities, used in project workflows and accreditation processes. Supports RACI, RASCI, and RAPID conventions.
 - **Responsibility role** — The role attached to an actor on an activity inside a responsibility matrix (e.g. R/A/C/I in RACI, or R/A/S/C/I in RASCI). Defined per matrix.
 - **Right request** — In a privacy register, a data-subject request under GDPR or equivalent (access, rectification, deletion, portability).
@@ -171,4 +171,4 @@ A glossary of the terms used in CISO Assistant. Where a user-facing term differs
 
 ## W
 
-- **Webhook endpoint** — A registered URL CISO Assistant calls when configured events happen (e.g. an audit closed, an applied control updated). Used to notify external systems and trigger downstream automation.
+- **Webhook endpoint** — A registered URL Suricatoos CISO calls when configured events happen (e.g. an audit closed, an applied control updated). Used to notify external systems and trigger downstream automation.

@@ -1,8 +1,8 @@
-![CISO Assistant](https://github.com/intuitem/ciso-assistant-community/raw/main/gh_banner.png)
+![Suricatoos CISO](https://github.com/intuitem/ciso-assistant-community/raw/main/gh_banner.png)
 
-# CISO Assistant — Product Documentation
+# Suricatoos CISO — Product Documentation
 
-CISO Assistant is an open-source GRC (Governance, Risk and Compliance) platform — a different take on cybersecurity posture management, built on a few load-bearing ideas:
+Suricatoos CISO is an open-source GRC (Governance, Risk and Compliance) platform — a different take on cybersecurity posture management, built on a few load-bearing ideas:
 
 - Explicitly decoupling compliance from security-operations implementation.
 - Providing simplified tools for decision-making.
@@ -16,12 +16,12 @@ CISO Assistant is an open-source GRC (Governance, Risk and Compliance) platform 
 
 - **Introduction** — design philosophy and vocabulary.
 - **Concepts** — the central objects you work with: domains, perimeters, applied controls, assets, assessments, risks.
-- **Installation** — getting CISO Assistant running.
+- **Installation** — getting Suricatoos CISO running.
 - **Configuration** — organisation setup, IAM, SSO, and customisation.
 - **Features** — a catalogue of shipped capabilities.
 - **Guides** — task-oriented walkthroughs, both onboarding and ongoing operations.
 - **AI and Integrations** — the REST API, the MCP server, and third-party integrations.
-- **Contributing** — how to extend CISO Assistant and improve this documentation.
+- **Contributing** — how to extend Suricatoos CISO and improve this documentation.
 
 ## More from intuitem
 

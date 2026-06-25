@@ -1,5 +1,5 @@
 """
-Simple script to convert NIST SP-800-66 excel in a CISO Assistant Excel file
+Simple script to convert NIST SP-800-66 excel in a Suricatoos CISO Excel file
 Source;  https://csrc.nist.gov/Projects/cprt/catalog#/cprt/framework/version/SP800_66_2_0_0/home
 """
 
@@ -9,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser(
     prog="convert_nist-sp-800-66",
-    description="convert NIST SP-800-66 controls official Excel file to CISO Assistant Excel file",
+    description="convert NIST SP-800-66 controls official Excel file to Suricatoos CISO Excel file",
 )
 
 parser.add_argument("filename", help="name of official NIST SP-800-66 Excel file")

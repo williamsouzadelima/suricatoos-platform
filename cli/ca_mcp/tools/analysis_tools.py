@@ -1,4 +1,4 @@
-"""Analysis MCP tools for CISO Assistant"""
+"""Analysis MCP tools for Suricatoos CISO"""
 
 from ..client import make_get_request, fetch_all_results
 from ..utils.response_formatter import (

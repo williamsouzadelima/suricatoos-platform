@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '../utils/test-utils.js';
 import { writePageReport, type PageReport, type Severity } from '../utils/a11y-report.js';
 
-// axe-core audit of CISO Assistant's key pages. Each page writes its own report
+// axe-core audit of Suricatoos CISO's key pages. Each page writes its own report
 // file (a11y-report.ts) because Playwright restarts the worker on a failing test;
 // the combined report is built in global teardown.
 

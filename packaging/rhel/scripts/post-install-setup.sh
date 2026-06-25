@@ -1,11 +1,11 @@
 #!/bin/bash
-# CISO Assistant Post-Installation Setup Script
+# Suricatoos CISO Post-Installation Setup Script
 # Run this after RPM installation to complete setup
 
 set -e
 
 echo "======================================"
-echo " CISO Assistant Post-Install Setup"
+echo " Suricatoos CISO Post-Install Setup"
 echo "======================================"
 echo ""
 
@@ -18,7 +18,7 @@ fi
 
 # Check if services are installed
 if ! systemctl list-unit-files | grep -q ciso-assistant-backend; then
-    echo "ERROR: CISO Assistant services not found. Please install the RPM first."
+    echo "ERROR: Suricatoos CISO services not found. Please install the RPM first."
     exit 1
 fi
 
@@ -52,7 +52,7 @@ sudo -u ciso-assistant /opt/ciso-assistant/venv/bin/python manage.py createsuper
 echo ""
 echo "Step 4: Start Services"
 echo "----------------------------"
-read -p "Start CISO Assistant services now? (y/n) " -n 1 -r
+read -p "Start Suricatoos CISO services now? (y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     systemctl start ciso-assistant-backend
@@ -72,7 +72,7 @@ echo "======================================"
 echo " Setup Complete!"
 echo "======================================"
 echo ""
-echo "CISO Assistant is now running:"
+echo "Suricatoos CISO is now running:"
 echo "  - Frontend: http://localhost:3000"
 echo "  - Backend API: http://localhost:8000/api"
 echo ""

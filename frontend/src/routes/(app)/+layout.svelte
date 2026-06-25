@@ -150,7 +150,7 @@
 </script>
 
 <svelte:head>
-	<title>CISO Assistant | {safeTranslate(displayTitle)}</title>
+	<title>Suricatoos CISO | {safeTranslate(displayTitle)}</title>
 </svelte:head>
 
 <!-- App Shell -->

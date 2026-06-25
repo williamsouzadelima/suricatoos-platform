@@ -8,9 +8,9 @@ from django.conf import settings
 
 
 class Command(BaseCommand):
-    help = """Clone a CISO Assistant instance by copying the database and evidence attachments.
+    help = """Clone a Suricatoos CISO instance by copying the database and evidence attachments.
 
-    This command creates a complete copy of a CISO Assistant instance, including:
+    This command creates a complete copy of a Suricatoos CISO instance, including:
     - SQLite database file
     - Evidence attachments directory
 
@@ -118,7 +118,7 @@ class Command(BaseCommand):
         dest_attachments = os.path.abspath(dest_attachments)
 
         self.stdout.write("\n" + "=" * 70)
-        self.stdout.write(self.style.SUCCESS("CISO Assistant Instance Cloning"))
+        self.stdout.write(self.style.SUCCESS("Suricatoos CISO Instance Cloning"))
         self.stdout.write("=" * 70)
 
         # Validate source database exists
@@ -267,7 +267,7 @@ class Command(BaseCommand):
             self.stdout.write(
                 "\n"
                 + self.style.WARNING("Note:")
-                + " To use the cloned instance, update your CISO Assistant"
+                + " To use the cloned instance, update your Suricatoos CISO"
             )
             self.stdout.write(
                 "configuration to point to the new database and attachments paths."

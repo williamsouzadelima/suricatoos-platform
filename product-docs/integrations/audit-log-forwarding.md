@@ -8,14 +8,14 @@ description: Stream the audit log to an external SIEM over HTTP or Kafka
 Audit log forwarding is a **PRO** capability, gated by the `audit_log_forwarding` feature flag. The underlying [audit log](../features/audit-log.md) records every change; this feature ships those records to your SIEM.
 {% endhint %}
 
-CISO Assistant can forward its [audit log](../features/audit-log.md) — every create, update, and delete on a tracked object — to an external SIEM as the events happen. Each change becomes one event, carrying who made it, what changed, when, and the domain it belongs to.
+Suricatoos CISO can forward its [audit log](../features/audit-log.md) — every create, update, and delete on a tracked object — to an external SIEM as the events happen. Each change becomes one event, carrying who made it, what changed, when, and the domain it belongs to.
 
 It reuses the hardened [outgoing webhooks](webhooks.md) delivery pipeline (async workers, retries, SSRF protection), but is configured separately as a set of **audit sinks** managed by administrators.
 
 ## When to use it
 
 - **Centralised monitoring.** Feed governance activity into Splunk, Elastic, Microsoft Sentinel, or any SIEM alongside the rest of your security telemetry.
-- **Tamper-evident retention.** Archive the audit trail outside the application, beyond CISO Assistant's own 90-day retention window.
+- **Tamper-evident retention.** Archive the audit trail outside the application, beyond Suricatoos CISO's own 90-day retention window.
 - **Detection & alerting.** Trigger SOC rules on sensitive changes (e.g. a control marked inactive, a user role changed).
 
 ## How it works
@@ -44,7 +44,7 @@ Choose a **Transport** per sink:
 Choose an **Event format** per sink:
 
 - **OCSF** — the [Open Cybersecurity Schema Framework](https://schema.ocsf.io/) API Activity class. A vendor-neutral schema understood by most SIEMs. Recommended.
-- **Raw** — the native CISO Assistant shape (a flat pass-through of the log-entry fields).
+- **Raw** — the native Suricatoos CISO shape (a flat pass-through of the log-entry fields).
 
 ***
 
@@ -92,7 +92,7 @@ Each event maps to an OCSF API Activity event (`class_uid` 6003, `category_uid` 
   "time": 1763043306000,
   "metadata": {
     "version": "1.8.0",
-    "product": { "name": "CISO Assistant", "vendor_name": "intuitem" },
+    "product": { "name": "Suricatoos CISO", "vendor_name": "intuitem" },
     "correlation_uid": "req-abc-123"
   },
   "actor": { "user": { "uid": "…", "email_addr": "john.doe@example.com" } },
@@ -133,7 +133,7 @@ The field-level diff and the originating domain (`folder_id`) ride in `unmapped`
 
 - **Delivery & retries.** HTTP delivery treats any `2xx` as success. `4xx`/`5xx` responses and network errors or timeouts are retried — up to 5 times with exponential backoff (60s, then doubling, ~30 minutes total) — before the event is dropped. Redirects (`3xx`) are **not** followed and count as a terminal failure (no retry). Kafka delivery retries on producer errors. Forwarding is best-effort — replay is the backstop for gaps.
 - **Egress safety.** Every HTTP sink URL is validated to point at a public host (no private, loopback, or internal addresses) at save time and again at send time; redirects are not followed. To forward to an internal collector, start the backend with `ALLOW_PRIVATE_NETWORK_REQUESTS=True` (previously named `WEBHOOK_ALLOW_PRIVATE_IPS`; the old name is no longer recognized).
-- **SaaS.** Forwarding is pure egress to a destination you own — a SIEM collector URL or a Kafka broker you operate. CISO Assistant runs no per-tenant infrastructure for this.
+- **SaaS.** Forwarding is pure egress to a destination you own — a SIEM collector URL or a Kafka broker you operate. Suricatoos CISO runs no per-tenant infrastructure for this.
 
 ## Related
 

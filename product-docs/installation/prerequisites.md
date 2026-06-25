@@ -1,6 +1,6 @@
 # Prerequisites
 
-### Prerequisites to Install CISO Assistant On-Premises
+### Prerequisites to Install Suricatoos CISO On-Premises
 
 
 

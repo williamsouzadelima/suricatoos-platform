@@ -1,4 +1,4 @@
-# CISO Assistant Data Model
+# Suricatoos CISO Data Model
 
 ## Entity-relationship diagram
 
@@ -529,7 +529,7 @@ Note: perimeters were previously named "projects", but this was misleading.
 
 ### Project objects
 
-Project objects are defined by the entity using CISO Assistant. Assessments can be attached to a project object, though this is optional. Project objects are organized hierarchically, each project object can have a parent, but loops are not allowed.
+Project objects are defined by the entity using Suricatoos CISO. Assessments can be attached to a project object, though this is optional. Project objects are organized hierarchically, each project object can have a parent, but loops are not allowed.
 
 Projects objects have the following fields:
 
@@ -587,7 +587,7 @@ Note: the order can be changed in a translation. This makes easy to transform CI
 
 ## Assets, security and disaster recovery objectives
 
-Assets are context objects defined by the entity using CISO Assistant. They are optional, assessments can be done without using them.
+Assets are context objects defined by the entity using Suricatoos CISO. They are optional, assessments can be done without using them.
 
 Assets are of type primary or supporting. A primary asset has no parent, a supporting asset can have parent assets (primary or supporting), but not itself.
 
@@ -643,7 +643,7 @@ THe scale to use is a global parameter. It has no impact on the encoding in the 
 
 ## Frameworks
 
-The fundamental object of CISO Assistant for compliance is the framework. It corresponds to a given standard, e.g. ISO27001:2013. It mainly contains requirements nodes. A requirement node can be assessable or not (e.g. title or informational elements are not assessable). Assessable requirement nodes can be simply called "requirements".
+The fundamental object of Suricatoos CISO for compliance is the framework. It corresponds to a given standard, e.g. ISO27001:2013. It mainly contains requirements nodes. A requirement node can be assessable or not (e.g. title or informational elements are not assessable). Assessable requirement nodes can be simply called "requirements".
 The structure (tree) of requirements is defined by the requirement node objects. The _parent_urn_ of a requirement node can either be the URN of another requirement node or null for top-level objects. This allows to simply define the structure of a framework. An assessable requirement node can be the child of another assessable requirement node, which is very convenient for frameworks that have lists of conditions attached to a requirement.
 
 The implementation_groups field contains a comma-separated list of implementation groups where the requirement node is found, when this is relevant (e.g. for CMMC or CIS). Implementation groups are identified by their ref_id string. Implementation groups are independent, a requirement can be member of any implementation group. Implementation groups are defined in the implementation_groups_definition json field (None by default), that contains a list of objects containing the following fields (example for CMMC):
@@ -657,7 +657,7 @@ The implementation_groups field contains a comma-separated list of implementatio
 }
 ```
 
-A requirement node can be covered by typical reference controls. A requirement node can cover typical threats. This information is provided in the form of optional links between requirement nodes and reference controls/threats. This is only informative, but is an important added value of CISO Assistant.
+A requirement node can be covered by typical reference controls. A requirement node can cover typical threats. This information is provided in the form of optional links between requirement nodes and reference controls/threats. This is only informative, but is an important added value of Suricatoos CISO.
 
 A requirement node can have a positive integer weight, that is used for score weighting. The default weight (if undefined) is 1.
 
@@ -1105,7 +1105,7 @@ The performance of the UX shall be optimized, by avoiding to preload all possibl
 
 ## Incidents
 
-Significant security incidents can be traced in CISO Assistant. An incident object has the following fields:
+Significant security incidents can be traced in Suricatoos CISO. An incident object has the following fields:
 
 - ref_id/name/description
 - qualifications
@@ -1152,7 +1152,7 @@ Libraries have an integer version that completes the URN. The highest version fo
 
 Libraries have a provider (which entity produced the original content), and a packager (which entity did the library). Objects in the library inherit their provider from the library's.
 
-Libraries can depend on other libraries, thanks to the "dependencies" section, that contains a list of URNs. When loading a library, CISO Assistant first loads the dependent libraries. If a dependency is missing, the loading is cancelled.
+Libraries can depend on other libraries, thanks to the "dependencies" section, that contains a list of URNs. When loading a library, Suricatoos CISO first loads the dependent libraries. If a dependency is missing, the loading is cancelled.
 
 When a library is loaded, this loading is stored in the database, and the corresponding objects keep a link to the library. This allows removing all objects from a library in a single action.
 
@@ -1192,7 +1192,7 @@ Framework and risk matrix objects can only come from a library.
 
 The URN allows in particular having a threat or reference control used in several frameworks.
 
-It is possible to mix global and local referential objects. For example, a client can use threats coming from the MITRE referential and also define custom threats directly in CISO Assistant.
+It is possible to mix global and local referential objects. For example, a client can use threats coming from the MITRE referential and also define custom threats directly in Suricatoos CISO.
 
 Note: links to URN occur only in libraries, links in the database shall always use the UUID of the object.
 
@@ -1258,7 +1258,7 @@ Note: generated documents (pdf, excel, word) are currently translated in the bac
 
 ## Access control model
 
-All objects in CISO Assistant follow a simple and consistent RBAC IAM model, including IAM objects themselves.
+All objects in Suricatoos CISO follow a simple and consistent RBAC IAM model, including IAM objects themselves.
 
 ### Granularity
 
@@ -1284,7 +1284,7 @@ Practically, the perimeter is either:
 
 ### Folder organization
 
-For Access Control purpose, CISO Assistant data is organized in a tree of folders, starting from a root folder. The organization of the tree is not hardcoded, it is entirely determined by configuration. Any object in CISO Assistant is attached to a folder (including folders), either directly or indirectly through a parent object that is attached to a folder. The root folder is attached to None.
+For Access Control purpose, Suricatoos CISO data is organized in a tree of folders, starting from a root folder. The organization of the tree is not hardcoded, it is entirely determined by configuration. Any object in Suricatoos CISO is attached to a folder (including folders), either directly or indirectly through a parent object that is attached to a folder. The root folder is attached to None.
 
 A folder contains the following attributes:
 
@@ -1329,7 +1329,7 @@ Role assignements are described as a table containing the following attributes:
 - folders: list of folders that form the perimeter of the assignment.
 - is_recursive: a boolean indicating if the perimeter includes the subfolders
 
-This table is the golden source of all access management in CISO Assistant, no additional information is necessary to know who has access to what.
+This table is the golden source of all access management in Suricatoos CISO, no additional information is necessary to know who has access to what.
 
 ### Published global objects
 
@@ -1337,7 +1337,7 @@ All objects have a boolean attribute is_published, that specifies if the object 
 
 ### Built-in objects
 
-Built-in objects are predefined in CISO Assistant. They can be viewed following the general IAM model, but they cannot be deleted nor changed. A built-in object is characterized by the "builtin=True" attribute.
+Built-in objects are predefined in Suricatoos CISO. They can be viewed following the general IAM model, but they cannot be deleted nor changed. A built-in object is characterized by the "builtin=True" attribute.
 Types that can be built-in are: folders, roles, role assignments and groups.
 
 Names of built-in objects can be internationalized.
@@ -1367,7 +1367,7 @@ The goal of Third-Party Risk Management is to manage the risk incurred by a prov
 The following approach has been retained:
 
 - An "entity" model is added to modelize third parties in a generic way.
-- A third party is an entity that is provider of the entity representing the client using CISO Assistant.
+- A third party is an entity that is provider of the entity representing the client using Suricatoos CISO.
 - An evaluation of a third party is based on a compliance assessment, to leverage a huge amount of existing models and code.
 - This compliance assessment is done by the third party.
 - This compliance assessment is reviewed by the client, requirement by requirement.
@@ -1463,13 +1463,13 @@ erDiagram
 
 An entity represents a legal entity, a corporate body, an administrative body, an association. An entity can be:
 
-- the main subject for the current CISO Assistant instance ("main entity").
+- the main subject for the current Suricatoos CISO instance ("main entity").
 - a subisdiary of another entity.
 - a provider of another entity.
 - a threat actor.
 - ...
 
-An entity can own a domain. The entity that owns the global domain is the main subject for the current CISO Assistant instance.
+An entity can own a domain. The entity that owns the global domain is the main subject for the current Suricatoos CISO instance.
 
 An entity can provides a solution to another entity (see solution model). TPRM is done mainly for providers of the main entity, but nothing prevents doing an entity evaluation for any entity.
 
@@ -1515,7 +1515,7 @@ The objects manipulated by the third party (compliance assessment and evidences)
 
 ### Mapping of essential concepts
 
-| EBIOS-RM (english)    | EBIOS-RM (french)         | CISO Assistant                                            |
+| EBIOS-RM (english)    | EBIOS-RM (french)         | Suricatoos CISO                                            |
 | --------------------- | ------------------------- | --------------------------------------------------------- |
 | Study                 | Etude                     | Study                                                     |
 | Studied object        | Objet de l'étude         | Description of the Study                                  |
@@ -1750,7 +1750,7 @@ erDiagram
 - The export is a zip file containing a json dump of concerned objects and attached evidences.
 - The import is atomic, any error provokes a rollback.
 - The export function is only available in the PRO version.
-- The version of CISO Assistant is published in the export. The version at import shall be identical.
+- The version of Suricatoos CISO is published in the export. The version at import shall be identical.
 
 ### Additional features
 

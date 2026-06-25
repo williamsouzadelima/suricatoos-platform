@@ -5,7 +5,7 @@
 Name:           ciso-assistant
 Version:        %{_version}
 Release:        1%{?dist}
-Summary:        CISO Assistant - Cybersecurity GRC Platform
+Summary:        Suricatoos CISO - Cybersecurity GRC Platform
 License:        AGPLv3
 URL:            https://github.com/intuitem/ciso-assistant-community
 BuildArch:      x86_64
@@ -13,7 +13,7 @@ BuildArch:      x86_64
 Requires:       systemd
 
 %description
-CISO Assistant is an open-source cybersecurity GRC (Governance, Risk, and
+Suricatoos CISO is an open-source cybersecurity GRC (Governance, Risk, and
 Compliance) platform that helps organizations manage their security posture,
 compliance requirements, and risk assessments.
 
@@ -70,7 +70,7 @@ if ! getent group ciso-assistant >/dev/null; then
 fi
 if ! getent passwd ciso-assistant >/dev/null; then
     useradd -r -g ciso-assistant -d /opt/ciso-assistant -s /sbin/nologin \
-        -c "CISO Assistant service account" ciso-assistant
+        -c "Suricatoos CISO service account" ciso-assistant
 fi
 
 %post
@@ -101,7 +101,7 @@ systemctl enable ciso-assistant-frontend.service
 
 echo ""
 echo "============================================"
-echo " CISO Assistant installed successfully!"
+echo " Suricatoos CISO installed successfully!"
 echo "============================================"
 echo ""
 echo "Next steps:"
@@ -148,7 +148,7 @@ fi
 %config(noreplace) /etc/ciso-assistant/frontend.env
 
 %changelog
-* 2025-11-27 CISO Assistant Team <hello@intuitem.com>
+* 2025-11-27 Suricatoos CISO Team <hello@intuitem.com>
 - Initial RPM package for air-gapped deployment
 - Includes bundled Python 3.12, Node.js 22, and all dependencies
 - SQLite database for simplified deployment

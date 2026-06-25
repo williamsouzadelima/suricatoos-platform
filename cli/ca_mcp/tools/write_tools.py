@@ -1,4 +1,4 @@
-"""Write/Create MCP tools for CISO Assistant"""
+"""Write/Create MCP tools for Suricatoos CISO"""
 
 from ..client import make_post_request, make_get_request
 from ..resolvers import (

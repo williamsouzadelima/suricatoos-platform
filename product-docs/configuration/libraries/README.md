@@ -1,10 +1,10 @@
 ---
-description: Bringing content into CISO Assistant
+description: Bringing content into Suricatoos CISO
 ---
 
 # Libraries
 
-Libraries are how content gets into CISO Assistant — frameworks, threats, risk matrices, reference controls, mappings. They ship as YAML files, are versioned, and can be upgraded or removed cleanly.
+Libraries are how content gets into Suricatoos CISO — frameworks, threats, risk matrices, reference controls, mappings. They ship as YAML files, are versioned, and can be upgraded or removed cleanly.
 
 This section covers everything you need to manage them on your instance:
 

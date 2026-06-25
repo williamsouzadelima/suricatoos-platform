@@ -1,6 +1,6 @@
 """
 Script to parse Microsoft Cloud Security Benchmark v1 Excel file
-and generate an Excel file for CISO Assistant framework conversion tool.
+and generate an Excel file for Suricatoos CISO framework conversion tool.
 
 Output columns: assessable, depth, ref_id, name, description, annotation
 """

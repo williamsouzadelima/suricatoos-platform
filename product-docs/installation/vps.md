@@ -4,7 +4,7 @@ description: Virtual Private Server - Remote internet-facing VM
 
 # Deploy on a VPS
 
-This setup aims to expose CISO Assistant on a VPS while using automated Let's Encrypt for certificates management.
+This setup aims to expose Suricatoos CISO on a VPS while using automated Let's Encrypt for certificates management.
 
 
 

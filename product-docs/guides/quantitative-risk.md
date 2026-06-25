@@ -4,17 +4,17 @@ description: CRQ quick start
 
 # New - Cyber Risk Quantification
 
-## [Cyber Risk Quantification on CISO Assistant](https://app.guidde.com/playbooks/wTDpUXVPGoG4HGxhw44iN3)
+## [Cyber Risk Quantification on Suricatoos CISO](https://app.guidde.com/playbooks/wTDpUXVPGoG4HGxhw44iN3)
 
 {% embed url="https://app.guidde.com/share/playbooks/wTDpUXVPGoG4HGxhw44iN3" %}
 
-This tutorial guides you through performing Cyber Risk Quantification using the CISO Assistant
+This tutorial guides you through performing Cyber Risk Quantification using the Suricatoos CISO
 
 #### Go to your instance
 
 #### 1. Introduction
 
-You will learn how to create and configure risk studies, define scenarios with associated assets and threats, apply treatments, run simulations, and analyze results to make informed cybersecurity decisions. Before starting, ensure you have access to the CISO Assistant platform and necessary permissions to create and edit risk studies.
+You will learn how to create and configure risk studies, define scenarios with associated assets and threats, apply treatments, run simulations, and analyze results to make informed cybersecurity decisions. Before starting, ensure you have access to the Suricatoos CISO platform and necessary permissions to create and edit risk studies.
 
 ![Introduction](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2FwTDpUXVPGoG4HGxhw44iN3%2FfBjQKvcq1tfMJ8LNTA7pdr_doc.png?alt=media\&token=6585dd71-2c31-42d9-9139-08173fa2bf9b)
 
@@ -278,6 +278,6 @@ From a hypothesis to its parent scenario, or from a scenario to its parent study
 
 ![Don't forget to use this to go to the parent object](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2FwTDpUXVPGoG4HGxhw44iN3%2FabVFKZPMA4dzBExHN81jsk_doc.png?alt=media\&token=63d1b191-417c-4567-8beb-3b833f3437fc)
 
-You have successfully completed a Cyber Risk Quantification study using the CISO Assistant. By defining scenarios, assigning assets and threats, configuring treatments, and running simulations, you can now analyze potential risks and their financial impacts. To verify success, review the Executive Summary and ensure simulations reflect your updated parameters. Next, consider exploring advanced hypothesis testing or adjusting tolerance settings to refine your risk management strategy.
+You have successfully completed a Cyber Risk Quantification study using the Suricatoos CISO. By defining scenarios, assigning assets and threats, configuring treatments, and running simulations, you can now analyze potential risks and their financial impacts. To verify success, review the Executive Summary and ensure simulations reflect your updated parameters. Next, consider exploring advanced hypothesis testing or adjusting tolerance settings to refine your risk management strategy.
 
 [Powered by **guidde**](https://www.guidde.com)

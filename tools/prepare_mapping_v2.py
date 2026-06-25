@@ -2,7 +2,7 @@
 Prepare Mapping v2
 
 This script generates a mapping Excel file between two YAML-based frameworks
-used in CISO Assistant. It extracts relevant metadata from the source and target
+used in Suricatoos CISO. It extracts relevant metadata from the source and target
 YAML files, builds a structured Excel workbook with mapping sheets, and saves it
 under a filename derived from the two frameworks' reference IDs.
 
@@ -233,7 +233,7 @@ def generate_mapping_excel(source_yaml, target_yaml):
 
 def main():
 
-    parser = argparse.ArgumentParser(prog="prepare_mapping_v2.py", description="Prepare a mapping Excel file for CISO Assistant")
+    parser = argparse.ArgumentParser(prog="prepare_mapping_v2.py", description="Prepare a mapping Excel file for Suricatoos CISO")
     parser.add_argument("source_yaml", help="Source YAML file")
     parser.add_argument("target_yaml", help="Target YAML file")
     args = parser.parse_args()

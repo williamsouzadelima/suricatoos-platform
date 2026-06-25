@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Preuve expirée depuis ${expired_since} jour(s)"
+subject: "Suricatoos CISO: Preuve expirée depuis ${expired_since} jour(s)"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${evidence_list}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour réviser et mettre à jour ces preuves : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez vous connecter à votre portail Suricatoos CISO pour réviser et mettre à jour ces preuves : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

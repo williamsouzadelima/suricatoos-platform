@@ -1,12 +1,12 @@
-subject: "Welcome to CISO Assistant!"
+subject: "Welcome to Suricatoos CISO!"
 body: |
-  <img src="https://intuitem.com/ciso-assistant.png" alt="CISO Assistant" width="200">
+  <img src="https://intuitem.com/ciso-assistant.png" alt="Suricatoos CISO" width="200">
 
-  ## Welcome to CISO Assistant!
+  ## Welcome to Suricatoos CISO!
 
   **Your all-in-one GRC Management Platform**
 
-  You have been granted access to CISO Assistant. To get started, use the link below to set your password:
+  You have been granted access to Suricatoos CISO. To get started, use the link below to set your password:
 
   [Set my password](${set_password_url})
 
@@ -17,7 +17,7 @@ body: |
 
   If you, or your organization, did not make this request, you can simply ignore this email.
 
-  Learn more about CISO Assistant [here](https://intuitem.com/).
+  Learn more about Suricatoos CISO [here](https://intuitem.com/).
 
   Sincerely,
-  CISO Assistant Team
+  Suricatoos CISO Team

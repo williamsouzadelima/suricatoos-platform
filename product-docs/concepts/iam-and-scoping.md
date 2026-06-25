@@ -4,7 +4,7 @@ description: How IAM, the domain hierarchy, publication, and cross-domain visibi
 
 # IAM and scoping
 
-This page is the **mental model** for how access and visibility work in CISO Assistant. The full configuration-side deep-dive (SAML / OIDC / MFA / PATs / accounting) lives in [Understanding the IAM model](../configuration/organization/iam-model.md); this page focuses on the three things every user needs internalised before they can predict what they will and won't see on screen:
+This page is the **mental model** for how access and visibility work in Suricatoos CISO. The full configuration-side deep-dive (SAML / OIDC / MFA / PATs / accounting) lives in [Understanding the IAM model](../configuration/organization/iam-model.md); this page focuses on the three things every user needs internalised before they can predict what they will and won't see on screen:
 
 1. Almost everything is bound to a **domain**.
 2. Permissions are inherited **down the domain tree**.
@@ -41,7 +41,7 @@ The same inheritance also drives reporting: most dashboards and analytics roll u
 
 Some objects exist to be **shared**. Frameworks, threats, risk matrices, reference controls, and other catalogue-style items wouldn't be useful if they were trapped in a single domain — every team needs to be able to pull from the same shared library.
 
-CISO Assistant models this through a built-in flag — **`is_published`** — that any object can carry. An object marked as published is visible inside every sub-domain of its own domain, _as if it had been attached to each one_. Publication is a **visibility** mechanism only; it does not let users in other domains create, update, or delete the object.
+Suricatoos CISO models this through a built-in flag — **`is_published`** — that any object can carry. An object marked as published is visible inside every sub-domain of its own domain, _as if it had been attached to each one_. Publication is a **visibility** mechanism only; it does not let users in other domains create, update, or delete the object.
 
 By default:
 

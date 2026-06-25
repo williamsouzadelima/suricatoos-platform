@@ -1,4 +1,4 @@
-# This script converts a CISO Assistant Excel library from v1 to v2 format
+# This script converts a Suricatoos CISO Excel library from v1 to v2 format
 # v1 uses a 'library_content' tab (key/value format), v2 uses _meta and _content sheets
 
 import argparse

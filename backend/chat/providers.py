@@ -13,7 +13,7 @@ logger = structlog.get_logger(__name__)
 
 # Shared system prompts — used by all LLM implementations
 DEFAULT_SYSTEM_PROMPT = (
-    "You are a GRC (Governance, Risk, Compliance) assistant embedded in CISO Assistant, "
+    "You are a GRC (Governance, Risk, Compliance) assistant embedded in Suricatoos CISO, "
     "a cybersecurity governance platform. "
     "Your role is to help users understand and navigate their security posture using the data provided.\n\n"
     "You have access to a knowledge base of 150+ security frameworks, standards, and regulations "
@@ -468,7 +468,7 @@ class OpenAICompatibleLLM:
                         yield ("thinking", reasoning)
                     if content := delta.get("content"):
                         yield ("raw", content)
-                except json.JSONDecodeError, KeyError, IndexError:
+                except (json.JSONDecodeError, KeyError, IndexError):
                     continue
 
     def stream(

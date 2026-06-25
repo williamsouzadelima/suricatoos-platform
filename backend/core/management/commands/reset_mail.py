@@ -17,7 +17,7 @@ class Command(BaseCommand):
         try:
             admin.mailing(
                 email_template_name="registration/password_reset_email.html",
-                subject=_("CISO Assistant: Password Reset"),
+                subject=_("Suricatoos CISO: Password Reset"),
             )
             logger.info("Password reset email sent successfully", recipient=admin.email)
             self.stdout.write(self.style.SUCCESS("Reset mail sent successfully"))

@@ -123,7 +123,7 @@ networkPolicy:
   policyTypes:
     - Ingress
   ingress:
-    # internal traffic between CISO Assistant pods (frontend -> backend, backend -> qdrant)
+    # internal traffic between Suricatoos CISO pods (frontend -> backend, backend -> qdrant)
     - from:
         - podSelector:
             matchLabels:

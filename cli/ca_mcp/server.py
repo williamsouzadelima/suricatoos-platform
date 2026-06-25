@@ -1,4 +1,4 @@
-"""Main MCP server entry point for CISO Assistant"""
+"""Main MCP server entry point for Suricatoos CISO"""
 
 from mcp.server.fastmcp import FastMCP
 

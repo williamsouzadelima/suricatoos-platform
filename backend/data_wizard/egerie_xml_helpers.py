@@ -356,7 +356,7 @@ def extract_controls(root: ET.Element) -> list:
     return controls
 
 
-# Egerie implementation status -> CISO Assistant AppliedControl.status.
+# Egerie implementation status -> Suricatoos CISO AppliedControl.status.
 # CISO has no "planned" intermediate state; fold it into "to_do".
 _EGERIE_STATUS_MAP = {
     "inactive": "to_do",

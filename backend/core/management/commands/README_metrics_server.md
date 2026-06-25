@@ -4,7 +4,7 @@ This document explains how to use the new Prometheus metrics server management c
 
 ## Overview
 
-The `metrics_server` management command runs a standalone HTTP server that exposes Prometheus metrics on a separate port from the main CISO Assistant application. This approach provides better security and performance by isolating metrics collection from the main application.
+The `metrics_server` management command runs a standalone HTTP server that exposes Prometheus metrics on a separate port from the main Suricatoos CISO application. This approach provides better security and performance by isolating metrics collection from the main application.
 
 ## Usage
 

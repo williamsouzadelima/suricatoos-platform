@@ -1,13 +1,13 @@
 ---
 name: mapping-builder
-description: Build a reviewed crosswalk (RequirementMappingSet YAML library + review xlsx/csv) between two CISO Assistant framework YAML files using Claude itself as the reasoning engine. Zero infrastructure — stdlib + pyyaml only, no embedders, no LM Studio, no Qdrant. Use when the user asks to map / crosswalk / generate a mapping between two frameworks (e.g. ccb-cff-2023-03-01.yaml ↔ cyfun2025.yaml), wants to contribute a community mapping to backend/library/libraries/, or says things like "build a mapping between framework X and Y", "create a crosswalk YAML", "generate requirement_mapping_set". Output matches the schema in backend/library/libraries/mapping-*.yaml exactly so the result is PR-able.
+description: Build a reviewed crosswalk (RequirementMappingSet YAML library + review xlsx/csv) between two Suricatoos CISO framework YAML files using Claude itself as the reasoning engine. Zero infrastructure — stdlib + pyyaml only, no embedders, no LM Studio, no Qdrant. Use when the user asks to map / crosswalk / generate a mapping between two frameworks (e.g. ccb-cff-2023-03-01.yaml ↔ cyfun2025.yaml), wants to contribute a community mapping to backend/library/libraries/, or says things like "build a mapping between framework X and Y", "create a crosswalk YAML", "generate requirement_mapping_set". Output matches the schema in backend/library/libraries/mapping-*.yaml exactly so the result is PR-able.
 ---
 
 # Mapping Builder
 
 ## What this skill does
 
-Generate a CISO Assistant `requirement_mapping_set` library YAML — plus a human-review xlsx/csv — by reasoning over two framework YAMLs entirely in this conversation. No embedders, no local LLMs, no vector DBs.
+Generate a Suricatoos CISO `requirement_mapping_set` library YAML — plus a human-review xlsx/csv — by reasoning over two framework YAMLs entirely in this conversation. No embedders, no local LLMs, no vector DBs.
 
 The output YAML drops directly into `backend/library/libraries/` and is loadable by the platform's library loader.
 

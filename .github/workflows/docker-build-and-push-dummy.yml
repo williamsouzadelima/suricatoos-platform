@@ -45,7 +45,7 @@ jobs:
           tags: |
             type=raw,value=${{ env.VERSION }}
           labels: |
-            org.opencontainers.image.title=CISO Assistant Backend
+            org.opencontainers.image.title=Suricatoos CISO Backend
             org.opencontainers.image.description=An open-source GRC platform for cybersecurity compliance and risk management
             org.opencontainers.image.vendor=intuitem
             org.opencontainers.image.licenses=AGPL-3.0
@@ -59,7 +59,7 @@ jobs:
           tags: |
             type=raw,value=${{ env.VERSION }}
           labels: |
-            org.opencontainers.image.title=CISO Assistant Frontend
+            org.opencontainers.image.title=Suricatoos CISO Frontend
             org.opencontainers.image.description=An open-source GRC platform for cybersecurity compliance and risk management
             org.opencontainers.image.vendor=intuitem
             org.opencontainers.image.licenses=AGPL-3.0

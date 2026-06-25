@@ -1,5 +1,5 @@
 """
-Email template utilities for CISO Assistant
+Email template utilities for Suricatoos CISO
 """
 
 import re

@@ -4,12 +4,12 @@ convert_library_version:
 urn: urn:intuitem:risk:library:doc-pol
 locale: en
 ref_id: usual-controls
-name: CISO Assistant Key Reference Controls
+name: Suricatoos CISO Key Reference Controls
 description:
   "Curated set of key reference controls maintained by intuitem: policies,
   procedures, documents, training, technical and physical capabilities. Covers governance,
   access, data protection, resilience, privacy, AI, cloud and physical domains. Frameworks
-  across CISO Assistant reference these controls to drive applied-control suggestions.
+  across Suricatoos CISO reference these controls to drive applied-control suggestions.
   URN namespace preserved from the legacy `doc-pol` library."
 copyright: "\xA9 intuitem - 2026"
 version: 7
@@ -18,13 +18,13 @@ provider: intuitem
 packager: intuitem
 translations:
   fr:
-    name: "Mesures de r\xE9f\xE9rence cl\xE9s CISO Assistant"
+    name: "Mesures de r\xE9f\xE9rence cl\xE9s Suricatoos CISO"
     description:
       "Ensemble s\xE9lectionn\xE9 de mesures de r\xE9f\xE9rence cl\xE9\
       s maintenu par intuitem : politiques, proc\xE9dures, documents, formations,\
       \ capacit\xE9s techniques et physiques. Couvre la gouvernance, les acc\xE8s,\
       \ la protection des donn\xE9es, la r\xE9silience, la vie priv\xE9e, l'IA, le\
-      \ cloud et la s\xE9curit\xE9 physique. Les r\xE9f\xE9rentiels de CISO Assistant\
+      \ cloud et la s\xE9curit\xE9 physique. Les r\xE9f\xE9rentiels de Suricatoos CISO\
       \ s'y rattachent pour alimenter les suggestions de mesures appliqu\xE9es. L'espace\
       \ de noms URN `doc-pol` est conserv\xE9 pour compatibilit\xE9."
   de:

@@ -11,7 +11,7 @@ description: Threat and reference control library supporting the NIST CSF 2.0 or
 copyright: Threat scenarios and reference controls are original content informed by
   NIST SP 800-30 Rev.1, NIST CSF 2.0, and MITRE ATT&CK. NIST CSF 2.0 framework content
   is public domain per NIST policy. MITRE ATT&CK is used under CC BY 4.0. Packaged
-  for use with the intuitem/CISO Assistant platform.
+  for use with the intuitem/Suricatoos CISO platform.
 version: 2
 publication_date: 2026-06-14
 provider: NIST CSF

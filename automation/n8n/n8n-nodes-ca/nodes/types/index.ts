@@ -1,7 +1,7 @@
 import type { IExecuteFunctions, IDataObject } from "n8n-workflow";
 
 /**
- * Credentials interface for CISO Assistant API
+ * Credentials interface for Suricatoos CISO API
  */
 export interface ICisoAssistantCredentials {
   patKey: string;
@@ -54,7 +54,7 @@ export interface IPaginatedResponse {
 }
 
 /**
- * Resource types supported by CISO Assistant
+ * Resource types supported by Suricatoos CISO
  */
 export type ResourceType =
   | "system"

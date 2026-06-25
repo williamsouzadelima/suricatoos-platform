@@ -1,4 +1,4 @@
-# English display-name overrides for CISO Assistant.
+# English display-name overrides for Suricatoos CISO.
 # Copyright (C) 2024 intuitem
 # This file is distributed under the same license as the ciso-assistant package.
 #

@@ -1,6 +1,6 @@
 # Library workbench
 
-The convert-library.py script can be used to transform an Excel file to a CISO Assistant library.
+The convert-library.py script can be used to transform an Excel file to a Suricatoos CISO library.
 
 Have a look to the given examples.
 

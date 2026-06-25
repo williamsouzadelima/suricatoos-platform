@@ -1,6 +1,6 @@
 # AI Chat Mode — Setup Guide
 
-> Setup guide for enabling the AI assistant in CISO Assistant.
+> Setup guide for enabling the AI assistant in Suricatoos CISO.
 
 ## 0. Enable the Chat Module
 

@@ -1,4 +1,4 @@
-# Installing CISO Assistant Enterprise with Docker
+# Installing Suricatoos CISO Enterprise with Docker
 
 ## Prerequisites
 

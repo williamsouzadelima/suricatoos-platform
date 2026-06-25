@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Audit due in ${days_remaining} day(s)"
+subject: "Suricatoos CISO: Audit due in ${days_remaining} day(s)"
 body: |
   Hello,
 
@@ -6,6 +6,6 @@ body: |
 
   ${assessment_list}
 
-  Please log in to your CISO Assistant portal to review and complete these audits: [Go to CISO Assistant](${ciso_assistant_url})
+  Please log in to your Suricatoos CISO portal to review and complete these audits: [Go to Suricatoos CISO](${ciso_assistant_url})
 
   Thank you.

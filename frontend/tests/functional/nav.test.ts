@@ -92,7 +92,7 @@ test('about panel works properly', async ({ logedPage, sideBar, page }) => {
 		await expect(sideBar.aboutButton).toBeVisible();
 		await sideBar.aboutButton.click();
 		await expect(logedPage.modalTitle).toBeVisible();
-		await expect.soft(logedPage.modalTitle).toHaveText('About CISO Assistant');
+		await expect.soft(logedPage.modalTitle).toHaveText('About Suricatoos CISO');
 
 		await expect(logedPage.page.getByTestId('version-key')).toContainText('version', {
 			ignoreCase: true

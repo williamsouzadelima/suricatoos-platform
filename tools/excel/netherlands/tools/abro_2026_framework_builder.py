@@ -408,7 +408,7 @@ def build_workbook(input_path: Path, output_path: Path) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Convert ABRO 2026 Dutch and English source workbook to CISO Assistant framework format."
+        description="Convert ABRO 2026 Dutch and English source workbook to Suricatoos CISO framework format."
     )
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT, help="Source ABRO workbook.")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Generated framework workbook.")

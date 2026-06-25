@@ -1,6 +1,6 @@
 # Domains
 
-A **domain** is a top-level container in CISO Assistant. It represents an organisational scope — a business unit, a subsidiary, or any boundary you want to manage access and reporting around.
+A **domain** is a top-level container in Suricatoos CISO. It represents an organisational scope — a business unit, a subsidiary, or any boundary you want to manage access and reporting around.
 
 Domains are the platform's primary mechanism for **access control** and **reporting boundaries**: a user's roles are granted _on a domain_, and most reports, dashboards, and audit roll-ups can be filtered by domain.
 
@@ -44,7 +44,7 @@ The platform prevents cycles — you can't move a domain under one of its own de
 
 ## Objects move between domains
 
-Almost every operational object in CISO Assistant is bound to a domain: assessments and audits, applied controls, evidences, risk scenarios, assets, tasks, policies, findings, incidents, exceptions, contracts, entities, and so on. The domain a record lives in is what drives who can see it and how it rolls up in reports.
+Almost every operational object in Suricatoos CISO is bound to a domain: assessments and audits, applied controls, evidences, risk scenarios, assets, tasks, policies, findings, incidents, exceptions, contracts, entities, and so on. The domain a record lives in is what drives who can see it and how it rolls up in reports.
 
 Because reorganisations happen, the domain assignment is **not permanent**:
 

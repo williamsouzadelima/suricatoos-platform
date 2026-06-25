@@ -9,7 +9,7 @@ per-SIEM field mapping; per-destination auth/wrapper still lives in the transpor
 from auditlog.models import LogEntry
 
 OCSF_VERSION = "1.8.0"
-_PRODUCT = {"name": "CISO Assistant", "vendor_name": "intuitem"}
+_PRODUCT = {"name": "Suricatoos CISO", "vendor_name": "Suricatoos"}
 _API_ACTIVITY_CLASS_UID = 6003
 _APPLICATION_ACTIVITY_CATEGORY_UID = 6
 

@@ -8,7 +8,7 @@ description: The append-only record of who changed what, and when
 The audit log is a **PRO** capability — both the instance-wide log and the per-object trail. The per-object trail is additionally gated by the `object_audit_trail` feature flag; see [Feature flags](../configuration/settings/feature-flags.md).
 {% endhint %}
 
-CISO Assistant keeps an append-only audit log: every create, update, and delete on a tracked object is recorded with the user who made it, the timestamp, and exactly which fields changed. Two surfaces read from it — an instance-wide log for administrators, and a per-object trail on detail pages.
+Suricatoos CISO keeps an append-only audit log: every create, update, and delete on a tracked object is recorded with the user who made it, the timestamp, and exactly which fields changed. Two surfaces read from it — an instance-wide log for administrators, and a per-object trail on detail pages.
 
 ## The instance-wide log
 

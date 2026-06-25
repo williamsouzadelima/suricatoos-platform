@@ -1,7 +1,7 @@
 ---
 description: >-
-  Control which IP addresses and CIDR ranges are allowed to reach the CISO
-  Assistant backend. Administrators manage the allowlist from the settings UI,
+  Control which IP addresses and CIDR ranges are allowed to reach the Suricatoos
+  CISO backend. Administrators manage the allowlist from the settings UI,
   and the infrastructure layer picks it up automatically.
 ---
 
@@ -48,7 +48,7 @@ wire enforcement (see **Availability** below).
 
 ## Availability
 
-* **CISO Assistant SaaS** — already enabled. The **Infrastructure** tab is
+* **Suricatoos CISO SaaS** — already enabled. The **Infrastructure** tab is
   available to administrators out of the box; just manage your allowed IPs.
 * **On-premises** — disabled by default. If you want this self-service
   allowlist, enable it by setting the following environment variable on the
@@ -64,8 +64,8 @@ wire enforcement (see **Availability** below).
 {% hint style="warning" %}
 **On-premises, you have to wire up enforcement yourself.** Enabling the flag only
 *exposes* the allowlist on `/infra-config/` — it does not filter traffic on its
-own (the automatic 10-minute reconciliation mentioned above is specific to CISO
-Assistant SaaS). You are responsible for consuming the endpoint and applying the
+own (the automatic 10-minute reconciliation mentioned above is specific to Suricatoos
+CISO SaaS). You are responsible for consuming the endpoint and applying the
 rules in your own infrastructure.
 
 In particular, `/infra-config/` is served at the URL **root**, not under `/api/`.

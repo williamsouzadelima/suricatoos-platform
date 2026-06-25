@@ -2,7 +2,7 @@
 
 **Third-party risk management** (TPRM) is the discipline of evaluating the security and compliance posture of the vendors, suppliers, and service providers your organisation depends on.
 
-CISO Assistant treats third parties as a first-class concern with their own object graph, separate from internal compliance work.
+Suricatoos CISO treats third parties as a first-class concern with their own object graph, separate from internal compliance work.
 
 ## Mental model
 
@@ -23,11 +23,11 @@ The actual review of a third party is an **entity assessment**. It can:
 
 ## How the vendor answers the questionnaire
 
-CISO Assistant supports two modes for getting the actual answers back from the vendor, depending on whether the third party is allowed to access your instance.
+Suricatoos CISO supports two modes for getting the actual answers back from the vendor, depending on whether the third party is allowed to access your instance.
 
 ### Online mode — the representative logs in
 
-This is the default workflow. You create a **representative** on the entity side, the platform issues credentials, and the representative logs into CISO Assistant directly to fill in the questionnaire. Their access is scoped: they only see the entity assessment(s) attached to their entity, and they land in a dedicated **third-party / auditee surface** — a separate route group with its own auditee dashboard, not the rest of your workspace.
+This is the default workflow. You create a **representative** on the entity side, the platform issues credentials, and the representative logs into Suricatoos CISO directly to fill in the questionnaire. Their access is scoped: they only see the entity assessment(s) attached to their entity, and they land in a dedicated **third-party / auditee surface** — a separate route group with its own auditee dashboard, not the rest of your workspace.
 
 This surface is gated by the **`auditee_mode`** [feature flag](../configuration/settings/feature-flags.md), which has to be on for the third-party login flow to be available.
 
@@ -41,7 +41,7 @@ Use this mode when:
 
 ### Offline mode — Excel exchange via the data wizard
 
-Many organisations don't want to expose their CISO Assistant instance to third parties — for security, network, or contractual reasons. In that case, the platform supports a fully **file-based round trip**:
+Many organisations don't want to expose their Suricatoos CISO instance to third parties — for security, network, or contractual reasons. In that case, the platform supports a fully **file-based round trip**:
 
 1. **Export the questionnaire from the framework page.** On the framework backing the entity assessment, use the **Export to Excel** action. You get an `.xlsx` file containing every requirement of the framework, structured so the vendor can fill in the answers, observations, and supporting evidence references in dedicated columns.
 2. **Send the file to the vendor.** Email, secure file share, sneakernet — whatever channel your procurement and security policies allow. The vendor opens the spreadsheet in any tool that can edit Excel.

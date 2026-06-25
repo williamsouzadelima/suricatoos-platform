@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Vous avez ${control_count} mesure(s) expirée(s)"
+subject: "Suricatoos CISO: Vous avez ${control_count} mesure(s) expirée(s)"
 body: |
   Bonjour,
 
@@ -7,6 +7,6 @@ body: |
   ${control_list}
 
   Ce rappel s'arrêtera une fois que la mesure sera marqué comme active ou que vous mettiez à jour l'ETA.
-  Connectez-vous à votre portail CISO Assistant et consultez la section 'mes affectations' pour accéder directement à vos mesures : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Connectez-vous à votre portail Suricatoos CISO et consultez la section 'mes affectations' pour accéder directement à vos mesures : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

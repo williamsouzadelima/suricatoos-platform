@@ -34,7 +34,7 @@ In your compose file folder, try:
 
 Alternatively, in a docker environment:
 
-`docker ps -a | grep backend` (this will get you the id of the Backend for CISO Assistant container, keep it for the next step)
+`docker ps -a | grep backend` (this will get you the id of the Backend for Suricatoos CISO container, keep it for the next step)
 
 `docker exec -it <the_container_id> uv run python manage.py createsuperuser`
 

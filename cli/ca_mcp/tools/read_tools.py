@@ -1,4 +1,4 @@
-"""Read-only MCP tools for querying CISO Assistant data"""
+"""Read-only MCP tools for querying Suricatoos CISO data"""
 
 import json
 import sys

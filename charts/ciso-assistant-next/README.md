@@ -2,7 +2,7 @@
 
 ![Version: 0.11.0](https://img.shields.io/badge/Version-0.11.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v3.18.2](https://img.shields.io/badge/AppVersion-v3.18.2-informational?style=flat-square)
 
-A Helm chart for CISO Assistant k8s's deployment
+A Helm chart for Suricatoos CISO k8s's deployment
 
 **Homepage:** <https://intuitem.com>
 
@@ -135,26 +135,26 @@ helm install ciso-assistant-release oci://ghcr.io/intuitem/helm-charts/ce/ciso-a
 | global.extraCerts.fileName | string | `"ca.crt"` | Key inside the secret (also the file name once mounted) |
 | global.extraCerts.mountPath | string | `"/etc/ssl/extra-certs"` | Directory where the certificate / merged bundle is mounted |
 | global.extraCerts.secretName | string | `""` | Name of an existing secret holding the CA certificate |
-| global.image.imagePullPolicy | string | `"IfNotPresent"` | If defined, a imagePullPolicy applied to all CISO Assistant deployments |
-| global.image.registry | string | `"ghcr.io"` | If defined, a registry applied to all CISO Assistant deployments |
-| global.image.tag | string | `""` | Overrides the global CISO Assistant image tag whose default is the chart appVersion |
+| global.image.imagePullPolicy | string | `"IfNotPresent"` | If defined, a imagePullPolicy applied to all Suricatoos CISO deployments |
+| global.image.registry | string | `"ghcr.io"` | If defined, a registry applied to all Suricatoos CISO deployments |
+| global.image.tag | string | `""` | Overrides the global Suricatoos CISO image tag whose default is the chart appVersion |
 | global.imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry |
 | global.nodeSelector | object | `{}` | Default node selector for all components |
 | global.securityContext | object | `{}` | Toggle and define pod-level security context |
 | global.tls | bool | `false` | Globally enable TLS (URLs, etc.) |
 | global.tolerations | list | `[]` | Default tolerations for all components |
 | ingress.annotations | object | `{}` | Additional ingress annotations |
-| ingress.enabled | bool | `false` | Enable an ingress resource for the CISO Assistant |
+| ingress.enabled | bool | `false` | Enable an ingress resource for the Suricatoos CISO |
 | ingress.ingressClassName | string | `""` | Defines which ingress controller will implement the resource |
 | ingress.labels | object | `{}` | Additional ingress labels |
-| ingress.path | string | `"/"` | The path to CISO Assistant |
+| ingress.path | string | `"/"` | The path to Suricatoos CISO |
 | ingress.pathType | string | `"Prefix"` | Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific` |
 | ingress.tls.certificateSecret | object | `{}` | Custom TLS certificate as secret # Note: 'key' and 'certificate' are expected in PEM format |
 | ingress.tls.enabled | bool | `false` | Enable TLS for the ingress |
 | ingress.tls.existingSecret | string | `""` | Use existing TLS secret |
 | nameOverride | string | `"ciso-assistant"` | Provide a name in place of `ciso-assistant` |
 | networkPolicy.egress | list | `[]` | Egress rules (raw Kubernetes NetworkPolicy `egress` entries) |
-| networkPolicy.enabled | bool | `false` | Create a NetworkPolicy for CISO Assistant pods |
+| networkPolicy.enabled | bool | `false` | Create a NetworkPolicy for Suricatoos CISO pods |
 | networkPolicy.ingress | list | `[]` | Ingress rules (raw Kubernetes NetworkPolicy `ingress` entries) |
 | networkPolicy.podSelector | object | all pods of this release | Pod selector the policy applies to |
 | networkPolicy.policyTypes | list | `["Ingress"]` | Policy types to enable (Ingress and/or Egress) |
@@ -170,7 +170,7 @@ helm install ciso-assistant-release oci://ghcr.io/intuitem/helm-charts/ce/ciso-a
 | qdrant.replicaCount | int | `1` | Number of Qdrant replicas (requires `qdrant.config.cluster.enabled`) |
 | serviceAccount.annotations | object | `{}` | Annotations applied to created service account |
 | serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for the Service Account |
-| serviceAccount.create | bool | `false` | Create a service account for CISO Assistant |
+| serviceAccount.create | bool | `false` | Create a service account for Suricatoos CISO |
 | serviceAccount.labels | object | `{}` | Labels applied to created service account |
 | serviceAccount.name | string | `""` (defaults to fullname) | Service account name |
 

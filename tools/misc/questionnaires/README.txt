@@ -1,1 +1,1 @@
-This folder contains sample questionnaires for import into CISO Assistant.
+This folder contains sample questionnaires for import into Suricatoos CISO.

@@ -320,7 +320,7 @@ class JiraClient(BaseIntegrationClient):
                     }
 
         # Status is workflow-driven and never appears in createmeta; surface it
-        # so users can map CISO Assistant ``status`` to Jira's status field.
+        # so users can map Suricatoos CISO ``status`` to Jira's status field.
         for synthetic in SYNTHETIC_FIELDS:
             columns.setdefault(synthetic["name"], dict(synthetic))
 

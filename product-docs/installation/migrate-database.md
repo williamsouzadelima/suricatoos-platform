@@ -1,6 +1,6 @@
 ---
 description: >-
-  You think it is time to change or try a new database on CISO Assistant? You
+  You think it is time to change or try a new database on Suricatoos CISO? You
   were using SQLite and now want to switch to PostgreSQL, or the other way
   around? This guide is for you.
 ---
@@ -13,16 +13,16 @@ description: >-
 Do not forget that this kind of operation can be tricky and may impact your data if something goes wrong.
 {% endhint %}
 
-To stay safe, we strongly recommend creating a backup of the volume, disk, or `db/` folder used to host your CISO Assistant instance.
+To stay safe, we strongly recommend creating a backup of the volume, disk, or `db/` folder used to host your Suricatoos CISO instance.
 
-We also recommend testing your backup procedure by deploying another CISO Assistant instance and restoring the backup into it. This will help verify that your backups work correctly before you start switching database engines.
+We also recommend testing your backup procedure by deploying another Suricatoos CISO instance and restoring the backup into it. This will help verify that your backups work correctly before you start switching database engines.
 
 ## Switch from SQLite to PostgreSQL
 
 Here is a complete guide of all the steps you should perform (after backing up your volume).
 
 {% hint style="warning" %}
-The new PostgreSQL-backed instance must run the **exact same CISO Assistant version** as the source SQLite instance. The restore will refuse a backup produced by a different version. Migrate first, then upgrade afterwards if needed.
+The new PostgreSQL-backed instance must run the **exact same Suricatoos CISO version** as the source SQLite instance. The restore will refuse a backup produced by a different version. Migrate first, then upgrade afterwards if needed.
 {% endhint %}
 
 ### 1. Export your data
@@ -35,7 +35,7 @@ Go in **Extra > Backup & restore**, then click on **Export database**. You will 
 Evidence files and other uploaded files are **not** included in this export — they live on disk under `db/attachments/` and are handled separately in step 7. If you'd rather get both the database and the attachments in a single bundle, skip this step and use the `clica` CLI instead — see step 7, Option B.
 {% endhint %}
 
-### 2. Stop the instance of CISO Assistant
+### 2. Stop the instance of Suricatoos CISO
 
 ```bash
 docker compose down
@@ -43,7 +43,7 @@ docker compose down
 
 ### 3. Set up PostgreSQL
 
-You can install whichever PostgreSQL setup you prefer, as you only need the environment variables afterwards to connect it to CISO Assistant. Here are the two main ways:
+You can install whichever PostgreSQL setup you prefer, as you only need the environment variables afterwards to connect it to Suricatoos CISO. Here are the two main ways:
 
 #### On your host using a service
 
@@ -86,7 +86,7 @@ db:
     start_period: 50s
 ```
 
-### 4. Connect CISO Assistant to PostgreSQL
+### 4. Connect Suricatoos CISO to PostgreSQL
 
 Define these environment variables in your `docker-compose.yml` (or via `export` if running without containers):
 
@@ -161,8 +161,8 @@ The logic is the same in reverse:
 
 1. Export the database from the **Extra > Backup & restore** page on your PostgreSQL-backed instance (or run `clica backup-full` if you want attachments included).
 2. Stop the stack (`docker compose down`).
-3. Remove the PostgreSQL environment variables (`POSTGRES_NAME`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DB_HOST`, `DB_PORT`) and the `db` service from your `docker-compose.yml`. With `POSTGRES_NAME` unset, CISO Assistant falls back to SQLite at `db/ciso-assistant.sqlite3`.
+3. Remove the PostgreSQL environment variables (`POSTGRES_NAME`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `DB_HOST`, `DB_PORT`) and the `db` service from your `docker-compose.yml`. With `POSTGRES_NAME` unset, Suricatoos CISO falls back to SQLite at `db/ciso-assistant.sqlite3`.
 4. Bring the stack back up, create a temporary superuser, and restore the `.bak` file (or run `clica restore-full`).
 5. Keep `db/attachments/` in place — the same caveat from step 7 above applies.
 
-The same version-match rule applies: the SQLite-backed instance must run the exact same CISO Assistant version as the PostgreSQL-backed source.
+The same version-match rule applies: the SQLite-backed instance must run the exact same Suricatoos CISO version as the PostgreSQL-backed source.

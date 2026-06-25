@@ -1,6 +1,6 @@
 # DORA Register of Information (RoI) — Field Mapping Specification
 
-> **Source of truth** for the mapping between the EBA XLS Master Template columns and CISO Assistant data model fields.
+> **Source of truth** for the mapping between the EBA XLS Master Template columns and Suricatoos CISO data model fields.
 > All codification values come from `backend/core/dora.py`. Export logic lives in `backend/tprm/dora_export.py`.
 
 ---
@@ -10,7 +10,7 @@
 This document describes every column of every tab in the DORA Register of Information (RoI), as defined by the EBA XLS Master Template. For each column it specifies:
 
 - the data type and, when applicable, the closed set of allowed values (LIST code);
-- the CISO Assistant model field that supplies the value;
+- the Suricatoos CISO model field that supplies the value;
 - any transformation applied at export time (prefixing, sentinel dates, auto-computation).
 
 **Audience**: contributors working on the DORA export, AI agents generating or validating RoI data, QA engineers writing regression tests.
@@ -196,21 +196,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (LEI pattern, 20 characters)
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Entity (main) > Legal Identifiers > LEI
+- Suricatoos CISO field: Entity (main) > Legal Identifiers > LEI
 
 #### b_01.01.0020 — Name of the entity
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Entity (main) > Name
+- Suricatoos CISO field: Entity (main) > Name
 
 #### b_01.01.0030 — Country of the entity
 
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Entity (main) > Country
+- Suricatoos CISO field: Entity (main) > Country
 - Export: prefixed with `eba_GA:` (e.g. `eba_GA:FR`)
 
 #### b_01.01.0040 — Type of entity
@@ -218,7 +218,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0101040, 24 entries)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: Entity (main) > Entity Type (DORA section)
+- Suricatoos CISO field: Entity (main) > Entity Type (DORA section)
 
 | Code | Label |
 |---|---|
@@ -252,14 +252,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory in case of reporting
 - CSV header: `c0050`
-- CISO Assistant field: Entity (main) > Competent Authority (DORA section)
+- Suricatoos CISO field: Entity (main) > Competent Authority (DORA section)
 
 #### b_01.01.0060 — Date of the reporting
 
 - Type: Date
 - Required: Mandatory in case of reporting
 - CSV header: `c0060`
-- CISO Assistant field: — (Auto: current date at export time)
+- Suricatoos CISO field: — (Auto: current date at export time)
 
 ---
 
@@ -272,21 +272,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (LEI pattern, 20 characters)
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Entity > Legal Identifiers > LEI
+- Suricatoos CISO field: Entity > Legal Identifiers > LEI
 
 #### b_01.02.0020 — Name of the entity
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Entity > Name
+- Suricatoos CISO field: Entity > Name
 
 #### b_01.02.0030 — Country of the entity
 
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Entity > Country
+- Suricatoos CISO field: Entity > Country
 - Export: prefixed with `eba_GA:`
 
 #### b_01.02.0040 — Type of entity
@@ -294,7 +294,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0101040, 24 entries)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: Entity > Entity Type (DORA section)
+- Suricatoos CISO field: Entity > Entity Type (DORA section)
 - Values: see [RT.01.01 b_01.01.0040](#b_01010040--type-of-entity) — same table. Full list in [Appendix A — LIST0101040](#list0101040--entity-type).
 
 #### b_01.02.0050 — Hierarchy of the entity within the group
@@ -302,7 +302,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0102050, 5 entries)
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Entity > Entity Hierarchy (DORA section)
+- Suricatoos CISO field: Entity > Entity Hierarchy (DORA section)
 
 | Code | Label |
 |---|---|
@@ -317,7 +317,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (LEI pattern)
 - Required: Conditional — required only for subsidiaries; nullable for ultimate parents and standalone entities.
 - CSV header: `c0060`
-- CISO Assistant field: Entity > Parent entity > Legal Identifiers > LEI
+- Suricatoos CISO field: Entity > Parent entity > Legal Identifiers > LEI
 - FK: references B_01.02 c0010
 
 #### b_01.02.0070 — Date of last update
@@ -325,28 +325,28 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0070`
-- CISO Assistant field: — (Auto: entity `updated_at` timestamp; `9999-12-31` if missing)
+- Suricatoos CISO field: — (Auto: entity `updated_at` timestamp; `9999-12-31` if missing)
 
 #### b_01.02.0080 — Date of integration in the Register of information
 
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0080`
-- CISO Assistant field: — (Auto: entity `created_at` timestamp; `9999-12-31` if missing)
+- Suricatoos CISO field: — (Auto: entity `created_at` timestamp; `9999-12-31` if missing)
 
 #### b_01.02.0090 — Date of deletion in the Register of information
 
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0090`
-- CISO Assistant field: — (Auto: `9999-12-31` for active entities)
+- Suricatoos CISO field: — (Auto: `9999-12-31` for active entities)
 
 #### b_01.02.0100 — Currency
 
 - Type: Currency (LISTCURRENCY)
 - Required: Conditional — required only when c0110 (total assets) is populated (EBA rule v8803). Nullable otherwise.
 - CSV header: `c0100`
-- CISO Assistant field: Entity > Currency
+- Suricatoos CISO field: Entity > Currency
 - Export: prefixed with `eba_CU:` (e.g. `eba_CU:EUR`)
 
 #### b_01.02.0110 — Value of total assets
@@ -354,7 +354,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Numeric
 - Required: Conditional — required unless entity type is branch or natural person. Nullable otherwise.
 - CSV header: `c0110`
-- CISO Assistant field: Entity > Value of total assets (DORA section)
+- Suricatoos CISO field: Entity > Value of total assets (DORA section)
 
 ---
 
@@ -367,7 +367,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Entity (branch) > Legal Identifiers
+- Suricatoos CISO field: Entity (branch) > Legal Identifiers
 - Note: first available identifier (LEI > EUID > VAT > DUNS)
 
 #### b_01.03.0020 — LEI of the financial entity head office of the branch
@@ -375,21 +375,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Entity (branch) > Parent entity > Legal Identifiers > LEI
+- Suricatoos CISO field: Entity (branch) > Parent entity > Legal Identifiers > LEI
 
 #### b_01.03.0030 — Name of the branch
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Entity (branch) > Name
+- Suricatoos CISO field: Entity (branch) > Name
 
 #### b_01.03.0040 — Country of the branch
 
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: Entity (branch) > Country
+- Suricatoos CISO field: Entity (branch) > Country
 - Export: prefixed with `eba_GA:`
 
 ---
@@ -403,7 +403,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 - Note: falls back to internal UUID if empty
 
 #### b_02.01.0020 — Type of contractual arrangement
@@ -411,7 +411,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0201020, 3 entries)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Contract type
+- Suricatoos CISO field: Contract > Contract type
 
 | Code | Label |
 |---|---|
@@ -424,7 +424,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Conditional — only required when c0020 indicates a subordinate arrangement (`eba_CO:x3`). Nullable otherwise (EBA rule v8805).
 - CSV header: `c0030`
-- CISO Assistant field: Contract > Overarching Contract > Reference ID
+- Suricatoos CISO field: Contract > Overarching Contract > Reference ID
 - FK: references B_02.01 c0010 (self-referential)
 
 #### b_02.01.0040 — Currency of the amount
@@ -432,7 +432,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Currency (LISTCURRENCY)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: Contract > Currency
+- Suricatoos CISO field: Contract > Currency
 - Export: prefixed with `eba_CU:`
 
 #### b_02.01.0050 — Annual expense or estimated cost
@@ -440,7 +440,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Numeric
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Contract > Annual expense
+- Suricatoos CISO field: Contract > Annual expense
 
 ---
 
@@ -455,21 +455,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_02.02.0020 — LEI of the entity making use of the ICT service(s)
 
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Beneficiary Entity > Legal Identifiers > LEI
+- Suricatoos CISO field: Contract > Beneficiary Entity > Legal Identifiers > LEI
 
 #### b_02.02.0030 — Identification code of the ICT third-party service provider
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Contract > Provider Entity > Legal Identifiers
+- Suricatoos CISO field: Contract > Provider Entity > Legal Identifiers
 - Note: first available identifier (LEI > EUID > VAT > DUNS)
 
 #### b_02.02.0040 — Type of code to identify the provider
@@ -477,21 +477,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: — (automatically determined based on identifier type used: LEI, EUID, VAT, DUNS)
+- Suricatoos CISO field: — (automatically determined based on identifier type used: LEI, EUID, VAT, DUNS)
 
 #### b_02.02.0050 — Function identifier
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Asset (business function) > Reference ID
+- Suricatoos CISO field: Asset (business function) > Reference ID
 
 #### b_02.02.0060 — Type of ICT services
 
 - Type: Closed set (LISTANNEXIII, 19 entries)
 - Required: Mandatory
 - CSV header: `c0060`
-- CISO Assistant field: Solution > ICT Service Type (DORA Assessment section)
+- Suricatoos CISO field: Solution > ICT Service Type (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -520,14 +520,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0070`
-- CISO Assistant field: Contract > Start date
+- Suricatoos CISO field: Contract > Start date
 
 #### b_02.02.0080 — End date of the contractual arrangement
 
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0080`
-- CISO Assistant field: Contract > End date
+- Suricatoos CISO field: Contract > End date
 - Note: `9999-12-31` if not set (open-ended contract)
 
 #### b_02.02.0090 — Reason of the termination or ending
@@ -535,7 +535,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0202090, 6 entries)
 - Required: Mandatory if the contractual arrangement is terminated
 - CSV header: `c0090`
-- CISO Assistant field: Contract > Termination reason
+- Suricatoos CISO field: Contract > Termination reason
 
 | Code | Label |
 |---|---|
@@ -551,21 +551,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Numeric (days)
 - Required: Mandatory if the ICT service is supporting a critical or important function
 - CSV header: `c0100`
-- CISO Assistant field: Contract > Notice period for entity (days)
+- Suricatoos CISO field: Contract > Notice period for entity (days)
 
 #### b_02.02.0110 — Notice period for the ICT third-party service provider
 
 - Type: Numeric (days)
 - Required: Mandatory if the ICT service is supporting a critical or important function
 - CSV header: `c0110`
-- CISO Assistant field: Contract > Notice period for provider (days)
+- Suricatoos CISO field: Contract > Notice period for provider (days)
 
 #### b_02.02.0120 — Country of the governing law
 
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory if the ICT service is supporting a critical or important function
 - CSV header: `c0120`
-- CISO Assistant field: Contract > Governing law country
+- Suricatoos CISO field: Contract > Governing law country
 - Export: prefixed with `eba_GA:`
 
 #### b_02.02.0130 — Country of provision of the ICT services
@@ -573,7 +573,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory if the ICT service is supporting a critical or important function
 - CSV header: `c0130`
-- CISO Assistant field: Contract > Provider Entity > Country
+- Suricatoos CISO field: Contract > Provider Entity > Country
 - Export: prefixed with `eba_GA:`
 - Key field: part of RT.02.02 composite primary key. Uses `eba_GA:qx2007` ("Not applicable") when provider country is unknown.
 
@@ -582,7 +582,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Yes/No (LISTBINARY, 2 entries)
 - Required: Mandatory if the ICT service is supporting a critical or important function
 - CSV header: `c0140`
-- CISO Assistant field: Solution > Storage of data (DORA Assessment section)
+- Suricatoos CISO field: Solution > Storage of data (DORA Assessment section)
 - Export: model field is a BooleanField; converted to `eba_BT:x28` (Yes) when True, `eba_BT:x29` (No) when False
 
 | Code | Label |
@@ -595,7 +595,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory if ‘Yes’ is reported in RT.02.02.0140
 - CSV header: `c0150`
-- CISO Assistant field: Solution > Location of data at rest
+- Suricatoos CISO field: Solution > Location of data at rest
 - Export: prefixed with `eba_GA:`
 - Key field: part of RT.02.02 composite primary key. Uses `eba_GA:qx2007` ("Not applicable") when data storage location is unknown.
 
@@ -604,7 +604,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory if the ICT service is based on or foresees data processing
 - CSV header: `c0160`
-- CISO Assistant field: Solution > Location of data processing
+- Suricatoos CISO field: Solution > Location of data processing
 - Export: prefixed with `eba_GA:`
 - Key field: part of RT.02.02 composite primary key. Uses `eba_GA:qx2007` ("Not applicable") when data processing location is unknown.
 
@@ -613,7 +613,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0202170, 3 entries)
 - Required: Mandatory if the ICT third-party service provider stores data and if the ICT service is supporting a critical or important function or material part thereof
 - CSV header: `c0170`
-- CISO Assistant field: Solution > Data Sensitiveness (DORA Assessment section)
+- Suricatoos CISO field: Solution > Data Sensitiveness (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -626,7 +626,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0202180, 4 entries)
 - Required: Mandatory if the ICT service is supporting a critical or important function or material part thereof
 - CSV header: `c0180`
-- CISO Assistant field: Solution > Level of Reliance (DORA Assessment section)
+- Suricatoos CISO field: Solution > Level of Reliance (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -646,14 +646,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract (subordinate) > Reference ID
+- Suricatoos CISO field: Contract (subordinate) > Reference ID
 
 #### b_02.03.0020 — Linked contractual arrangement with ICT third-party service provider
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Linked third-party contract reference
+- Suricatoos CISO field: Contract > Linked third-party contract reference
 - FK: references B_02.01 c0010
 
 #### b_02.03.0030 — Link
@@ -661,7 +661,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Boolean
 - Required: Not applicable
 - CSV header: `c0030`
-- CISO Assistant field: — (Auto: always `true`)
+- Suricatoos CISO field: — (Auto: always `true`)
 
 ---
 
@@ -674,14 +674,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_03.01.0020 — LEI of the entity signing the contractual arrangement
 
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: — (Auto: main entity identifier for all contracts)
+- Suricatoos CISO field: — (Auto: main entity identifier for all contracts)
 - Note: uses identifier resolution (see [Section 3.4](#34-identifier-resolution)), not LEI-only
 
 #### b_03.01.0030 — Link
@@ -689,7 +689,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Boolean
 - Required: Not applicable
 - CSV header: `c0030`
-- CISO Assistant field: — (Auto: always `true`)
+- Suricatoos CISO field: — (Auto: always `true`)
 
 ---
 
@@ -702,14 +702,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_03.02.0020 — Identification code of ICT third-party service provider
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Provider Entity > Legal Identifiers
+- Suricatoos CISO field: Contract > Provider Entity > Legal Identifiers
 - Note: first available identifier (LEI > EUID > VAT > DUNS)
 
 #### b_03.02.0030 — Type of code to identify the provider
@@ -717,7 +717,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: — (automatically determined based on identifier type used)
+- Suricatoos CISO field: — (automatically determined based on identifier type used)
 
 ---
 
@@ -730,14 +730,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_03.33.0020 — LEI of the entity providing ICT services
 
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: — (Auto: provider entity LEI for intra-group contracts)
+- Suricatoos CISO field: — (Auto: provider entity LEI for intra-group contracts)
 - Note: The column code `b_03.33.0020` (with `33` instead of `03`) is a known typo in the official EBA XLS Master Template. Our export faithfully reproduces it for compatibility. Do not "fix" it to `b_03.03.0020`.
 
 #### b_03.03.0031 — Link
@@ -745,7 +745,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Boolean
 - Required: Not applicable
 - CSV header: `c0031`
-- CISO Assistant field: — (Auto: always `true`)
+- Suricatoos CISO field: — (Auto: always `true`)
 
 ---
 
@@ -760,21 +760,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_04.01.0020 — LEI of the entity making use of the ICT service(s)
 
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Beneficiary Entity > Legal Identifiers > LEI
+- Suricatoos CISO field: Contract > Beneficiary Entity > Legal Identifiers > LEI
 
 #### b_04.01.0030 — Nature of the entity
 
 - Type: Closed set (LIST0401030, 2 entries)
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: — (Auto: computed based on whether the entity is a branch)
+- Suricatoos CISO field: — (Auto: computed based on whether the entity is a branch)
 
 | Code | Label |
 |---|---|
@@ -786,7 +786,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory if the entity making use of the ICT service(s) is a branch of a financial entity (RT.04.01.0030)
 - CSV header: `c0040`
-- CISO Assistant field: Entity (branch) > Legal Identifiers
+- Suricatoos CISO field: Entity (branch) > Legal Identifiers
 - Note: only filled for branch rows
 
 ---
@@ -800,7 +800,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Entity (provider) > Legal Identifiers
+- Suricatoos CISO field: Entity (provider) > Legal Identifiers
 - Note: first available identifier (LEI > EUID > VAT > DUNS)
 
 #### b_05.01.0020 — Type of code to identify the provider
@@ -808,42 +808,42 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: — (automatically determined based on identifier type used)
+- Suricatoos CISO field: — (automatically determined based on identifier type used)
 
 #### b_05.01.0030 — Additional identification code of the third-party service provider
 
 - Type: Numeric (int)
 - Required: Nullable
 - CSV header: `c0030`
-- CISO Assistant field: Entity (provider) > Additional identifier (e.g. EUID)
+- Suricatoos CISO field: Entity (provider) > Additional identifier (e.g. EUID)
 
 #### b_05.01.0040 — Type of additional identification code of the third-party service provider
 
 - Type: Alphanumeric
 - Required: Nullable — required when c0030 is populated
 - CSV header: `c0040`
-- CISO Assistant field: — (automatically determined based on additional identifier type)
+- Suricatoos CISO field: — (automatically determined based on additional identifier type)
 
 #### b_05.01.0050 — Legal name of the ICT third-party service provider
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Entity (provider) > Name
+- Suricatoos CISO field: Entity (provider) > Name
 
 #### b_05.01.0060 — Name of the ICT third-party service provider in Latin alphabet
 
 - Type: Alphanumeric
 - Required: Nullable — required only when the legal name (c0050) is not in Latin script
 - CSV header: `c0060`
-- CISO Assistant field: Entity (provider) > Name (Latin alphabet transliteration)
+- Suricatoos CISO field: Entity (provider) > Name (Latin alphabet transliteration)
 
 #### b_05.01.0070 — Type of person of the provider
 
 - Type: Closed set (LIST0501040, 2 entries)
 - Required: Mandatory
 - CSV header: `c0070`
-- CISO Assistant field: Entity (provider) > Person Type (DORA section)
+- Suricatoos CISO field: Entity (provider) > Person Type (DORA section)
 
 | Code | Label |
 |---|---|
@@ -855,7 +855,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Country (LISTCOUNTRY)
 - Required: Mandatory
 - CSV header: `c0080`
-- CISO Assistant field: Entity (provider) > Country
+- Suricatoos CISO field: Entity (provider) > Country
 - Export: prefixed with `eba_GA:`
 
 #### b_05.01.0090 — Currency of the amount reported
@@ -863,7 +863,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Currency (LISTCURRENCY)
 - Required: Nullable — required when c0100 is populated
 - CSV header: `c0090`
-- CISO Assistant field: Contract / Entity (main) > Currency
+- Suricatoos CISO field: Contract / Entity (main) > Currency
 - Export: prefixed with `eba_CU:`. Fallback chain: contract currency → main entity currency → empty.
 
 #### b_05.01.0100 — Total annual expense or estimated cost
@@ -871,14 +871,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Numeric (money)
 - Required: Nullable — required if the ICT third-party service provider is a direct ICT third-party service provider
 - CSV header: `c0100`
-- CISO Assistant field: — (Auto: sum of `Annual expense` across all contracts with this provider)
+- Suricatoos CISO field: — (Auto: sum of `Annual expense` across all contracts with this provider)
 
 #### b_05.01.0110 — Identification code of the provider's ultimate parent undertaking
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0110`
-- CISO Assistant field: Entity (provider) > Parent entity > Legal Identifiers
+- Suricatoos CISO field: Entity (provider) > Parent entity > Legal Identifiers
 - FK: references B_05.01 c0010 (self-referential)
 - Note: first available identifier of parent entity
 
@@ -887,7 +887,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Nullable
 - CSV header: `c0120`
-- CISO Assistant field: — (automatically determined based on identifier type used for parent)
+- Suricatoos CISO field: — (automatically determined based on identifier type used for parent)
 
 ---
 
@@ -900,14 +900,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_05.02.0020 — Type of ICT services
 
 - Type: Closed set (LISTANNEXIII, 19 entries)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Solution > ICT Service Type
+- Suricatoos CISO field: Solution > ICT Service Type
 - Values: see [RT.02.02 b_02.02.0060](#b_02020060--type-of-ict-services) — same table. Full list in [Appendix A — LISTANNEXIII](#listannexiii--ict-service-type).
 
 #### b_05.02.0030 — Identification code of the ICT third-party service provider
@@ -915,7 +915,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Contract > Provider Entity > Legal Identifiers
+- Suricatoos CISO field: Contract > Provider Entity > Legal Identifiers
 - Note: first available identifier
 
 #### b_05.02.0040 — Type of code to identify the provider
@@ -923,28 +923,28 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: — (automatically determined)
+- Suricatoos CISO field: — (automatically determined)
 
 #### b_05.02.0050 — Rank
 
 - Type: Numeric
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: — (Auto: always `1` — sub-contracting chains not modelled)
+- Suricatoos CISO field: — (Auto: always `1` — sub-contracting chains not modelled)
 
 #### b_05.02.0060 — Identification code of the recipient of sub-contracted ICT services
 
 - Type: Alphanumeric
 - Required: Mandatory Not applicable for rank 1
 - CSV header: `c0060`
-- CISO Assistant field: — (Auto: empty for rank 1)
+- Suricatoos CISO field: — (Auto: empty for rank 1)
 
 #### b_05.02.0070 — Type of code to identify the recipient
 
 - Type: Auto
 - Required: Mandatory Not applicable for rank 1
 - CSV header: `c0070`
-- CISO Assistant field: — (Auto: empty for rank 1)
+- Suricatoos CISO field: — (Auto: empty for rank 1)
 
 ---
 
@@ -957,14 +957,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (pattern: F1, F2, … Fn)
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Asset (business function) > Reference ID
+- Suricatoos CISO field: Asset (business function) > Reference ID
 
 #### b_06.01.0020 — Licensed activity
 
 - Type: Closed set (LIST0601020, 128 entries)
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Asset (business function) > Licensed activity (DORA section)
+- Suricatoos CISO field: Asset (business function) > Licensed activity (DORA section)
 - Note: model field is `dora_licenced_activity` (British spelling, matching EBA Annex 2)
 
 ##### Non-Life Insurance (8 entries)
@@ -1155,21 +1155,21 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: Asset (business function) > Name
+- Suricatoos CISO field: Asset (business function) > Name
 
 #### b_06.01.0040 — LEI of the financial entity
 
 - Type: Alphanumeric (LEI pattern)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: — (Auto: main entity LEI)
+- Suricatoos CISO field: — (Auto: main entity LEI)
 
 #### b_06.01.0050 — Criticality or importance assessment
 
 - Type: Closed set (LIST0601050, 3 entries)
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Asset (business function) > Criticality assessment (DORA section)
+- Suricatoos CISO field: Asset (business function) > Criticality assessment (DORA section)
 
 | Code | Label |
 |---|---|
@@ -1182,35 +1182,35 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (max 300 characters)
 - Required: Optional
 - CSV header: `c0060`
-- CISO Assistant field: Asset (business function) > Criticality justification (DORA section)
+- Suricatoos CISO field: Asset (business function) > Criticality justification (DORA section)
 
 #### b_06.01.0070 — Date of the last assessment of criticality or importance
 
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0070`
-- CISO Assistant field: — (Auto: asset `updated_at` timestamp; `9999-12-31` if missing)
+- Suricatoos CISO field: — (Auto: asset `updated_at` timestamp; `9999-12-31` if missing)
 
 #### b_06.01.0080 — Recovery time objective of the function
 
 - Type: Numeric (in hours)
 - Required: Mandatory
 - CSV header: `c0080`
-- CISO Assistant field: Asset (business function) > disaster_recovery_objectives > objectives > rto > value
+- Suricatoos CISO field: Asset (business function) > disaster_recovery_objectives > objectives > rto > value
 
 #### b_06.01.0090 — Recovery point objective of the function
 
 - Type: Numeric (in hours)
 - Required: Mandatory
 - CSV header: `c0090`
-- CISO Assistant field: Asset (business function) > disaster_recovery_objectives > objectives > rpo > value
+- Suricatoos CISO field: Asset (business function) > disaster_recovery_objectives > objectives > rpo > value
 
 #### b_06.01.0100 — Impact of discontinuing the function
 
 - Type: Closed set (LIST0601100, 4 entries)
 - Required: Mandatory
 - CSV header: `c0100`
-- CISO Assistant field: Asset (business function) > Discontinuing Impact (DORA section)
+- Suricatoos CISO field: Asset (business function) > Discontinuing Impact (DORA section)
 
 | Code | Label |
 |---|---|
@@ -1230,14 +1230,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0010`
-- CISO Assistant field: Contract > Reference ID
+- Suricatoos CISO field: Contract > Reference ID
 
 #### b_07.01.0020 — Identification code of the ICT third-party service provider
 
 - Type: Alphanumeric
 - Required: Mandatory
 - CSV header: `c0020`
-- CISO Assistant field: Contract > Provider Entity > Legal Identifiers
+- Suricatoos CISO field: Contract > Provider Entity > Legal Identifiers
 - Note: first available identifier (LEI > EUID > VAT > DUNS)
 
 #### b_07.01.0030 — Type of code to identify the provider
@@ -1245,14 +1245,14 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Auto
 - Required: Mandatory
 - CSV header: `c0030`
-- CISO Assistant field: — (automatically determined based on identifier type used)
+- Suricatoos CISO field: — (automatically determined based on identifier type used)
 
 #### b_07.01.0040 — Type of ICT services
 
 - Type: Closed set (LISTANNEXIII, 19 entries)
 - Required: Mandatory
 - CSV header: `c0040`
-- CISO Assistant field: Solution > ICT Service Type (DORA Assessment section)
+- Suricatoos CISO field: Solution > ICT Service Type (DORA Assessment section)
 - Values: see [RT.02.02 b_02.02.0060](#b_02020060--type-of-ict-services) — same table. Full list in [Appendix A — LISTANNEXIII](#listannexiii--ict-service-type).
 
 #### b_07.01.0050 — Substitutability of the ICT third-party service provider
@@ -1260,7 +1260,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0701050, 4 entries)
 - Required: Mandatory
 - CSV header: `c0050`
-- CISO Assistant field: Solution > Substitutability (DORA Assessment section)
+- Suricatoos CISO field: Solution > Substitutability (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -1274,7 +1274,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0701060, 3 entries)
 - Required: Mandatory in case “not substitutable” or “highly complex substitutability” is selected in RT.07.01.0050
 - CSV header: `c0060`
-- CISO Assistant field: Solution > Non-Substitutability Reason (DORA Assessment section)
+- Suricatoos CISO field: Solution > Non-Substitutability Reason (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -1287,7 +1287,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Date
 - Required: Mandatory
 - CSV header: `c0070`
-- CISO Assistant field: — (Auto: solution `updated_at` timestamp)
+- Suricatoos CISO field: — (Auto: solution `updated_at` timestamp)
 - Note: empty string if `updated_at` is null (unlike b_06.01.0070 which uses `9999-12-31`). See [Section 3.3](#33-sentinel-values).
 
 #### b_07.01.0080 — Existence of an exit plan
@@ -1295,7 +1295,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Yes/No (LISTBINARY, 2 entries)
 - Required: Mandatory
 - CSV header: `c0080`
-- CISO Assistant field: Solution > Exit Plan (DORA Assessment section)
+- Suricatoos CISO field: Solution > Exit Plan (DORA Assessment section)
 - Full list in [Appendix A — LISTBINARY](#listbinary--yesno).
 
 #### b_07.01.0090 — Possibility of reintegration of the contracted ICT service
@@ -1303,7 +1303,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0701090, 3 entries)
 - Required: Mandatory
 - CSV header: `c0090`
-- CISO Assistant field: Solution > Reintegration Possibility (DORA Assessment section)
+- Suricatoos CISO field: Solution > Reintegration Possibility (DORA Assessment section)
 
 | Code | Label |
 |---|---|
@@ -1316,7 +1316,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (LIST0601100, 4 entries)
 - Required: Mandatory
 - CSV header: `c0100`
-- CISO Assistant field: Solution > Discontinuing Impact (DORA Assessment section)
+- Suricatoos CISO field: Solution > Discontinuing Impact (DORA Assessment section)
 - Values: see [RT.06.01 b_06.01.0100](#b_06010100--impact-of-discontinuing-the-function) — same table. Full list in [Appendix A — LIST0601100](#list0601100--discontinuing-impact).
 
 #### b_07.01.0110 — Are there alternative ICT third-party service providers identified?
@@ -1324,7 +1324,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Closed set (3 entries)
 - Required: Mandatory
 - CSV header: `c0110`
-- CISO Assistant field: Solution > Alternative Providers Identified (DORA Assessment section)
+- Suricatoos CISO field: Solution > Alternative Providers Identified (DORA Assessment section)
 - Note: This field uses a 3-value set (not a binary Yes/No). The EBA DPM template defines three valid values:
 
 | Code | Label |
@@ -1338,7 +1338,7 @@ The EBA DPM validation framework defines many rules, but only four cause **submi
 - Type: Alphanumeric (free text)
 - Required: Optional
 - CSV header: `c0120`
-- CISO Assistant field: Solution > Alternative Providers (DORA Assessment section)
+- Suricatoos CISO field: Solution > Alternative Providers (DORA Assessment section)
 
 ---
 

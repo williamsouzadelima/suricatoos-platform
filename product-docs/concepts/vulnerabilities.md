@@ -4,7 +4,7 @@ description: Catalogued weaknesses tracked through detection, triage, and remedi
 
 # Vulnerabilities
 
-A **vulnerability** is a weakness in a system, process, or product that could be exploited to compromise confidentiality, integrity, or availability. CISO Assistant tracks vulnerabilities as first-class objects, separately from the **incidents** they may cause and the **risk scenarios** they feed into.
+A **vulnerability** is a weakness in a system, process, or product that could be exploited to compromise confidentiality, integrity, or availability. Suricatoos CISO tracks vulnerabilities as first-class objects, separately from the **incidents** they may cause and the **risk scenarios** they feed into.
 
 The vulnerability surface answers two operational questions: _what's exposed_ and _are we treating it fast enough?_
 
@@ -50,7 +50,7 @@ Explicit due dates the user (or an import) sets are preserved — the policy onl
 
 ## Threat-intelligence enrichment
 
-Vulnerabilities don't live in isolation. CISO Assistant can pull from external feeds to enrich them automatically — see [Security intelligence feeds](../configuration/settings/sec-intel-feeds.md):
+Vulnerabilities don't live in isolation. Suricatoos CISO can pull from external feeds to enrich them automatically — see [Security intelligence feeds](../configuration/settings/sec-intel-feeds.md):
 
 - **KEV feed** flags vulnerabilities confirmed exploited in the wild.
 - **EPSS feed** attaches a probabilistic exploitation score.

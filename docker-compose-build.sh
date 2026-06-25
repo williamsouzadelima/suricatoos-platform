@@ -72,7 +72,7 @@ else
   echo "Initialize your superuser account..."
   docker compose -f "${DOCKER_COMPOSE_FILE}" exec -T backend python manage.py createsuperuser
 
-  echo "🚀 CISO Assistant is ready!"
-  echo "Connect to CISO Assistant on https://localhost:8443"
+  echo "🚀 Suricatoos CISO is ready!"
+  echo "Connect to Suricatoos CISO on https://localhost:8443"
   echo "For successive runs, you can now use 'docker compose -f ${DOCKER_COMPOSE_FILE} up'."
 fi

@@ -33,13 +33,13 @@ else
   echo "Non-Linux (no GNU stat detected): skipping ownership fix for ./db"
 fi
 
-echo "Starting CISO Assistant services..."
+echo "Starting Suricatoos CISO services..."
 docker compose -f "${DOCKER_COMPOSE_FILE}" pull
 echo "Initializing the database. This can take up to 2 minutes, please wait.."
 
 docker compose -f "${DOCKER_COMPOSE_FILE}" up -d
 
-echo "Waiting for CISO Assistant backend to be ready..."
+echo "Waiting for Suricatoos CISO backend to be ready..."
 until docker compose -f "${DOCKER_COMPOSE_FILE}" exec -T backend curl -f http://localhost:8000/api/health/ >/dev/null 2>&1; do
   echo "Backend is not ready - waiting 10s..."
   sleep 10
@@ -50,4 +50,4 @@ echo "Creating superuser..."
 docker compose -f "${DOCKER_COMPOSE_FILE}" exec backend python manage.py createsuperuser
 
 echo "Initialization complete!"
-echo "You can now access CISO Assistant at https://localhost:8443 (or the host:port you've specified)"
+echo "You can now access Suricatoos CISO at https://localhost:8443 (or the host:port you've specified)"

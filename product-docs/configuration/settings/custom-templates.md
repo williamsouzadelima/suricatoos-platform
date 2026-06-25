@@ -4,7 +4,7 @@ Available on the PRO plan.
 
 # Custom templates
 
-Custom templates let you replace the default content CISO Assistant uses for outbound emails and for document exports.
+Custom templates let you replace the default content Suricatoos CISO uses for outbound emails and for document exports.
 
 {% hint style="warning" %}
 **Administrators only.** Creating, editing and deleting custom templates is restricted to users with the **Administrator** role. Templates control the wording of system emails and the body of exported documents, so a malicious or careless template could mislead recipients (e.g. a forged password-reset email) or embed inappropriate content in official exports.

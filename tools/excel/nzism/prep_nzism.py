@@ -1,5 +1,5 @@
 """
-simple script to transform the official NZISM XML file to an Excel file for CISO assistant framework conversion tool
+simple script to transform the official NZISM XML file to an Excel file for Suricatoos CISO framework conversion tool
 """
 
 import openpyxl
@@ -64,7 +64,7 @@ def process_paragraph(level, paragraph):
 
 parser = argparse.ArgumentParser(
     prog="convert_nzism",
-    description="convert NZISM's XML file to CISO Assistant Excel file",
+    description="convert NZISM's XML file to Suricatoos CISO Excel file",
 )
 parser.add_argument("filename", help="name of NZISM XML file")
 parser.add_argument(

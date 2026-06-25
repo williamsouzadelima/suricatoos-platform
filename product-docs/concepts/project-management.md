@@ -1,6 +1,6 @@
 # Project management
 
-The **project-management module** brings PMBOK-style planning into CISO Assistant: a structured way to organise complex, multi-stakeholder initiatives — go-lives, accreditations, transformation programmes — alongside the compliance and risk work they drive.
+The **project-management module** brings PMBOK-style planning into Suricatoos CISO: a structured way to organise complex, multi-stakeholder initiatives — go-lives, accreditations, transformation programmes — alongside the compliance and risk work they drive.
 
 It's the newest concept in the platform, and the object graph will continue to evolve.
 

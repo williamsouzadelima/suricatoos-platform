@@ -1,4 +1,4 @@
-## CISO Assistant configuration
+## Suricatoos CISO configuration
 ## Ref: https://github.com/intuitem/ciso-assistant-community
 ##
 
@@ -35,11 +35,11 @@ global:
 
   # Default image used by all components
   image:
-    # -- If defined, a registry applied to all CISO Assistant deployments
+    # -- If defined, a registry applied to all Suricatoos CISO deployments
     registry: ghcr.io
-    # -- Overrides the global CISO Assistant image tag whose default is the chart appVersion
+    # -- Overrides the global Suricatoos CISO image tag whose default is the chart appVersion
     tag: ""
-    # -- If defined, a imagePullPolicy applied to all CISO Assistant deployments
+    # -- If defined, a imagePullPolicy applied to all Suricatoos CISO deployments
     imagePullPolicy: IfNotPresent
 
   # -- Secrets with credentials to pull images from a private registry
@@ -76,7 +76,7 @@ global:
 
 ## Service Account
 serviceAccount:
-  # -- Create a service account for CISO Assistant
+  # -- Create a service account for Suricatoos CISO
   create: false
   # -- Service account name
   # @default -- `""` (defaults to fullname)
@@ -88,7 +88,7 @@ serviceAccount:
   # -- Automount API credentials for the Service Account
   automountServiceAccountToken: true
 
-## CISO Assistant backend
+## Suricatoos CISO backend
 backend:
   # -- Backend container name
   name: backend
@@ -274,7 +274,7 @@ backend:
     # -- Backend service port name
     portName: http
 
-## CISO Assistant frontend
+## Suricatoos CISO frontend
 frontend:
   # -- Frontend container name
   name: frontend
@@ -371,10 +371,10 @@ frontend:
     # -- Frontend service port name
     portName: http
 
-# CISO Assistant ingress configuration
+# Suricatoos CISO ingress configuration
 # Note: host value is inherited from global.domain
 ingress:
-  # -- Enable an ingress resource for the CISO Assistant
+  # -- Enable an ingress resource for the Suricatoos CISO
   enabled: false
   # -- Additional ingress labels
   labels: {} # @schema additionalProperties: true
@@ -384,7 +384,7 @@ ingress:
     # cert-manager.io/cluster-issuer: letsencrypt
   # -- Defines which ingress controller will implement the resource
   ingressClassName: ""
-  # -- The path to CISO Assistant
+  # -- The path to Suricatoos CISO
   path: /
   # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
   pathType: Prefix
@@ -407,7 +407,7 @@ ingress:
 
 ## NetworkPolicy configuration
 networkPolicy:
-  # -- Create a NetworkPolicy for CISO Assistant pods
+  # -- Create a NetworkPolicy for Suricatoos CISO pods
   enabled: false
   # -- Policy types to enable (Ingress and/or Egress)
   policyTypes:

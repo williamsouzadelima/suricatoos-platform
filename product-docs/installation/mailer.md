@@ -1,6 +1,6 @@
 ---
 description: >-
-  CISO Assistant uses SMTP to send transactional emails (password reset,
+  Suricatoos CISO uses SMTP to send transactional emails (password reset,
   superuser creation, notifications). This page covers configuration and the TLS
   specifics introduced in 3.16.
 ---

@@ -2,7 +2,7 @@
 
 ## Outgoing Webhooks
 
-Webhooks allow CISO Assistant to notify external systems in real-time when specific events occur within your GRC platform. Instead of polling our API every few minutes to check for changes, we will push data to you as soon as it happens.
+Webhooks allow Suricatoos CISO to notify external systems in real-time when specific events occur within your GRC platform. Instead of polling our API every few minutes to check for changes, we will push data to you as soon as it happens.
 
 ### When to use Webhooks
 
@@ -17,7 +17,7 @@ Webhooks are ideal for building automation pipelines and keeping external system
 
 ### Supported Events
 
-You can subscribe to events at a granular level. Currently, CISO Assistant supports the following events:
+You can subscribe to events at a granular level. Currently, Suricatoos CISO supports the following events:
 
 * Applied controls:
   * `appliedcontrol.created`
@@ -40,7 +40,7 @@ You can subscribe to events at a granular level. Currently, CISO Assistant suppo
 
 ### Configuration & Security Features
 
-CISO Assistant adheres to the [Standard Webhooks v1.0.0](https://www.standardwebhooks.com/) [specification](https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md). We prioritize security to ensure that the data sent to your systems is authentic and has not been tampered with.
+Suricatoos CISO adheres to the [Standard Webhooks v1.0.0](https://www.standardwebhooks.com/) [specification](https://github.com/standard-webhooks/standard-webhooks/blob/main/spec/standard-webhooks.md). We prioritize security to ensure that the data sent to your systems is authentic and has not been tampered with.
 
 #### 1. Payload Strategies: Full vs. Thin
 
@@ -48,7 +48,7 @@ When configuring an endpoint, you can choose between two payload strategies.
 
 * Thin Payloads (<mark style="color:purple;">PRO</mark>) (Recommended for Security):
   * What it sends: Only the `id` of the changed resource.
-  * How to process: Your system receives the ID, then makes an authenticated API call back to CISO Assistant to fetch the details.
+  * How to process: Your system receives the ID, then makes an authenticated API call back to Suricatoos CISO to fetch the details.
   * Why choose this: This is the most secure method. It ensures that the receiving system has the correct permissions to view the data and guarantees you are always processing the latest version of the object.
 * Full Payloads (Recommended for Simplicity):
   * What it sends: The complete JSON representation of the object at the time of the event.
@@ -61,7 +61,7 @@ When you create a webhook endpoint, you can generate a unique secret key (`whsec
 
 Every request we send to you is signed using this secret (via HMAC-SHA256). By verifying this signature, you ensure:
 
-1. Authenticity: The message definitely came from CISO Assistant.
+1. Authenticity: The message definitely came from Suricatoos CISO.
 2. Integrity: The message content was not altered in transit.
 
 #### 3. Replay Protection (Timestamps)
@@ -81,7 +81,7 @@ Network issues may cause us to retry sending a webhook, resulting in your server
 1.  Enable the Webhooks feature flag in Settings > Feature flags<br>
 
     <figure><img src="../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
-2.  Create an Endpoint: In the CISO Assistant UI, navigate to Settings > Webhooks.<br>
+2.  Create an Endpoint: In the Suricatoos CISO UI, navigate to Settings > Webhooks.<br>
 
     <figure><img src="../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
 3. Configure: Enter your receiver URL and select the events you want to listen to (e.g., `appliedcontrol.updated`).
@@ -217,7 +217,7 @@ We use a "best effort" delivery system.
 
 #### IP Allowlisting (Compensatory Controls)
 
-If your receiving endpoint is behind a corporate firewall, you may need to allowlist the IP address of the CISO Assistant server.
+If your receiving endpoint is behind a corporate firewall, you may need to allowlist the IP address of the Suricatoos CISO server.
 
 * SaaS Users: contact support to obtain the current outbound IP ranges for your region or workspace.
 * On-Prem Users: The webhooks originate from the IP address of the server running the `huey` worker process. Ensure your firewall allows inbound HTTPS traffic from this internal or external IP.

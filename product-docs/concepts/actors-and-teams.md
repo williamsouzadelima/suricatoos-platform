@@ -1,10 +1,10 @@
 ---
-description: How CISO Assistant represents people, groups, and external parties for assignment and responsibility
+description: How Suricatoos CISO represents people, groups, and external parties for assignment and responsibility
 ---
 
 # Actors and teams
 
-Almost every object in CISO Assistant has an **assignee** — the applied control someone is responsible for, the audit a team is running, the contract a supplier signs. The platform represents all these counterparties through a single abstraction: the **actor**.
+Almost every object in Suricatoos CISO has an **assignee** — the applied control someone is responsible for, the audit a team is running, the contract a supplier signs. The platform represents all these counterparties through a single abstraction: the **actor**.
 
 ## Mental model
 
@@ -30,7 +30,7 @@ The actor is a one-to-one wrapper that always points at exactly one of three con
 
 ## Actors
 
-An actor is the unifying handle for anyone who can be assigned to work in CISO Assistant. Every actor wraps exactly one of three concrete underlying objects:
+An actor is the unifying handle for anyone who can be assigned to work in Suricatoos CISO. Every actor wraps exactly one of three concrete underlying objects:
 
 - A **user** — a person with a platform account.
 - A **team** — a named grouping of users for collaborative responsibility.

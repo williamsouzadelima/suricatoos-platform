@@ -1,4 +1,4 @@
-"""Library management MCP tools for CISO Assistant"""
+"""Library management MCP tools for Suricatoos CISO"""
 
 from ..client import make_get_request, make_post_request, fetch_all_results
 

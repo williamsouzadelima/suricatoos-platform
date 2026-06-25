@@ -440,5 +440,5 @@ def _is_uuid(value: Any) -> bool:
     try:
         uuid.UUID(value)
         return True
-    except ValueError, AttributeError:
+    except (ValueError, AttributeError):
         return False

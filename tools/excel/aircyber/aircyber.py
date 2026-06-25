@@ -1,5 +1,5 @@
 """
-Simple script to convert AirCyber v1.5.2 excel in a CISO Assistant Excel file
+Simple script to convert AirCyber v1.5.2 excel in a Suricatoos CISO Excel file
 Source;  https://boostaerospace.com/aircyber/
 """
 
@@ -11,7 +11,7 @@ from openpyxl.styles import numbers
 
 parser = argparse.ArgumentParser(
     prog="convert_aircyber",
-    description="convert AirCyber controls offical v1.5.2 Excel file to CISO Assistant Excel file",
+    description="convert AirCyber controls offical v1.5.2 Excel file to Suricatoos CISO Excel file",
 )
 
 parser.add_argument("filename", help="name of official AirCyber Excel file")
@@ -21,7 +21,7 @@ output_file_name = "aircyber-v1.5.2.xlsx"
 
 library_copyright = """© Boost Aerospace
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Any commercial use of this work must be contracted with BoostAeroSpace.
-Permission given to include AirCyber in CISO Assistant.
+Permission given to include AirCyber in Suricatoos CISO.
 """
 packager = "intuitem"
 

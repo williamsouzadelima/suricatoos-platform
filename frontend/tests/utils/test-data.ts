@@ -608,7 +608,7 @@ export default {
 		// category: 'policy',
 		// csf_function: 'govern',
 		library: {
-			name: 'CISO Assistant Key Reference Controls',
+			name: 'Suricatoos CISO Key Reference Controls',
 			ref: 'usual-controls',
 			urn: 'urn:intuitem:risk:library:doc-pol'
 		},
@@ -619,7 +619,7 @@ export default {
 		// category: 'process',
 		// csf_function: 'protect',
 		library: {
-			name: 'CISO Assistant Key Reference Controls',
+			name: 'Suricatoos CISO Key Reference Controls',
 			ref: 'usual-controls',
 			urn: 'urn:intuitem:risk:library:doc-pol'
 		},

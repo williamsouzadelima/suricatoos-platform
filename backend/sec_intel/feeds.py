@@ -366,7 +366,7 @@ class EUVDFeed:
             resp = httpx.get(
                 f"{EUVD_API_URL}/search",
                 params={"exploited": "true", "page": page, "size": 100},
-                headers={"User-Agent": "CISO-Assistant/1.0"},
+                headers={"User-Agent": "Suricatoos-CISO/1.0"},
                 timeout=_get_timeout(),
                 follow_redirects=True,
             )
@@ -409,7 +409,7 @@ class EUVDFeed:
             if epss is not None:
                 try:
                     epss_score = Decimal(str(epss)) / 100
-                except ValueError, ArithmeticError:
+                except (ValueError, ArithmeticError):
                     logger.warning("Invalid EPSS value", euvd_id=euvd_id, epss=epss)
 
             pub = entry.get("datePublished")

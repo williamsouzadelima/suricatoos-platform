@@ -121,7 +121,7 @@ They can be provided by security frameworks imported from a library, or you can 
 
 ## Policy
 
-A **policy** is a specific type of applied control: a document describing what is expected from some part of your stakeholders. Putting your cybersecurity policies in CISO Assistant makes them readily available for audits, and lets you manage their lifecycle alongside the rest of your controls.
+A **policy** is a specific type of applied control: a document describing what is expected from some part of your stakeholders. Putting your cybersecurity policies in Suricatoos CISO makes them readily available for audits, and lets you manage their lifecycle alongside the rest of your controls.
 
 ## Related
 

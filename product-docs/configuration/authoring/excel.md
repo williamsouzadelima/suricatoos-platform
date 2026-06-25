@@ -6,7 +6,7 @@ description: Authoring frameworks, matrices, and other library content from Exce
 
 > _Stub — to be expanded._
 
-**Excel is the recommended authoring format** for most CISO Assistant content. Once an Excel file is written it gets converted to YAML by a single command, and the resulting `.yaml` is what the platform actually loads. The Excel route is faster than hand-writing YAML, much easier to review with non-engineers, and the converter tooling validates the structure for you before it ever reaches your instance.
+**Excel is the recommended authoring format** for most Suricatoos CISO content. Once an Excel file is written it gets converted to YAML by a single command, and the resulting `.yaml` is what the platform actually loads. The Excel route is faster than hand-writing YAML, much easier to review with non-engineers, and the converter tooling validates the structure for you before it ever reaches your instance.
 
 This page captures the editorial conventions for Excel-driven authoring; the full v2 Excel format reference and the converter command-line are in [Designing your own libraries](../libraries/custom-libraries.md).
 

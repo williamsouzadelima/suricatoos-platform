@@ -1,5 +1,5 @@
 """
-Simple script to convert Adobe CCF Security Controls v5 Excel in a CISO Assistant Excel file
+Simple script to convert Adobe CCF Security Controls v5 Excel in a Suricatoos CISO Excel file
 Source: https://www.adobe.com/content/dam/cc/en/trust/pdfs/Open_Source_CCF.xls
 """
 
@@ -11,7 +11,7 @@ from openpyxl.styles import numbers
 
 parser = argparse.ArgumentParser(
     prog="convert_ccf",
-    description="convert Adobe CCF Security Controls v5 Excel file to CISO Assistant Excel file",
+    description="convert Adobe CCF Security Controls v5 Excel file to Suricatoos CISO Excel file",
 )
 
 parser.add_argument("filename", help="name of Adobe CCF Excel file")

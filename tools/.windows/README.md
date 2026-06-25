@@ -1,6 +1,6 @@
 # Native Windows Development Scripts
 
-This folder contains helper scripts for running the CISO Assistant backend in
+This folder contains helper scripts for running the Suricatoos CISO backend in
 native Windows development.
 
 ## Files
@@ -14,7 +14,7 @@ native Windows development.
 
 ### > For `backend.ps1` & `.win_native_dev_runserver.py`
 
-Copy the scripts from this folder at these paths from the CISO Assistant
+Copy the scripts from this folder at these paths from the Suricatoos CISO
 repository root:
 
 ```sh
@@ -30,7 +30,7 @@ Then start the backend from the repository root:
 
 ### > For `convert_library_v2.bat`
 
-Copy the script from this folder at this path from the CISO Assistant
+Copy the script from this folder at this path from the Suricatoos CISO
 repository root:
 
 ```sh

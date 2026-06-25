@@ -1,10 +1,10 @@
 ---
-description: How to translate the CISO Assistant interface and (in-coming) library content
+description: How to translate the Suricatoos CISO interface and (in-coming) library content
 ---
 
 # Contributing translations
 
-CISO Assistant ships in multiple languages and welcomes new locales and translation improvements from the community.
+Suricatoos CISO ships in multiple languages and welcomes new locales and translation improvements from the community.
 
 ## Translating the interface
 
@@ -21,7 +21,7 @@ Interface strings live in `frontend/messages/` as one JSON file per locale (`en.
 
 ### Translation quality
 
-- **Match the register.** CISO Assistant's English copy is direct and concrete — translations should be too. Avoid stiff calques or marketing flourishes.
+- **Match the register.** Suricatoos CISO's English copy is direct and concrete — translations should be too. Avoid stiff calques or marketing flourishes.
 - **Read it aloud.** If it sounds artificial, it probably is. Prefer natural verbs and ordinary phrasing in the target language.
 - **Respect terminology.** When in doubt, align with the official translation used by the corresponding standard or regulator (ISO publishes localised versions of its standards; ANSSI, NIST, ENISA publish localised material).
 - **Leave placeholders alone.** Substitution tokens like `{count}` or `{name}` must be preserved verbatim.

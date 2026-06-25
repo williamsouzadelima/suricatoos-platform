@@ -1,6 +1,6 @@
 # General tips
 
-CISO Assistant is intended to be a multi-paradigm tool that suits everyone's background and approach to cyber-security programme organisation.
+Suricatoos CISO is intended to be a multi-paradigm tool that suits everyone's background and approach to cyber-security programme organisation.
 
 That said, here are some standard recommendations to get the most of it when you're just starting:
 

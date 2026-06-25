@@ -29,7 +29,7 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
-Define CISO Assistant default tag version.
+Define Suricatoos CISO default tag version.
 */}}
 {{- define "ciso-assistant.defaultTag" -}}
 {{- default .Chart.AppVersion .Values.global.image.tag -}}

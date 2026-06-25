@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Dérogation de sécurité expirée depuis ${expired_since} jour(s)"
+subject: "Suricatoos CISO: Dérogation de sécurité expirée depuis ${expired_since} jour(s)"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${exception_list}
 
-  Connectez-vous à votre portail CISO Assistant pour consulter et mettre à jour ces dérogations de sécurité : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Connectez-vous à votre portail Suricatoos CISO pour consulter et mettre à jour ces dérogations de sécurité : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

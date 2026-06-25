@@ -1,5 +1,5 @@
 """
-CISO Assistant MCP Server - Backward Compatibility Wrapper
+Suricatoos CISO MCP Server - Backward Compatibility Wrapper
 
 This file maintains backward compatibility by importing from the new modular structure.
 The actual implementation is now in the ca_mcp/ module.

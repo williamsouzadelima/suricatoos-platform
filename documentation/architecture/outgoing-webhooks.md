@@ -21,7 +21,7 @@
 
 ## Overview & goals
 
-This document outlines the MVP implementation for **Outgoing Webhooks** in CISO Assistant.
+This document outlines the MVP implementation for **Outgoing Webhooks** in Suricatoos CISO.
 
 - **Goal:** To provide a secure, reliable, and straightforward way for users to subscribe to events within the platform (e.g., `appliedcontrol.created`) and receive notifications at an external HTTP endpoint.
 - **Foundation:** This implementation **MUST** adhere to the **Standard Webhooks v1.0.0** specification.
@@ -89,7 +89,7 @@ The payload MUST be formatted as **JSON**, and the request will include a `Conte
 
 #### Payload structure
 
-All webhook payloads from CISO Assistant adhere to the Standard Webhooks v1.0.0 specification, ensuring a consistent, top-level structure. This makes all payloads predictable and easy to parse.
+All webhook payloads from Suricatoos CISO adhere to the Standard Webhooks v1.0.0 specification, ensuring a consistent, top-level structure. This makes all payloads predictable and easy to parse.
 
 The top-level JSON object will always contain
 
@@ -99,7 +99,7 @@ The top-level JSON object will always contain
 
 #### Payload strategy
 
-CISO Assistant allows for two payload modes: **thin** and **full** payloads.
+Suricatoos CISO allows for two payload modes: **thin** and **full** payloads.
 
 A "thin" payload contains _only the ID_ of the resource that changed, not the full object. You must use this ID to call back to our API to fetch the complete, up-to-date details.
 
@@ -219,7 +219,7 @@ webhook-signature: v1,K5oZfzN95Z9UVu1EsfQmfVNQhnkZ2pj9o9NDN/H/pI4=
 
 ### Verifying signatures (MVP)
 
-To ensure the webhook is from CISO Assistant and has not been tampered with, you **MUST** verify the `webhook-signature` before trusting the payload.
+To ensure the webhook is from Suricatoos CISO and has not been tampered with, you **MUST** verify the `webhook-signature` before trusting the payload.
 
 The content that we sign (the "signed content string") is created by concatenating the `webhook-id`, the `webhook-timestamp`, and the **raw JSON payload**, using a full-stop (`.`) as a delimiter.
 

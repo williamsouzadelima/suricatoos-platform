@@ -4,7 +4,7 @@ description: Basic setup for local deployment and experimentation
 
 # Local
 
-The recommended pattern for local deployment is to use **Docker Compose**. Check the Readme file on the CISO Assistant repo for the latest instructions.
+The recommended pattern for local deployment is to use **Docker Compose**. Check the Readme file on the Suricatoos CISO repo for the latest instructions.
 
 
 

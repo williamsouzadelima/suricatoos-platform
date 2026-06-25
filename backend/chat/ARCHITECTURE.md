@@ -1,4 +1,4 @@
-# CISO Assistant — AI Chat Architecture
+# Suricatoos CISO — AI Chat Architecture
 
 ## Executive Summary
 

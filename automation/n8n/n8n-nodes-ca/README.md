@@ -1,6 +1,6 @@
-# CISO Assistant Custom n8n Node
+# Suricatoos CISO Custom n8n Node
 
-Custom n8n node for interacting with the CISO Assistant API.
+Custom n8n node for interacting with the Suricatoos CISO API.
 
 ## Prerequisites
 
@@ -95,10 +95,10 @@ Then restart n8n with the custom extensions path.
 
 ## Configuration
 
-In n8n, create a new credential for "CISO Assistant API":
+In n8n, create a new credential for "Suricatoos CISO API":
 
-- **API URL**: Your CISO Assistant instance URL (e.g., `http://localhost:8000/api`)
-- **Personal Access Token (PAT)**: Your authentication token from CISO Assistant
+- **API URL**: Your Suricatoos CISO instance URL (e.g., `http://localhost:8000/api`)
+- **Personal Access Token (PAT)**: Your authentication token from Suricatoos CISO
 - **Skip TLS verification**: Enable if using self-signed certificates (optional)
 
 ## Available Resources

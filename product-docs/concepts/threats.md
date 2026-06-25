@@ -13,7 +13,7 @@ Threats are reusable building blocks: a single threat (say, "Phishing") may appe
 
 ## Where threats come from
 
-CISO Assistant ships with curated threat libraries based on common sources — MITRE ATT&CK, ENISA, the ISO 27005 illustrative threat catalogue, sector-specific catalogues. You can also create your own threats inside a domain, or contribute a custom threat library.
+Suricatoos CISO ships with curated threat libraries based on common sources — MITRE ATT&CK, ENISA, the ISO 27005 illustrative threat catalogue, sector-specific catalogues. You can also create your own threats inside a domain, or contribute a custom threat library.
 
 ## Optional, but useful
 

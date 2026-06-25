@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Vous avez ${task_count} tâche(s) en retard"
+subject: "Suricatoos CISO: Vous avez ${task_count} tâche(s) en retard"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${task_list}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour compléter ou mettre à jour ces tâches : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez vous connecter à votre portail Suricatoos CISO pour compléter ou mettre à jour ces tâches : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

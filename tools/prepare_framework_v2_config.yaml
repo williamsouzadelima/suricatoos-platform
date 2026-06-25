@@ -2,7 +2,7 @@
 # YAML Template for Excel Framework Generator
 # ------------------------------------------------------------------------------
 # This configuration file is used to generate a structured Excel file for a 
-# CISO Assistant framework using the "Framework Generator" script.
+# Suricatoos CISO framework using the "Framework Generator" script.
 #
 # REQUIRED FIELDS:
 # - urn_root: (str) Unique identifier base. Must contain only lowercase letters,

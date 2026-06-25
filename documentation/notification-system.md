@@ -1,6 +1,6 @@
 # Notification System
 
-This document describes the email notification system in CISO Assistant, powered by **Huey** (async task queue) and **Django's email backend**.
+This document describes the email notification system in Suricatoos CISO, powered by **Huey** (async task queue) and **Django's email backend**.
 
 ## Architecture Overview
 
@@ -101,7 +101,7 @@ Templates are YAML files under `backend/core/templates/emails/{locale}/`.
 ### Format
 
 ```yaml
-subject: "CISO Assistant: You have been assigned to '${control_name}'"
+subject: "Suricatoos CISO: You have been assigned to '${control_name}'"
 body: |
   Hello,
 
@@ -111,7 +111,7 @@ body: |
   - Description: ${control_description}
   - Reference ID: ${control_ref_id}
 
-  Log in to your CISO Assistant portal:
+  Log in to your Suricatoos CISO portal:
   ${ciso_assistant_url}
 
   Thank you.

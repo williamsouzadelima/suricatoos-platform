@@ -1,4 +1,4 @@
-"""Configuration module for CISO Assistant MCP server"""
+"""Configuration module for Suricatoos CISO MCP server"""
 
 import os
 from dotenv import load_dotenv

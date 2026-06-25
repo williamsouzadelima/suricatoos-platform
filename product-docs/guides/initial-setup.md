@@ -1,10 +1,10 @@
 # 00 - initial setup
 
-## [CISO Assistant: initial setup](https://app.guidde.com/playbooks/ePGKrmy5kVfGgH1Fpb97JX)
+## [Suricatoos CISO: initial setup](https://app.guidde.com/playbooks/ePGKrmy5kVfGgH1Fpb97JX)
 
 {% embed url="https://app.guidde.com/share/playbooks/ePGKrmy5kVfGgH1Fpb97JX" %}
 
-Start your journey with CISO Assistant by setting up your organization (domains, perimeters, and users) and then import some basic libraries to get started with compliance and risk assessment.
+Start your journey with Suricatoos CISO by setting up your organization (domains, perimeters, and users) and then import some basic libraries to get started with compliance and risk assessment.
 
 #### Go to [your-ciso-assistant-instance](https://your-ciso-assistant-instance)
 
@@ -242,6 +242,6 @@ Examine the details of the ISO/IEC 27001:2022 standard for information security 
 
 ![Click 'Frameworks'](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2FePGKrmy5kVfGgH1Fpb97JX%2Fmzz6nFD23jEQ83fKeENFVX_doc.png?alt=media\&token=092e5f9b-dbd4-4ce3-8fce-c377aec264ce)
 
-This guide covered setting up your organization in CISO Assistant, including domain and perimeter creation, user management, role assignments, and exploring compliance frameworks and risk matrices. It also detailed how to map frameworks to risk matrices for comprehensive security management.
+This guide covered setting up your organization in Suricatoos CISO, including domain and perimeter creation, user management, role assignments, and exploring compliance frameworks and risk matrices. It also detailed how to map frameworks to risk matrices for comprehensive security management.
 
 [Powered by **guidde**](https://www.guidde.com)

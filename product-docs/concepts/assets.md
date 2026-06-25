@@ -1,6 +1,6 @@
 # Assets
 
-An **asset** is anything of value worth protecting. Assets are first-class objects in CISO Assistant, decoupled from any specific risk study or audit, so the same asset can participate in many analyses without being duplicated.
+An **asset** is anything of value worth protecting. Assets are first-class objects in Suricatoos CISO, decoupled from any specific risk study or audit, so the same asset can participate in many analyses without being duplicated.
 
 Assets are always defined by the organisation and can be attached to the global domain or to a specific domain.
 

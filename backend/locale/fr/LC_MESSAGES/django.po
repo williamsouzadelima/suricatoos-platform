@@ -492,8 +492,8 @@ msgid "user groups"
 msgstr ""
 
 #: iam/models.py:450
-msgid "Welcome to CISO Assistant!"
-msgstr "Bienvenue sur CISO Assistant !"
+msgid "Welcome to Suricatoos CISO!"
+msgstr "Bienvenue sur Suricatoos CISO !"
 
 #: iam/models.py:498
 msgid "last name"
@@ -612,8 +612,8 @@ msgid "Key"
 msgstr ""
 
 #: iam/views.py:282
-msgid "CISO Assistant: Password Reset"
-msgstr "CISO Assistant : réinitialisation de mot de passe"
+msgid "Suricatoos CISO: Password Reset"
+msgstr "Suricatoos CISO : réinitialisation de mot de passe"
 
 #: tprm/models.py:43 tprm/models.py:262
 msgid "Is active"
@@ -1073,5 +1073,5 @@ msgstr ""
 msgid "operating modes"
 msgstr "modes opératoires"
 
-#~ msgid "CISO Assistant: A questionnaire has been assigned to you"
-#~ msgstr "CISO Assistant: Un questionnaire vous a été assigné"
+#~ msgid "Suricatoos CISO: A questionnaire has been assigned to you"
+#~ msgstr "Suricatoos CISO: Un questionnaire vous a été assigné"

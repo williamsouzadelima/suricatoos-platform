@@ -60,7 +60,7 @@
         fill: rgb("#f8fafc")
       )[
         #text(size: 26pt, weight: "semibold", fill: rgb("#334155"))[
-          CISO Assistant
+          Suricatoos CISO
         ]
         #linebreak()
         #text(size: 18pt, weight: "medium", fill: rgb("#64748b"), style: "italic")[
@@ -101,7 +101,7 @@
 
 = Introduction
 
-Document purpose: This Security Assurance Plan explains the controls, processes, and evidence that Intuitem provides to protect customer data and ensure the availability, integrity, and confidentiality of the CISO Assistant platform.
+Document purpose: This Security Assurance Plan explains the controls, processes, and evidence that Intuitem provides to protect customer data and ensure the availability, integrity, and confidentiality of the Suricatoos CISO platform.
 
 Intended audience: Security, risk, compliance, procurement, and technical stakeholders at customer organizations.
 
@@ -111,7 +111,7 @@ Last updated: 2025-08-15
 
 = Scope & Applicability
 
-This plan covers Intuitem’s SaaS offering of CISO Assistant and the associated managed infrastructure, operations, and support services. Customer-managed (on-premises) deployments are covered where explicitly noted (see @srm).
+This plan covers Intuitem’s SaaS offering of Suricatoos CISO and the associated managed infrastructure, operations, and support services. Customer-managed (on-premises) deployments are covered where explicitly noted (see @srm).
 
 
 

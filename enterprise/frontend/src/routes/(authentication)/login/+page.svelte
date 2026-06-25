@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.clientSettings.settings.name || 'CISO Assistant'} | {m.login()}</title>
+	<title>{data.clientSettings.settings.name || 'Suricatoos CISO'} | {m.login()}</title>
 </svelte:head>
 
 <div class="lg:relative h-screen w-screen bg-surface-200-800">

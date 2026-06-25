@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Data Wizard is located in `/backend/data_wizard/`. It supports importing data from Excel/CSV files into CISO Assistant.
+The Data Wizard is located in `/backend/data_wizard/`. It supports importing data from Excel/CSV files into Suricatoos CISO.
 
 ## Supported Model Types
 
@@ -92,7 +92,7 @@ The Data Wizard defines the following `ModelType` enum for supported imports:
 | `run_fixed_cost` | No | Integer |
 | `run_people_days` | No | Integer |
 
-> **Note:** The `owner` field resolves entries against existing users (by email) and teams (by name). Ensure any referenced users and teams are created in CISO Assistant before importing. Unresolved entries will be skipped with a warning and will not block the import.
+> **Note:** The `owner` field resolves entries against existing users (by email) and teams (by name). Ensure any referenced users and teams are created in Suricatoos CISO before importing. Unresolved entries will be skipped with a warning and will not block the import.
 
 **Missing Fields from Model:**
 | Field | Type | Priority |

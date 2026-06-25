@@ -25,7 +25,7 @@ If all five are clean and the assignment still does not progress, check the back
 
 **Symptoms.** Representatives report they never received the invitation. Password resets from the UI also fail silently. The backend logs contain SMTP errors, or nothing at all because no SMTP host is set.
 
-CISO Assistant sends every transactional email — invitations, password resets, notifications — through a single SMTP configuration. There is **no in-app form** for this: it lives entirely in environment variables on the backend container.
+Suricatoos CISO sends every transactional email — invitations, password resets, notifications — through a single SMTP configuration. There is **no in-app form** for this: it lives entirely in environment variables on the backend container.
 
 Go to [Setting up mailer](../installation/mailer.md) for the full reference. The minimum to set is:
 

@@ -4,7 +4,7 @@ description: Security and operational events tracked from detection through reso
 
 # Incidents
 
-An **incident** is a security or operational event being investigated or responded to. CISO Assistant treats incidents as first-class objects so that detection, response, evidence, and the controls that should prevent recurrence all live in one place.
+An **incident** is a security or operational event being investigated or responded to. Suricatoos CISO treats incidents as first-class objects so that detection, response, evidence, and the controls that should prevent recurrence all live in one place.
 
 Incidents are deliberately distinct from related concepts:
 
@@ -55,7 +55,7 @@ State transitions are recorded in the incident **timeline**, an append-only log 
 
 ## DORA incident reports
 
-For regulated tenants, CISO Assistant ships a **DORA incident report** — a structured form aligned with the Digital Operational Resilience Act notification requirements (initial, intermediate, and final reports). It draws from the underlying incident but adds the regulatory fields and timing that DORA prescribes.
+For regulated tenants, Suricatoos CISO ships a **DORA incident report** — a structured form aligned with the Digital Operational Resilience Act notification requirements (initial, intermediate, and final reports). It draws from the underlying incident but adds the regulatory fields and timing that DORA prescribes.
 
 ## Related
 

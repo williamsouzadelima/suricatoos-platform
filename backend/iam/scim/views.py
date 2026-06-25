@@ -1,5 +1,5 @@
 """
-SCIM 2.0 Views for CISO Assistant.
+SCIM 2.0 Views for Suricatoos CISO.
 
 Endpoints:
   GET/POST                    /api/scim/v2/Users
@@ -107,7 +107,7 @@ class ServiceProviderConfigView(views.APIView):
                 {
                     "type": "oauthbearertoken",
                     "name": "OAuth Bearer Token",
-                    "description": "Authentication using a Bearer token issued by CISO Assistant",
+                    "description": "Authentication using a Bearer token issued by Suricatoos CISO",
                 }
             ],
             "meta": {
@@ -128,7 +128,7 @@ class ServiceProviderConfigView(views.APIView):
 
 
 class SchemasView(views.APIView):
-    """GET /Schemas — list every schema CISO Assistant supports."""
+    """GET /Schemas — list every schema Suricatoos CISO supports."""
 
     authentication_classes = []
     permission_classes = []
@@ -209,7 +209,7 @@ class SCIMUserViewSet(ViewSet):
         try:
             start_index = max(int(request.query_params.get("startIndex", 1)), 1)
             count = min(max(int(request.query_params.get("count", 100)), 0), 200)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             start_index, count = 1, 100
 
         # Only expose users SCIM provisioned/owns; locally-managed accounts are
@@ -235,7 +235,7 @@ class SCIMUserViewSet(ViewSet):
     def create(self, request):
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400)
 
         user_name = data.get("userName")
@@ -347,7 +347,7 @@ class SCIMUserViewSet(ViewSet):
             return _scim_error_response(f"User {pk} not found", 404)
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400)
         _update_user_from_scim_data(user, data)
         err = _save_user_or_scim_error(user)
@@ -361,7 +361,7 @@ class SCIMUserViewSet(ViewSet):
             return _scim_error_response(f"User {pk} not found", 404)
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400)
 
         # Some SCIM clients send "Operations", some send "operations".
@@ -458,7 +458,7 @@ class SCIMGroupViewSet(ViewSet):
         try:
             start_index = max(int(request.query_params.get("startIndex", 1)), 1)
             count = min(max(int(request.query_params.get("count", 100)), 0), 200)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             start_index, count = 1, 100
 
         qs = IdPGroup.objects.all().order_by("name")
@@ -484,7 +484,7 @@ class SCIMGroupViewSet(ViewSet):
     def create(self, request):
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400, "invalidSyntax")
 
         display_name = data.get("displayName")
@@ -516,7 +516,7 @@ class SCIMGroupViewSet(ViewSet):
             return _scim_error_response(f"Group {pk} not found", 404)
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400, "invalidSyntax")
 
         display_name = data.get("displayName")
@@ -534,7 +534,7 @@ class SCIMGroupViewSet(ViewSet):
             return _scim_error_response(f"Group {pk} not found", 404)
         try:
             data = json.loads(request.body)
-        except json.JSONDecodeError, ValueError:
+        except (json.JSONDecodeError, ValueError):
             return _scim_error_response("Invalid JSON body", 400, "invalidSyntax")
 
         # Some SCIM clients send "Operations" (RFC casing), some send lowercase.
@@ -649,7 +649,7 @@ def _valid_uuid(value):
     """
     try:
         return uuid.UUID(str(value))
-    except ValueError, TypeError, AttributeError:
+    except (ValueError, TypeError, AttributeError):
         return None
 
 

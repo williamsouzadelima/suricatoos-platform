@@ -4,7 +4,7 @@ description: Step-by-step walkthrough for managing an accreditation from start t
 
 # Managing an accreditation
 
-An **accreditation** in CISO Assistant tracks a formal authorisation granted to a system, service, or organisation by an authority — typically the outcome of an audit-and-decision process. It captures who granted it, what's in scope, when it expires, and the evidence behind the decision.
+An **accreditation** in Suricatoos CISO tracks a formal authorisation granted to a system, service, or organisation by an authority — typically the outcome of an audit-and-decision process. It captures who granted it, what's in scope, when it expires, and the evidence behind the decision.
 
 See [Project management](../concepts/project-management.md) for how accreditations sit alongside projects and collections.
 
@@ -35,7 +35,7 @@ Accreditations live under the **Project management** module. If the sidebar does
 4. _Optional_: expand the **More** dropdown for extended fields:
    - **Checklist** — pick an audit whose progress should drive the accreditation's progress bar.
    - **Commission date** — date the accreditation commission made its decision.
-   - **Duration (months)** — accreditation validity. If both **Commission date** and **Duration** are filled in and **Expiry date** is blank on save, CISO Assistant computes the expiry automatically.
+   - **Duration (months)** — accreditation validity. If both **Commission date** and **Duration** are filled in and **Expiry date** is blank on save, Suricatoos CISO computes the expiry automatically.
    - **Expiry date** — when the accreditation lapses. Manual or auto-computed from the commission date + duration.
    - **Decision evidence** — evidence documents backing the decision (e.g. minutes / _procès-verbal_).
    - **Labels** — filtering labels.

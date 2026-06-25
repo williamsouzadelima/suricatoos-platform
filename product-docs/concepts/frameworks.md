@@ -2,7 +2,7 @@
 
 A **framework** is a normative body of requirements that audits are measured against — an industry standard (ISO/IEC 27001, NIST CSF, SOC 2), a regulation (NIS2, DORA, GDPR), a custom internal standard, or any other structured set of requirements.
 
-In CISO Assistant, frameworks are shipped as YAML libraries and are the foundation of every audit.
+In Suricatoos CISO, frameworks are shipped as YAML libraries and are the foundation of every audit.
 
 ## Mental model
 
@@ -83,7 +83,7 @@ Roll-ups keep mixed scales comparable. Average-based aggregation normalises each
 
 ## Built-in vs custom
 
-CISO Assistant ships with 100+ built-in frameworks covering most international standards and regulations. When none of them fits your needs, you can build your own — see [Designing your own libraries](../configuration/libraries/custom-libraries.md) and [Getting your custom framework](../configuration/libraries/custom-frameworks.md).
+Suricatoos CISO ships with 100+ built-in frameworks covering most international standards and regulations. When none of them fits your needs, you can build your own — see [Designing your own libraries](../configuration/libraries/custom-libraries.md) and [Getting your custom framework](../configuration/libraries/custom-frameworks.md).
 
 ## Mappings between frameworks
 

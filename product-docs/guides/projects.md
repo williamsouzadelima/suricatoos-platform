@@ -4,7 +4,7 @@ description: Step-by-step walkthrough for creating and operating a project, prog
 
 # Managing a project
 
-The **Project** object in CISO Assistant is the unit you use to plan and track a piece of work — from a single delivery up to a full portfolio of programmes. Each project records its charter, schedule, financials, people, scope, linked objects, and a rolling analytics history.
+The **Project** object in Suricatoos CISO is the unit you use to plan and track a piece of work — from a single delivery up to a full portfolio of programmes. Each project records its charter, schedule, financials, people, scope, linked objects, and a rolling analytics history.
 
 See [Project management](../concepts/project-management.md) for how projects sit alongside accreditations and responsibility matrices.
 
@@ -43,7 +43,7 @@ Kind is purely an organisational hint — it changes the icon, the colour accent
 The project opens in **Overview** mode, with a card containing the header strip (kind badge, name, ref ID), four KPI tiles (status, health, priority, progress), an info row (owner, sponsor, parent project, sub-projects), and seven content tabs.
 
 {% hint style="info" %}
-On creation, CISO Assistant auto-creates a **linked collection** named after the project. That collection is what holds the project's scope objects (assets, audits, risk studies, etc.); you'll see it referenced in the **Linked** tab. You can swap it for a different collection later.
+On creation, Suricatoos CISO auto-creates a **linked collection** named after the project. That collection is what holds the project's scope objects (assets, audits, risk studies, etc.); you'll see it referenced in the **Linked** tab. You can swap it for a different collection later.
 {% endhint %}
 
 ## The detail page at a glance
@@ -75,7 +75,7 @@ The Overview tab is where you keep the lifecycle KPIs current:
 - **Progress** — 0–100% slider, in steps of 5.
 
 {% hint style="info" %}
-**Closing the project**: when you change the status to the built-in `closed`, CISO Assistant auto-stamps **Closed at** with today's date. Moving the status back out of `closed` clears that date.
+**Closing the project**: when you change the status to the built-in `closed`, Suricatoos CISO auto-stamps **Closed at** with today's date. Moving the status back out of `closed` clears that date.
 {% endhint %}
 
 ## Fill in the charter
@@ -149,7 +149,7 @@ Both fields are independent of IAM permissions; they're descriptive only.
 
 ## Read the analytics (read-only)
 
-The **Analytics** tab is generated from automatic project snapshots — CISO Assistant records a `BuiltinMetricSample` each time you save a project, building a time series of its lifecycle. You'll see:
+The **Analytics** tab is generated from automatic project snapshots — Suricatoos CISO records a `BuiltinMetricSample` each time you save a project, building a time series of its lifecycle. You'll see:
 
 - Four KPI tiles for the latest snapshot (Progress, Status, Health, Actual cost), with a **vs 7d ago** delta for Progress.
 - A **Lifecycle — Timeline** chart stacking Status, Health, and Priority over time.

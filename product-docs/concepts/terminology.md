@@ -4,11 +4,11 @@ description: Organisation-defined labels that override the platform's defaults
 
 # Terminology
 
-CISO Assistant ships with a default vocabulary for the values that appear in dropdowns and badges across the UI — risk origin types in EBIOS RM, project status values, qualifications on incidents, accreditation status labels, metric units, and so on. The **terminology** layer lets each organisation override those defaults to match its own internal vocabulary, without changing the platform's data model.
+Suricatoos CISO ships with a default vocabulary for the values that appear in dropdowns and badges across the UI — risk origin types in EBIOS RM, project status values, qualifications on incidents, accreditation status labels, metric units, and so on. The **terminology** layer lets each organisation override those defaults to match its own internal vocabulary, without changing the platform's data model.
 
 ## Why it exists
 
-Two organisations can use CISO Assistant against the same framework and the same methodology, but speak entirely different internal languages. One team's "Risk Origin: state-actor" is another team's "Adversary: nation-state". The terminology surface lets you reshape the labels without forking the platform.
+Two organisations can use Suricatoos CISO against the same framework and the same methodology, but speak entirely different internal languages. One team's "Risk Origin: state-actor" is another team's "Adversary: nation-state". The terminology surface lets you reshape the labels without forking the platform.
 
 ## How it works
 

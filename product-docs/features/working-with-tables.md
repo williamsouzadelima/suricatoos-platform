@@ -1,10 +1,10 @@
 ---
-description: One toolbar, everywhere — search, filter, sort, choose columns, and act on rows (single or in bulk) on every model table in CISO Assistant
+description: One toolbar, everywhere — search, filter, sort, choose columns, and act on rows (single or in bulk) on every model table in Suricatoos CISO
 ---
 
 # Working with tables
 
-Almost every list in CISO Assistant — applied controls, risk scenarios, assets, evidences, audits — is a **model table** built from the same component. That means the toolbar and gestures are identical wherever you go: learn them once and they work everywhere.
+Almost every list in Suricatoos CISO — applied controls, risk scenarios, assets, evidences, audits — is a **model table** built from the same component. That means the toolbar and gestures are identical wherever you go: learn them once and they work everywhere.
 
 This page covers the full table surface: the four ways to **shape what you see** (search, filter, sort, columns) and the two ways to **act on rows** (context menu for one, batch actions for many).
 

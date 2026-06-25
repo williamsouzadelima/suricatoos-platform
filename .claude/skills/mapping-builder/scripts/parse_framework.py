@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Parse a CISO Assistant framework YAML.
+"""Parse a Suricatoos CISO framework YAML.
 
 Outputs JSON to stdout with framework metadata and assessable items grouped
 by top-level section, ready for Claude to reason over.
@@ -158,7 +158,7 @@ def parse(yaml_path: Path) -> dict:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Parse a CISO Assistant framework YAML.")
+    p = argparse.ArgumentParser(description="Parse a Suricatoos CISO framework YAML.")
     p.add_argument("yaml_path", help="Path to framework YAML")
     p.add_argument(
         "--items-only",

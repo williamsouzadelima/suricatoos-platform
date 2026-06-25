@@ -25,4 +25,4 @@ As you can see, back in the risk assessment view, the current and residual scena
 {% endhint %}
 
 Congratulation! :tada:\
-If you followed the three last pages, you have just created your first assessments on CISO Assistant! The following section will show you how to use our management tools :mag\_right:
+If you followed the three last pages, you have just created your first assessments on Suricatoos CISO! The following section will show you how to use our management tools :mag\_right:

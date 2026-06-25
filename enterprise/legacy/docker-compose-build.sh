@@ -35,6 +35,6 @@ else
 	echo "Initialize your superuser account..."
 	docker compose -p enterprise exec backend python manage.py createsuperuser
 
-	echo "Connect to CISO Assistant on https://localhost:8443"
+	echo "Connect to Suricatoos CISO on https://localhost:8443"
 	popd
 fi

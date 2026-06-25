@@ -1,4 +1,4 @@
-subject: "CISO Assistant: La validation '${validation_ref_id}' a été ${new_status}"
+subject: "Suricatoos CISO: La validation '${validation_ref_id}' a été ${new_status}"
 body: |
   Bonjour,
 

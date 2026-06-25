@@ -6,7 +6,7 @@ BACKUP_FILE="ciso-assistant-backup.sqlite3"
 
 # Backup the database
 if [ ! -f "$DB_FILE" ]; then
-  echo "Error: No database found, please initialize CISO Assistant first"
+  echo "Error: No database found, please initialize Suricatoos CISO first"
   exit 1
 else
   cp "$DB_FILE" "$BACKUP_FILE"
@@ -19,4 +19,4 @@ docker compose rm -fs
 # note: the rmi trick is not needed anymore since we move to always pull policy
 # Start the containers
 docker compose up -d
-echo "CISO assistant updated successfully"
+echo "Suricatoos CISO updated successfully"

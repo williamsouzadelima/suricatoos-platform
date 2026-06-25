@@ -4,7 +4,7 @@ description: Guidelines for authoring frameworks, risk matrices, journey presets
 
 # Authoring
 
-This section gathers the **authoring guidelines** — the conventions, structure, and pitfalls to keep in mind when you create the content that drives CISO Assistant: frameworks, risk matrices, journey presets, and Excel-driven library content.
+This section gathers the **authoring guidelines** — the conventions, structure, and pitfalls to keep in mind when you create the content that drives Suricatoos CISO: frameworks, risk matrices, journey presets, and Excel-driven library content.
 
 Authoring is a separate discipline from running the platform. Once content has been authored, it's loaded through the [Libraries](../libraries/README.md) section and behaves the same as any built-in content — versioned, upgradable, exportable. The pages here focus on _writing the content_, not on loading it.
 

@@ -39,7 +39,7 @@
 
 <div class="flex flex-col items-center">
 	{#if logo}
-		<img {width} {height} src={logo} alt="Ciso-assistant icon" data-testid="logo-image" />
+		<img {width} {height} src={logo} alt="Suricatoos" data-testid="logo-image" />
 	{/if}
 	{#if clientSettings.settings.name}
 		<p class="font-semibold text-center" data-testid="client-name">

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Converter for E-ITS Excel file to CISO Assistant format.
+Converter for E-ITS Excel file to Suricatoos CISO format.
 
 Output columns:
 - assessable: boolean (True for measures, False for categories)
@@ -50,7 +50,7 @@ def is_empty_level(value):
 
 
 def convert_eits(input_file, output_file):
-    """Convert E-ITS Excel to CISO Assistant format"""
+    """Convert E-ITS Excel to Suricatoos CISO format"""
 
     wb_in = openpyxl.load_workbook(input_file)
     ws_in = wb_in.active

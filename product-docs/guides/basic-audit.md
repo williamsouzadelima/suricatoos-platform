@@ -1,10 +1,10 @@
 # 01 - basic audit
 
-## [CISO Assistant: starting an audit](https://app.guidde.com/playbooks/68qUXmai1HgEMzMooV7g6b)
+## [Suricatoos CISO: starting an audit](https://app.guidde.com/playbooks/68qUXmai1HgEMzMooV7g6b)
 
 {% embed url="https://app.guidde.com/share/playbooks/68qUXmai1HgEMzMooV7g6b" %}
 
-Start your audit confidently with CISO Assistant by setting up your organization's domains and security perimeters. This guide helps you create an audit baseline aligned with ISO/IEC 27001:2022 and understand your organization's security context.
+Start your audit confidently with Suricatoos CISO by setting up your organization's domains and security perimeters. This guide helps you create an audit baseline aligned with ISO/IEC 27001:2022 and understand your organization's security context.
 
 #### Go to [localhost:5173](http://localhost:5173)
 

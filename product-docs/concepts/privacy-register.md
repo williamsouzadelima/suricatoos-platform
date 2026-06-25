@@ -2,7 +2,7 @@
 
 A **privacy register** is the catalogue of personal-data processing activities the organisation carries out — required by GDPR and equivalent regulations as the foundation of accountable data handling.
 
-CISO Assistant models the register as a graph of typed objects so it stays queryable, auditable, and reusable across audits.
+Suricatoos CISO models the register as a graph of typed objects so it stays queryable, auditable, and reusable across audits.
 
 ## Mental model
 

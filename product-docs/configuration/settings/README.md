@@ -1,6 +1,6 @@
 # Settings
 
-The **Settings** page in CISO Assistant is where instance-wide configuration lives — the dials and switches that affect everyone using the platform, regardless of which domain or perimeter they're in.
+The **Settings** page in Suricatoos CISO is where instance-wide configuration lives — the dials and switches that affect everyone using the platform, regardless of which domain or perimeter they're in.
 
 Settings are grouped into the following categories:
 

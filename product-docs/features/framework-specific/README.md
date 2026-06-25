@@ -4,7 +4,7 @@ description: Capabilities tailored to a particular framework or regulator
 
 # Framework-specific features
 
-Most of CISO Assistant is framework-agnostic — the same audit, applied-control, and evidence machinery works whether you're tracking ISO 27001, SOC 2, or an internal control set. A handful of capabilities, however, are tied to a specific framework or regulator because they implement an artefact the standard mandates in a particular shape.
+Most of Suricatoos CISO is framework-agnostic — the same audit, applied-control, and evidence machinery works whether you're tracking ISO 27001, SOC 2, or an internal control set. A handful of capabilities, however, are tied to a specific framework or regulator because they implement an artefact the standard mandates in a particular shape.
 
 This section catalogues those capabilities:
 

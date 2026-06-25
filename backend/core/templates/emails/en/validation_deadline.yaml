@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Validation request deadline in ${days} day(s)"
+subject: "Suricatoos CISO: Validation request deadline in ${days} day(s)"
 body: |
   Hello,
 
@@ -6,6 +6,6 @@ body: |
 
   ${validation_list}
 
-  Please review and take action before the deadline: [Go to CISO Assistant](${ciso_assistant_url})
+  Please review and take action before the deadline: [Go to Suricatoos CISO](${ciso_assistant_url})
 
   Thank you.

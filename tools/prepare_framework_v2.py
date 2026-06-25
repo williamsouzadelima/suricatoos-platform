@@ -3,7 +3,7 @@ Excel Framework Generator v0.6
 --------------------------
 
 This script reads a YAML or Excel configuration file and generates a structured Excel (.xlsx) file
-based on a predefined template to create the base structure of a CISO Assistant framework in v2.
+based on a predefined template to create the base structure of a Suricatoos CISO framework in v2.
 It ensures the integrity of required fields, supports optional implementation groups, and performs
 validation with user-friendly error messages.
 

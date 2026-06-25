@@ -4,7 +4,7 @@ description: How the Community and PRO editions differ, how contributor seats ar
 
 # Community vs PRO
 
-CISO Assistant ships in two editions:
+Suricatoos CISO ships in two editions:
 
 - **Community** — the open-source edition, free to use, with the platform's core GRC capabilities. Self-hosted only.
 - **PRO** — the commercial edition, built on top of Community, adding enterprise features (sub-domains, focus mode, advanced insights, custom roles, validation flows, and more) plus official support.
@@ -32,7 +32,7 @@ The intent behind the two exceptions is narrow: the seat count tracks **internal
 
 ### How the count is enforced
 
-The instance compares the number of contributors against the seat allowance carried by your license. The current count is visible from **About CISO Assistant**, opened via the three-dot menu next to your name in the sidebar footer — so you can see at any time how many seats are used and how many are available.
+The instance compares the number of contributors against the seat allowance carried by your license. The current count is visible from **About Suricatoos CISO**, opened via the three-dot menu next to your name in the sidebar footer — so you can see at any time how many seats are used and how many are available.
 
 ## Where PRO runs
 

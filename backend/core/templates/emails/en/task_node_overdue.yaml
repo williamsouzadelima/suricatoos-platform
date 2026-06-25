@@ -1,4 +1,4 @@
-subject: "CISO Assistant: You have ${task_count} overdue task(s)"
+subject: "Suricatoos CISO: You have ${task_count} overdue task(s)"
 body: |
   Hello,
 
@@ -6,6 +6,6 @@ body: |
 
   ${task_list}
 
-  Please log in to your CISO Assistant portal to complete or update these tasks: [Go to CISO Assistant](${ciso_assistant_url})
+  Please log in to your Suricatoos CISO portal to complete or update these tasks: [Go to Suricatoos CISO](${ciso_assistant_url})
 
   Thank you.

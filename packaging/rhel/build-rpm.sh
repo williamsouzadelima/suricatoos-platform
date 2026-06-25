@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# CISO Assistant RPM Builder - Air-Gapped Edition
+# Suricatoos CISO RPM Builder - Air-Gapped Edition
 # This script builds a fully self-contained RPM with bundled Python and Node.js
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -18,7 +18,7 @@ PYTHON_VERSION="3.12.7"
 NODE_VERSION="22.11.0"
 
 echo "======================================"
-echo "  CISO Assistant RPM Builder"
+echo "  Suricatoos CISO RPM Builder"
 echo "======================================"
 echo "Version: $VERSION"
 echo "Architecture: $ARCH"

@@ -11,7 +11,7 @@ Note: MCP technology is still maturing so the instructions might vary.
 
 ### instructions
 
-1. Login to CISO Assistant and generate a PAT: click on the three dots next to the email -> my profile -> settings
+1. Login to Suricatoos CISO and generate a PAT: click on the three dots next to the email -> my profile -> settings
 2. Under the `cli` folder, copy the `.mcp.env.example` as `.mcp.env`
 3. Under the `cli` folder, update the copied `.mcp.env` with your credentials
 4. Update the settings of mcpServers of your Claude Desktop app. The path will vary depending on your OS. On MacOS it's under `~/Library/Application\ Support/Claude/claude_desktop_config.json`. Make sure to put the **full absolute paths** for `uv` binary and the `cli` folder of your cloned repo
@@ -40,4 +40,4 @@ Here is a sample:
 <img width="1538" alt="image" src="https://github.com/user-attachments/assets/1345eb19-3f5e-4a0c-8abe-dae5a86dd59a" />
 
 
-6. You can now chat with your data, either by mentioning some keywords like applied controls or risks, or explicitly asking about ciso assistant.
+6. You can now chat with your data, either by mentioning some keywords like applied controls or risks, or explicitly asking about Suricatoos CISO.

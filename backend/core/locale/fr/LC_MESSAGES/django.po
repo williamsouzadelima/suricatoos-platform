@@ -69,8 +69,8 @@ msgid "Due date"
 msgstr "Date d'échéance"
 
 #: core/management/commands/reset_mail.py:17
-msgid "CISO Assistant: Password Reset"
-msgstr "CISO Assistant : réinitialisation de mot de passe"
+msgid "Suricatoos CISO: Password Reset"
+msgstr "Suricatoos CISO : réinitialisation de mot de passe"
 
 #: core/models.py:97 core/models.py:206
 msgid "URN"
@@ -1427,8 +1427,8 @@ msgstr "Scénarios de risque"
 
 #: core/templates/registration/first_connexion_email.html:14
 #: core/templates/registration/first_connexion_email_sso.html:14
-msgid "Welcome to CISO Assistant!"
-msgstr "Bienvenue sur CISO Assistant !"
+msgid "Welcome to Suricatoos CISO!"
+msgstr "Bienvenue sur Suricatoos CISO !"
 
 #: core/templates/registration/first_connexion_email.html:15
 #: core/templates/registration/first_connexion_email_sso.html:15
@@ -1440,13 +1440,13 @@ msgstr "Votre plateforme de gestion GRC tout-en-un"
 #: core/templates/registration/first_connexion_email.html:33
 #, fuzzy
 #| msgid ""
-#| "You have been granted access to CISO Assistant. To get started, use the "
+#| "You have been granted access to Suricatoos CISO. To get started, use the "
 #| "link below to define your password:"
 msgid ""
-"You have been granted access to CISO Assistant. To get started, use the "
+"You have been granted access to Suricatoos CISO. To get started, use the "
 "button below to define your password:"
 msgstr ""
-"Vous avez été autorisé à accéder à CISO Assistant. Pour commencer, utilisez "
+"Vous avez été autorisé à accéder à Suricatoos CISO. Pour commencer, utilisez "
 "le lien ci-dessous pour définir votre mot de passe :"
 
 #: core/templates/registration/first_connexion_email.html:38
@@ -1492,8 +1492,8 @@ msgstr ""
 
 #: core/templates/registration/first_connexion_email.html:58
 #: core/templates/registration/first_connexion_email_sso.html:52
-msgid "Learn more about CISO Assistant"
-msgstr "En savoir plus sur CISO Assistant"
+msgid "Learn more about Suricatoos CISO"
+msgstr "En savoir plus sur Suricatoos CISO"
 
 #: core/templates/registration/first_connexion_email.html:63
 #: core/templates/registration/first_connexion_email_sso.html:57
@@ -1506,26 +1506,26 @@ msgstr "Cordialement"
 #: core/templates/registration/first_connexion_email_sso.html:58
 #: core/templates/registration/password_reset_email.html:59
 #: core/templates/tprm/third_party_email.html:50
-msgid "CISO Assistant Team"
-msgstr "Équipe CISO Assistant"
+msgid "Suricatoos CISO Team"
+msgstr "Équipe Suricatoos CISO"
 
 #: core/templates/registration/first_connexion_email_sso.html:33
 #, fuzzy
 #| msgid ""
-#| "You have been granted access to CISO Assistant. To get started, use the "
+#| "You have been granted access to Suricatoos CISO. To get started, use the "
 #| "link below to define your password:"
 msgid ""
-"You have been granted access to CISO Assistant. To get started, connect to "
+"You have been granted access to Suricatoos CISO. To get started, connect to "
 "the following button and use SSO login."
 msgstr ""
-"Vous avez été autorisé à accéder à CISO Assistant. Pour commencer, utilisez "
+"Vous avez été autorisé à accéder à Suricatoos CISO. Pour commencer, utilisez "
 "le lien ci-dessous pour définir votre mot de passe :"
 
 #: core/templates/registration/first_connexion_email_sso.html:38
 #, fuzzy
-#| msgid "Welcome to CISO Assistant!"
-msgid "Connect to CISO Assistant"
-msgstr "Bienvenue sur CISO Assistant !"
+#| msgid "Welcome to Suricatoos CISO!"
+msgid "Connect to Suricatoos CISO"
+msgstr "Bienvenue sur Suricatoos CISO !"
 
 #: core/templates/registration/password_reset_email.html:32
 #: core/templates/tprm/third_party_email.html:32
@@ -1765,8 +1765,8 @@ msgid "English"
 msgstr "Anglais"
 
 #: core/views.py:6566
-msgid "CISO Assistant: A questionnaire has been assigned to you"
-msgstr "CISO Assistant : un questionnaire vous a été assigné"
+msgid "Suricatoos CISO: A questionnaire has been assigned to you"
+msgstr "Suricatoos CISO : un questionnaire vous a été assigné"
 
 #~ msgid "Order by"
 #~ msgstr "Trier par"

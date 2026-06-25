@@ -1,5 +1,5 @@
 ---
-description: How CISO Assistant turns probability and loss-bound inputs into LEC charts, VaR, expected shortfall, and ROSI — and how to read those numbers
+description: How Suricatoos CISO turns probability and loss-bound inputs into LEC charts, VaR, expected shortfall, and ROSI — and how to read those numbers
 ---
 
 # Cyber risk quantification — methodology
@@ -10,7 +10,7 @@ If you'd like to skim the object graph first (study → scenario → hypothesis)
 
 ## The two-stage model
 
-CISO Assistant models annual loss from a risk scenario as a **frequency × severity** process — the standard quantitative-risk approach used in FAIR, OpenFAIR, and most modern CRQ literature.
+Suricatoos CISO models annual loss from a risk scenario as a **frequency × severity** process — the standard quantitative-risk approach used in FAIR, OpenFAIR, and most modern CRQ literature.
 
 For each simulated year, two questions are answered independently:
 

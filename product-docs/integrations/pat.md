@@ -4,11 +4,11 @@ description: Personal Access Token to interact with the API
 
 # Generating a PAT
 
-## [Getting a PAT (Personal Access Token) for CISO Assistant](https://app.guidde.com/playbooks/v63umE8itx2auhUk5z2cw3)
+## [Getting a PAT (Personal Access Token) for Suricatoos CISO](https://app.guidde.com/playbooks/v63umE8itx2auhUk5z2cw3)
 
 {% embed url="https://app.guidde.com/share/playbooks/v63umE8itx2auhUk5z2cw3" %}
 
-Learn how to generate a Personal Access Token (PAT) for CISO Assistant quickly and securely
+Learn how to generate a Personal Access Token (PAT) for Suricatoos CISO quickly and securely
 
 #### First you need to sign into  your instance&#x20;
 
@@ -84,6 +84,6 @@ Complete the process by clicking 'Done' to save your settings and exit the token
 
 ![Click 'Done'](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2Fv63umE8itx2auhUk5z2cw3%2Fg3m8CinrY8j6BuxPw21fkb_doc.png?alt=media\&token=7d9a6232-9830-4cdf-a6fe-b0ada034bb57)
 
-This guide walked you through generating a Personal Access Token for CISO Assistant. Make sure that you save it and use it using secure channels/tools and be cautious of its impact as it inherents your permissions on the app.
+This guide walked you through generating a Personal Access Token for Suricatoos CISO. Make sure that you save it and use it using secure channels/tools and be cautious of its impact as it inherents your permissions on the app.
 
 Once created, the value cannot be seen nor edited. You'll have to generate a new one to do so. <br>

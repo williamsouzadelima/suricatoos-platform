@@ -1,4 +1,4 @@
-subject: "CISO Assistant: Mesure expirant dans ${days_remaining} jour(s)"
+subject: "Suricatoos CISO: Mesure expirant dans ${days_remaining} jour(s)"
 body: |
   Bonjour,
 
@@ -6,6 +6,6 @@ body: |
 
   ${control_list}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour réviser et compléter ces mesures : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez vous connecter à votre portail Suricatoos CISO pour réviser et compléter ces mesures : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

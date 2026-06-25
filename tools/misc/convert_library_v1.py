@@ -1,5 +1,5 @@
 """
-simple script to transform an Excel file to a yaml library for CISO assistant
+simple script to transform an Excel file to a yaml library for Suricatoos CISO
 Usage: python convert_library [--compat] your_excel_file
 
 The compat flag is recommended only to maintain libraries that have been generated prior or up to release 1.9.20.
@@ -156,7 +156,7 @@ urn_unicity_checker = set()
 
 parser = argparse.ArgumentParser(
     prog="convert-library.py",
-    description="convert an Excel file in a library for CISO Assistant",
+    description="convert an Excel file in a library for Suricatoos CISO",
 )
 parser.add_argument("input_file_name")
 parser.add_argument("--compat", action="store_true")

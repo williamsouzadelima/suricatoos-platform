@@ -1,6 +1,6 @@
 ---
 description: >-
-  CISO Assistant can send you email notifications to keep you informed about
+  Suricatoos CISO can send you email notifications to keep you informed about
   deadlines, assignments, and status changes.
 ---
 
@@ -13,7 +13,7 @@ Email notifications must be enabled by your administrator under **Extra > Settin
 {% hint style="warning" %}
 ## Onprem instances only
 
-Your CISO Assistant instance also needs an outgoing mail server configured (`EMAIL_HOST`, `EMAIL_PORT`, and `DEFAULT_FROM_EMAIL` at minimum). If you are not receiving emails, contact your administrator to verify these are set.
+Your Suricatoos CISO instance also needs an outgoing mail server configured (`EMAIL_HOST`, `EMAIL_PORT`, and `DEFAULT_FROM_EMAIL` at minimum). If you are not receiving emails, contact your administrator to verify these are set.
 {% endhint %}
 
 Notifications are sent to the email address associated with your account.
@@ -40,7 +40,7 @@ You receive an email whenever something is assigned to you.
 
 **Deadlines & Expiry reminders**
 
-CISO Assistant sends reminders automatically **30 days**, **7 days**, and **1 day** before a deadline or expiry date. These emails are sent every morning.
+Suricatoos CISO sends reminders automatically **30 days**, **7 days**, and **1 day** before a deadline or expiry date. These emails are sent every morning.
 
 **For reminders to fire, both fields below must be filled in.**
 

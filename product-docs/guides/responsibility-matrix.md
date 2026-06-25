@@ -4,7 +4,7 @@ description: Step-by-step walkthrough for creating and operating a responsibilit
 
 # Managing a responsibility matrix
 
-A responsibility matrix maps **activities × actors → roles** so a project, programme, or operating procedure has a clear answer to "who does what" at every step. CISO Assistant supports three taxonomies — **RACI**, **RASCI**, and **RAPID** — and lets you bind each activity to assets, controls, audits, and other GRC objects.
+A responsibility matrix maps **activities × actors → roles** so a project, programme, or operating procedure has a clear answer to "who does what" at every step. Suricatoos CISO supports three taxonomies — **RACI**, **RASCI**, and **RAPID** — and lets you bind each activity to assets, controls, audits, and other GRC objects.
 
 See [Project management](../concepts/project-management.md) for how matrices sit alongside projects and accreditations.
 
@@ -64,7 +64,7 @@ The activity appears as a new row at the bottom of the table.
 
 ## Assign roles (cell cycling)
 
-CISO Assistant uses a click-to-cycle model — there is no per-cell role dropdown:
+Suricatoos CISO uses a click-to-cycle model — there is no per-cell role dropdown:
 
 - **Click** an empty cell → assigns the **first role** of the preset (R for RACI/RASCI, R for RAPID).
 - **Click again** → cycles to the next role (RACI: R → A → C → I → empty → R …).

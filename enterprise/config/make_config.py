@@ -147,7 +147,7 @@ def validate_cert_paths(config):
 
 
 def main():
-    print("[blue]CISO Assistant Docker Compose Configuration Builder[/blue]")
+    print("[blue]Suricatoos CISO Docker Compose Configuration Builder[/blue]")
 
     config = get_config()
     ic(config)  # Debug output

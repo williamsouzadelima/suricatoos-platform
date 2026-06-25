@@ -4,7 +4,7 @@ description: How to contribute a framework, mapping, threat catalogue, risk matr
 
 # Contributing a framework or library
 
-CISO Assistant's catalogue is extended through **libraries** — YAML files that bundle one or more catalogue objects. Anything you contribute under this path follows the same submission flow regardless of what's in the library.
+Suricatoos CISO's catalogue is extended through **libraries** — YAML files that bundle one or more catalogue objects. Anything you contribute under this path follows the same submission flow regardless of what's in the library.
 
 ## What you can contribute
 
@@ -36,7 +36,7 @@ The walkthrough below uses a framework as the example, but the same flow works f
 
 <figure><img src="../.gitbook/assets/scsh-2024-12-31-17.15.09 (1).png" alt=""><figcaption></figcaption></figure>
 
-3. **Test the YAML** by loading it into a local CISO Assistant instance and checking it renders as expected.
+3. **Test the YAML** by loading it into a local Suricatoos CISO instance and checking it renders as expected.
 
 <figure><img src="../.gitbook/assets/scsh-2024-12-31-17.16.43.png" alt=""><figcaption></figcaption></figure>
 

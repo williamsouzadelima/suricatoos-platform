@@ -1,10 +1,10 @@
 ---
-description: How to submit a bug fix or a new feature to CISO Assistant
+description: How to submit a bug fix or a new feature to Suricatoos CISO
 ---
 
 # Contributing code
 
-CISO Assistant is open source and welcomes patches — bug fixes, performance improvements, new features, refactors, tests. This page walks through the submission flow and what reviewers look for.
+Suricatoos CISO is open source and welcomes patches — bug fixes, performance improvements, new features, refactors, tests. This page walks through the submission flow and what reviewers look for.
 
 ## Before you start
 

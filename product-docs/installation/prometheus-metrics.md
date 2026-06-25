@@ -1,6 +1,6 @@
 ---
 description: >-
-  CISO Assistant exposes a /metrics endpoint in the Prometheus exposition format.
+  Suricatoos CISO exposes a /metrics endpoint in the Prometheus exposition format.
   This page explains how to enable it and how to access it safely from Prometheus
   without exposing it publicly.
 ---
@@ -78,7 +78,7 @@ curl http://localhost:8000/metrics
 You should see output similar to:
 
 ```
-# HELP ciso_assistant_nb_users Number of users in the CISO Assistant instance
+# HELP ciso_assistant_nb_users Number of users in the Suricatoos CISO instance
 # TYPE ciso_assistant_nb_users gauge
 ciso_assistant_nb_users 3.0
 ...

@@ -1,10 +1,10 @@
 ---
-description: Step-by-step guide to running an EBIOS RM study in CISO Assistant — five workshops, content reuse, quotation methods, reports, and Excel round-trip
+description: Step-by-step guide to running an EBIOS RM study in Suricatoos CISO — five workshops, content reuse, quotation methods, reports, and Excel round-trip
 ---
 
 # EBIOS RM study
 
-This guide walks through a full **EBIOS RM** study in CISO Assistant, workshop by workshop. EBIOS RM is the structured risk-management method published by [ANSSI](https://cyber.gouv.fr/securisation/analyse-des-risques/methode-ebios-rm/); CISO Assistant supports it with a dedicated object graph rather than forcing it into a generic risk-assessment shape, which lets each workshop produce the artefacts the method calls for while reusing data that already lives in the platform.
+This guide walks through a full **EBIOS RM** study in Suricatoos CISO, workshop by workshop. EBIOS RM is the structured risk-management method published by [ANSSI](https://cyber.gouv.fr/securisation/analyse-des-risques/methode-ebios-rm/); Suricatoos CISO supports it with a dedicated object graph rather than forcing it into a generic risk-assessment shape, which lets each workshop produce the artefacts the method calls for while reusing data that already lives in the platform.
 
 For the conceptual mental model and the user-facing ↔ internal naming map, read [EBIOS RM (concept)](../concepts/ebios-rm.md) first. For the formal methodology, see ANSSI's [EBIOS RM v1.5 guide](https://cyber.gouv.fr/securisation/analyse-des-risques/methode-ebios-rm/) and the supporting training material.
 
@@ -51,7 +51,7 @@ In the study landing card, capture the mission, scope, and applicable regulation
 
 Attach the **primary and supporting assets** that fall inside the study. Use **Select asset** to pick from your existing asset inventory rather than re-creating them in EBIOS RM.
 
-> **EBIOS RM vocabulary bridge**: what ANSSI calls **valeur métier** (the missions, processes, and information that carry value for the organisation) maps to a CISO Assistant **Primary asset**; what ANSSI calls **bien support** (the IT, infrastructure, people, premises supporting those valeurs métiers) maps to a **Supporting asset**. The `type` field on each asset is what you set to mark the distinction. A valeur métier is then composed of one or more biens support through the asset parent/child relationship.
+> **EBIOS RM vocabulary bridge**: what ANSSI calls **valeur métier** (the missions, processes, and information that carry value for the organisation) maps to a Suricatoos CISO **Primary asset**; what ANSSI calls **bien support** (the IT, infrastructure, people, premises supporting those valeurs métiers) maps to a **Supporting asset**. The `type` field on each asset is what you set to mark the distinction. A valeur métier is then composed of one or more biens support through the asset parent/child relationship.
 
 > **Content reuse — assets**: the assets attached here are the same `Asset` objects you manage under **Assets**. Updates to an asset (owner, description, parent linkage) propagate automatically into the study. Use the [Assets concept page](../concepts/assets.md) to model them once and reuse them across studies.
 
@@ -67,7 +67,7 @@ In **Feared events**, declare the undesirable outcomes that would matter to the 
 
 ### 1.4 Determine the security foundation
 
-The **security foundation** — what ANSSI calls the _socle de sécurité_ — is your existing compliance position: the controls you already have. CISO Assistant lets you attach one or more existing **audits** rather than re-typing them:
+The **security foundation** — what ANSSI calls the _socle de sécurité_ — is your existing compliance position: the controls you already have. Suricatoos CISO lets you attach one or more existing **audits** rather than re-typing them:
 
 1. Open **Workshop 1 → Determine the security foundation**.
 2. Pick the compliance assessments to include — ISO 27001, NIST CSF, internal policies, sector-specific framework audits.
@@ -173,7 +173,7 @@ For each scenario you'll typically create one or more **Operating modes** — co
 
 #### Macro vs micro kill chain
 
-CISO Assistant supports two levels of detail:
+Suricatoos CISO supports two levels of detail:
 
 - **Macro** — fill the operational scenario's **Operating modes description** with a markdown summary of the attacker's steps. Quick to write, good for management-level reporting. If left blank, it can be inferred from the graph.
 - **Micro** — open the operating mode and switch to its **Graph** view. The graph editor lays out the four attack-stage columns (_Know / Enter / Discover / Exploit_) and lets you drop **elementary action nodes** into each column, then connect them with **AND / OR** logic operators to model antecedents.
@@ -302,13 +302,13 @@ The **Excel** export produces a multi-sheet workbook covering every workshop:
 
 ### Cross-instance Excel round-trip
 
-The same Excel export is **re-importable** into a different CISO Assistant instance. This is how you share studies across instances (e.g. transferring a study from a consultant's instance to a client's, or restoring an exported study after a migration):
+The same Excel export is **re-importable** into a different Suricatoos CISO instance. This is how you share studies across instances (e.g. transferring a study from a consultant's instance to a client's, or restoring an exported study after a migration):
 
 1. **Export** the study from instance A using the **Excel** action.
-2. On instance B, go to **Extra → Data Wizard** and pick **EBIOS RM study (CISO Assistant format)**. Upload the file.
+2. On instance B, go to **Extra → Data Wizard** and pick **EBIOS RM study (Suricatoos CISO format)**. Upload the file.
 3. The wizard recreates the study with all workshops and scaffolds the linked objects (assets, feared events, RO/TOs, stakeholders, strategic scenarios, attack paths, operational scenarios, operating modes, kill chains).
 
-There is also an **EBIOS RM study (ARM format)** import that reads ANSSI's own _Atelier de Risk Manager (ARM)_ Excel files. ARM is a proprietary schema and not all objects map cleanly — header or sheet changes in the source can drop fields silently. Use the CISO Assistant format whenever the source is itself a CISO Assistant export.
+There is also an **EBIOS RM study (ARM format)** import that reads ANSSI's own _Atelier de Risk Manager (ARM)_ Excel files. ARM is a proprietary schema and not all objects map cleanly — header or sheet changes in the source can drop fields silently. Use the Suricatoos CISO format whenever the source is itself a Suricatoos CISO export.
 
 ## Tips and patterns
 

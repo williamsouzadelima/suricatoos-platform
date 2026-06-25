@@ -1,4 +1,4 @@
-subject: "CISO Assistant : Affectation soumise pour '${assessment_name}'"
+subject: "Suricatoos CISO : Affectation soumise pour '${assessment_name}'"
 body: |
   Bonjour,
 
@@ -8,6 +8,6 @@ body: |
   - Soumis par : ${actor_names}
   - Exigences évaluées : ${requirement_count}
 
-  Veuillez vous connecter à votre portail CISO Assistant pour examiner la soumission : [Accéder à CISO Assistant](${ciso_assistant_url})
+  Veuillez vous connecter à votre portail Suricatoos CISO pour examiner la soumission : [Accéder à Suricatoos CISO](${ciso_assistant_url})
 
   Merci.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert the official CIS Controls Excel workbook into a CISO Assistant
+Convert the official CIS Controls Excel workbook into a Suricatoos CISO
 framework workbook that follows the v2 Excel format.
 
 The resulting file contains the following sheets:
@@ -235,7 +235,7 @@ def build_v2_workbook(
 def main():
     parser = argparse.ArgumentParser(
         prog="prep_cis_v2",
-        description="Convert CIS Controls official Excel file to a CISO Assistant v2 Excel file.",
+        description="Convert CIS Controls official Excel file to a Suricatoos CISO v2 Excel file.",
     )
     parser.add_argument("filename", help="Path to the CIS Controls Excel file")
     parser.add_argument("--packager", help="Name of the packager entity")

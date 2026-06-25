@@ -134,7 +134,7 @@ def get_config():
                 default="errors",
             ).ask(),
             "authentication": questionary.select(
-                "How would you like to authenticate requests to the CISO Assistant API using the dispatcher (credentials/token)?",
+                "How would you like to authenticate requests to the Suricatoos CISO API using the dispatcher (credentials/token)?",
                 choices=["credentials", "token"],
                 default="credentials",
             ).ask(),
@@ -142,14 +142,14 @@ def get_config():
         if config["kafka_dispatcher"]["authentication"] == "credentials":
             config["kafka_dispatcher"]["credentials"] = {
                 "user_email": questionary.text(
-                    "Enter the email of the CISO Assistant user account"
+                    "Enter the email of the Suricatoos CISO user account"
                 ).ask(),
                 "user_password": questionary.password(
-                    "Enter the password of the CISO Assistant user account"
+                    "Enter the password of the Suricatoos CISO user account"
                 ).ask(),
             }
             config["kafka_dispatcher"]["auto_renew_session"] = questionary.confirm(
-                "Enable silent reauthentication to the CISO Assistant API on session expiry?",
+                "Enable silent reauthentication to the Suricatoos CISO API on session expiry?",
                 default=True,
             ).ask()
         elif config["kafka_dispatcher"]["authentication"] == "token":
@@ -171,7 +171,7 @@ def get_config():
             ).ask()
 
         use_s3 = questionary.confirm(
-            "Would you like to connect a S3 bucket to the dispatcher? This can be used e.g. to upload files to the CISO Assistant backend.",
+            "Would you like to connect a S3 bucket to the dispatcher? This can be used e.g. to upload files to the Suricatoos CISO backend.",
             default=True,
         ).ask()
 
@@ -253,7 +253,7 @@ def validate_cert_paths(config):
 
 
 def main():
-    print("[blue]CISO Assistant Docker Compose Configuration Builder[/blue]")
+    print("[blue]Suricatoos CISO Docker Compose Configuration Builder[/blue]")
 
     config = get_config()
     ic(config)  # Debug output

@@ -5,7 +5,7 @@
 
 New: use the config builder on the `config` folder.
 
-To run CISO Assistant Enterprise locally in a straightforward way, you can use Docker compose.
+To run Suricatoos CISO Enterprise locally in a straightforward way, you can use Docker compose.
 
 1. Launch docker-compose script with enterprise docker-compose.yml file:
 
@@ -15,9 +15,9 @@ To run CISO Assistant Enterprise locally in a straightforward way, you can use D
 
 When asked for, enter your email and password for your superuser.
 
-You can then reach CISO Assistant using your web browser at [https://localhost:8443/](https://localhost:8443/)
+You can then reach Suricatoos CISO using your web browser at [https://localhost:8443/](https://localhost:8443/)
 
-## Setting up CISO Assistant Enterprise for development
+## Setting up Suricatoos CISO Enterprise for development
 
 > [!NOTE]
 > This section assumes that you have already set up the community frontend and backend, and use uv for managing the backend dependencies.
@@ -48,7 +48,7 @@ export SQLITE_FILE=db/ciso-assistant-enterprise.sqlite3
 uv run ./manage.sh migrate
 ```
 
-5. Create a Django superuser, that will be CISO Assistant administrator.
+5. Create a Django superuser, that will be Suricatoos CISO administrator.
 
 ```sh
 uv run ./manage.sh createsuperuser

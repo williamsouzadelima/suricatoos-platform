@@ -32,7 +32,7 @@ class MetaSerializer(serializers.Serializer):
     and timestamp data.
 
     Attributes:
-        media_version (str): Version of CISO Assistant at the time the backup was created.
+        media_version (str): Version of Suricatoos CISO at the time the backup was created.
         exported_at (str): ISO 8601 format timestamp indicating when the backup was created.
     """
 

@@ -40,7 +40,7 @@ Consider metric definition as a template of your metric. It serves as the guidel
 
 #### 1. Introduction
 
-You will learn how to import off-the-shelf metrics definitions on CISO Assistant.
+You will learn how to import off-the-shelf metrics definitions on Suricatoos CISO.
 
 ![Introduction](https://static.guidde.com/v0/qg%2FJ0RVKao966SmT5uQXRHVpcgc2yd2%2FvTb9cHNSPqash2GGUZdeys%2F8Q3gdFyrUPF4skriW4JL7M_doc.png?alt=media\&token=11940028-5485-4889-87b7-01257a9ae71b)
 

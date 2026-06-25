@@ -1,6 +1,6 @@
-subject: "CISO Assistant: A questionnaire has been assigned to you"
+subject: "Suricatoos CISO: A questionnaire has been assigned to you"
 body: |
-  <img src="https://intuitem.com/ciso-assistant.png" alt="CISO Assistant" width="200">
+  <img src="https://intuitem.com/ciso-assistant.png" alt="Suricatoos CISO" width="200">
 
   **Your all-in-one GRC Management Platform**
 
@@ -14,4 +14,4 @@ body: |
   ${questionnaire_url}
 
   Sincerely,
-  CISO Assistant Team
+  Suricatoos CISO Team
