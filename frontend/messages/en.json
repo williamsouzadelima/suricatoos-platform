@@ -1,5 +1,12 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"currencyConversionRate": "Currency Conversion Rate",
+	"confirmDeleteTitle": "Delete",
+	"areYouSureToDeleteObject": "Are you sure you want to delete \"{object}\"?",
+	"exporting": "Exporting",
+	"errorOccurred": "An error occurred",
+	"diff": "Diff",
+	"addActor": "Add actor",
 	"french": "French",
 	"english": "English",
 	"arabic": "Arabic",
