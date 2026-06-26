@@ -283,6 +283,7 @@ jobs:
       DJANGO_DEBUG: True
       DJANGO_SUPERUSER_EMAIL: admin@tests.com
       DJANGO_SUPERUSER_PASSWORD: 1234
+      DEFAULT_LANGUAGE: "en"
       POSTGRES_NAME: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -468,6 +469,7 @@ jobs:
       DJANGO_DEBUG: True
       DJANGO_SUPERUSER_EMAIL: admin@tests.com
       DJANGO_SUPERUSER_PASSWORD: 1234
+      DEFAULT_LANGUAGE: "en"
       POSTGRES_NAME: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

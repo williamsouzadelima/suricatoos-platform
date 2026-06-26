@@ -24,6 +24,11 @@ from .serializers import (
 from django.db import transaction
 from .models import GlobalSettings
 import structlog
+import os
+
+# Default UI language for fresh installs / fallback. Overridable via the
+# DEFAULT_LANGUAGE env var (e.g. "en" in e2e CI); production default stays "pt".
+DEFAULT_LANGUAGE = os.environ.get("DEFAULT_LANGUAGE", "pt")
 
 logger = structlog.get_logger(__name__)
 
@@ -177,7 +182,7 @@ class GeneralSettingsViewSet(viewsets.ModelViewSet):
             "builtin_metrics_retention_days": 730,  # 2 years default, minimum is 1
             "allow_assignments_to_entities": False,
             "enforce_mfa": False,
-            "default_language": "pt",
+            "default_language": DEFAULT_LANGUAGE,
             "default_custom_analytics_dashboard": None,
         }
 
@@ -470,11 +475,11 @@ def get_default_language(request):
     Returns the configured default language. Falls back to English if unset or invalid.
     """
     general = GlobalSettings.objects.filter(name="general").first()
-    default_language = "pt"
+    default_language = DEFAULT_LANGUAGE
     if general and isinstance(general.value, dict):
         default_language = general.value.get("default_language", default_language)
 
     if default_language not in dict(settings.LANGUAGES):
-        default_language = "pt"
+        default_language = DEFAULT_LANGUAGE
 
     return Response({"default_language": default_language})
