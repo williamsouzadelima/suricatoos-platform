@@ -177,7 +177,7 @@ class GeneralSettingsViewSet(viewsets.ModelViewSet):
             "builtin_metrics_retention_days": 730,  # 2 years default, minimum is 1
             "allow_assignments_to_entities": False,
             "enforce_mfa": False,
-            "default_language": "en",
+            "default_language": "pt",
             "default_custom_analytics_dashboard": None,
         }
 
@@ -470,11 +470,11 @@ def get_default_language(request):
     Returns the configured default language. Falls back to English if unset or invalid.
     """
     general = GlobalSettings.objects.filter(name="general").first()
-    default_language = "en"
+    default_language = "pt"
     if general and isinstance(general.value, dict):
         default_language = general.value.get("default_language", default_language)
 
     if default_language not in dict(settings.LANGUAGES):
-        default_language = "en"
+        default_language = "pt"
 
     return Response({"default_language": default_language})
