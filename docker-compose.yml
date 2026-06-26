@@ -1,8 +1,9 @@
 services:
   backend:
     container_name: backend
-    image: ghcr.io/intuitem/ciso-assistant-community/backend:latest
-    pull_policy: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     restart: always
     environment:
       - ALLOWED_HOSTS=backend,localhost
@@ -34,8 +35,9 @@ services:
 
   huey:
     container_name: huey
-    image: ghcr.io/intuitem/ciso-assistant-community/backend:latest
-    pull_policy: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     depends_on:
       backend:
         condition: service_healthy
@@ -78,8 +80,9 @@ services:
       - XDG_CACHE_HOME=/tmp/.cache
       - XDG_CONFIG_HOME=/tmp/.config
       - XDG_DATA_HOME=/tmp/.local/share
-    image: ghcr.io/intuitem/ciso-assistant-community/frontend:latest
-    pull_policy: always
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     read_only: true
     cap_drop:
       - ALL

@@ -6,7 +6,7 @@ ENV PUBLIC_BACKEND_API_URL=foo
 
 COPY package*.json ./
 COPY . .
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.33.2
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 RUN pnpm prune
