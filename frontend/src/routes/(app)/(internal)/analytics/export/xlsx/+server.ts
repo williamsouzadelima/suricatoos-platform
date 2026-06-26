@@ -12,7 +12,7 @@ export const GET: RequestHandler = async ({ fetch }) => {
 		error(status, 'Error generating the analytics XLSX export');
 	}
 
-	const fileName = `ciso-assistant-analytics-${new Date().toISOString().split('T')[0]}.xlsx`;
+	const fileName = `suricatoos-analytics-${new Date().toISOString().split('T')[0]}.xlsx`;
 
 	return new Response(await res.blob(), {
 		headers: {
