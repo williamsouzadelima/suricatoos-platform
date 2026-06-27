@@ -1,0 +1,434 @@
+convert_library_version: 'v2 ; Compat Mode: [0] {[v2.1] (DEFAULT) Don''t use any Compatibility Mode}'
+urn: urn:intuitem:risk:library:lgpd
+locale: pt
+ref_id: LGPD
+name: LGPD - Lei Geral de Proteção de Dados Pessoais
+description: Estrutura de avaliação de conformidade baseada na Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018), organizada por temas e obrigações concretas derivadas de seus artigos.
+copyright: Construido a partir de conteudo publico oficial (Suricatoos).
+version: 1
+provider: Suricatoos
+packager: suricatoos
+objects:
+  framework:
+    urn: urn:intuitem:risk:framework:lgpd
+    ref_id: LGPD
+    name: LGPD - Lei Geral de Proteção de Dados Pessoais
+    description: Estrutura de avaliação de conformidade baseada na Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018), organizada por temas e obrigações concretas derivadas de seus artigos.
+    requirement_nodes:
+    - urn: urn:intuitem:risk:req_node:lgpd:node-0
+      assessable: false
+      depth: 1
+      ref_id: PRINCIPIOS
+      name: Princípios
+      description: Princípios gerais que devem reger todas as atividades de tratamento de dados pessoais (Art. 6 da LGPD).
+    - urn: urn:intuitem:risk:req_node:lgpd:node-1
+      assessable: false
+      depth: 1
+      ref_id: BASES_LEGAIS
+      name: Bases legais para tratamento
+      description: Hipóteses legais que autorizam o tratamento de dados pessoais e requisitos do consentimento.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-2
+      assessable: false
+      depth: 1
+      ref_id: DIREITOS
+      name: Direitos do titular
+      description: Direitos assegurados ao titular dos dados pessoais e deveres de atendimento pelos agentes de tratamento.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-3
+      assessable: false
+      depth: 1
+      ref_id: DADOS_SENSIVEIS
+      name: Tratamento de dados sensíveis e de crianças e adolescentes
+      description: Regras específicas para o tratamento de dados pessoais sensíveis e de crianças e adolescentes.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-4
+      assessable: false
+      depth: 1
+      ref_id: RESPONSABILIDADE
+      name: Responsabilidade dos agentes de tratamento
+      description: Deveres, registro de operações, responsabilidade civil e ciclo de vida dos dados a cargo de controlador e operador.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-5
+      assessable: false
+      depth: 1
+      ref_id: SEGURANCA
+      name: Segurança e boas práticas
+      description: Medidas de segurança da informação, comunicação de incidentes e programas de governança em privacidade.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-6
+      assessable: false
+      depth: 1
+      ref_id: ENCARREGADO
+      name: Encarregado pelo tratamento de dados (DPO)
+      description: Indicação e atribuições do encarregado pelo tratamento de dados pessoais.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-7
+      assessable: false
+      depth: 1
+      ref_id: TRANSFERENCIA
+      name: Transferência internacional de dados
+      description: Hipóteses e garantias para a transferência internacional de dados pessoais.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-8
+      assessable: false
+      depth: 1
+      ref_id: RIPD
+      name: Relatório de impacto à proteção de dados (RIPD)
+      description: Elaboração do relatório de impacto à proteção de dados pessoais.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-9
+      assessable: false
+      depth: 1
+      ref_id: SANCOES
+      name: Sanções administrativas e ANPD
+      description: Sanções administrativas aplicáveis e atuação da Autoridade Nacional de Proteção de Dados.
+    - urn: urn:intuitem:risk:req_node:lgpd:node-10
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, I
+      name: Finalidade
+      description: Realizar o tratamento para propósitos legítimos, específicos, explícitos e informados ao titular, sem possibilidade de tratamento posterior de forma incompatível com essas finalidades.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-11
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, II
+      name: Adequação
+      description: Garantir a compatibilidade do tratamento com as finalidades informadas ao titular, de acordo com o contexto do tratamento.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-12
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, III
+      name: Necessidade
+      description: Limitar o tratamento ao mínimo necessário para a realização de suas finalidades, abrangendo dados pertinentes, proporcionais e não excessivos.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-13
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, IV
+      name: Livre acesso
+      description: Garantir aos titulares consulta facilitada e gratuita sobre a forma e a duração do tratamento, bem como sobre a integralidade de seus dados pessoais.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-14
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, V
+      name: Qualidade dos dados
+      description: Garantir aos titulares exatidão, clareza, relevância e atualização dos dados, de acordo com a necessidade e para o cumprimento da finalidade de seu tratamento.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-15
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, VI
+      name: Transparência
+      description: Garantir aos titulares informações claras, precisas e facilmente acessíveis sobre a realização do tratamento e os respectivos agentes, observados os segredos comercial e industrial.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-16
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, VII
+      name: Segurança
+      description: Utilizar medidas técnicas e administrativas aptas a proteger os dados pessoais de acessos não autorizados e de situações acidentais ou ilícitas de destruição, perda, alteração, comunicação ou difusão.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-17
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, VIII
+      name: Prevenção
+      description: Adotar medidas para prevenir a ocorrência de danos em virtude do tratamento de dados pessoais.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-18
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, IX
+      name: Não discriminação
+      description: Não realizar o tratamento para fins discriminatórios ilícitos ou abusivos.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-19
+      assessable: true
+      depth: 2
+      ref_id: Art. 6, X
+      name: Responsabilização e prestação de contas
+      description: Demonstrar a adoção de medidas eficazes e capazes de comprovar a observância e o cumprimento das normas de proteção de dados pessoais e a eficácia dessas medidas.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-0
+    - urn: urn:intuitem:risk:req_node:lgpd:node-20
+      assessable: true
+      depth: 2
+      ref_id: Art. 7
+      name: Hipóteses de tratamento de dados pessoais
+      description: 'Realizar o tratamento de dados pessoais apenas com fundamento em uma das hipóteses legais: consentimento; cumprimento de obrigação legal ou regulatória; execução de políticas públicas; estudos por órgão de pesquisa; execução de contrato; exercício regular de direitos; proteção da vida; tutela da saúde; legítimo interesse; ou proteção do crédito.'
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-1
+    - urn: urn:intuitem:risk:req_node:lgpd:node-21
+      assessable: true
+      depth: 2
+      ref_id: Art. 8
+      name: Requisitos do consentimento
+      description: Obter o consentimento por escrito ou por outro meio que demonstre a manifestação de vontade do titular, de forma destacada das demais cláusulas. Cabe ao controlador o ônus da prova; o consentimento pode ser revogado a qualquer momento por procedimento gratuito e facilitado.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-1
+    - urn: urn:intuitem:risk:req_node:lgpd:node-22
+      assessable: true
+      depth: 2
+      ref_id: Art. 10
+      name: Legítimo interesse
+      description: Fundamentar o tratamento no legítimo interesse somente para finalidades legítimas, a partir de situações concretas, limitado ao estritamente necessário e com adoção de medidas de transparência e salvaguarda dos direitos do titular.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-1
+    - urn: urn:intuitem:risk:req_node:lgpd:node-23
+      assessable: true
+      depth: 2
+      ref_id: Art. 9
+      name: Acesso facilitado às informações sobre o tratamento
+      description: 'Disponibilizar ao titular, de forma clara, adequada e ostensiva, informações sobre o tratamento: finalidade específica, forma e duração, identificação e contato do controlador, uso compartilhado e responsabilidades dos agentes, e os direitos do titular.'
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-24
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, I
+      name: Confirmação da existência de tratamento
+      description: Garantir ao titular o direito de obter confirmação da existência de tratamento de seus dados pessoais.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-25
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, II
+      name: Acesso aos dados
+      description: Garantir ao titular o direito de acesso aos seus dados pessoais.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-26
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, III
+      name: Correção de dados
+      description: Garantir ao titular o direito de correção de dados incompletos, inexatos ou desatualizados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-27
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, IV
+      name: Anonimização, bloqueio ou eliminação
+      description: Garantir ao titular o direito à anonimização, bloqueio ou eliminação de dados desnecessários, excessivos ou tratados em desconformidade com a LGPD.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-28
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, V
+      name: Portabilidade
+      description: Garantir ao titular a portabilidade dos dados a outro fornecedor de serviço ou produto, mediante requisição expressa, observados os segredos comercial e industrial.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-29
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, VI
+      name: Eliminação dos dados tratados com consentimento
+      description: Garantir ao titular a eliminação dos dados pessoais tratados com base no consentimento, ressalvadas as hipóteses legais de conservação.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-30
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, VII
+      name: Informação sobre compartilhamento
+      description: Informar ao titular as entidades públicas e privadas com as quais o controlador realizou uso compartilhado de dados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-31
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, VIII
+      name: Informação sobre a possibilidade de não consentir
+      description: Informar ao titular sobre a possibilidade de não fornecer consentimento e sobre as consequências da negativa.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-32
+      assessable: true
+      depth: 2
+      ref_id: Art. 18, IX
+      name: Revogação do consentimento
+      description: Garantir ao titular o direito de revogar o consentimento a qualquer momento.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-33
+      assessable: true
+      depth: 2
+      ref_id: Art. 19
+      name: 'Confirmação e acesso: forma e prazo'
+      description: Fornecer a confirmação de existência ou o acesso aos dados em formato simplificado de forma imediata, ou por meio de declaração clara e completa em até 15 dias, contado da requisição do titular.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-34
+      assessable: true
+      depth: 2
+      ref_id: Art. 20
+      name: Revisão de decisões automatizadas
+      description: Assegurar ao titular o direito de solicitar a revisão de decisões tomadas unicamente com base em tratamento automatizado que afetem seus interesses, e fornecer informações claras sobre os critérios e procedimentos utilizados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-35
+      assessable: true
+      depth: 2
+      ref_id: Art. 21
+      name: Não utilização de dados em prejuízo do titular
+      description: Não utilizar os dados pessoais referentes ao exercício regular de direitos pelo titular em seu prejuízo.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-2
+    - urn: urn:intuitem:risk:req_node:lgpd:node-36
+      assessable: true
+      depth: 2
+      ref_id: Art. 11
+      name: Tratamento de dados pessoais sensíveis
+      description: Tratar dados sensíveis somente mediante consentimento específico e destacado do titular ou, sem consentimento, nas hipóteses legais indispensáveis (obrigação legal, políticas públicas, estudos por órgão de pesquisa, exercício de direitos, proteção da vida, tutela da saúde, prevenção à fraude e segurança do titular).
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-3
+    - urn: urn:intuitem:risk:req_node:lgpd:node-37
+      assessable: true
+      depth: 2
+      ref_id: Art. 13
+      name: Dados sensíveis em estudos de saúde pública
+      description: Permitir a órgãos de pesquisa o tratamento de dados pessoais sensíveis em estudos de saúde pública exclusivamente para essa finalidade, em ambiente controlado e seguro, com anonimização ou pseudonimização sempre que possível.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-3
+    - urn: urn:intuitem:risk:req_node:lgpd:node-38
+      assessable: true
+      depth: 2
+      ref_id: Art. 14
+      name: Dados de crianças e adolescentes
+      description: Realizar o tratamento de dados de crianças e adolescentes sempre em seu melhor interesse. O tratamento de dados de crianças exige consentimento específico e em destaque de pelo menos um dos pais ou responsável legal, sendo vedado condicionar a participação a fornecimento de dados além do estritamente necessário.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-3
+    - urn: urn:intuitem:risk:req_node:lgpd:node-39
+      assessable: true
+      depth: 2
+      ref_id: Art. 15
+      name: Término do tratamento
+      description: Encerrar o tratamento quando alcançada a finalidade ou esgotada a necessidade, ao fim do período, mediante comunicação do titular ou por determinação da autoridade nacional.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-40
+      assessable: true
+      depth: 2
+      ref_id: Art. 16
+      name: Eliminação dos dados após o término
+      description: Eliminar os dados pessoais após o término do tratamento, autorizada a conservação apenas para cumprimento de obrigação legal, estudo por órgão de pesquisa, transferência a terceiro ou uso exclusivo do controlador com dados anonimizados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-41
+      assessable: true
+      depth: 2
+      ref_id: Art. 37
+      name: Registro das operações de tratamento
+      description: Manter, controlador e operador, registro das operações de tratamento de dados pessoais que realizarem, especialmente quando o tratamento for baseado no legítimo interesse.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-42
+      assessable: true
+      depth: 2
+      ref_id: Art. 39
+      name: Atuação do operador conforme instruções
+      description: Realizar, o operador, o tratamento segundo as instruções fornecidas pelo controlador, que verificará a observância dessas instruções e das normas aplicáveis.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-43
+      assessable: true
+      depth: 2
+      ref_id: Art. 42
+      name: Responsabilidade e reparação de danos
+      description: Reparar o dano patrimonial, moral, individual ou coletivo causado a outrem, em violação à legislação de proteção de dados, no exercício da atividade de tratamento.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-44
+      assessable: true
+      depth: 2
+      ref_id: Art. 43
+      name: Excludentes de responsabilidade
+      description: Comprovar, para afastar a responsabilidade, que não se realizou o tratamento atribuído, que não houve violação à legislação, ou que o dano decorreu de culpa exclusiva do titular ou de terceiro.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-45
+      assessable: true
+      depth: 2
+      ref_id: Art. 44
+      name: Tratamento irregular
+      description: Evitar o tratamento irregular, que ocorre quando deixa de observar a legislação ou não fornece a segurança que o titular dele pode esperar, consideradas as circunstâncias relevantes.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-4
+    - urn: urn:intuitem:risk:req_node:lgpd:node-46
+      assessable: true
+      depth: 2
+      ref_id: Art. 46
+      name: Medidas de segurança
+      description: Adotar medidas de segurança, técnicas e administrativas aptas a proteger os dados pessoais de acessos não autorizados e de situações acidentais ou ilícitas de destruição, perda, alteração, comunicação ou qualquer forma de tratamento inadequado ou ilícito.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-5
+    - urn: urn:intuitem:risk:req_node:lgpd:node-47
+      assessable: true
+      depth: 2
+      ref_id: Art. 47
+      name: Garantia de segurança após o término
+      description: Garantir a segurança da informação dos dados pessoais por todos os agentes e por qualquer pessoa que intervenha em uma das fases do tratamento, inclusive após o seu término.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-5
+    - urn: urn:intuitem:risk:req_node:lgpd:node-48
+      assessable: true
+      depth: 2
+      ref_id: Art. 48
+      name: Comunicação de incidente de segurança
+      description: Comunicar à ANPD e ao titular, em prazo razoável, a ocorrência de incidente de segurança que possa acarretar risco ou dano relevante, informando a natureza dos dados, os titulares envolvidos, as medidas adotadas e os riscos.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-5
+    - urn: urn:intuitem:risk:req_node:lgpd:node-49
+      assessable: true
+      depth: 2
+      ref_id: Art. 49
+      name: Sistemas estruturados em padrões de segurança
+      description: Estruturar os sistemas utilizados para tratamento de dados de forma a atender aos requisitos de segurança, aos padrões de boas práticas e de governança e aos princípios gerais da LGPD.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-5
+    - urn: urn:intuitem:risk:req_node:lgpd:node-50
+      assessable: true
+      depth: 2
+      ref_id: Art. 50
+      name: Boas práticas e programa de governança em privacidade
+      description: Formular regras de boas práticas e governança e implementar programa de governança em privacidade, com condições de organização, procedimentos, normas de segurança, planos de resposta a incidentes e medidas de mitigação de riscos.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-5
+    - urn: urn:intuitem:risk:req_node:lgpd:node-51
+      assessable: true
+      depth: 2
+      ref_id: Art. 41
+      name: Indicação e atribuições do encarregado (DPO)
+      description: Indicar encarregado pelo tratamento de dados pessoais, divulgar publicamente sua identidade e contato, e assegurar que atue como canal de comunicação entre o controlador, os titulares e a ANPD, recebendo reclamações, prestando esclarecimentos e orientando sobre práticas de proteção de dados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-6
+    - urn: urn:intuitem:risk:req_node:lgpd:node-52
+      assessable: true
+      depth: 2
+      ref_id: Art. 33
+      name: Hipóteses de transferência internacional
+      description: 'Permitir a transferência internacional de dados apenas nas hipóteses legais: países com grau adequado de proteção; garantias de cumprimento pelo controlador (cláusulas contratuais, normas corporativas globais, selos ou certificados); cooperação jurídica internacional; proteção da vida; autorização da ANPD; acordo internacional; execução de política pública; ou consentimento específico e destacado do titular.'
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-7
+    - urn: urn:intuitem:risk:req_node:lgpd:node-53
+      assessable: true
+      depth: 2
+      ref_id: Art. 34
+      name: Avaliação do nível de proteção do país
+      description: Observar que o nível de proteção de dados do país ou organismo internacional de destino é avaliado pela ANPD, considerando as normas vigentes, a natureza dos dados, a observância dos princípios e dos direitos do titular e as medidas de segurança.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-7
+    - urn: urn:intuitem:risk:req_node:lgpd:node-54
+      assessable: true
+      depth: 2
+      ref_id: Art. 35
+      name: Cláusulas-padrão e normas corporativas globais
+      description: Adotar cláusulas-padrão contratuais, cláusulas específicas, normas corporativas globais ou selos, certificados e códigos de conduta cujo conteúdo é definido e verificado pela ANPD, como garantia para a transferência internacional.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-7
+    - urn: urn:intuitem:risk:req_node:lgpd:node-55
+      assessable: true
+      depth: 2
+      ref_id: Art. 36
+      name: Comunicação de alterações nas garantias
+      description: Comunicar à ANPD as alterações nas garantias apresentadas como suficientes para a transferência internacional de dados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-7
+    - urn: urn:intuitem:risk:req_node:lgpd:node-56
+      assessable: true
+      depth: 2
+      ref_id: Art. 38
+      name: Relatório de impacto à proteção de dados pessoais
+      description: Elaborar, quando determinado pela ANPD, relatório de impacto à proteção de dados pessoais, contendo a descrição dos tipos de dados coletados, a metodologia utilizada para coleta e segurança, e as medidas, salvaguardas e mecanismos de mitigação de risco adotados.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-8
+    - urn: urn:intuitem:risk:req_node:lgpd:node-57
+      assessable: true
+      depth: 2
+      ref_id: Art. 52
+      name: Sanções administrativas
+      description: 'Sujeitar-se às sanções administrativas aplicáveis pela ANPD: advertência; multa simples de até 2% do faturamento, limitada a R$ 50 milhões por infração; multa diária; publicização da infração; bloqueio e eliminação dos dados; suspensão parcial ou total do banco de dados ou da atividade de tratamento; e proibição parcial ou total do exercício de atividades de tratamento.'
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-9
+    - urn: urn:intuitem:risk:req_node:lgpd:node-58
+      assessable: true
+      depth: 2
+      ref_id: Art. 53
+      name: Metodologia de cálculo das multas
+      description: Observar que a ANPD define, por regulamento próprio de sanções, as metodologias que orientam o cálculo do valor-base das multas, mediante parâmetros e critérios objetivos, com gradação conforme a gravidade da infração.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-9
+    - urn: urn:intuitem:risk:req_node:lgpd:node-59
+      assessable: true
+      depth: 2
+      ref_id: Art. 54
+      name: Multa diária
+      description: Observar que o valor da multa diária aplicável às infrações considera a gravidade da falta e a extensão do dano ou prejuízo causado, com fundamentação pela ANPD.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-9
+    - urn: urn:intuitem:risk:req_node:lgpd:node-60
+      assessable: true
+      depth: 2
+      ref_id: Art. 55-A
+      name: Competência da ANPD
+      description: Reconhecer a Autoridade Nacional de Proteção de Dados (ANPD) como órgão responsável por zelar, implementar, orientar e fiscalizar o cumprimento da LGPD em todo o território nacional.
+      parent_urn: urn:intuitem:risk:req_node:lgpd:node-9

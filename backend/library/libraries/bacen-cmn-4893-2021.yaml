@@ -1,0 +1,243 @@
+convert_library_version: 'v2 ; Compat Mode: [0] {[v2.1] (DEFAULT) Don''t use any Compatibility Mode}'
+urn: urn:intuitem:risk:library:bacen-cmn-4893-2021
+locale: pt
+ref_id: BACEN-CMN-4893-2021
+name: Resolução CMN nº 4.893/2021 - Segurança Cibernética
+description: Resolução do Conselho Monetário Nacional que dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem a serem observados pelas instituições autorizadas a funcionar pelo Banco Central do Brasil.
+copyright: Construido a partir de conteudo publico oficial (Suricatoos).
+version: 1
+provider: Suricatoos
+packager: suricatoos
+objects:
+  framework:
+    urn: urn:intuitem:risk:framework:bacen-cmn-4893-2021
+    ref_id: BACEN-CMN-4893-2021
+    name: Resolução CMN nº 4.893/2021 - Segurança Cibernética
+    description: Resolução do Conselho Monetário Nacional que dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem a serem observados pelas instituições autorizadas a funcionar pelo Banco Central do Brasil.
+    requirement_nodes:
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-0
+      assessable: false
+      depth: 1
+      ref_id: CAP-I
+      name: Objeto e Âmbito de Aplicação
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-1
+      assessable: false
+      depth: 1
+      ref_id: CAP-II
+      name: Política de Segurança Cibernética
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+      assessable: false
+      depth: 1
+      ref_id: CAP-II-PLANO
+      name: Plano de Ação e de Resposta a Incidentes
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+      assessable: false
+      depth: 1
+      ref_id: CAP-III
+      name: Contratação de Serviços de Processamento e Armazenamento de Dados e de Computação em Nuvem
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-4
+      assessable: false
+      depth: 1
+      ref_id: CAP-IV
+      name: Disposições Gerais
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+      assessable: false
+      depth: 1
+      ref_id: CAP-V
+      name: Disposições Finais
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-6
+      assessable: true
+      depth: 2
+      ref_id: Art. 1
+      name: Objeto e âmbito de aplicação
+      description: Esta Resolução dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem a serem observados pelas instituições autorizadas a funcionar pelo Banco Central do Brasil. Não se aplica às administradoras de consórcio, às instituições de pagamento, às sociedades corretoras e distribuidoras de títulos e valores mobiliários e às sociedades corretoras de câmbio, que observam regulamentação específica.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-0
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-7
+      assessable: true
+      depth: 2
+      ref_id: Art. 2
+      name: Implementação e manutenção da política
+      description: As instituições devem implementar e manter política de segurança cibernética formulada com base em princípios e diretrizes que assegurem a confidencialidade, a integridade e a disponibilidade dos dados e dos sistemas de informação. A política deve ser compatível com o porte, o perfil de risco e o modelo de negócio, a natureza e a complexidade das operações e a sensibilidade dos dados. Admite-se política única por conglomerado prudencial e por sistema cooperativo de crédito, formalizada a opção em reunião do conselho de administração ou da diretoria.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-8
+      assessable: true
+      depth: 2
+      ref_id: Art. 3
+      name: Conteúdo mínimo da política
+      description: 'A política deve contemplar, no mínimo: os objetivos de segurança cibernética; os procedimentos e controles para reduzir a vulnerabilidade a incidentes; controles específicos de rastreabilidade para informações sensíveis; o registro, a análise da causa e do impacto e o controle dos efeitos de incidentes relevantes; diretrizes (cenários de testes, prestadores de serviços, classificação de dados, parâmetros de relevância); mecanismos de disseminação da cultura de segurança; e iniciativas de compartilhamento de informações. Os procedimentos e controles devem abranger autenticação, criptografia, prevenção e detecção de intrusão, prevenção de vazamento, testes e varreduras de vulnerabilidades, proteção contra softwares maliciosos, rastreabilidade, controles de acesso e segmentação de rede e manutenção de cópias de segurança, inclusive no desenvolvimento de sistemas seguros e na adoção de novas tecnologias.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-9
+      assessable: true
+      depth: 2
+      ref_id: Art. 4
+      name: Divulgação interna da política
+      description: A política de segurança cibernética deve ser divulgada aos funcionários da instituição e às empresas prestadoras de serviços a terceiros, mediante linguagem clara e acessível e em nível de detalhamento compatível com as funções desempenhadas e com a sensibilidade das informações.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-10
+      assessable: true
+      depth: 2
+      ref_id: Art. 5
+      name: Divulgação ao público
+      description: As instituições devem divulgar ao público resumo contendo as linhas gerais da política de segurança cibernética.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-11
+      assessable: true
+      depth: 2
+      ref_id: Art. 6
+      name: Estabelecimento do plano de ação e resposta a incidentes
+      description: As instituições devem estabelecer plano de ação e de resposta a incidentes visando à implementação da política. O plano deve abranger, no mínimo, as ações para adequar as estruturas organizacional e operacional às diretrizes da política; as rotinas, procedimentos, controles e tecnologias de prevenção e resposta a incidentes; e a área responsável pelo registro e controle dos efeitos de incidentes relevantes.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-12
+      assessable: true
+      depth: 2
+      ref_id: Art. 7
+      name: Diretor responsável
+      description: As instituições devem designar diretor responsável pela política de segurança cibernética e pela execução do plano de ação e de resposta a incidentes. O diretor pode desempenhar outras funções na instituição, desde que não haja conflito de interesses.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-13
+      assessable: true
+      depth: 2
+      ref_id: Art. 8
+      name: Relatório anual de implementação do plano
+      description: As instituições devem elaborar relatório anual sobre a implementação do plano de ação e de resposta a incidentes, com data-base de 31 de dezembro, abordando a efetividade das ações, os resultados obtidos, os incidentes relevantes do período e os resultados dos testes de continuidade de negócios. O relatório deve ser submetido ao comitê de risco, quando existente, e apresentado ao conselho de administração ou à diretoria até 31 de março do ano seguinte.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-14
+      assessable: true
+      depth: 2
+      ref_id: Art. 9
+      name: Aprovação da política e do plano
+      description: A política de segurança cibernética e o plano de ação e de resposta a incidentes devem ser aprovados pelo conselho de administração ou, na sua inexistência, pela diretoria da instituição.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-15
+      assessable: true
+      depth: 2
+      ref_id: Art. 10
+      name: Documentação e revisão anual
+      description: A política de segurança cibernética e o plano de ação e de resposta a incidentes devem ser documentados e revisados, no mínimo, anualmente.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-16
+      assessable: true
+      depth: 2
+      ref_id: Art. 11
+      name: Gerenciamento de riscos da terceirização
+      description: As instituições devem assegurar que suas políticas, estratégias e estruturas de gerenciamento de riscos, especialmente quanto aos critérios de decisão sobre terceirização, contemplem a contratação de serviços relevantes de processamento e armazenamento de dados e de computação em nuvem, no País ou no exterior.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-17
+      assessable: true
+      depth: 2
+      ref_id: Art. 12
+      name: Procedimentos prévios à contratação
+      description: Previamente à contratação de serviços relevantes, a instituição deve adotar procedimentos que contemplem práticas de governança e gestão proporcionais à relevância e aos riscos, e a verificação da capacidade do potencial prestador de assegurar o cumprimento da regulamentação, o acesso aos dados, a confidencialidade/integridade/disponibilidade e recuperação, certificações exigidas, acesso a relatórios de auditoria independente, recursos de monitoramento, segregação dos dados dos clientes e qualidade dos controles de acesso. Os procedimentos e as verificações devem ser documentados.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-18
+      assessable: true
+      depth: 2
+      ref_id: Art. 13
+      name: Definição de serviços de computação em nuvem
+      description: 'Os serviços de computação em nuvem abrangem a disponibilidade à instituição contratante, sob demanda e de maneira virtual, de ao menos um dos seguintes: recursos computacionais de infraestrutura (processamento, armazenamento, redes); plataforma para implantação ou execução de aplicativos da instituição; ou execução, pela internet, de aplicativos do prestador com seus próprios recursos.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-19
+      assessable: true
+      depth: 2
+      ref_id: Art. 14
+      name: Responsabilidade da instituição contratante
+      description: A instituição contratante é responsável pela confiabilidade, integridade, disponibilidade, segurança e sigilo em relação aos serviços contratados, bem como pelo cumprimento da legislação e da regulamentação em vigor.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-20
+      assessable: true
+      depth: 2
+      ref_id: Art. 15
+      name: Comunicação ao Banco Central
+      description: A contratação de serviços relevantes deve ser comunicada ao Banco Central do Brasil, informando a denominação da empresa contratada, os serviços contratados e os países/regiões onde os serviços poderão ser prestados (no caso de contratação no exterior). A comunicação deve ocorrer em até dez dias após a contratação, e alterações que modifiquem essas informações devem ser comunicadas em até dez dias após a alteração contratual.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-21
+      assessable: true
+      depth: 2
+      ref_id: Art. 16
+      name: Requisitos para contratação no exterior
+      description: 'A contratação de serviços relevantes prestados no exterior deve observar: a existência de convênio de troca de informações entre o BCB e as autoridades supervisoras; a garantia de que a prestação não prejudique o funcionamento da instituição nem embarace a atuação do BCB; a definição prévia dos países e regiões; e a previsão de alternativas para continuidade dos negócios. Na inexistência de convênio, a instituição deve solicitar autorização ao BCB com antecedência mínima de sessenta dias; o atendimento aos requisitos deve ser documentado.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-22
+      assessable: true
+      depth: 2
+      ref_id: Art. 17
+      name: Cláusulas contratuais obrigatórias
+      description: 'Os contratos devem prever: indicação dos países/regiões; medidas de segurança na transmissão e armazenamento; manutenção da segregação dos dados e controles de acesso; obrigações em caso de extinção (transferência e posterior exclusão dos dados); acesso da contratante a informações, certificações e relatórios de auditoria e recursos de monitoramento; notificação sobre subcontratação de serviços relevantes; acesso do BCB a contratos, documentação, dados, backups e códigos de acesso; adoção de medidas por determinação do BCB; e informação sobre limitações. Devem prever ainda obrigações específicas para o caso de decretação de regime de resolução da instituição contratante.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-23
+      assessable: true
+      depth: 2
+      ref_id: Art. 18
+      name: Exceção para sistemas de infraestrutura do mercado
+      description: O disposto nos arts. 11 a 17 não se aplica à contratação de sistemas operados por câmaras, por prestadores de serviços de compensação e de liquidação ou por entidades que exerçam atividades de registro ou de depósito centralizado.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-24
+      assessable: true
+      depth: 2
+      ref_id: Art. 19
+      name: Continuidade de negócios nas políticas de risco
+      description: As instituições devem assegurar que suas políticas de gerenciamento de riscos disponham, quanto à continuidade de negócios, sobre o tratamento dos incidentes relevantes do ambiente cibernético, os procedimentos no caso de interrupção de serviços relevantes contratados (incluindo substituição da contratada e restabelecimento da operação) e os cenários de incidentes considerados nos testes de continuidade.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-25
+      assessable: true
+      depth: 2
+      ref_id: Art. 20
+      name: Procedimentos de continuidade e comunicação de crise
+      description: Os procedimentos de gerenciamento de riscos devem contemplar, quanto à continuidade de negócios, o tratamento para mitigar efeitos de incidentes relevantes e de interrupções de serviços contratados, o prazo para reinício ou normalização das atividades e a comunicação tempestiva ao BCB das ocorrências que configurem situação de crise, bem como das providências de reinício. As instituições devem estabelecer e documentar os critérios que configurem uma situação de crise.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-26
+      assessable: true
+      depth: 2
+      ref_id: Art. 21
+      name: Mecanismos de acompanhamento e controle
+      description: As instituições devem instituir mecanismos de acompanhamento e controle para assegurar a implementação e a efetividade da política, do plano e dos requisitos de contratação, incluindo a definição de processos, testes e trilhas de auditoria, métricas e indicadores adequados e a identificação e correção de deficiências. Esses mecanismos devem considerar as notificações de subcontratação e ser submetidos a testes periódicos pela auditoria interna, quando aplicável.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-27
+      assessable: true
+      depth: 2
+      ref_id: Art. 22
+      name: Compartilhamento de informações sobre incidentes
+      description: Sem prejuízo do dever de sigilo e da livre concorrência, as instituições devem desenvolver iniciativas para o compartilhamento de informações sobre os incidentes relevantes, abrangendo inclusive informações recebidas de empresas prestadoras de serviços a terceiros. As informações compartilhadas devem estar disponíveis ao Banco Central do Brasil.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-28
+      assessable: true
+      depth: 2
+      ref_id: Art. 23
+      name: Guarda de documentos por cinco anos
+      description: 'Devem ficar à disposição do Banco Central do Brasil pelo prazo de cinco anos: o documento da política; a ata de formalização da opção por política única; o documento do plano de ação e resposta a incidentes; o relatório anual; a documentação dos procedimentos de contratação; a documentação relativa a serviços prestados no exterior; os contratos; os registros dos mecanismos de acompanhamento e controle; e a documentação dos critérios de crise.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-29
+      assessable: true
+      depth: 2
+      ref_id: Art. 24
+      name: Competência regulatória do Banco Central
+      description: O Banco Central do Brasil poderá adotar medidas para o cumprimento da Resolução e estabelecer requisitos e procedimentos para o compartilhamento de informações, exigência de certificações e outros requisitos técnicos das empresas contratadas, prazos máximos para reinício ou normalização das atividades e demais requisitos técnicos e procedimentos operacionais.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-30
+      assessable: true
+      depth: 2
+      ref_id: Art. 25
+      name: Regra de transição para contratos vigentes
+      description: As instituições que, em 26 de abril de 2018, já tinham contratado serviços relevantes devem adequar os contratos ao art. 16, incisos I, II, IV e § 2º (no caso de serviços no exterior) e ao disposto nos arts. 15, § 1º, e 17, em prazo não superior a 31 de dezembro de 2021.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-31
+      assessable: true
+      depth: 2
+      ref_id: Art. 26
+      name: Veto e restrições à contratação
+      description: O Banco Central do Brasil poderá vetar ou impor restrições à contratação de serviços de processamento e armazenamento de dados e de computação em nuvem quando constatar a inobservância da Resolução ou a limitação à sua atuação, estabelecendo prazo para adequação dos serviços.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-32
+      assessable: true
+      depth: 2
+      ref_id: Art. 27
+      name: Revogações
+      description: Ficam revogadas a Resolução nº 4.658, de 26 de abril de 2018, e a Resolução nº 4.752, de 26 de setembro de 2019.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-33
+      assessable: true
+      depth: 2
+      ref_id: Art. 28
+      name: Vigência
+      description: Esta Resolução entra em vigor em 1º de julho de 2021.
+      parent_urn: urn:intuitem:risk:req_node:bacen-cmn-4893-2021:node-5
