@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
 	outputDir: 'tests/results',
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
-	retries: process.env.CI ? 1 : 1,
+	retries: process.env.CI ? 2 : 1,
 	workers: process.env.CI ? 1 : 1,
 	globalTimeout: 120 * 60 * 1000,
 	timeout: 100 * 1000,

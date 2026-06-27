@@ -59,7 +59,7 @@ test.describe('Journeys', () => {
 			await expect
 				.poll(
 					async () => {
-						await page.reload({ waitUntil: 'networkidle' });
+						await page.reload({ waitUntil: 'load' });
 						return await page
 							.locator('[data-testid^="preset-name-"]')
 							.filter({ hasText: PRESET_NAME })
@@ -85,7 +85,6 @@ test.describe('Journeys', () => {
 			await expect(applyBtn).toBeVisible({ timeout: 5_000 });
 			await page.waitForTimeout(1500);
 			await applyBtn.dispatchEvent('click');
-			await page.waitForTimeout(500);
 		});
 
 		await test.step('confirm journey creation in modal', async () => {
@@ -113,7 +112,6 @@ test.describe('Journeys', () => {
 		await test.step('verify journey dashboard loaded', async () => {
 			await expect(page).toHaveURL(/.*\/(journeys|preset-journeys)\/.*/);
 			await page.waitForLoadState('networkidle');
-			await page.waitForTimeout(2_000);
 
 			await expect(page.getByTestId('journey-header-name')).toBeVisible({ timeout: 30_000 });
 			await expect(page.getByTestId('journey-header-name')).toContainText(PRESET_NAME_PREFIX);
@@ -123,7 +121,7 @@ test.describe('Journeys', () => {
 
 		await test.step('start the first step', async () => {
 			await page.getByTestId('journey-step-0-start').click();
-			await page.waitForTimeout(500);
+			await expect(page.getByTestId('journey-step-0-mark-done')).toBeVisible();
 		});
 
 		await test.step('mark first step as done', async () => {
