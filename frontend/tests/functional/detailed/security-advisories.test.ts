@@ -28,9 +28,15 @@ test.describe('Security Advisories', () => {
 		});
 
 		await test.step('verify at least one advisory is present in the table', async () => {
-			await page.waitForTimeout(3_000);
-			await page.reload();
-			await page.waitForLoadState('networkidle');
+			await expect
+				.poll(
+					async () => {
+						await page.reload();
+						return await page.getByTestId('tablerow-detail-button').count();
+					},
+					{ timeout: 30_000, intervals: [1_000, 2_000, 5_000] }
+				)
+				.toBeGreaterThan(0);
 
 			const rowCount = await page.getByTestId('tablerow-detail-button').count();
 			console.log('tablerow-detail-button count:', rowCount);
@@ -104,7 +110,7 @@ test.describe('Security Advisories', () => {
 			await page.goto('/analytics');
 			await page.waitForLoadState('networkidle');
 			await page.getByTestId('accordion-item-catalog').click();
-			await page.waitForTimeout(300);
+			await expect(page.getByTestId('accordion-item-cwes')).toBeVisible();
 			await page.getByTestId('accordion-item-cwes').click();
 			await expect(page).toHaveURL(/.*cwes.*/);
 			await page.waitForLoadState('networkidle');
@@ -117,9 +123,15 @@ test.describe('Security Advisories', () => {
 		});
 
 		await test.step('wait for CWE sync to complete and verify rows', async () => {
-			await page.waitForTimeout(5_000);
-			await page.reload();
-			await page.waitForLoadState('networkidle');
+			await expect
+				.poll(
+					async () => {
+						await page.reload();
+						return await page.getByTestId('tablerow-detail-button').count();
+					},
+					{ timeout: 30_000, intervals: [1_000, 2_000, 5_000] }
+				)
+				.toBeGreaterThan(0);
 
 			const rowCount = await page.getByTestId('tablerow-detail-button').count();
 			console.log('CWE tablerow-detail-button count:', rowCount);
@@ -167,7 +179,6 @@ test.describe('Security Advisories', () => {
 			await page.goto('/settings');
 			await page.waitForLoadState('networkidle');
 			await page.locator('[data-value="vulnerabilitySla"]').click();
-			await page.waitForTimeout(300);
 			await expect(page.getByTestId('form-input-critical')).toBeVisible();
 		};
 
@@ -201,7 +212,6 @@ test.describe('Security Advisories', () => {
 				await page.reload();
 				await page.waitForLoadState('networkidle');
 				await page.locator('[data-value="vulnerabilitySla"]').click();
-				await page.waitForTimeout(300);
 				for (const field of fields) {
 					await expect(page.getByTestId(`form-input-${field}`)).toHaveValue('20');
 				}
@@ -209,7 +219,6 @@ test.describe('Security Advisories', () => {
 
 			await test.step('click Reset to defaults and verify default values (15/30/90/180/365)', async () => {
 				await page.getByRole('button', { name: /reset to defaults/i }).click();
-				await page.waitForTimeout(300);
 				const defaults: Record<string, string> = {
 					critical: '15',
 					high: '30',
@@ -253,7 +262,6 @@ test.describe('Security Advisories', () => {
 			await page.goto('/settings');
 			await page.waitForLoadState('networkidle');
 			await page.locator('[data-value="secIntelFeeds"]').click();
-			await page.waitForTimeout(300);
 			await expect(page.getByTestId('form-input-kev-feed-enabled')).toBeVisible();
 		};
 
