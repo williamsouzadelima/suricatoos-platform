@@ -1,0 +1,254 @@
+convert_library_version: 'v2 ; Compat Mode: [0] {[v2.1] (DEFAULT) Don''t use any Compatibility Mode}'
+urn: urn:intuitem:risk:library:bacen-bcb-85-2021
+locale: pt
+ref_id: BACEN-BCB-85-2021
+name: Resolução BCB nº 85/2021 - Resiliência Operacional
+description: Resolução do Banco Central do Brasil, de 08/04/2021, que dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem, com vistas à resiliência operacional das instituições de pagamento e demais instituições autorizadas a funcionar pelo BCB não enquadradas como instituições financeiras.
+copyright: Construido a partir de conteudo publico oficial (Suricatoos).
+version: 1
+provider: Suricatoos
+packager: suricatoos
+objects:
+  framework:
+    urn: urn:intuitem:risk:framework:bacen-bcb-85-2021
+    ref_id: BACEN-BCB-85-2021
+    name: Resolução BCB nº 85/2021 - Resiliência Operacional
+    description: Resolução do Banco Central do Brasil, de 08/04/2021, que dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem, com vistas à resiliência operacional das instituições de pagamento e demais instituições autorizadas a funcionar pelo BCB não enquadradas como instituições financeiras.
+    requirement_nodes:
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-0
+      assessable: false
+      depth: 1
+      ref_id: '1'
+      name: Disposições Preliminares (Objeto e Âmbito de Aplicação)
+      description: Capítulo I - objeto da norma e instituições alcançadas.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-1
+      assessable: false
+      depth: 1
+      ref_id: '2'
+      name: Política de Resiliência Operacional / Segurança Cibernética
+      description: Capítulo II, Seção I - implementação e conteúdo mínimo da política.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-2
+      assessable: false
+      depth: 1
+      ref_id: '3'
+      name: Divulgação e Comunicação
+      description: Divulgação interna e ao público e compartilhamento de informações sobre incidentes.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-3
+      assessable: false
+      depth: 1
+      ref_id: '4'
+      name: Gestão de Incidentes
+      description: Plano de ação e de resposta a incidentes.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+      assessable: false
+      depth: 1
+      ref_id: '5'
+      name: Governança
+      description: Diretor responsável, relatório anual, aprovação, revisão, monitoramento e guarda de documentos.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-5
+      assessable: false
+      depth: 1
+      ref_id: '6'
+      name: Continuidade de Negócios e Testes
+      description: Capítulo IV - gerenciamento da continuidade de negócios e cenários de testes.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+      assessable: false
+      depth: 1
+      ref_id: '7'
+      name: Contratação de Terceiros e Serviços Relevantes (Processamento, Armazenamento de Dados e Computação em Nuvem)
+      description: Capítulo III - requisitos para contratação de serviços relevantes, no país e no exterior.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-7
+      assessable: false
+      depth: 1
+      ref_id: '8'
+      name: Disposições Finais
+      description: Capítulo V - transição, vetos, revogações e vigência.
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-8
+      assessable: true
+      depth: 2
+      ref_id: Art. 1
+      name: Objeto e âmbito de aplicação
+      description: Dispõe sobre a política de segurança cibernética e sobre os requisitos para a contratação de serviços de processamento e armazenamento de dados e de computação em nuvem a serem observados pelas instituições de pagamento, sociedades corretoras e distribuidoras de títulos e valores mobiliários e sociedades corretoras de câmbio autorizadas a funcionar pelo Banco Central do Brasil.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-0
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-9
+      assessable: true
+      depth: 2
+      ref_id: Art. 2
+      name: Implementação da política
+      description: As instituições devem implementar e manter política de segurança cibernética formulada com base em princípios e diretrizes que busquem assegurar a confidencialidade, a integridade e a disponibilidade dos dados e dos sistemas de informação utilizados, compatível com seu porte, perfil de risco e modelo de negócio.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-10
+      assessable: true
+      depth: 2
+      ref_id: Art. 3
+      name: Conteúdo mínimo da política
+      description: 'A política deve contemplar, no mínimo: objetivos; procedimentos e controles para reduzir vulnerabilidades e responder a incidentes; controles específicos para a confidencialidade, integridade e disponibilidade; classificação dos dados; mecanismos de disseminação da cultura de segurança cibernética; e iniciativas de compartilhamento de informações sobre incidentes relevantes.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-1
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-11
+      assessable: true
+      depth: 2
+      ref_id: Art. 4
+      name: Divulgação a funcionários e prestadores
+      description: A política de segurança cibernética e o plano de ação e de resposta a incidentes devem ser divulgados aos funcionários e às empresas prestadoras de serviços a terceiros, mediante linguagem clara, acessível e em nível de detalhamento compatível com as funções desempenhadas.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-12
+      assessable: true
+      depth: 2
+      ref_id: Art. 5
+      name: Divulgação ao público
+      description: As instituições devem divulgar ao público resumo contendo as linhas gerais da política de segurança cibernética.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-13
+      assessable: true
+      depth: 2
+      ref_id: Art. 22
+      name: Compartilhamento de informações sobre incidentes
+      description: As instituições devem compartilhar informações sobre os incidentes relevantes recebidos e disponibilizá-las ao Banco Central do Brasil.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-2
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-14
+      assessable: true
+      depth: 2
+      ref_id: Art. 6
+      name: Plano de ação e de resposta a incidentes
+      description: 'As instituições devem estabelecer plano de ação e de resposta a incidentes contemplando: ações para adequar as estruturas organizacionais e operacionais; procedimentos, controles e tecnologias para prevenção e resposta a incidentes; e a área responsável pelo registro e controle dos efeitos de incidentes relevantes.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-3
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-15
+      assessable: true
+      depth: 2
+      ref_id: Art. 7
+      name: Diretor responsável
+      description: As instituições devem designar diretor responsável pela política de segurança cibernética e pela execução do plano de ação e de resposta a incidentes.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-16
+      assessable: true
+      depth: 2
+      ref_id: Art. 8
+      name: Relatório anual
+      description: O diretor responsável deve elaborar relatório anual, com data-base de 31 de dezembro, abordando a efetividade da implementação, o resumo dos resultados, os incidentes relevantes ocorridos e os resultados dos testes de continuidade de negócios, submetendo-o à diretoria e ao conselho de administração.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-17
+      assessable: true
+      depth: 2
+      ref_id: Art. 9
+      name: Aprovação pela alta administração
+      description: A política de segurança cibernética e o plano de ação e de resposta a incidentes devem ser aprovados pela diretoria e, caso exista, pelo conselho de administração da instituição.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-18
+      assessable: true
+      depth: 2
+      ref_id: Art. 10
+      name: Documentação e revisão anual
+      description: A política de segurança cibernética e o plano de ação e de resposta a incidentes devem ser documentados e revisados, no mínimo, anualmente.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-19
+      assessable: true
+      depth: 2
+      ref_id: Art. 21
+      name: Mecanismos de acompanhamento e controle
+      description: As instituições devem instituir mecanismos de acompanhamento e de controle para assegurar a implementação e a efetividade da política, do plano de resposta a incidentes e dos requisitos de contratação de serviços, incluindo processos, testes, trilhas de auditoria, métricas e indicadores adequados.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-20
+      assessable: true
+      depth: 2
+      ref_id: Art. 23
+      name: Guarda da documentação
+      description: A documentação relativa à política, ao plano de ação e de resposta a incidentes, ao relatório anual e à contratação de serviços relevantes deve permanecer à disposição do Banco Central do Brasil pelo prazo de cinco anos.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-4
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-21
+      assessable: true
+      depth: 2
+      ref_id: Art. 19
+      name: Continuidade de negócios
+      description: As instituições devem assegurar que suas políticas, estratégias e estruturas de gerenciamento de continuidade de negócios considerem cenários de incidentes cibernéticos relevantes, de interrupção das atividades de prestadores de serviços relevantes e de testes de continuidade de negócios.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-22
+      assessable: true
+      depth: 2
+      ref_id: Art. 20
+      name: Procedimentos de continuidade
+      description: Os procedimentos de gerenciamento de continuidade devem especificar, no mínimo, as ações de mitigação dos efeitos de incidentes, os prazos para reinício ou normalização das atividades e serviços relevantes interrompidos e os procedimentos de comunicação tempestiva ao Banco Central do Brasil de incidentes que configurem crise.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-5
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-23
+      assessable: true
+      depth: 2
+      ref_id: Art. 11
+      name: Gerenciamento de risco na contratação
+      description: As instituições devem assegurar que suas políticas, estratégias e estruturas de gerenciamento de riscos, especialmente nas decisões de terceirização, contemplem a contratação de serviços relevantes de processamento e armazenamento de dados e de computação em nuvem, no país ou no exterior.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-24
+      assessable: true
+      depth: 2
+      ref_id: Art. 12
+      name: Requisitos prévios à contratação
+      description: Previamente à contratação de serviços relevantes, a instituição deve adotar procedimentos que verifiquem a capacidade do prestador de assegurar o cumprimento da legislação, o acesso da instituição aos dados, a confidencialidade, a integridade, a disponibilidade e a recuperação dos dados, bem como a aderência a certificações.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-25
+      assessable: true
+      depth: 2
+      ref_id: Art. 13
+      name: Definição de computação em nuvem
+      description: Define computação em nuvem como a disponibilidade, sob demanda e por meio da rede, de recursos de processamento, armazenamento, infraestrutura de redes, implantação ou execução de aplicativos e demais ativos de tecnologia da informação.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-26
+      assessable: true
+      depth: 2
+      ref_id: Art. 14
+      name: Responsabilidade da contratante
+      description: A instituição contratante é responsável pela confiabilidade, integridade, disponibilidade, segurança e sigilo das informações processadas, armazenadas e gerenciadas pelo prestador, bem como pelo cumprimento da legislação e da regulamentação em vigor.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-27
+      assessable: true
+      depth: 2
+      ref_id: Art. 15
+      name: Comunicação da contratação ao BCB
+      description: A contratação de serviços relevantes deve ser comunicada ao Banco Central do Brasil em até dez dias após a contratação, com a denominação da empresa contratada e a indicação dos serviços prestados.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-28
+      assessable: true
+      depth: 2
+      ref_id: Art. 16
+      name: Contratação no exterior
+      description: 'A contratação de serviços relevantes prestados no exterior deve observar: existência de convênio para troca de informações entre o BCB e as autoridades supervisoras dos países envolvidos; não comprometimento do funcionamento regular da instituição nem da atuação do BCB; definição dos países e regiões de armazenamento e processamento; e previsão de alternativas para a continuidade dos serviços.'
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-29
+      assessable: true
+      depth: 2
+      ref_id: Art. 17
+      name: Cláusulas contratuais obrigatórias
+      description: Os contratos de prestação de serviços relevantes devem prever cláusulas sobre localização e migração de dados, medidas de segurança e segregação dos dados, permissão de acesso da instituição e do BCB aos dados, informações e relatórios, obrigações de confidencialidade, notificação prévia sobre subcontratação e procedimentos de transferência e exclusão dos dados ao término do contrato.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-30
+      assessable: true
+      depth: 2
+      ref_id: Art. 18
+      name: Exceções de aplicação
+      description: As disposições dos arts. 11 a 17 não se aplicam aos sistemas operados por câmaras e prestadores de serviços de compensação e de liquidação nem por entidades registradoras ou depositárias centrais de ativos.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-6
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-31
+      assessable: true
+      depth: 2
+      ref_id: Art. 24
+      name: Adequação de contratos vigentes (transição)
+      description: Os contratos de prestação de serviços relevantes vigentes devem ser adequados aos requisitos desta Resolução até 31 de dezembro de 2021, por ocasião de sua renovação ou alteração.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-7
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-32
+      assessable: true
+      depth: 2
+      ref_id: Art. 25
+      name: Veto e restrições pelo BCB
+      description: O Banco Central do Brasil poderá vetar ou impor restrições à contratação de serviços relevantes de processamento e armazenamento de dados e de computação em nuvem em caso de inobservância dos requisitos previstos nesta Resolução.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-7
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-33
+      assessable: true
+      depth: 2
+      ref_id: Art. 26
+      name: Revogações
+      description: Revoga dispositivos de normas anteriores sobre o tema (Circular nº 3.909, de 2018, e Circular nº 3.969, de 2019).
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-7
+    - urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-34
+      assessable: true
+      depth: 2
+      ref_id: Art. 27
+      name: Vigência
+      description: Esta Resolução entra em vigor em 1º de agosto de 2021.
+      parent_urn: urn:intuitem:risk:req_node:bacen-bcb-85-2021:node-7

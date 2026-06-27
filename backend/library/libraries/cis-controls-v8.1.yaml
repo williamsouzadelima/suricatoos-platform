@@ -1,0 +1,1852 @@
+convert_library_version: 'v2 ; Compat Mode: [0] {[v2.1] (DEFAULT) Don''t use any Compatibility Mode}'
+urn: urn:intuitem:risk:library:cis-controls-v8.1
+locale: en
+ref_id: CIS-Controls-v8.1
+name: CIS Critical Security Controls v8.1
+description: The CIS Critical Security Controls v8.1 is a prioritized set of 18 controls and 153 safeguards of cybersecurity best practices to defend against the most prevalent cyber attacks.
+copyright: Construido a partir de conteudo publico oficial (Suricatoos).
+version: 1
+provider: Suricatoos
+packager: suricatoos
+objects:
+  framework:
+    urn: urn:intuitem:risk:framework:cis-controls-v8.1
+    ref_id: CIS-Controls-v8.1
+    name: CIS Critical Security Controls v8.1
+    description: The CIS Critical Security Controls v8.1 is a prioritized set of 18 controls and 153 safeguards of cybersecurity best practices to defend against the most prevalent cyber attacks.
+    requirement_nodes:
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      assessable: false
+      depth: 1
+      ref_id: '1'
+      name: Inventory and Control of Enterprise Assets
+      translations:
+        pt:
+          name: Inventário e Controle de Ativos Corporativos
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-1
+      assessable: true
+      depth: 2
+      ref_id: '1.1'
+      name: Establish and Maintain Detailed Enterprise Asset Inventory
+      description: Establish and maintain an accurate, detailed, and up-to-date inventory of all enterprise assets with the potential to store or process data, including end-user devices, network devices, non-computing/IoT devices, and servers, connected physically, virtually, remotely, and in cloud environments. Record the network address, hardware address, machine name, asset owner, department, and approval to connect to the network. Review and update the inventory bi-annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário Detalhado de Ativos Corporativos
+          description: Estabelecer e manter um inventário preciso, detalhado e atualizado de todos os ativos corporativos com potencial para armazenar ou processar dados, incluindo dispositivos de usuário final, dispositivos de rede, dispositivos não computacionais/IoT e servidores, conectados física, virtual e remotamente, bem como em ambientes de nuvem. Registrar o endereço de rede, o endereço de hardware, o nome da máquina, o proprietário do ativo, o departamento e a aprovação para conexão à rede. Revisar e atualizar o inventário semestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-2
+      assessable: true
+      depth: 2
+      ref_id: '1.2'
+      name: Address Unauthorized Assets
+      description: Ensure that a process exists to address unauthorized assets on a weekly basis. The enterprise may choose to remove the asset from the network, deny it from connecting remotely, or quarantine the asset.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      translations:
+        pt:
+          name: Tratar Ativos Não Autorizados
+          description: Garantir que exista um processo para tratar ativos não autorizados semanalmente. A organização pode optar por remover o ativo da rede, negar sua conexão remota ou colocar o ativo em quarentena.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-3
+      assessable: true
+      depth: 2
+      ref_id: '1.3'
+      name: Utilize an Active Discovery Tool
+      description: Utilize an active discovery tool to identify assets connected to the enterprise's network. Configure the active discovery tool to execute daily, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      translations:
+        pt:
+          name: Utilizar uma Ferramenta de Descoberta Ativa
+          description: Utilizar uma ferramenta de descoberta ativa para identificar ativos conectados à rede da organização. Configurar a ferramenta de descoberta ativa para ser executada diariamente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-4
+      assessable: true
+      depth: 2
+      ref_id: '1.4'
+      name: Use Dynamic Host Configuration Protocol (DHCP) Logging to Update Enterprise Asset Inventory
+      description: Use DHCP logging on all DHCP servers or IP address management tools to update the enterprise's asset inventory. Review and use the logs to update the inventory weekly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      translations:
+        pt:
+          name: Usar o Registro de Logs do Dynamic Host Configuration Protocol (DHCP) para Atualizar o Inventário de Ativos Corporativos
+          description: Usar o registro de logs de DHCP em todos os servidores DHCP ou ferramentas de gerenciamento de endereços IP para atualizar o inventário de ativos da organização. Revisar e usar os logs para atualizar o inventário semanalmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-5
+      assessable: true
+      depth: 2
+      ref_id: '1.5'
+      name: Use a Passive Asset Discovery Tool
+      description: Use a passive discovery tool to identify assets connected to the enterprise's network. Review and use scans to update the enterprise's asset inventory at least weekly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-0
+      translations:
+        pt:
+          name: Usar uma Ferramenta de Descoberta Passiva de Ativos
+          description: Usar uma ferramenta de descoberta passiva para identificar ativos conectados à rede da organização. Revisar e usar as varreduras para atualizar o inventário de ativos da organização pelo menos semanalmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      assessable: false
+      depth: 1
+      ref_id: '2'
+      name: Inventory and Control of Software Assets
+      translations:
+        pt:
+          name: Inventário e Controle de Ativos de Software
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-7
+      assessable: true
+      depth: 2
+      ref_id: '2.1'
+      name: Establish and Maintain a Software Inventory
+      description: Establish and maintain a detailed inventory of all licensed software installed on enterprise assets. Document the title, publisher, initial install/use date, and business purpose for each entry. Review and update the software inventory bi-annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário de Software
+          description: Estabelecer e manter um inventário detalhado de todo o software licenciado instalado nos ativos corporativos. Documentar o título, o fabricante, a data inicial de instalação/uso e a finalidade de negócio de cada entrada. Revisar e atualizar o inventário de software semestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-8
+      assessable: true
+      depth: 2
+      ref_id: '2.2'
+      name: Ensure Authorized Software is Currently Supported
+      description: Ensure that only currently supported software is designated as authorized in the software inventory. If unsupported software is necessary for the mission, document an exception detailing mitigating controls and residual risk acceptance. Review the software list to verify support at least monthly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Garantir que o Software Autorizado Tenha Suporte Vigente
+          description: Garantir que apenas software com suporte vigente seja designado como autorizado no inventário de software. Se um software sem suporte for necessário para a missão, documentar uma exceção detalhando os controles de mitigação e a aceitação do risco residual. Revisar a lista de software para verificar o suporte pelo menos mensalmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-9
+      assessable: true
+      depth: 2
+      ref_id: '2.3'
+      name: Address Unauthorized Software
+      description: Ensure that unauthorized software is either removed from use on enterprise assets or receives a documented exception. Review monthly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Tratar Software Não Autorizado
+          description: Garantir que software não autorizado seja removido de uso nos ativos corporativos ou receba uma exceção documentada. Revisar mensalmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-10
+      assessable: true
+      depth: 2
+      ref_id: '2.4'
+      name: Utilize Automated Software Inventory Tools
+      description: Utilize software inventory tools, when possible, throughout the enterprise to automate the discovery and documentation of installed software.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Utilizar Ferramentas Automatizadas de Inventário de Software
+          description: Utilizar ferramentas de inventário de software, quando possível, em toda a organização para automatizar a descoberta e a documentação do software instalado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-11
+      assessable: true
+      depth: 2
+      ref_id: '2.5'
+      name: Allowlist Authorized Software
+      description: Use technical controls, such as application allowlisting, to ensure that only authorized software can execute or be accessed. Reassess bi-annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Incluir em Lista de Permissões o Software Autorizado
+          description: Usar controles técnicos, como a inclusão de aplicações em lista de permissões (allowlist), para garantir que apenas software autorizado possa ser executado ou acessado. Reavaliar semestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-12
+      assessable: true
+      depth: 2
+      ref_id: '2.6'
+      name: Allowlist Authorized Libraries
+      description: Use technical controls to ensure that only authorized software libraries, such as specific .dll, .ocx, .so, etc., files are allowed to load into a system process. Block unauthorized libraries from loading. Reassess bi-annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Incluir em Lista de Permissões as Bibliotecas Autorizadas
+          description: Usar controles técnicos para garantir que apenas bibliotecas de software autorizadas, como arquivos específicos .dll, .ocx, .so, etc., tenham permissão para ser carregadas em um processo do sistema. Bloquear o carregamento de bibliotecas não autorizadas. Reavaliar semestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-13
+      assessable: true
+      depth: 2
+      ref_id: '2.7'
+      name: Allowlist Authorized Scripts
+      description: Use technical controls, such as digital signatures and version control, to ensure that only authorized scripts, such as specific .ps1, .py, etc., files are allowed to execute. Block unauthorized scripts from executing. Reassess bi-annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-6
+      translations:
+        pt:
+          name: Incluir em Lista de Permissões os Scripts Autorizados
+          description: Usar controles técnicos, como assinaturas digitais e controle de versão, para garantir que apenas scripts autorizados, como arquivos específicos .ps1, .py, etc., tenham permissão para ser executados. Bloquear a execução de scripts não autorizados. Reavaliar semestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      assessable: false
+      depth: 1
+      ref_id: '3'
+      name: Data Protection
+      translations:
+        pt:
+          name: Proteção de Dados
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-15
+      assessable: true
+      depth: 2
+      ref_id: '3.1'
+      name: Establish and Maintain a Data Management Process
+      description: Establish and maintain a documented data management process that addresses data sensitivity, data owner, handling of data, data retention limits, and disposal requirements. Review and update the documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Gestão de Dados
+          description: Estabelecer e manter um processo documentado de gestão de dados que aborde a sensibilidade dos dados, o proprietário dos dados, o tratamento dos dados, os limites de retenção de dados e os requisitos de descarte. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças significativas na organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-16
+      assessable: true
+      depth: 2
+      ref_id: '3.2'
+      name: Establish and Maintain a Data Inventory
+      description: Establish and maintain a data inventory based on the enterprise's data management process. Inventory sensitive data, at a minimum. Review and update the inventory annually, with a priority on sensitive data.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário de Dados
+          description: Estabelecer e manter um inventário de dados com base no processo de gestão de dados da organização. Inventariar, no mínimo, os dados sensíveis. Revisar e atualizar o inventário anualmente, com prioridade para os dados sensíveis.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-17
+      assessable: true
+      depth: 2
+      ref_id: '3.3'
+      name: Configure Data Access Control Lists
+      description: Configure data access control lists based on a user's need to know. Apply access control lists to local and remote file systems, databases, and applications.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Configurar Listas de Controle de Acesso a Dados
+          description: Configurar listas de controle de acesso a dados com base na necessidade de conhecimento do usuário. Aplicar listas de controle de acesso a sistemas de arquivos locais e remotos, bancos de dados e aplicações.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-18
+      assessable: true
+      depth: 2
+      ref_id: '3.4'
+      name: Enforce Data Retention
+      description: Retain data according to the enterprise's documented data management process. Data retention must include both minimum and maximum timelines.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Impor a Retenção de Dados
+          description: Reter dados de acordo com o processo documentado de gestão de dados da organização. A retenção de dados deve incluir tanto prazos mínimos quanto máximos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-19
+      assessable: true
+      depth: 2
+      ref_id: '3.5'
+      name: Securely Dispose of Data
+      description: Securely dispose of data as outlined in the enterprise's data management process. Ensure the disposal process and method are commensurate with the data sensitivity.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Descartar Dados de Forma Segura
+          description: Descartar dados de forma segura conforme definido no processo de gestão de dados da organização. Garantir que o processo e o método de descarte sejam compatíveis com a sensibilidade dos dados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-20
+      assessable: true
+      depth: 2
+      ref_id: '3.6'
+      name: Encrypt Data on End-User Devices
+      description: Encrypt data on end-user devices containing sensitive data. Example implementations include Windows BitLocker, Apple FileVault, and Linux dm-crypt.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Criptografar Dados em Dispositivos de Usuário Final
+          description: Criptografar dados em dispositivos de usuário final que contenham dados sensíveis. Exemplos de implementação incluem Windows BitLocker, Apple FileVault e Linux dm-crypt.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-21
+      assessable: true
+      depth: 2
+      ref_id: '3.7'
+      name: Establish and Maintain a Data Classification Scheme
+      description: Establish and maintain an overall data classification scheme for the enterprise, using labels such as Sensitive, Confidential, and Public. Review and update the classification scheme annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Estabelecer e Manter um Esquema de Classificação de Dados
+          description: Estabelecer e manter um esquema geral de classificação de dados para a organização, usando rótulos como Sensível, Confidencial e Público. Revisar e atualizar o esquema de classificação anualmente, ou quando ocorrerem mudanças significativas na organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-22
+      assessable: true
+      depth: 2
+      ref_id: '3.8'
+      name: Document Data Flows
+      description: Document data flows, including service provider data flows, based on the enterprise's data management process. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Documentar os Fluxos de Dados
+          description: Documentar os fluxos de dados, incluindo os fluxos de dados de provedores de serviços, com base no processo de gestão de dados da organização. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças significativas na organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-23
+      assessable: true
+      depth: 2
+      ref_id: '3.9'
+      name: Encrypt Data on Removable Media
+      description: Encrypt data on removable media.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Criptografar Dados em Mídia Removível
+          description: Criptografar dados em mídia removível.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-24
+      assessable: true
+      depth: 2
+      ref_id: '3.10'
+      name: Encrypt Sensitive Data in Transit
+      description: Encrypt sensitive data in transit. Example implementations include Transport Layer Security (TLS) and Open Secure Shell (OpenSSH).
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Criptografar Dados Sensíveis em Trânsito
+          description: Criptografar dados sensíveis em trânsito. Exemplos de implementação incluem Transport Layer Security (TLS) e Open Secure Shell (OpenSSH).
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-25
+      assessable: true
+      depth: 2
+      ref_id: '3.11'
+      name: Encrypt Sensitive Data at Rest
+      description: Encrypt sensitive data at rest on servers, applications, and databases. Storage-layer (server-side) encryption meets the minimum requirement; additional methods may include application-layer (client-side) encryption.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Criptografar Dados Sensíveis em Repouso
+          description: Criptografar dados sensíveis em repouso em servidores, aplicações e bancos de dados. A criptografia na camada de armazenamento (lado do servidor) atende ao requisito mínimo; métodos adicionais podem incluir a criptografia na camada de aplicação (lado do cliente).
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-26
+      assessable: true
+      depth: 2
+      ref_id: '3.12'
+      name: Segment Data Processing and Storage Based on Sensitivity
+      description: Segment data processing and storage based on the sensitivity of the data. Do not process sensitive data on enterprise assets intended for lower sensitivity data.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Segmentar o Processamento e o Armazenamento de Dados com Base na Sensibilidade
+          description: Segmentar o processamento e o armazenamento de dados com base na sensibilidade dos dados. Não processar dados sensíveis em ativos corporativos destinados a dados de menor sensibilidade.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-27
+      assessable: true
+      depth: 2
+      ref_id: '3.13'
+      name: Deploy a Data Loss Prevention Solution
+      description: Implement an automated tool, such as a host-based Data Loss Prevention (DLP) tool, to identify all sensitive data stored, processed, or transmitted through enterprise assets, including onsite or at a remote service provider, and update the enterprise's sensitive data inventory.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Implantar uma Solução de Prevenção contra Perda de Dados
+          description: Implementar uma ferramenta automatizada, como uma ferramenta de Prevenção contra Perda de Dados (DLP) baseada em host, para identificar todos os dados sensíveis armazenados, processados ou transmitidos por meio dos ativos corporativos, seja localmente ou em um provedor de serviços remoto, e atualizar o inventário de dados sensíveis da organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-28
+      assessable: true
+      depth: 2
+      ref_id: '3.14'
+      name: Log Sensitive Data Access
+      description: Log sensitive data access, including modification and disposal.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-14
+      translations:
+        pt:
+          name: Registrar em Log o Acesso a Dados Sensíveis
+          description: Registrar em log o acesso a dados sensíveis, incluindo modificação e descarte.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      assessable: false
+      depth: 1
+      ref_id: '4'
+      name: Secure Configuration of Enterprise Assets and Software
+      translations:
+        pt:
+          name: Configuração Segura de Ativos Corporativos e Software
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-30
+      assessable: true
+      depth: 2
+      ref_id: '4.1'
+      name: Establish and Maintain a Secure Configuration Process
+      description: Establish and maintain a documented secure configuration process for enterprise assets (end-user devices, non-computing/IoT devices, and servers) and software (operating systems and applications). Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Configuração Segura
+          description: Estabelecer e manter um processo documentado de configuração segura para ativos corporativos (dispositivos de usuário final, dispositivos não computacionais/IoT e servidores) e software (sistemas operacionais e aplicações). Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças significativas na organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-31
+      assessable: true
+      depth: 2
+      ref_id: '4.2'
+      name: Establish and Maintain a Secure Configuration Process for Network Infrastructure
+      description: Establish and maintain a documented secure configuration process for network devices. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Configuração Segura para a Infraestrutura de Rede
+          description: Estabelecer e manter um processo documentado de configuração segura para dispositivos de rede. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças significativas na organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-32
+      assessable: true
+      depth: 2
+      ref_id: '4.3'
+      name: Configure Automatic Session Locking on Enterprise Assets
+      description: Configure automatic session locking on enterprise assets after a defined period of inactivity. For general purpose operating systems, the period must not exceed 15 minutes; for mobile end-user devices, it must not exceed 2 minutes.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Configurar o Bloqueio Automático de Sessão em Ativos Corporativos
+          description: Configurar o bloqueio automático de sessão em ativos corporativos após um período definido de inatividade. Para sistemas operacionais de uso geral, o período não deve exceder 15 minutos; para dispositivos móveis de usuário final, não deve exceder 2 minutos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-33
+      assessable: true
+      depth: 2
+      ref_id: '4.4'
+      name: Implement and Manage a Firewall on Servers
+      description: Implement and manage a host-based firewall or port-filtering tool on servers, with a default-deny rule that drops all traffic except those services and ports that are explicitly allowed.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Implementar e Gerenciar um Firewall em Servidores
+          description: Implementar e gerenciar um firewall baseado em host ou uma ferramenta de filtragem de portas em servidores, com uma regra de negação padrão (default-deny) que descarte todo o tráfego, exceto os serviços e portas explicitamente permitidos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-34
+      assessable: true
+      depth: 2
+      ref_id: '4.5'
+      name: Implement and Manage a Firewall on End-User Devices
+      description: Implement and manage a host-based firewall or port-filtering tool on end-user devices, with a default-deny rule that drops all traffic except those services and ports that are explicitly allowed.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Implementar e Gerenciar um Firewall em Dispositivos de Usuário Final
+          description: Implementar e gerenciar um firewall baseado em host ou uma ferramenta de filtragem de portas em dispositivos de usuário final, com uma regra de negação padrão (default-deny) que descarte todo o tráfego, exceto os serviços e portas explicitamente permitidos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-35
+      assessable: true
+      depth: 2
+      ref_id: '4.6'
+      name: Securely Manage Enterprise Assets and Software
+      description: Securely manage enterprise assets and software, for example through version-controlled infrastructure-as-code and access to administrative interfaces over secure protocols such as SSH and HTTPS. Do not use insecure management protocols such as Telnet and HTTP unless operationally essential.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Gerenciar de Forma Segura os Ativos Corporativos e o Software
+          description: Gerenciar de forma segura os ativos corporativos e o software, por exemplo, por meio de infraestrutura como código com controle de versão e acesso às interfaces administrativas por protocolos seguros como SSH e HTTPS. Não usar protocolos de gerenciamento inseguros como Telnet e HTTP, a menos que sejam operacionalmente essenciais.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-36
+      assessable: true
+      depth: 2
+      ref_id: '4.7'
+      name: Manage Default Accounts on Enterprise Assets and Software
+      description: Manage default accounts on enterprise assets and software, such as root, administrator, and other pre-configured vendor accounts. Example implementations include disabling default accounts or making them unusable.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Gerenciar Contas Padrão em Ativos Corporativos e Software
+          description: Gerenciar contas padrão em ativos corporativos e software, como root, administrador e outras contas pré-configuradas do fornecedor. Exemplos de implementação incluem desabilitar contas padrão ou torná-las inutilizáveis.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-37
+      assessable: true
+      depth: 2
+      ref_id: '4.8'
+      name: Uninstall or Disable Unnecessary Services on Enterprise Assets and Software
+      description: Uninstall or disable unnecessary services on enterprise assets and software, such as an unused file sharing service, web application module, or service function.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Desinstalar ou Desabilitar Serviços Desnecessários em Ativos Corporativos e Software
+          description: Desinstalar ou desabilitar serviços desnecessários em ativos corporativos e software, como um serviço de compartilhamento de arquivos não utilizado, um módulo de aplicação web ou uma função de serviço.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-38
+      assessable: true
+      depth: 2
+      ref_id: '4.9'
+      name: Configure Trusted DNS Servers on Enterprise Assets
+      description: Configure trusted DNS servers on enterprise assets. Example implementations include configuring assets to use enterprise-controlled DNS servers and/or reputable externally accessible DNS servers.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Configurar Servidores DNS Confiáveis em Ativos Corporativos
+          description: Configurar servidores DNS confiáveis em ativos corporativos. Exemplos de implementação incluem configurar os ativos para usar servidores DNS controlados pela organização e/ou servidores DNS externos acessíveis e de boa reputação.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-39
+      assessable: true
+      depth: 2
+      ref_id: '4.10'
+      name: Enforce Automatic Device Lockout on Portable End-User Devices
+      description: Enforce automatic device lockout following a predetermined threshold of local failed authentication attempts on portable end-user devices, where supported. For laptops, do not allow more than 20 failed attempts; for tablets and smartphones, no more than 10.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Impor o Bloqueio Automático de Dispositivo em Dispositivos Portáteis de Usuário Final
+          description: Impor o bloqueio automático de dispositivo após um limite predeterminado de tentativas locais de autenticação malsucedidas em dispositivos portáteis de usuário final, quando suportado. Para laptops, não permitir mais de 20 tentativas malsucedidas; para tablets e smartphones, não mais de 10.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-40
+      assessable: true
+      depth: 2
+      ref_id: '4.11'
+      name: Enforce Remote Wipe Capability on Portable End-User Devices
+      description: Remotely wipe enterprise data from enterprise-owned portable end-user devices when deemed appropriate, such as lost or stolen devices, or when an individual no longer supports the enterprise.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Impor a Capacidade de Limpeza Remota em Dispositivos Portáteis de Usuário Final
+          description: Limpar remotamente os dados corporativos de dispositivos portáteis de usuário final de propriedade da organização quando considerado apropriado, como em dispositivos perdidos ou roubados, ou quando uma pessoa deixa de prestar serviços à organização.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-41
+      assessable: true
+      depth: 2
+      ref_id: '4.12'
+      name: Separate Enterprise Workspaces on Mobile End-User Devices
+      description: Ensure separate enterprise workspaces are used on mobile end-user devices, where supported. Example implementations include using an Apple Configuration Profile or Android Work Profile to separate enterprise applications and data from personal applications and data.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-29
+      translations:
+        pt:
+          name: Separar os Espaços de Trabalho Corporativos em Dispositivos Móveis de Usuário Final
+          description: Garantir que espaços de trabalho corporativos separados sejam usados em dispositivos móveis de usuário final, quando suportado. Exemplos de implementação incluem usar um Apple Configuration Profile ou um Android Work Profile para separar as aplicações e os dados corporativos das aplicações e dos dados pessoais.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      assessable: false
+      depth: 1
+      ref_id: '5'
+      name: Account Management
+      translations:
+        pt:
+          name: Gestão de Contas
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-43
+      assessable: true
+      depth: 2
+      ref_id: '5.1'
+      name: Establish and Maintain an Inventory of Accounts
+      description: Establish and maintain an inventory of all accounts managed in the enterprise, including user and administrator accounts. At a minimum, record the person's name, username, start/stop dates, and department. Validate that all active accounts are authorized at a minimum quarterly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário de Contas
+          description: Estabelecer e manter um inventário de todas as contas gerenciadas na organização, incluindo contas de usuário e de administrador. No mínimo, registrar o nome da pessoa, o nome de usuário, as datas de início/término e o departamento. Validar que todas as contas ativas estão autorizadas no mínimo trimestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-44
+      assessable: true
+      depth: 2
+      ref_id: '5.2'
+      name: Use Unique Passwords
+      description: Use unique passwords for all enterprise assets. Best practice includes a minimum 8-character password for accounts using MFA and a minimum 14-character password for accounts not using MFA.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Usar Senhas Únicas
+          description: Usar senhas únicas para todos os ativos corporativos. A melhor prática inclui uma senha de no mínimo 8 caracteres para contas que usam MFA e uma senha de no mínimo 14 caracteres para contas que não usam MFA.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-45
+      assessable: true
+      depth: 2
+      ref_id: '5.3'
+      name: Disable Dormant Accounts
+      description: Delete or disable any dormant accounts after a period of 45 days of inactivity, where supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Desabilitar Contas Inativas
+          description: Excluir ou desabilitar quaisquer contas inativas após um período de 45 dias de inatividade, quando suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-46
+      assessable: true
+      depth: 2
+      ref_id: '5.4'
+      name: Restrict Administrator Privileges to Dedicated Administrator Accounts
+      description: Restrict administrator privileges to dedicated administrator accounts on enterprise assets. Conduct general computing activities, such as internet browsing, email, and productivity suite use, from the user's primary, non-privileged account.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Restringir Privilégios de Administrador a Contas de Administrador Dedicadas
+          description: Restringir os privilégios de administrador a contas de administrador dedicadas nos ativos corporativos. Realizar atividades gerais de computação, como navegação na internet, e-mail e uso de suíte de produtividade, a partir da conta primária e não privilegiada do usuário.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-47
+      assessable: true
+      depth: 2
+      ref_id: '5.5'
+      name: Establish and Maintain an Inventory of Service Accounts
+      description: Establish and maintain an inventory of service accounts, containing at a minimum department owner, review date, and purpose. Perform service account reviews to validate that all active accounts are authorized at a minimum quarterly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário de Contas de Serviço
+          description: Estabelecer e manter um inventário de contas de serviço, contendo, no mínimo, o departamento proprietário, a data de revisão e a finalidade. Realizar revisões das contas de serviço para validar que todas as contas ativas estão autorizadas no mínimo trimestralmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-48
+      assessable: true
+      depth: 2
+      ref_id: '5.6'
+      name: Centralize Account Management
+      description: Centralize account management through a directory or identity service.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-42
+      translations:
+        pt:
+          name: Centralizar o Gerenciamento de Contas
+          description: Centralizar o gerenciamento de contas por meio de um serviço de diretório ou de identidade.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      assessable: false
+      depth: 1
+      ref_id: '6'
+      name: Access Control Management
+      translations:
+        pt:
+          name: Gerenciamento de Controle de Acesso
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-50
+      assessable: true
+      depth: 2
+      ref_id: '6.1'
+      name: Establish an Access Granting Process
+      description: Establish and follow a documented process, preferably automated, for granting access to enterprise assets upon new hire, rights grant, or role change of a user.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Estabelecer um Processo de Concessão de Acesso
+          description: Estabelecer e seguir um processo documentado, preferencialmente automatizado, para conceder acesso aos ativos corporativos na contratação, concessão de direitos ou mudança de função de um usuário.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-51
+      assessable: true
+      depth: 2
+      ref_id: '6.2'
+      name: Establish an Access Revoking Process
+      description: Establish and follow a documented process, preferably automated, for revoking access to enterprise assets, through disabling accounts immediately upon termination, rights revocation, or role change. Disabling rather than deleting accounts may be necessary to preserve audit trails.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Estabelecer um Processo de Revogação de Acesso
+          description: Estabelecer e seguir um processo documentado, preferencialmente automatizado, para revogar o acesso aos ativos corporativos, desabilitando contas imediatamente no desligamento, revogação de direitos ou mudança de função. Desabilitar em vez de excluir as contas pode ser necessário para preservar as trilhas de auditoria.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-52
+      assessable: true
+      depth: 2
+      ref_id: '6.3'
+      name: Require MFA for Externally-Exposed Applications
+      description: Require all externally-exposed enterprise or third-party applications to enforce MFA, where supported. Enforcing MFA through a directory service or SSO provider is a satisfactory implementation.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Exigir MFA para Aplicações Expostas Externamente
+          description: Exigir que todas as aplicações corporativas ou de terceiros expostas externamente apliquem MFA, quando suportado. Aplicar MFA por meio de um serviço de diretório ou provedor de SSO é uma implementação satisfatória.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-53
+      assessable: true
+      depth: 2
+      ref_id: '6.4'
+      name: Require MFA for Remote Network Access
+      description: Require MFA for remote network access.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Exigir MFA para Acesso Remoto à Rede
+          description: Exigir MFA para acesso remoto à rede.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-54
+      assessable: true
+      depth: 2
+      ref_id: '6.5'
+      name: Require MFA for Administrative Access
+      description: Require MFA for all administrative access accounts, where supported, on all enterprise assets, whether managed on-site or through a third-party provider.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Exigir MFA para Acesso Administrativo
+          description: Exigir MFA para todas as contas de acesso administrativo, quando suportado, em todos os ativos corporativos, sejam eles gerenciados localmente ou por meio de um provedor terceirizado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-55
+      assessable: true
+      depth: 2
+      ref_id: '6.6'
+      name: Establish and Maintain an Inventory of Authentication and Authorization Systems
+      description: Establish and maintain an inventory of the enterprise's authentication and authorization systems, including those hosted on-site or at a remote service provider. Review and update the inventory at a minimum annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário dos Sistemas de Autenticação e Autorização
+          description: Estabelecer e manter um inventário dos sistemas de autenticação e autorização da empresa, incluindo aqueles hospedados localmente ou em um provedor de serviços remoto. Revisar e atualizar o inventário no mínimo anualmente, ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-56
+      assessable: true
+      depth: 2
+      ref_id: '6.7'
+      name: Centralize Access Control
+      description: Centralize access control for all enterprise assets through a directory service or SSO provider, where supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Centralizar o Controle de Acesso
+          description: Centralizar o controle de acesso para todos os ativos corporativos por meio de um serviço de diretório ou provedor de SSO, quando suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-57
+      assessable: true
+      depth: 2
+      ref_id: '6.8'
+      name: Define and Maintain Role-Based Access Control
+      description: Define and maintain role-based access control by determining and documenting the access rights necessary for each role to carry out its assigned duties. Perform access control reviews of enterprise assets to validate that all privileges are authorized, at a minimum annually, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-49
+      translations:
+        pt:
+          name: Definir e Manter o Controle de Acesso Baseado em Funções
+          description: Definir e manter o controle de acesso baseado em funções, determinando e documentando os direitos de acesso necessários para cada função desempenhar as suas atribuições. Realizar revisões de controle de acesso dos ativos corporativos para validar que todos os privilégios estão autorizados, no mínimo anualmente, ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      assessable: false
+      depth: 1
+      ref_id: '7'
+      name: Continuous Vulnerability Management
+      translations:
+        pt:
+          name: Gerenciamento Contínuo de Vulnerabilidades
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-59
+      assessable: true
+      depth: 2
+      ref_id: '7.1'
+      name: Establish and Maintain a Vulnerability Management Process
+      description: Establish and maintain a documented vulnerability management process for enterprise assets. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Gerenciamento de Vulnerabilidades
+          description: Estabelecer e manter um processo documentado de gerenciamento de vulnerabilidades para os ativos corporativos. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-60
+      assessable: true
+      depth: 2
+      ref_id: '7.2'
+      name: Establish and Maintain a Remediation Process
+      description: Establish and maintain a risk-based remediation strategy documented in a remediation process, with monthly, or more frequent, reviews.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Remediação
+          description: Estabelecer e manter uma estratégia de remediação baseada em risco, documentada em um processo de remediação, com revisões mensais ou mais frequentes.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-61
+      assessable: true
+      depth: 2
+      ref_id: '7.3'
+      name: Perform Automated Operating System Patch Management
+      description: Perform operating system updates on enterprise assets through automated patch management on a monthly, or more frequent, basis.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Realizar o Gerenciamento Automatizado de Patches do Sistema Operacional
+          description: Realizar atualizações do sistema operacional nos ativos corporativos por meio de gerenciamento automatizado de patches, mensalmente ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-62
+      assessable: true
+      depth: 2
+      ref_id: '7.4'
+      name: Perform Automated Application Patch Management
+      description: Perform application updates on enterprise assets through automated patch management on a monthly, or more frequent, basis.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Realizar o Gerenciamento Automatizado de Patches de Aplicações
+          description: Realizar atualizações de aplicações nos ativos corporativos por meio de gerenciamento automatizado de patches, mensalmente ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-63
+      assessable: true
+      depth: 2
+      ref_id: '7.5'
+      name: Perform Automated Vulnerability Scans of Internal Enterprise Assets
+      description: Perform automated vulnerability scans of internal enterprise assets on a quarterly, or more frequent, basis. Conduct both authenticated and unauthenticated scans using a SCAP-compliant vulnerability scanning tool.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Realizar Varreduras Automatizadas de Vulnerabilidades dos Ativos Corporativos Internos
+          description: Realizar varreduras automatizadas de vulnerabilidades dos ativos corporativos internos trimestralmente ou com mais frequência. Conduzir varreduras autenticadas e não autenticadas usando uma ferramenta de varredura de vulnerabilidades compatível com SCAP.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-64
+      assessable: true
+      depth: 2
+      ref_id: '7.6'
+      name: Perform Automated Vulnerability Scans of Externally-Exposed Enterprise Assets
+      description: Perform automated vulnerability scans of externally-exposed enterprise assets using a SCAP-compliant vulnerability scanning tool, on a monthly, or more frequent, basis.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Realizar Varreduras Automatizadas de Vulnerabilidades dos Ativos Corporativos Expostos Externamente
+          description: Realizar varreduras automatizadas de vulnerabilidades dos ativos corporativos expostos externamente usando uma ferramenta de varredura de vulnerabilidades compatível com SCAP, mensalmente ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-65
+      assessable: true
+      depth: 2
+      ref_id: '7.7'
+      name: Remediate Detected Vulnerabilities
+      description: Remediate detected vulnerabilities in software through processes and tooling on a monthly, or more frequent, basis, based on the remediation process.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-58
+      translations:
+        pt:
+          name: Remediar as Vulnerabilidades Detectadas
+          description: Remediar as vulnerabilidades detectadas em software por meio de processos e ferramentas, mensalmente ou com mais frequência, com base no processo de remediação.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      assessable: false
+      depth: 1
+      ref_id: '8'
+      name: Audit Log Management
+      translations:
+        pt:
+          name: Gerenciamento de Logs de Auditoria
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-67
+      assessable: true
+      depth: 2
+      ref_id: '8.1'
+      name: Establish and Maintain an Audit Log Management Process
+      description: Establish and maintain a documented audit log management process that defines the enterprise's logging requirements, addressing at a minimum the collection, review, and retention of audit logs. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Gerenciamento de Logs de Auditoria
+          description: Estabelecer e manter um processo documentado de gerenciamento de logs de auditoria que defina os requisitos de registro de logs da empresa, abordando no mínimo a coleta, revisão e retenção dos logs de auditoria. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-68
+      assessable: true
+      depth: 2
+      ref_id: '8.2'
+      name: Collect Audit Logs
+      description: Collect audit logs. Ensure that logging, per the enterprise's audit log management process, has been enabled across enterprise assets.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Auditoria
+          description: Coletar logs de auditoria. Garantir que o registro de logs, conforme o processo de gerenciamento de logs de auditoria da empresa, tenha sido habilitado em todos os ativos corporativos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-69
+      assessable: true
+      depth: 2
+      ref_id: '8.3'
+      name: Ensure Adequate Audit Log Storage
+      description: Ensure that logging destinations maintain adequate storage to comply with the enterprise's audit log management process.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Garantir Armazenamento Adequado de Logs de Auditoria
+          description: Garantir que os destinos de registro de logs mantenham armazenamento adequado para cumprir o processo de gerenciamento de logs de auditoria da empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-70
+      assessable: true
+      depth: 2
+      ref_id: '8.4'
+      name: Standardize Time Synchronization
+      description: Standardize time synchronization. Configure at least two synchronized time sources across enterprise assets, where supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Padronizar a Sincronização de Tempo
+          description: Padronizar a sincronização de tempo. Configurar pelo menos duas fontes de tempo sincronizadas em todos os ativos corporativos, quando suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-71
+      assessable: true
+      depth: 2
+      ref_id: '8.5'
+      name: Collect Detailed Audit Logs
+      description: Configure detailed audit logging for enterprise assets containing sensitive data. Include event source, date, username, timestamp, source addresses, destination addresses, and other useful elements that could assist in a forensic investigation.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Auditoria Detalhados
+          description: Configurar o registro detalhado de logs de auditoria para ativos corporativos que contenham dados sensíveis. Incluir a origem do evento, data, nome de usuário, carimbo de data/hora, endereços de origem, endereços de destino e outros elementos úteis que possam auxiliar em uma investigação forense.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-72
+      assessable: true
+      depth: 2
+      ref_id: '8.6'
+      name: Collect DNS Query Audit Logs
+      description: Collect DNS query audit logs on enterprise assets, where appropriate and supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Auditoria de Consultas DNS
+          description: Coletar logs de auditoria de consultas DNS nos ativos corporativos, quando apropriado e suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-73
+      assessable: true
+      depth: 2
+      ref_id: '8.7'
+      name: Collect URL Request Audit Logs
+      description: Collect URL request audit logs on enterprise assets, where appropriate and supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Auditoria de Requisições de URL
+          description: Coletar logs de auditoria de requisições de URL nos ativos corporativos, quando apropriado e suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-74
+      assessable: true
+      depth: 2
+      ref_id: '8.8'
+      name: Collect Command-Line Audit Logs
+      description: Collect command-line audit logs. Example implementations include collecting audit logs from PowerShell, BASH, and remote administrative terminals.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Auditoria de Linha de Comando
+          description: Coletar logs de auditoria de linha de comando. Exemplos de implementações incluem a coleta de logs de auditoria do PowerShell, BASH e terminais administrativos remotos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-75
+      assessable: true
+      depth: 2
+      ref_id: '8.9'
+      name: Centralize Audit Logs
+      description: Centralize, to the extent possible, audit log collection and retention across enterprise assets in accordance with the documented audit log management process. Example implementations include leveraging a SIEM tool to centralize multiple log sources.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Centralizar os Logs de Auditoria
+          description: Centralizar, na medida do possível, a coleta e retenção de logs de auditoria em todos os ativos corporativos, de acordo com o processo documentado de gerenciamento de logs de auditoria. Exemplos de implementações incluem o uso de uma ferramenta SIEM para centralizar múltiplas fontes de logs.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-76
+      assessable: true
+      depth: 2
+      ref_id: '8.10'
+      name: Retain Audit Logs
+      description: Retain audit logs across enterprise assets for a minimum of 90 days.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Reter os Logs de Auditoria
+          description: Reter os logs de auditoria em todos os ativos corporativos por no mínimo 90 dias.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-77
+      assessable: true
+      depth: 2
+      ref_id: '8.11'
+      name: Conduct Audit Log Reviews
+      description: Conduct reviews of audit logs to detect anomalies or abnormal events that could indicate a potential threat. Conduct reviews on a weekly, or more frequent, basis.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Conduzir Revisões de Logs de Auditoria
+          description: Conduzir revisões dos logs de auditoria para detectar anomalias ou eventos anormais que possam indicar uma ameaça potencial. Conduzir revisões semanalmente ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-78
+      assessable: true
+      depth: 2
+      ref_id: '8.12'
+      name: Collect Service Provider Logs
+      description: Collect service provider logs, where supported. Example implementations include collecting authentication and authorization events, data creation and disposal events, and user management events.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-66
+      translations:
+        pt:
+          name: Coletar Logs de Provedores de Serviços
+          description: Coletar logs de provedores de serviços, quando suportado. Exemplos de implementações incluem a coleta de eventos de autenticação e autorização, eventos de criação e descarte de dados e eventos de gerenciamento de usuários.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      assessable: false
+      depth: 1
+      ref_id: '9'
+      name: Email and Web Browser Protections
+      translations:
+        pt:
+          name: Proteções de E-mail e Navegador Web
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-80
+      assessable: true
+      depth: 2
+      ref_id: '9.1'
+      name: Ensure Use of Only Fully Supported Browsers and Email Clients
+      description: Ensure only fully supported browsers and email clients are allowed to execute in the enterprise, only using the latest version provided through the vendor.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Garantir o Uso Apenas de Navegadores e Clientes de E-mail Totalmente Suportados
+          description: Garantir que apenas navegadores e clientes de e-mail totalmente suportados tenham permissão para executar na empresa, usando somente a versão mais recente fornecida pelo fornecedor.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-81
+      assessable: true
+      depth: 2
+      ref_id: '9.2'
+      name: Use DNS Filtering Services
+      description: Use DNS filtering services on all enterprise assets to block access to known malicious domains.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Usar Serviços de Filtragem DNS
+          description: Usar serviços de filtragem DNS em todos os ativos corporativos para bloquear o acesso a domínios maliciosos conhecidos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-82
+      assessable: true
+      depth: 2
+      ref_id: '9.3'
+      name: Maintain and Enforce Network-Based URL Filters
+      description: Enforce and update network-based URL filters to limit an enterprise asset from connecting to potentially malicious or unapproved websites. Example implementations include category-based filtering, reputation-based filtering, or block lists. Enforce filters for all enterprise assets.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Manter e Aplicar Filtros de URL Baseados em Rede
+          description: Aplicar e atualizar filtros de URL baseados em rede para limitar a conexão de um ativo corporativo a sites potencialmente maliciosos ou não aprovados. Exemplos de implementações incluem filtragem baseada em categoria, filtragem baseada em reputação ou listas de bloqueio. Aplicar os filtros a todos os ativos corporativos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-83
+      assessable: true
+      depth: 2
+      ref_id: '9.4'
+      name: Restrict Unnecessary or Unauthorized Browser and Email Client Extensions
+      description: Restrict, either through uninstalling or disabling, any unauthorized or unnecessary browser or email client plugins, extensions, and add-on applications.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Restringir Extensões Desnecessárias ou Não Autorizadas de Navegador e Cliente de E-mail
+          description: Restringir, seja desinstalando ou desabilitando, quaisquer plugins, extensões e aplicações complementares de navegador ou cliente de e-mail não autorizados ou desnecessários.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-84
+      assessable: true
+      depth: 2
+      ref_id: '9.5'
+      name: Implement DMARC
+      description: To lower the chance of spoofed or modified emails from valid domains, implement DMARC policy and verification, starting with implementing the Sender Policy Framework (SPF) and the DomainKeys Identified Mail (DKIM) standards.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Implementar DMARC
+          description: Para reduzir a chance de e-mails falsificados ou modificados a partir de domínios válidos, implementar a política e a verificação DMARC, começando pela implementação dos padrões Sender Policy Framework (SPF) e DomainKeys Identified Mail (DKIM).
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-85
+      assessable: true
+      depth: 2
+      ref_id: '9.6'
+      name: Block Unnecessary File Types
+      description: Block unnecessary file types attempting to enter the enterprise's email gateway.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Bloquear Tipos de Arquivo Desnecessários
+          description: Bloquear tipos de arquivo desnecessários que tentem entrar pelo gateway de e-mail da empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-86
+      assessable: true
+      depth: 2
+      ref_id: '9.7'
+      name: Deploy and Maintain Email Server Anti-Malware Protections
+      description: Deploy and maintain email server anti-malware protections, such as attachment scanning and/or sandboxing.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-79
+      translations:
+        pt:
+          name: Implantar e Manter Proteções Anti-Malware no Servidor de E-mail
+          description: Implantar e manter proteções anti-malware no servidor de e-mail, como a varredura de anexos e/ou sandboxing.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      assessable: false
+      depth: 1
+      ref_id: '10'
+      name: Malware Defenses
+      translations:
+        pt:
+          name: Defesas contra Malware
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-88
+      assessable: true
+      depth: 2
+      ref_id: '10.1'
+      name: Deploy and Maintain Anti-Malware Software
+      description: Deploy and maintain anti-malware software on all enterprise assets.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Implantar e Manter Software Anti-Malware
+          description: Implantar e manter software anti-malware em todos os ativos corporativos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-89
+      assessable: true
+      depth: 2
+      ref_id: '10.2'
+      name: Configure Automatic Anti-Malware Signature Updates
+      description: Configure automatic updates for anti-malware signature files on all enterprise assets.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Configurar Atualizações Automáticas de Assinaturas Anti-Malware
+          description: Configurar atualizações automáticas dos arquivos de assinatura anti-malware em todos os ativos corporativos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-90
+      assessable: true
+      depth: 2
+      ref_id: '10.3'
+      name: Disable Autorun and Autoplay for Removable Media
+      description: Disable autorun and autoplay auto-execute functionality for removable media.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Desabilitar Autorun e Autoplay para Mídias Removíveis
+          description: Desabilitar a funcionalidade de execução automática (autorun e autoplay) para mídias removíveis.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-91
+      assessable: true
+      depth: 2
+      ref_id: '10.4'
+      name: Configure Automatic Anti-Malware Scanning of Removable Media
+      description: Configure anti-malware software to automatically scan removable media.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Configurar a Varredura Automática Anti-Malware de Mídias Removíveis
+          description: Configurar o software anti-malware para realizar a varredura automática de mídias removíveis.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-92
+      assessable: true
+      depth: 2
+      ref_id: '10.5'
+      name: Enable Anti-Exploitation Features
+      description: Enable anti-exploitation features on enterprise assets and software, where possible, such as Microsoft Data Execution Prevention (DEP), Windows Defender Exploit Guard (WDEG), or Apple System Integrity Protection (SIP) and Gatekeeper.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Habilitar Recursos Anti-Exploração
+          description: Habilitar recursos anti-exploração nos ativos corporativos e softwares, quando possível, como o Microsoft Data Execution Prevention (DEP), Windows Defender Exploit Guard (WDEG), ou Apple System Integrity Protection (SIP) e Gatekeeper.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-93
+      assessable: true
+      depth: 2
+      ref_id: '10.6'
+      name: Centrally Manage Anti-Malware Software
+      description: Centrally manage anti-malware software.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Gerenciar Centralizadamente o Software Anti-Malware
+          description: Gerenciar centralizadamente o software anti-malware.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-94
+      assessable: true
+      depth: 2
+      ref_id: '10.7'
+      name: Use Behavior-Based Anti-Malware Software
+      description: Use behavior-based anti-malware software.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-87
+      translations:
+        pt:
+          name: Usar Software Anti-Malware Baseado em Comportamento
+          description: Usar software anti-malware baseado em comportamento.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      assessable: false
+      depth: 1
+      ref_id: '11'
+      name: Data Recovery
+      translations:
+        pt:
+          name: Recuperação de Dados
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-96
+      assessable: true
+      depth: 2
+      ref_id: '11.1'
+      name: Establish and Maintain a Data Recovery Process
+      description: Establish and maintain a documented data recovery process that addresses the scope of data recovery activities, recovery prioritization, and the security of backup data. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Recuperação de Dados
+          description: Estabelecer e manter um processo documentado de recuperação de dados que aborde o escopo das atividades de recuperação de dados, a priorização da recuperação e a segurança dos dados de backup. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-97
+      assessable: true
+      depth: 2
+      ref_id: '11.2'
+      name: Perform Automated Backups
+      description: Perform automated backups of in-scope enterprise assets. Run backups weekly, or more frequently, based on the sensitivity of the data.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      translations:
+        pt:
+          name: Realizar Backups Automatizados
+          description: Realizar backups automatizados dos ativos corporativos dentro do escopo. Executar backups semanalmente ou com mais frequência, com base na sensibilidade dos dados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-98
+      assessable: true
+      depth: 2
+      ref_id: '11.3'
+      name: Protect Recovery Data
+      description: Protect recovery data with equivalent controls to the original data. Reference encryption or data separation, based on requirements.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      translations:
+        pt:
+          name: Proteger os Dados de Recuperação
+          description: Proteger os dados de recuperação com controles equivalentes aos dados originais. Considerar criptografia ou separação de dados, com base nos requisitos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-99
+      assessable: true
+      depth: 2
+      ref_id: '11.4'
+      name: Establish and Maintain an Isolated Instance of Recovery Data
+      description: Establish and maintain an isolated instance of recovery data. Example implementations include version controlling backup destinations through offline, cloud, or off-site systems or services.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      translations:
+        pt:
+          name: Estabelecer e Manter uma Instância Isolada dos Dados de Recuperação
+          description: Estabelecer e manter uma instância isolada dos dados de recuperação. Exemplos de implementações incluem o versionamento de destinos de backup por meio de sistemas ou serviços offline, em nuvem ou externos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-100
+      assessable: true
+      depth: 2
+      ref_id: '11.5'
+      name: Test Data Recovery
+      description: Test backup recovery quarterly, or more frequently, for a sampling of in-scope enterprise assets.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-95
+      translations:
+        pt:
+          name: Testar a Recuperação de Dados
+          description: Testar a recuperação de backups trimestralmente ou com mais frequência, para uma amostragem dos ativos corporativos dentro do escopo.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      assessable: false
+      depth: 1
+      ref_id: '12'
+      name: Network Infrastructure Management
+      translations:
+        pt:
+          name: Gerenciamento da Infraestrutura de Rede
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-102
+      assessable: true
+      depth: 2
+      ref_id: '12.1'
+      name: Ensure Network Infrastructure is Up-to-Date
+      description: Ensure network infrastructure is kept up-to-date. Example implementations include running the latest stable release of software and/or using currently supported network-as-a-service (NaaS) offerings. Review software versions monthly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Garantir que a Infraestrutura de Rede Esteja Atualizada
+          description: Garantir que a infraestrutura de rede seja mantida atualizada. Exemplos de implementações incluem a execução da versão estável mais recente do software e/ou o uso de ofertas de network-as-a-service (NaaS) atualmente suportadas. Revisar as versões de software mensalmente ou com mais frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-103
+      assessable: true
+      depth: 2
+      ref_id: '12.2'
+      name: Establish and Maintain a Secure Network Architecture
+      description: Establish and maintain a secure network architecture. A secure network architecture must address segmentation, least privilege, and availability, at a minimum.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Estabelecer e Manter uma Arquitetura de Rede Segura
+          description: Estabelecer e manter uma arquitetura de rede segura. Uma arquitetura de rede segura deve abordar, no mínimo, segmentação, privilégio mínimo e disponibilidade.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-104
+      assessable: true
+      depth: 2
+      ref_id: '12.3'
+      name: Securely Manage Network Infrastructure
+      description: Securely manage network infrastructure. Example implementations include version-controlled infrastructure-as-code and the use of secure network protocols, such as SSH and HTTPS.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Gerenciar a Infraestrutura de Rede de Forma Segura
+          description: Gerenciar a infraestrutura de rede de forma segura. Exemplos de implementações incluem infraestrutura como código com controle de versão e o uso de protocolos de rede seguros, como SSH e HTTPS.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-105
+      assessable: true
+      depth: 2
+      ref_id: '12.4'
+      name: Establish and Maintain Architecture Diagram(s)
+      description: Establish and maintain architecture diagram(s) and/or other network system documentation. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Estabelecer e Manter Diagrama(s) de Arquitetura
+          description: Estabelecer e manter diagrama(s) de arquitetura e/ou outra documentação de sistemas de rede. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-106
+      assessable: true
+      depth: 2
+      ref_id: '12.5'
+      name: Centralize Network Authentication, Authorization, and Auditing (AAA)
+      description: Centralize network AAA.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Centralizar a Autenticação, Autorização e Auditoria de Rede (AAA)
+          description: Centralizar o AAA de rede.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-107
+      assessable: true
+      depth: 2
+      ref_id: '12.6'
+      name: Use of Secure Network Management and Communication Protocols
+      description: Use secure network management and communication protocols (e.g., 802.1X, Wi-Fi Protected Access 2 (WPA2) Enterprise or greater).
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Uso de Protocolos Seguros de Gerenciamento e Comunicação de Rede
+          description: Usar protocolos seguros de gerenciamento e comunicação de rede (por exemplo, 802.1X, Wi-Fi Protected Access 2 (WPA2) Enterprise ou superior).
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-108
+      assessable: true
+      depth: 2
+      ref_id: '12.7'
+      name: Ensure Remote Devices Utilize a VPN and are Connecting to an Enterprise's AAA Infrastructure
+      description: Require users to authenticate to enterprise-managed VPN and authentication services prior to accessing enterprise resources on end-user devices.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Garantir que Dispositivos Remotos Utilizem uma VPN e se Conectem à Infraestrutura AAA da Empresa
+          description: Exigir que os usuários se autentiquem na VPN e nos serviços de autenticação gerenciados pela empresa antes de acessar os recursos corporativos em dispositivos de usuário final.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-109
+      assessable: true
+      depth: 2
+      ref_id: '12.8'
+      name: Establish and Maintain Dedicated Computing Resources for All Administrative Work
+      description: Establish and maintain dedicated computing resources, either physically or logically separated, for all administrative tasks or tasks requiring administrative access. The resources should be segmented from the enterprise's primary network and not allowed internet access.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-101
+      translations:
+        pt:
+          name: Estabelecer e Manter Recursos Computacionais Dedicados para Todo Trabalho Administrativo
+          description: Estabelecer e manter recursos computacionais dedicados, separados física ou logicamente, para todas as tarefas administrativas ou tarefas que exijam acesso administrativo. Os recursos devem ser segmentados da rede primária da empresa e não ter permissão de acesso à internet.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      assessable: false
+      depth: 1
+      ref_id: '13'
+      name: Network Monitoring and Defense
+      translations:
+        pt:
+          name: Monitoramento e Defesa de Rede
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-111
+      assessable: true
+      depth: 2
+      ref_id: '13.1'
+      name: Centralize Security Event Alerting
+      description: Centralize security event alerting across enterprise assets for log correlation and analysis. Best practice requires the use of a SIEM that includes vendor-defined event correlation alerts. A log analytics platform configured with security-relevant correlation alerts also satisfies this Safeguard.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Centralizar Alertas de Eventos de Segurança
+          description: Centralizar os alertas de eventos de segurança entre os ativos corporativos para correlação e análise de logs. A prática recomendada exige o uso de um SIEM que inclua alertas de correlação de eventos definidos pelo fornecedor. Uma plataforma de análise de logs configurada com alertas de correlação relevantes para a segurança também atende a esta salvaguarda.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-112
+      assessable: true
+      depth: 2
+      ref_id: '13.2'
+      name: Deploy a Host-Based Intrusion Detection Solution
+      description: Deploy a host-based intrusion detection solution on enterprise assets, where appropriate and/or supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Implantar uma Solução de Detecção de Intrusão Baseada em Host
+          description: Implantar uma solução de detecção de intrusão baseada em host nos ativos corporativos, quando apropriado e/ou suportado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-113
+      assessable: true
+      depth: 2
+      ref_id: '13.3'
+      name: Deploy a Network Intrusion Detection Solution
+      description: Deploy a network intrusion detection solution on enterprise assets, where appropriate. Example implementations include the use of a Network Intrusion Detection System (NIDS) or equivalent cloud service provider (CSP) service.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Implantar uma Solução de Detecção de Intrusão de Rede
+          description: Implantar uma solução de detecção de intrusão de rede nos ativos corporativos, quando apropriado. Exemplos de implementação incluem o uso de um Sistema de Detecção de Intrusão de Rede (NIDS) ou serviço equivalente de provedor de serviços de nuvem (CSP).
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-114
+      assessable: true
+      depth: 2
+      ref_id: '13.4'
+      name: Perform Traffic Filtering Between Network Segments
+      description: Perform traffic filtering between network segments, where appropriate.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Realizar Filtragem de Tráfego Entre Segmentos de Rede
+          description: Realizar a filtragem de tráfego entre segmentos de rede, quando apropriado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-115
+      assessable: true
+      depth: 2
+      ref_id: '13.5'
+      name: Manage Access Control for Remote Assets
+      description: Manage access control for assets remotely connecting to enterprise resources. Determine the amount of access based on up-to-date anti-malware software installed, configuration compliance with the enterprise's secure configuration process, and ensuring the operating system and applications are up-to-date.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Gerenciar o Controle de Acesso para Ativos Remotos
+          description: Gerenciar o controle de acesso para ativos que se conectam remotamente aos recursos corporativos. Determinar o nível de acesso com base na instalação de software antimalware atualizado, na conformidade da configuração com o processo de configuração segura da empresa e na garantia de que o sistema operacional e os aplicativos estejam atualizados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-116
+      assessable: true
+      depth: 2
+      ref_id: '13.6'
+      name: Collect Network Traffic Flow Logs
+      description: Collect network traffic flow logs and/or network traffic to review and alert upon from network devices.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Coletar Logs de Fluxo de Tráfego de Rede
+          description: Coletar logs de fluxo de tráfego de rede e/ou tráfego de rede para revisão e alerta a partir de dispositivos de rede.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-117
+      assessable: true
+      depth: 2
+      ref_id: '13.7'
+      name: Deploy a Host-Based Intrusion Prevention Solution
+      description: Deploy a host-based intrusion prevention solution on enterprise assets, where appropriate and/or supported. Example implementations include use of an Endpoint Detection and Response (EDR) client or host-based IPS agent.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Implantar uma Solução de Prevenção de Intrusão Baseada em Host
+          description: Implantar uma solução de prevenção de intrusão baseada em host nos ativos corporativos, quando apropriado e/ou suportado. Exemplos de implementação incluem o uso de um cliente de Detecção e Resposta de Endpoint (EDR) ou um agente de IPS baseado em host.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-118
+      assessable: true
+      depth: 2
+      ref_id: '13.8'
+      name: Deploy a Network Intrusion Prevention Solution
+      description: Deploy a network intrusion prevention solution, where appropriate. Example implementations include the use of a Network Intrusion Prevention System (NIPS) or equivalent CSP service.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Implantar uma Solução de Prevenção de Intrusão de Rede
+          description: Implantar uma solução de prevenção de intrusão de rede, quando apropriado. Exemplos de implementação incluem o uso de um Sistema de Prevenção de Intrusão de Rede (NIPS) ou serviço CSP equivalente.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-119
+      assessable: true
+      depth: 2
+      ref_id: '13.9'
+      name: Deploy Port-Level Access Control
+      description: Ensure that only authorized devices are granted network access through port-level access control. Port-level access control utilizes 802.1x, or similar network access control protocols such as certificates, and may incorporate user and/or device authentication.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Implantar Controle de Acesso em Nível de Porta
+          description: Garantir que apenas dispositivos autorizados tenham acesso à rede por meio de controle de acesso em nível de porta. O controle de acesso em nível de porta utiliza 802.1x ou protocolos semelhantes de controle de acesso à rede, como certificados, e pode incorporar autenticação de usuário e/ou de dispositivo.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-120
+      assessable: true
+      depth: 2
+      ref_id: '13.10'
+      name: Perform Application Layer Filtering
+      description: Apply application layer filtering. Example implementations include a filtering proxy, application layer firewall, or gateway.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Realizar Filtragem na Camada de Aplicação
+          description: Aplicar filtragem na camada de aplicação. Exemplos de implementação incluem um proxy de filtragem, um firewall de camada de aplicação ou um gateway.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-121
+      assessable: true
+      depth: 2
+      ref_id: '13.11'
+      name: Tune Security Event Alerting Thresholds
+      description: Tune security event alerting thresholds monthly, or more frequently.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-110
+      translations:
+        pt:
+          name: Ajustar os Limiares de Alerta de Eventos de Segurança
+          description: Ajustar os limiares de alerta de eventos de segurança mensalmente, ou com maior frequência.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      assessable: false
+      depth: 1
+      ref_id: '14'
+      name: Security Awareness and Skills Training
+      translations:
+        pt:
+          name: Treinamento de Conscientização e Habilidades em Segurança
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-123
+      assessable: true
+      depth: 2
+      ref_id: '14.1'
+      name: Establish and Maintain a Security Awareness Program
+      description: Establish and maintain a security awareness program to educate the workforce on how to interact with enterprise assets and data in a secure manner. Conduct training at hire and, at a minimum, annually. Review and update content annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Estabelecer e Manter um Programa de Conscientização em Segurança
+          description: Estabelecer e manter um programa de conscientização em segurança para educar a força de trabalho sobre como interagir com os ativos e dados corporativos de maneira segura. Conduzir o treinamento na contratação e, no mínimo, anualmente. Revisar e atualizar o conteúdo anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-124
+      assessable: true
+      depth: 2
+      ref_id: '14.2'
+      name: Train Workforce Members to Recognize Social Engineering Attacks
+      description: Train workforce members to recognize social engineering attacks, such as phishing, business email compromise (BEC), pretexting, and tailgating.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar os Membros da Força de Trabalho para Reconhecer Ataques de Engenharia Social
+          description: Treinar os membros da força de trabalho para reconhecer ataques de engenharia social, como phishing, comprometimento de e-mail corporativo (BEC), pretexting e tailgating.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-125
+      assessable: true
+      depth: 2
+      ref_id: '14.3'
+      name: Train Workforce Members on Authentication Best Practices
+      description: Train workforce members on authentication best practices. Example topics include MFA, password composition, and credential management.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar os Membros da Força de Trabalho sobre Boas Práticas de Autenticação
+          description: Treinar os membros da força de trabalho sobre boas práticas de autenticação. Exemplos de tópicos incluem MFA, composição de senhas e gerenciamento de credenciais.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-126
+      assessable: true
+      depth: 2
+      ref_id: '14.4'
+      name: Train Workforce on Data Handling Best Practices
+      description: Train workforce members on how to identify and properly store, transfer, archive, and destroy sensitive data. This also includes clear screen and clear desk best practices, such as locking screens, erasing whiteboards, and storing data and assets securely.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar a Força de Trabalho sobre Boas Práticas de Manuseio de Dados
+          description: Treinar os membros da força de trabalho sobre como identificar e armazenar, transferir, arquivar e destruir dados sensíveis de maneira adequada. Isso também inclui boas práticas de tela limpa e mesa limpa, como bloquear telas, apagar quadros brancos e armazenar dados e ativos de forma segura.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-127
+      assessable: true
+      depth: 2
+      ref_id: '14.5'
+      name: Train Workforce Members on Causes of Unintentional Data Exposure
+      description: Train workforce members to be aware of causes for unintentional data exposure. Example topics include mis-delivery of sensitive data, losing a portable end-user device, or publishing data to unintended audiences.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar os Membros da Força de Trabalho sobre as Causas de Exposição Não Intencional de Dados
+          description: Treinar os membros da força de trabalho para que estejam cientes das causas de exposição não intencional de dados. Exemplos de tópicos incluem o envio incorreto de dados sensíveis, a perda de um dispositivo portátil de usuário final ou a publicação de dados para públicos não pretendidos.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-128
+      assessable: true
+      depth: 2
+      ref_id: '14.6'
+      name: Train Workforce Members on Recognizing and Reporting Security Incidents
+      description: Train workforce members to be able to recognize a potential incident and be able to report such an incident.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar os Membros da Força de Trabalho para Reconhecer e Reportar Incidentes de Segurança
+          description: Treinar os membros da força de trabalho para que sejam capazes de reconhecer um possível incidente e de reportar tal incidente.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-129
+      assessable: true
+      depth: 2
+      ref_id: '14.7'
+      name: Train Workforce on How to Identify and Report if Their Enterprise Assets are Missing Security Updates
+      description: Train the workforce to understand how to verify and report out-of-date software patches or any failures in automated processes and tools. Part of this training should include notifying IT personnel of any failures in automated processes and tools.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar a Força de Trabalho sobre Como Identificar e Reportar se Seus Ativos Corporativos Estão sem Atualizações de Segurança
+          description: Treinar a força de trabalho para entender como verificar e reportar correções de software desatualizadas ou quaisquer falhas em processos e ferramentas automatizados. Parte deste treinamento deve incluir a notificação ao pessoal de TI sobre quaisquer falhas em processos e ferramentas automatizados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-130
+      assessable: true
+      depth: 2
+      ref_id: '14.8'
+      name: Train Workforce on the Dangers of Connecting to and Transmitting Enterprise Data Over Insecure Networks
+      description: Train workforce members on the dangers of connecting to, and transmitting data over, insecure networks for enterprise activities. For enterprises with remote workers, training must include guidance to ensure all users securely configure their home network infrastructure.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Treinar a Força de Trabalho sobre os Perigos de Conectar-se e Transmitir Dados Corporativos por Redes Inseguras
+          description: Treinar os membros da força de trabalho sobre os perigos de conectar-se a, e transmitir dados por, redes inseguras para atividades corporativas. Para empresas com trabalhadores remotos, o treinamento deve incluir orientações para garantir que todos os usuários configurem com segurança a infraestrutura de sua rede doméstica.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-131
+      assessable: true
+      depth: 2
+      ref_id: '14.9'
+      name: Conduct Role-Specific Security Awareness and Skills Training
+      description: Conduct role-specific security awareness and skills training. Example implementations include secure system administration courses for IT professionals, OWASP Top 10 vulnerability awareness training for web application developers, and advanced social engineering awareness training for high-profile roles.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-122
+      translations:
+        pt:
+          name: Conduzir Treinamento de Conscientização e Habilidades em Segurança Específico por Função
+          description: Conduzir treinamento de conscientização e habilidades em segurança específico por função. Exemplos de implementação incluem cursos de administração segura de sistemas para profissionais de TI, treinamento de conscientização sobre as vulnerabilidades do OWASP Top 10 para desenvolvedores de aplicações web e treinamento avançado de conscientização sobre engenharia social para funções de alto perfil.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      assessable: false
+      depth: 1
+      ref_id: '15'
+      name: Service Provider Management
+      translations:
+        pt:
+          name: Gerenciamento de Provedores de Serviços
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-133
+      assessable: true
+      depth: 2
+      ref_id: '15.1'
+      name: Establish and Maintain an Inventory of Service Providers
+      description: Establish and maintain an inventory of service providers. The inventory lists all known service providers, includes classification(s), and designates an enterprise contact for each. Review and update the inventory annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Estabelecer e Manter um Inventário de Provedores de Serviços
+          description: Estabelecer e manter um inventário de provedores de serviços. O inventário lista todos os provedores de serviços conhecidos, inclui classificação(ões) e designa um contato corporativo para cada um. Revisar e atualizar o inventário anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-134
+      assessable: true
+      depth: 2
+      ref_id: '15.2'
+      name: Establish and Maintain a Service Provider Management Policy
+      description: Establish and maintain a service provider management policy that addresses the classification, inventory, assessment, monitoring, and decommissioning of service providers. Review and update the policy annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Estabelecer e Manter uma Política de Gerenciamento de Provedores de Serviços
+          description: Estabelecer e manter uma política de gerenciamento de provedores de serviços que aborde a classificação, o inventário, a avaliação, o monitoramento e o descomissionamento de provedores de serviços. Revisar e atualizar a política anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-135
+      assessable: true
+      depth: 2
+      ref_id: '15.3'
+      name: Classify Service Providers
+      description: Classify service providers. Classification considerations may include data sensitivity, data volume, availability requirements, applicable regulations, inherent risk, and mitigated risk. Update and review classifications annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Classificar Provedores de Serviços
+          description: Classificar os provedores de serviços. As considerações de classificação podem incluir sensibilidade dos dados, volume de dados, requisitos de disponibilidade, regulamentações aplicáveis, risco inerente e risco mitigado. Atualizar e revisar as classificações anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-136
+      assessable: true
+      depth: 2
+      ref_id: '15.4'
+      name: Ensure Service Provider Contracts Include Security Requirements
+      description: Ensure service provider contracts include security requirements, such as minimum security program requirements, security incident and/or data breach notification and response, data encryption requirements, and data disposal commitments. Review service provider contracts annually to ensure they are not missing security requirements.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Garantir que os Contratos com Provedores de Serviços Incluam Requisitos de Segurança
+          description: Garantir que os contratos com provedores de serviços incluam requisitos de segurança, como requisitos mínimos de programa de segurança, notificação e resposta a incidentes de segurança e/ou violações de dados, requisitos de criptografia de dados e compromissos de descarte de dados. Revisar os contratos com provedores de serviços anualmente para garantir que não estejam faltando requisitos de segurança.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-137
+      assessable: true
+      depth: 2
+      ref_id: '15.5'
+      name: Assess Service Providers
+      description: Assess service providers consistent with the enterprise's service provider management policy. Assessment scope may vary by classification and may include standardized assessment reports such as SOC 2 and PCI AoC, customized questionnaires, or other rigorous processes. Reassess annually, at a minimum, or with new and renewed contracts.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Avaliar Provedores de Serviços
+          description: Avaliar os provedores de serviços de acordo com a política de gerenciamento de provedores de serviços da empresa. O escopo da avaliação pode variar conforme a classificação e pode incluir relatórios de avaliação padronizados, como SOC 2 e PCI AoC, questionários personalizados ou outros processos rigorosos. Reavaliar anualmente, no mínimo, ou com contratos novos e renovados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-138
+      assessable: true
+      depth: 2
+      ref_id: '15.6'
+      name: Monitor Service Providers
+      description: Monitor service providers consistent with the enterprise's service provider management policy. Monitoring may include periodic reassessment of compliance, monitoring service provider release notes, and dark web monitoring.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Monitorar Provedores de Serviços
+          description: Monitorar os provedores de serviços de acordo com a política de gerenciamento de provedores de serviços da empresa. O monitoramento pode incluir a reavaliação periódica da conformidade, o monitoramento das notas de versão dos provedores de serviços e o monitoramento da dark web.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-139
+      assessable: true
+      depth: 2
+      ref_id: '15.7'
+      name: Securely Decommission Service Providers
+      description: Securely decommission service providers. Example considerations include user and service account deactivation, termination of data flows, and secure disposal of enterprise data within service provider systems.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-132
+      translations:
+        pt:
+          name: Descomissionar Provedores de Serviços com Segurança
+          description: Descomissionar provedores de serviços com segurança. Exemplos de considerações incluem a desativação de contas de usuário e de serviço, o encerramento dos fluxos de dados e o descarte seguro dos dados corporativos dentro dos sistemas dos provedores de serviços.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      assessable: false
+      depth: 1
+      ref_id: '16'
+      name: Application Software Security
+      translations:
+        pt:
+          name: Segurança de Software de Aplicação
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-141
+      assessable: true
+      depth: 2
+      ref_id: '16.1'
+      name: Establish and Maintain a Secure Application Development Process
+      description: Establish and maintain a secure application development process addressing secure application design standards, secure coding practices, developer training, vulnerability management, security of third-party code, and application security testing procedures. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Desenvolvimento Seguro de Aplicações
+          description: Estabelecer e manter um processo de desenvolvimento seguro de aplicações que aborde padrões de design seguro de aplicações, práticas de codificação segura, treinamento de desenvolvedores, gerenciamento de vulnerabilidades, segurança de código de terceiros e procedimentos de teste de segurança de aplicações. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-142
+      assessable: true
+      depth: 2
+      ref_id: '16.2'
+      name: Establish and Maintain a Process to Accept and Address Software Vulnerabilities
+      description: Establish and maintain a process to accept and address reports of software vulnerabilities, including a means for external entities to report. Include a vulnerability handling policy, responsible party, and a process for intake, assignment, remediation, and remediation testing. Review and update documentation annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo para Aceitar e Tratar Vulnerabilidades de Software
+          description: Estabelecer e manter um processo para aceitar e tratar relatos de vulnerabilidades de software, incluindo um meio para que entidades externas reportem. Incluir uma política de tratamento de vulnerabilidades, a parte responsável e um processo de recepção, atribuição, remediação e teste de remediação. Revisar e atualizar a documentação anualmente, ou quando ocorrerem mudanças corporativas significativas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-143
+      assessable: true
+      depth: 2
+      ref_id: '16.3'
+      name: Perform Root Cause Analysis on Security Vulnerabilities
+      description: Perform root cause analysis on security vulnerabilities. Root cause analysis evaluates the underlying issues that create vulnerabilities in code and allows development teams to move beyond just fixing individual vulnerabilities as they arise.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Realizar Análise de Causa Raiz em Vulnerabilidades de Segurança
+          description: Realizar análise de causa raiz em vulnerabilidades de segurança. A análise de causa raiz avalia os problemas subjacentes que criam vulnerabilidades no código e permite que as equipes de desenvolvimento avancem além de apenas corrigir vulnerabilidades individuais à medida que surgem.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-144
+      assessable: true
+      depth: 2
+      ref_id: '16.4'
+      name: Establish and Manage an Inventory of Third-Party Software Components
+      description: Establish and manage an updated inventory of third-party components used in development, often referred to as a bill of materials, as well as components slated for future use, including any risks each could pose. Evaluate the list at least monthly to identify changes or updates and validate that components are still supported.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Estabelecer e Gerenciar um Inventário de Componentes de Software de Terceiros
+          description: Estabelecer e gerenciar um inventário atualizado de componentes de terceiros usados no desenvolvimento, frequentemente chamado de lista de materiais (bill of materials), bem como componentes destinados a uso futuro, incluindo quaisquer riscos que cada um possa representar. Avaliar a lista pelo menos mensalmente para identificar alterações ou atualizações e validar que os componentes ainda são suportados.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-145
+      assessable: true
+      depth: 2
+      ref_id: '16.5'
+      name: Use Up-to-Date and Trusted Third-Party Software Components
+      description: Use up-to-date and trusted third-party software components. When possible, choose established and proven frameworks and libraries that provide adequate security. Acquire these components from trusted sources or evaluate the software for vulnerabilities before use.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Usar Componentes de Software de Terceiros Atualizados e Confiáveis
+          description: Usar componentes de software de terceiros atualizados e confiáveis. Quando possível, escolher frameworks e bibliotecas estabelecidos e comprovados que ofereçam segurança adequada. Adquirir esses componentes de fontes confiáveis ou avaliar o software em busca de vulnerabilidades antes do uso.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-146
+      assessable: true
+      depth: 2
+      ref_id: '16.6'
+      name: Establish and Maintain a Severity Rating System and Process for Application Vulnerabilities
+      description: Establish and maintain a severity rating system and process for application vulnerabilities that facilitates prioritizing the order in which discovered vulnerabilities are fixed, including setting a minimum level of security acceptability for releasing code. Review and update the system and process annually.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Estabelecer e Manter um Sistema de Classificação de Severidade e Processo para Vulnerabilidades de Aplicações
+          description: Estabelecer e manter um sistema de classificação de severidade e um processo para vulnerabilidades de aplicações que facilite a priorização da ordem em que as vulnerabilidades descobertas são corrigidas, incluindo a definição de um nível mínimo de aceitabilidade de segurança para a liberação do código. Revisar e atualizar o sistema e o processo anualmente.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-147
+      assessable: true
+      depth: 2
+      ref_id: '16.7'
+      name: Use Standard Hardening Configuration Templates for Application Infrastructure
+      description: Use standard, industry-recommended hardening configuration templates for application infrastructure components, including underlying servers, databases, and web servers, applying to cloud containers, PaaS components, and SaaS components. Do not allow in-house developed software to weaken configuration hardening.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Usar Modelos Padrão de Configuração de Hardening para a Infraestrutura de Aplicações
+          description: Usar modelos padrão de configuração de hardening recomendados pela indústria para os componentes da infraestrutura de aplicações, incluindo servidores subjacentes, bancos de dados e servidores web, aplicando-se a contêineres de nuvem, componentes PaaS e componentes SaaS. Não permitir que software desenvolvido internamente enfraqueça o hardening da configuração.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-148
+      assessable: true
+      depth: 2
+      ref_id: '16.8'
+      name: Separate Production and Non-Production Systems
+      description: Maintain separate environments for production and non-production systems.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Separar Sistemas de Produção e de Não Produção
+          description: Manter ambientes separados para sistemas de produção e de não produção.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-149
+      assessable: true
+      depth: 2
+      ref_id: '16.9'
+      name: Train Developers in Application Security Concepts and Secure Coding
+      description: Ensure that all software development personnel receive training in writing secure code for their specific development environment and responsibilities, including general security principles and application security standard practices. Conduct training at least annually and design it to build a culture of security among developers.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Treinar Desenvolvedores em Conceitos de Segurança de Aplicações e Codificação Segura
+          description: Garantir que todo o pessoal de desenvolvimento de software receba treinamento em escrever código seguro para seu ambiente de desenvolvimento e responsabilidades específicas, incluindo princípios gerais de segurança e práticas padrão de segurança de aplicações. Conduzir o treinamento pelo menos anualmente e projetá-lo para construir uma cultura de segurança entre os desenvolvedores.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-150
+      assessable: true
+      depth: 2
+      ref_id: '16.10'
+      name: Apply Secure Design Principles in Application Architectures
+      description: Apply secure design principles in application architectures, including least privilege and enforcing mediation to validate every operation, promoting never trust user input. Perform explicit error checking for all input and minimize the application infrastructure attack surface, such as disabling unprotected ports and services and removing default accounts.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Aplicar Princípios de Design Seguro nas Arquiteturas de Aplicações
+          description: Aplicar princípios de design seguro nas arquiteturas de aplicações, incluindo o menor privilégio e a imposição de mediação para validar cada operação, promovendo o princípio de nunca confiar na entrada do usuário. Realizar verificação explícita de erros para todas as entradas e minimizar a superfície de ataque da infraestrutura de aplicações, como desabilitar portas e serviços desprotegidos e remover contas padrão.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-151
+      assessable: true
+      depth: 2
+      ref_id: '16.11'
+      name: Leverage Vetted Modules or Services for Application Security Components
+      description: Leverage vetted modules or services for application security components, such as identity management, encryption, and auditing and logging. Use only standardized, currently accepted, and extensively reviewed encryption algorithms, and use platform-provided mechanisms for identification, authentication, authorization, and secure audit logging.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Utilizar Módulos ou Serviços Avaliados para Componentes de Segurança de Aplicações
+          description: Utilizar módulos ou serviços avaliados para componentes de segurança de aplicações, como gerenciamento de identidades, criptografia e auditoria e registro de logs. Usar apenas algoritmos de criptografia padronizados, atualmente aceitos e extensivamente revisados, e usar mecanismos fornecidos pela plataforma para identificação, autenticação, autorização e registro seguro de logs de auditoria.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-152
+      assessable: true
+      depth: 2
+      ref_id: '16.12'
+      name: Implement Code-Level Security Checks
+      description: Apply static and dynamic analysis tools within the application life cycle to verify that secure coding practices are being followed.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Implementar Verificações de Segurança em Nível de Código
+          description: Aplicar ferramentas de análise estática e dinâmica ao longo do ciclo de vida da aplicação para verificar se as práticas de codificação segura estão sendo seguidas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-153
+      assessable: true
+      depth: 2
+      ref_id: '16.13'
+      name: Conduct Application Penetration Testing
+      description: Conduct application penetration testing. For critical applications, authenticated penetration testing is better suited to finding business logic vulnerabilities than code scanning and automated security testing, relying on the skill of the tester to manually manipulate an application as an authenticated and unauthenticated user.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Realizar Teste de Intrusão em Aplicações
+          description: Realizar teste de intrusão em aplicações. Para aplicações críticas, o teste de intrusão autenticado é mais adequado para encontrar vulnerabilidades de lógica de negócio do que a varredura de código e os testes de segurança automatizados, baseando-se na habilidade do testador para manipular manualmente uma aplicação como usuário autenticado e não autenticado.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-154
+      assessable: true
+      depth: 2
+      ref_id: '16.14'
+      name: Conduct Threat Modeling
+      description: Conduct threat modeling to identify and address application security design flaws within a design before code is created. Specially trained individuals evaluate the application design and gauge security risks for each entry point and access level to map weaknesses across the application, architecture, and infrastructure.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-140
+      translations:
+        pt:
+          name: Realizar Modelagem de Ameaças
+          description: Realizar modelagem de ameaças para identificar e tratar falhas de design de segurança da aplicação dentro de um projeto antes que o código seja criado. Indivíduos especialmente treinados avaliam o design da aplicação e medem os riscos de segurança para cada ponto de entrada e nível de acesso, a fim de mapear as fraquezas em toda a aplicação, arquitetura e infraestrutura.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      assessable: false
+      depth: 1
+      ref_id: '17'
+      name: Incident Response Management
+      translations:
+        pt:
+          name: Gestão de Resposta a Incidentes
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-156
+      assessable: true
+      depth: 2
+      ref_id: '17.1'
+      name: Designate Personnel to Manage Incident Handling
+      description: Designate one key person, and at least one backup, to manage the enterprise's incident handling process, responsible for coordination and documentation of incident response and recovery efforts. If using a third-party vendor, designate at least one internal person to oversee the work. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Designar Pessoal para Gerenciar o Tratamento de Incidentes
+          description: Designar uma pessoa-chave, e ao menos um substituto, para gerenciar o processo de tratamento de incidentes da empresa, responsável pela coordenação e documentação dos esforços de resposta e recuperação de incidentes. Caso utilize um fornecedor terceirizado, designar ao menos uma pessoa interna para supervisionar o trabalho. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-157
+      assessable: true
+      depth: 2
+      ref_id: '17.2'
+      name: Establish and Maintain Contact Information for Reporting Security Incidents
+      description: Establish and maintain contact information for parties that need to be informed of security incidents, such as internal staff, third-party vendors, law enforcement, cyber insurance providers, government agencies, and ISAC partners. Verify contacts annually to ensure information is up-to-date.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Estabelecer e Manter Informações de Contato para Reportar Incidentes de Segurança
+          description: Estabelecer e manter informações de contato das partes que precisam ser informadas sobre incidentes de segurança, como equipe interna, fornecedores terceirizados, autoridades policiais, provedores de seguro cibernético, agências governamentais e parceiros ISAC. Verificar os contatos anualmente para garantir que as informações estejam atualizadas.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-158
+      assessable: true
+      depth: 2
+      ref_id: '17.3'
+      name: Establish and Maintain an Enterprise Process for Reporting Incidents
+      description: Establish and maintain an enterprise process for the workforce to report security incidents, including reporting timeframe, personnel to report to, mechanism for reporting, and the minimum information to be reported. Ensure the process is publicly available to all of the workforce. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo Corporativo para Reportar Incidentes
+          description: Estabelecer e manter um processo corporativo para que a força de trabalho reporte incidentes de segurança, incluindo prazo para reporte, pessoal a quem reportar, mecanismo de reporte e as informações mínimas a serem reportadas. Garantir que o processo esteja publicamente disponível para toda a força de trabalho. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-159
+      assessable: true
+      depth: 2
+      ref_id: '17.4'
+      name: Establish and Maintain an Incident Response Process
+      description: Establish and maintain a documented incident response process that addresses roles and responsibilities, compliance requirements, and a communication plan. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Estabelecer e Manter um Processo de Resposta a Incidentes
+          description: Estabelecer e manter um processo documentado de resposta a incidentes que aborde papéis e responsabilidades, requisitos de conformidade e um plano de comunicação. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-160
+      assessable: true
+      depth: 2
+      ref_id: '17.5'
+      name: Assign Key Roles and Responsibilities
+      description: Assign key roles and responsibilities for incident response, including staff from legal, IT, information security, facilities, public relations, human resources, incident responders, and analysts, as applicable. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Atribuir Papéis e Responsabilidades Principais
+          description: Atribuir papéis e responsabilidades principais para a resposta a incidentes, incluindo equipe das áreas jurídica, de TI, de segurança da informação, de instalações, de relações públicas, de recursos humanos, respondedores de incidentes e analistas, conforme aplicável. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-161
+      assessable: true
+      depth: 2
+      ref_id: '17.6'
+      name: Define Mechanisms for Communicating During Incident Response
+      description: Determine which primary and secondary mechanisms will be used to communicate and report during a security incident, such as phone calls, emails, or letters, keeping in mind that certain mechanisms can be affected during an incident. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Definir Mecanismos de Comunicação Durante a Resposta a Incidentes
+          description: Determinar quais mecanismos primários e secundários serão usados para comunicar e reportar durante um incidente de segurança, como ligações telefônicas, e-mails ou cartas, tendo em mente que certos mecanismos podem ser afetados durante um incidente. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-162
+      assessable: true
+      depth: 2
+      ref_id: '17.7'
+      name: Conduct Routine Incident Response Exercises
+      description: Plan and conduct routine incident response exercises and scenarios for key personnel involved in the incident response process to prepare for real-world incidents. Exercises need to test communication channels, decision making, and workflows. Conduct testing at a minimum annually.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Realizar Exercícios Rotineiros de Resposta a Incidentes
+          description: Planejar e realizar exercícios e cenários rotineiros de resposta a incidentes para o pessoal-chave envolvido no processo de resposta a incidentes, a fim de se preparar para incidentes do mundo real. Os exercícios precisam testar os canais de comunicação, a tomada de decisão e os fluxos de trabalho. Realizar os testes no mínimo anualmente.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-163
+      assessable: true
+      depth: 2
+      ref_id: '17.8'
+      name: Conduct Post-Incident Reviews
+      description: Conduct post-incident reviews. Post-incident reviews help prevent incident recurrence through identifying lessons learned and follow-up action.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Realizar Revisões Pós-Incidente
+          description: Realizar revisões pós-incidente. As revisões pós-incidente ajudam a prevenir a recorrência de incidentes por meio da identificação de lições aprendidas e ações de acompanhamento.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-164
+      assessable: true
+      depth: 2
+      ref_id: '17.9'
+      name: Establish and Maintain Security Incident Thresholds
+      description: Establish and maintain security incident thresholds, including, at a minimum, differentiating between an incident and an event. Examples include abnormal activity, security vulnerability, security weakness, data breach, and privacy incident. Review annually, or when significant enterprise changes occur.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-155
+      translations:
+        pt:
+          name: Estabelecer e Manter Limiares de Incidentes de Segurança
+          description: Estabelecer e manter limiares de incidentes de segurança, incluindo, no mínimo, a diferenciação entre um incidente e um evento. Exemplos incluem atividade anormal, vulnerabilidade de segurança, fraqueza de segurança, violação de dados e incidente de privacidade. Revisar anualmente, ou quando ocorrerem mudanças significativas na empresa.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      assessable: false
+      depth: 1
+      ref_id: '18'
+      name: Penetration Testing
+      translations:
+        pt:
+          name: Teste de Intrusão
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-166
+      assessable: true
+      depth: 2
+      ref_id: '18.1'
+      name: Establish and Maintain a Penetration Testing Program
+      description: Establish and maintain a penetration testing program appropriate to the size, complexity, and maturity of the enterprise. Program characteristics include scope (such as network, web application, API, hosted services, and physical premise controls), frequency, limitations, point of contact information, remediation routing, and retrospective requirements.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      translations:
+        pt:
+          name: Estabelecer e Manter um Programa de Teste de Intrusão
+          description: Estabelecer e manter um programa de teste de intrusão apropriado ao tamanho, à complexidade e à maturidade da empresa. As características do programa incluem escopo (como rede, aplicação web, API, serviços hospedados e controles físicos de instalações), frequência, limitações, informações de ponto de contato, encaminhamento de remediação e requisitos de retrospectiva.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-167
+      assessable: true
+      depth: 2
+      ref_id: '18.2'
+      name: Perform Periodic External Penetration Tests
+      description: Perform periodic external penetration tests based on program requirements, no less than annually. External penetration testing must include enterprise and environmental reconnaissance to detect exploitable information and be conducted through a qualified party. The testing may be clear box or opaque box.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      translations:
+        pt:
+          name: Realizar Testes de Intrusão Externos Periódicos
+          description: Realizar testes de intrusão externos periódicos com base nos requisitos do programa, no mínimo anualmente. O teste de intrusão externo deve incluir reconhecimento corporativo e ambiental para detectar informações exploráveis e ser conduzido por uma parte qualificada. O teste pode ser de caixa clara ou de caixa opaca.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-168
+      assessable: true
+      depth: 2
+      ref_id: '18.3'
+      name: Remediate Penetration Test Findings
+      description: Remediate penetration test findings based on the enterprise's policy for remediation scope and prioritization.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      translations:
+        pt:
+          name: Remediar as Constatações do Teste de Intrusão
+          description: Remediar as constatações do teste de intrusão com base na política da empresa para escopo e priorização de remediação.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-169
+      assessable: true
+      depth: 2
+      ref_id: '18.4'
+      name: Validate Security Measures
+      description: Validate security measures after each penetration test. If deemed necessary, modify rulesets and capabilities to detect the techniques used during testing.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      translations:
+        pt:
+          name: Validar Medidas de Segurança
+          description: Validar as medidas de segurança após cada teste de intrusão. Se considerado necessário, modificar conjuntos de regras e capacidades para detectar as técnicas utilizadas durante o teste.
+    - urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-170
+      assessable: true
+      depth: 2
+      ref_id: '18.5'
+      name: Perform Periodic Internal Penetration Tests
+      description: Perform periodic internal penetration tests based on program requirements, no less than annually. The testing may be clear box or opaque box.
+      parent_urn: urn:intuitem:risk:req_node:cis-controls-v8.1:node-165
+      translations:
+        pt:
+          name: Realizar Testes de Intrusão Internos Periódicos
+          description: Realizar testes de intrusão internos periódicos com base nos requisitos do programa, no mínimo anualmente. O teste pode ser de caixa clara ou de caixa opaca.
+    translations:
+      pt:
+        name: CIS Critical Security Controls v8.1
+        description: O CIS Critical Security Controls v8.1 é um conjunto priorizado de 18 controles e 153 salvaguardas de boas práticas de cibersegurança, projetado para mitigar os ataques mais comuns contra sistemas e redes.
+translations:
+  pt:
+    name: CIS Critical Security Controls v8.1
+    description: O CIS Critical Security Controls v8.1 é um conjunto priorizado de 18 controles e 153 salvaguardas de boas práticas de cibersegurança, projetado para mitigar os ataques mais comuns contra sistemas e redes.
