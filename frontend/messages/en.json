@@ -441,6 +441,8 @@
 	"exportRequirementsWorkbookDesc": "Full data including answers, scoring and progress",
 	"exportExecutiveSummary": "Executive summary",
 	"exportExecutiveSummaryDesc": "Cover page, spider chart, framework tree, scored requirements",
+	"exportExecutiveSummaryPptx": "Executive Presentation",
+	"exportExecutiveSummaryPptxDesc": "Slides with overview, domain compliance, P1 controls and non-compliant requirements",
 	"exportCyFunAssessment": "CyFun self-assessment",
 	"exportCyFunAssessmentDesc": "Excel template mapped to CyFun categories",
 	"exportBundleWithEvidences": "Bundle with evidences",

@@ -535,12 +535,36 @@ def gen_audit_context(id, doc, tree, lang):
             "opportunity_for_improvement": "Opportunité d'amélioration",
             "good_practice": "Bonne pratique",
         },
+        "pt": {
+            "compliant": "Conforme",
+            "partially_compliant": "Parcialmente conforme",
+            "non_compliant": "Não conforme",
+            "not_applicable": "Não aplicável",
+            "not_assessed": "Não avaliado",
+            "to_do": "A fazer",
+            "on_hold": "Em espera",
+            "in_progress": "Em andamento",
+            "deprecated": "Obsoleto",
+            "active": "Ativo",
+            "policy": "Política",
+            "process": "Processo",
+            "technical": "Técnico",
+            "physical": "Físico",
+            "procedure": "Procedimento",
+            "in_review": "Em revisão",
+            "done": "Concluído",
+            "major_nonconformity": "Não conformidade maior",
+            "minor_nonconformity": "Não conformidade menor",
+            "observation_sensitive_point": "Observação / ponto sensível",
+            "opportunity_for_improvement": "Oportunidade de melhoria",
+            "good_practice": "Boa prática",
+        },
     }
 
     def safe_translate(lang: str, key: str) -> str:
         if key is None or key == "--":
             return "-"
-        return i18n_dict[lang].get(key, key)
+        return i18n_dict.get(lang, i18n_dict["en"]).get(key, key)
 
     donut_data = [
         {

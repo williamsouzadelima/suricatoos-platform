@@ -420,6 +420,13 @@
 				href: `/compliance-assessments/${id}/export/word`,
 				testId: 'export-option-word'
 			},
+			isInternal && {
+				titleKey: 'exportExecutiveSummaryPptx',
+				descriptionKey: 'exportExecutiveSummaryPptxDesc',
+				format: 'PPTX' as const,
+				href: `/compliance-assessments/${id}/export/pptx`,
+				testId: 'export-option-pptx'
+			},
 			isInternal &&
 				isCyFun && {
 					titleKey: 'exportCyFunAssessment',

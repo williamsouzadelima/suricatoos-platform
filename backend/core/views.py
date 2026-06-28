@@ -13386,7 +13386,7 @@ class ComplianceAssessmentViewSet(BaseModelViewSet):
         lang = "en"
         if request.user.preferences.get("lang") is not None:
             lang = request.user.preferences.get("lang")
-            if lang not in ["fr", "en"]:
+            if lang not in ["fr", "en", "pt"]:
                 lang = "en"
 
         # Check for custom Word template override
@@ -13407,11 +13407,12 @@ class ComplianceAssessmentViewSet(BaseModelViewSet):
             )
 
         if doc is None:
+            template_lang = lang if lang in ["fr", "en"] else "en"
             template_path = (
                 Path(__file__).resolve().parent
                 / "templates"
                 / "core"
-                / f"audit_report_template_{lang}.docx"
+                / f"audit_report_template_{template_lang}.docx"
             )
             doc = DocxTemplate(template_path)
         audit_obj = self.get_object()
@@ -13444,6 +13445,44 @@ class ComplianceAssessmentViewSet(BaseModelViewSet):
         )
         response["Content-Disposition"] = "attachment; filename=exec_report.docx"
 
+        return response
+
+    @action(detail=True, methods=["get"])
+    def pptx_report(self, request, pk):
+        """PPTX compliance assessment report (Suricatoos Navy theme)."""
+        from .pptx_generator import build_compliance_pptx
+
+        lang = request.user.preferences.get("lang", "en")
+        if lang not in ["fr", "en", "pt"]:
+            lang = "en"
+
+        audit_obj = self.get_object()
+        _framework = audit_obj.framework
+        tree = get_sorted_requirement_nodes(
+            RequirementNode.objects.filter(framework=_framework).all(),
+            RequirementAssessment.objects.filter(compliance_assessment=audit_obj).all(),
+            audit_obj.max_score if audit_obj.max_score is not None else _framework.max_score,
+            audit_obj.min_score if audit_obj.min_score is not None else _framework.min_score,
+        )
+        implementation_groups = audit_obj.selected_implementation_groups
+        filter_graph_by_implementation_groups(tree, implementation_groups)
+        annotate_tree_with_aggregated_scores(tree, audit_obj)
+
+        pptx_buf = build_compliance_pptx(pk, tree, lang)
+
+        safe_name = "".join(
+            c if c.isalnum() or c in ".-_" else "_" for c in audit_obj.name
+        )
+        response = StreamingHttpResponse(
+            FileWrapper(pptx_buf),
+            content_type=(
+                "application/vnd.openxmlformats-officedocument"
+                ".presentationml.presentation"
+            ),
+        )
+        response["Content-Disposition"] = (
+            f'attachment; filename="compliance-{safe_name}.pptx"'
+        )
         return response
 
     @action(detail=True, name="Get action plan CSV")

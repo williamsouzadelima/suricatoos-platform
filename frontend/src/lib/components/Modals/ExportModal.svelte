@@ -1,5 +1,5 @@
 <script lang="ts" module>
-	export type ExportFormat = 'CSV' | 'XLSX' | 'DOCX' | 'PDF' | 'ZIP' | 'HTML';
+	export type ExportFormat = 'CSV' | 'XLSX' | 'DOCX' | 'PDF' | 'PPTX' | 'ZIP' | 'HTML';
 
 	export interface ExportOption {
 		titleKey: string;
@@ -37,7 +37,8 @@
 		DOCX: 'fa-file-word',
 		PDF: 'fa-file-pdf',
 		ZIP: 'fa-file-zipper',
-		HTML: 'fa-file-code'
+		HTML: 'fa-file-code',
+		PPTX: 'fa-file-powerpoint'
 	};
 
 	const FORMAT_COLOR: Record<ExportFormat, string> = {
@@ -46,7 +47,8 @@
 		DOCX: 'text-blue-700',
 		PDF: 'text-red-600',
 		ZIP: 'text-amber-600',
-		HTML: 'text-purple-600'
+		HTML: 'text-purple-600',
+		PPTX: 'text-orange-600'
 	};
 
 	function handleClick() {

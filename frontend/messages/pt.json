@@ -441,6 +441,8 @@
 	"exportRequirementsWorkbookDesc": "Dados completos incluindo respostas, pontuação e progresso",
 	"exportExecutiveSummary": "Resumo executivo",
 	"exportExecutiveSummaryDesc": "Capa, gráfico de radar, árvore do framework, requisitos pontuados",
+	"exportExecutiveSummaryPptx": "Apresentação executiva",
+	"exportExecutiveSummaryPptxDesc": "Slides com visão geral, conformidade por domínio, controles P1 e requisitos não conformes",
 	"exportCyFunAssessment": "Autoavaliação CyFun",
 	"exportCyFunAssessmentDesc": "Modelo Excel mapeado para as categorias CyFun",
 	"exportBundleWithEvidences": "Pacote com evidências",
