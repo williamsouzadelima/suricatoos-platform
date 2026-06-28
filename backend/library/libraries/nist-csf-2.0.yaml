@@ -21,6 +21,9 @@ translations:
     name: NIST CSF version 2.0
     description: National Institute of Standards and Technology - Cybersecurity Framework
       (CSF 2.0)
+  pt:
+    name: NIST CSF v2.0
+    description: "Estrutura de Ciberseguran\xE7a do NIST (NIST Cybersecurity Framework)"
 dependencies:
 - urn:intuitem:risk:library:doc-pol
 objects:
@@ -147,6 +150,11 @@ objects:
           description: "Se establecen, comunican y supervisan la estrategia, las expectativas\
             \ y la pol\xEDtica de gesti\xF3n de riesgos de seguridad cibern\xE9tica\
             \ de la organizaci\xF3n."
+        pt:
+          name: GOVERNAR
+          description: "A estrat\xE9gia, as expectativas e a pol\xEDtica de gest\xE3\
+            o de riscos de ciberseguran\xE7a da organiza\xE7\xE3o s\xE3o estabelecidas,\
+            \ comunicadas e monitoradas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc
       assessable: false
       depth: 2
@@ -169,6 +177,12 @@ objects:
             \ de las partes interesadas, dependencias y requisitos legales, normativos\
             \ y contractuales - que afectan a las decisiones de gesti\xF3n de riesgos\
             \ de seguridad cibern\xE9tica de la organizaci\xF3n"
+        pt:
+          name: Contexto Organizacional
+          description: "As circunst\xE2ncias - miss\xE3o, expectativas das partes\
+            \ interessadas, depend\xEAncias e requisitos legais, regulat\xF3rios e\
+            \ contratuais - que envolvem as decis\xF5es de gest\xE3o de riscos de\
+            \ ciberseguran\xE7a da organiza\xE7\xE3o s\xE3o compreendidas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc-01
       assessable: true
       depth: 3
@@ -202,6 +216,14 @@ objects:
             n y misi\xF3n, marketing y estrategias de servicio) para proporcionar\
             \ una base para identificar los riesgos que pueden obstaculizar esa misi\xF3\
             n"
+        pt:
+          description: "A miss\xE3o organizacional \xE9 compreendida e fundamenta\
+            \ a gest\xE3o de riscos de ciberseguran\xE7a"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Compartilhar a miss\xE3\
+            o da organiza\xE7\xE3o (por exemplo, por meio de declara\xE7\xF5es de\
+            \ vis\xE3o e miss\xE3o, marketing e estrat\xE9gias de servi\xE7o) para\
+            \ fornecer uma base para a identifica\xE7\xE3o de riscos que possam impedir\
+            \ essa miss\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc-02
       assessable: true
       depth: 3
@@ -253,6 +275,19 @@ objects:
             \ ejemplo, expectativas de privacidad de los clientes, expectativas comerciales\
             \ de las asociaciones, expectativas de cumplimiento de los reguladores,\
             \ expectativas \xE9ticas de la sociedad)"
+        pt:
+          description: "As partes interessadas internas e externas s\xE3o compreendidas,\
+            \ e suas necessidades e expectativas em rela\xE7\xE3o \xE0 gest\xE3o de\
+            \ riscos de ciberseguran\xE7a s\xE3o compreendidas e consideradas"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Identificar as partes interessadas internas relevantes e suas expectativas\
+            \ relacionadas \xE0 ciberseguran\xE7a (por exemplo, expectativas de desempenho\
+            \ e de risco de diretores, conselheiros e assessores; expectativas culturais\
+            \ dos colaboradores)\nEx2: Identificar as partes interessadas externas\
+            \ relevantes e suas expectativas relacionadas \xE0 ciberseguran\xE7a (por\
+            \ exemplo, expectativas de privacidade dos clientes, expectativas de neg\xF3\
+            cio de parcerias, expectativas de conformidade dos reguladores, expectativas\
+            \ \xE9ticas da sociedade)"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc-03
       assessable: true
       depth: 3
@@ -307,6 +342,19 @@ objects:
             \ la gesti\xF3n de la ciberseguridad de la informaci\xF3n de proveedores,\
             \ clientes y socios\nEx3: Alinear la estrategia de ciberseguridad de la\
             \ organizaci\xF3n con los requisitos legales, regulatorios y contractuales"
+        pt:
+          description: "Os requisitos legais, regulat\xF3rios e contratuais relativos\
+            \ \xE0 ciberseguran\xE7a - incluindo as obriga\xE7\xF5es de privacidade\
+            \ e de liberdades civis - s\xE3o compreendidos e gerenciados"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Determinar um processo para rastrear e gerenciar os requisitos legais\
+            \ e regulat\xF3rios relativos \xE0 prote\xE7\xE3o das informa\xE7\xF5\
+            es dos indiv\xEDduos (por exemplo, Health Insurance Portability and Accountability\
+            \ Act, California Consumer Privacy Act, General Data Protection Regulation)\n\
+            Ex2: Determinar um processo para rastrear e gerenciar os requisitos contratuais\
+            \ para a gest\xE3o de ciberseguran\xE7a das informa\xE7\xF5es de fornecedores,\
+            \ clientes e parceiros\nEx3: Alinhar a estrat\xE9gia de ciberseguran\xE7\
+            a da organiza\xE7\xE3o aos requisitos legais, regulat\xF3rios e contratuais"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc-04
       assessable: true
       depth: 3
@@ -364,6 +412,21 @@ objects:
             \ de tiempo de recuperaci\xF3n) para la entrega de capacidades y servicios\
             \ cr\xEDticos en varios estados operativos (p. ej., bajo ataque, durante\
             \ la recuperaci\xF3n, operaci\xF3n normal)"
+        pt:
+          description: "Objetivos, capacidades e servi\xE7os cr\xEDticos dos quais\
+            \ as partes interessadas dependem ou que esperam da organiza\xE7\xE3o\
+            \ s\xE3o compreendidos e comunicados"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Estabelecer crit\xE9rios para determinar a criticidade das capacidades\
+            \ e servi\xE7os, conforme percebidos pelas partes interessadas internas\
+            \ e externas\nEx2: Determinar (por exemplo, a partir de uma an\xE1lise\
+            \ de impacto no neg\xF3cio) os ativos e opera\xE7\xF5es de neg\xF3cio\
+            \ que s\xE3o vitais para o alcance dos objetivos da miss\xE3o e o impacto\
+            \ potencial de uma perda (ou perda parcial) dessas opera\xE7\xF5es\nEx3:\
+            \ Estabelecer e comunicar objetivos de resili\xEAncia (por exemplo, objetivos\
+            \ de tempo de recupera\xE7\xE3o) para a entrega de capacidades e servi\xE7\
+            os cr\xEDticos em diversos estados operacionais (por exemplo, sob ataque,\
+            \ durante a recupera\xE7\xE3o, em opera\xE7\xE3o normal)"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.oc-05
       assessable: true
       depth: 3
@@ -406,6 +469,17 @@ objects:
             \ externas que son puntos potenciales de falla para las capacidades y\
             \ servicios cr\xEDticos de la organizaci\xF3n, y compartir esa informaci\xF3\
             n con el personal adecuado\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "Os resultados, capacidades e servi\xE7os dos quais a organiza\xE7\
+            \xE3o depende s\xE3o compreendidos e comunicados"
+          annotation: "Ex1: Criar um invent\xE1rio das depend\xEAncias da organiza\xE7\
+            \xE3o em rela\xE7\xE3o a recursos externos (por exemplo, instala\xE7\xF5\
+            es, provedores de hospedagem em nuvem) e suas rela\xE7\xF5es com os ativos\
+            \ organizacionais e as fun\xE7\xF5es de neg\xF3cio\nEx2: Identificar e\
+            \ documentar as depend\xEAncias externas que s\xE3o potenciais pontos\
+            \ de falha para as capacidades e servi\xE7os cr\xEDticos da organiza\xE7\
+            \xE3o, e compartilhar essa informa\xE7\xE3o com o pessoal apropriado\n\
+            3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm
       assessable: false
       depth: 2
@@ -428,6 +502,11 @@ objects:
             \ las declaraciones de tolerancia y apetito por el riesgo y los supuestos\
             \ de la organizaci\xF3n para respaldar las decisiones sobre el riesgo\
             \ operativo"
+        pt:
+          name: "Estrat\xE9gia de Gest\xE3o de Riscos"
+          description: "As prioridades, restri\xE7\xF5es, declara\xE7\xF5es de toler\xE2\
+            ncia e apetite a risco e premissas da organiza\xE7\xE3o s\xE3o estabelecidas,\
+            \ comunicadas e utilizadas para apoiar as decis\xF5es de risco operacional"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-01
       assessable: true
       depth: 3
@@ -475,6 +554,18 @@ objects:
             \ contra los riesgos de los sistemas de control industrial)\nEx3: Los\
             \ l\xEDderes s\xE9nior acuerdan los objetivos de ciberseguridad y los\
             \ utilizan para medir y gestionar el riesgo y el rendimiento"
+        pt:
+          description: "Os objetivos de gest\xE3o de riscos s\xE3o estabelecidos e\
+            \ acordados pelas partes interessadas organizacionais"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Atualizar os objetivos de\
+            \ gest\xE3o de riscos de ciberseguran\xE7a de curto e longo prazo como\
+            \ parte do planejamento estrat\xE9gico anual e quando ocorrerem mudan\xE7\
+            as significativas\nEx2: Estabelecer objetivos mensur\xE1veis para a gest\xE3\
+            o de riscos de ciberseguran\xE7a (por exemplo, gerenciar a qualidade do\
+            \ treinamento dos usu\xE1rios, assegurar prote\xE7\xE3o de risco adequada\
+            \ para sistemas de controle industrial)\nEx3: Os l\xEDderes seniores concordam\
+            \ quanto aos objetivos de ciberseguran\xE7a e os utilizam para medir e\
+            \ gerenciar o risco e o desempenho"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-02
       assessable: true
       depth: 3
@@ -521,6 +612,17 @@ objects:
             Ex3: Refinar peri\xF3dicamente los objetivos de la organizaci\xF3n y el\
             \ apetito de riesgo en funci\xF3n de la exposici\xF3n al riesgo conocida\
             \ y el riesgo residual"
+        pt:
+          description: "As declara\xE7\xF5es de apetite a risco e de toler\xE2ncia\
+            \ a risco s\xE3o estabelecidas, comunicadas e mantidas"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Determinar e comunicar declara\xE7\xF5es de apetite a risco que transmitam\
+            \ as expectativas sobre o n\xEDvel apropriado de risco para a organiza\xE7\
+            \xE3o\nEx2: Traduzir as declara\xE7\xF5es de apetite a risco em declara\xE7\
+            \xF5es de toler\xE2ncia a risco espec\xEDficas, mensur\xE1veis e amplamente\
+            \ compreens\xEDveis\nEx3: Refinar periodicamente os objetivos organizacionais\
+            \ e o apetite a risco com base na exposi\xE7\xE3o a risco conhecida e\
+            \ no risco residual"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-03
       assessable: true
       depth: 3
@@ -564,6 +666,16 @@ objects:
             \ en la planificaci\xF3n de la gesti\xF3n de riesgos empresariales\nEx3:\
             \ Establecer criterios para escalar los riesgos de ciberseguridad dentro\
             \ de la gesti\xF3n de riesgos empresariales"
+        pt:
+          description: "As atividades e os resultados da gest\xE3o de riscos de ciberseguran\xE7\
+            a s\xE3o inclu\xEDdos nos processos de gest\xE3o de riscos corporativos"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Agregar e gerenciar os riscos\
+            \ de ciberseguran\xE7a em conjunto com outros riscos corporativos (por\
+            \ exemplo, de conformidade, financeiros, operacionais, regulat\xF3rios,\
+            \ reputacionais, de seguran\xE7a f\xEDsica)\nEx2: Incluir os gestores\
+            \ de riscos de ciberseguran\xE7a no planejamento da gest\xE3o de riscos\
+            \ corporativos\nEx3: Estabelecer crit\xE9rios para o escalonamento de\
+            \ riscos de ciberseguran\xE7a dentro da gest\xE3o de riscos corporativos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-04
       assessable: true
       depth: 3
@@ -609,6 +721,17 @@ objects:
             \ funciones de ciberseguridad, hacer que un tercero realice transacciones\
             \ financieras en nombre de la organizaci\xF3n, utilizar servicios basados\
             \ en la nube p\xFAblica)"
+        pt:
+          description: "A dire\xE7\xE3o estrat\xE9gica que descreve as op\xE7\xF5\
+            es apropriadas de resposta a risco \xE9 estabelecida e comunicada"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Especificar crit\xE9rios\
+            \ para aceitar e evitar o risco de ciberseguran\xE7a para diversas classifica\xE7\
+            \xF5es de dados\nEx2: Determinar se deve adquirir seguro de ciberseguran\xE7\
+            a\nEx3: Documentar as condi\xE7\xF5es sob as quais os modelos de responsabilidade\
+            \ compartilhada s\xE3o aceit\xE1veis (por exemplo, terceirizar determinadas\
+            \ fun\xE7\xF5es de ciberseguran\xE7a, ter um terceiro realizando transa\xE7\
+            \xF5es financeiras em nome da organiza\xE7\xE3o, utilizar servi\xE7os\
+            \ p\xFAblicos baseados em nuvem)"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-05
       assessable: true
       depth: 3
@@ -655,6 +778,17 @@ objects:
             n, las operaciones, los auditores internos, el departamento jur\xEDdico,\
             \ el de adquisiciones, el de seguridad f\xEDsica y el de RRHH sobre los\
             \ riesgos de ciberseguridad."
+        pt:
+          description: "S\xE3o estabelecidas linhas de comunica\xE7\xE3o em toda a\
+            \ organiza\xE7\xE3o para os riscos de ciberseguran\xE7a, incluindo riscos\
+            \ de fornecedores e outros terceiros"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Determinar como atualizar os executivos seniores, conselheiros e a gest\xE3\
+            o sobre a postura de ciberseguran\xE7a da organiza\xE7\xE3o em intervalos\
+            \ previamente acordados\nEx2: Identificar como todos os departamentos\
+            \ da organiza\xE7\xE3o - como a gest\xE3o, opera\xE7\xF5es, auditores\
+            \ internos, jur\xEDdico, aquisi\xE7\xF5es, seguran\xE7a f\xEDsica e RH\
+            \ - se comunicar\xE3o entre si sobre os riscos de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-06
       assessable: true
       depth: 3
@@ -708,6 +842,20 @@ objects:
             \ dentro de la empresa\nEx4: Utilice una lista coherente de categor\xED\
             as de riesgo para respaldar la integraci\xF3n, la agregaci\xF3n y la comparaci\xF3\
             n de riesgos de ciberseguridad"
+        pt:
+          description: "\xC9 estabelecido e comunicado um m\xE9todo padronizado para\
+            \ calcular, documentar, categorizar e priorizar os riscos de ciberseguran\xE7\
+            a"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Estabelecer crit\xE9rios\
+            \ para o uso de uma abordagem quantitativa de an\xE1lise de riscos de\
+            \ ciberseguran\xE7a e especificar as f\xF3rmulas de probabilidade e exposi\xE7\
+            \xE3o\nEx2: Criar e utilizar modelos (por exemplo, um registro de riscos)\
+            \ para documentar as informa\xE7\xF5es de risco de ciberseguran\xE7a (por\
+            \ exemplo, descri\xE7\xE3o do risco, exposi\xE7\xE3o, tratamento e responsabilidade)\n\
+            Ex3: Estabelecer crit\xE9rios para a prioriza\xE7\xE3o de riscos nos n\xED\
+            veis apropriados dentro da organiza\xE7\xE3o\nEx4: Utilizar uma lista\
+            \ consistente de categorias de risco para apoiar a integra\xE7\xE3o, agrega\xE7\
+            \xE3o e compara\xE7\xE3o dos riscos de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rm-07
       assessable: true
       depth: 3
@@ -750,6 +898,16 @@ objects:
             \ oportunidades y amenazas [FODA])\nEx2: Identificar los objetivos ambiciosos\
             \ y documentarlos\nEx3: Calcule, documente y priorice los riesgos positivos\
             \ junto con los riesgos negativos"
+        pt:
+          description: "As oportunidades estrat\xE9gicas (ou seja, riscos positivos)\
+            \ s\xE3o caracterizadas e inclu\xEDdas nas discuss\xF5es organizacionais\
+            \ sobre riscos de ciberseguran\xE7a"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Definir e comunicar orienta\xE7\
+            \xF5es e m\xE9todos para identificar oportunidades e inclu\xED-las nas\
+            \ discuss\xF5es de risco (por exemplo, an\xE1lise de for\xE7as, fraquezas,\
+            \ oportunidades e amea\xE7as [SWOT])\nEx2: Identificar metas desafiadoras\
+            \ (stretch goals) e document\xE1-las\nEx3: Calcular, documentar e priorizar\
+            \ os riscos positivos juntamente com os riscos negativos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rr
       assessable: false
       depth: 2
@@ -772,6 +930,11 @@ objects:
             \ y las competencias en materia de seguridad cibern\xE9tica para fomentar\
             \ la rendici\xF3n de cuentas, la evaluaci\xF3n del desempe\xF1o y la mejora\
             \ continua."
+        pt:
+          name: "Pap\xE9is, Responsabilidades e Autoridades"
+          description: "Os pap\xE9is, responsabilidades e autoridades de ciberseguran\xE7\
+            a para promover a responsabiliza\xE7\xE3o (accountability), a avalia\xE7\
+            \xE3o de desempenho e a melhoria cont\xEDnua s\xE3o estabelecidos e comunicados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rr-01
       assessable: true
       depth: 3
@@ -833,6 +996,22 @@ objects:
             \ al a\xF1o y despu\xE9s de eventos importantes\nEx4: Llevar a cabo revisiones\
             \ para garantizar la autoridad y la coordinaci\xF3n adecuadas entre los\
             \ responsables de la gesti\xF3n del riesgo de ciberseguridad."
+        pt:
+          description: "A lideran\xE7a organizacional \xE9 respons\xE1vel e prestadora\
+            \ de contas pelo risco de ciberseguran\xE7a e promove uma cultura consciente\
+            \ dos riscos, \xE9tica e em melhoria cont\xEDnua"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Os l\xEDderes (por exemplo,\
+            \ conselheiros) concordam quanto a seus pap\xE9is e responsabilidades\
+            \ no desenvolvimento, implementa\xE7\xE3o e avalia\xE7\xE3o da estrat\xE9\
+            gia de ciberseguran\xE7a da organiza\xE7\xE3o\nEx2: Compartilhar as expectativas\
+            \ dos l\xEDderes quanto a uma cultura segura e \xE9tica, especialmente\
+            \ quando eventos atuais apresentam a oportunidade de destacar exemplos\
+            \ positivos ou negativos de gest\xE3o de riscos de ciberseguran\xE7a\n\
+            Ex3: Os l\xEDderes orientam o CISO a manter uma estrat\xE9gia abrangente\
+            \ de risco de ciberseguran\xE7a e a revis\xE1-la e atualiz\xE1-la pelo\
+            \ menos anualmente e ap\xF3s eventos significativos\nEx4: Conduzir revis\xF5\
+            es para assegurar autoridade e coordena\xE7\xE3o adequadas entre os respons\xE1\
+            veis pela gest\xE3o do risco de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rr-02
       assessable: true
       depth: 3
@@ -893,6 +1072,21 @@ objects:
             Ex5: Articular claramente las responsabilidades de ciberseguridad dentro\
             \ de las operaciones, las funciones de riesgo y las funciones de auditor\xED\
             a interna"
+        pt:
+          description: "Os pap\xE9is, responsabilidades e autoridades relacionados\
+            \ \xE0 gest\xE3o de riscos de ciberseguran\xE7a s\xE3o estabelecidos,\
+            \ comunicados, compreendidos e impostos"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Documentar os pap\xE9is\
+            \ e responsabilidades de gest\xE3o de riscos na pol\xEDtica\nEx2: Documentar\
+            \ quem \xE9 respons\xE1vel e presta contas pelas atividades de gest\xE3\
+            o de riscos de ciberseguran\xE7a e como essas equipes e indiv\xEDduos\
+            \ devem ser consultados e informados\nEx3: Incluir as responsabilidades\
+            \ de ciberseguran\xE7a e os requisitos de desempenho nas descri\xE7\xF5\
+            es de cargos\nEx4: Documentar as metas de desempenho do pessoal com responsabilidades\
+            \ de gest\xE3o de riscos de ciberseguran\xE7a e medir periodicamente o\
+            \ desempenho para identificar \xE1reas de melhoria\nEx5: Articular claramente\
+            \ as responsabilidades de ciberseguran\xE7a nas fun\xE7\xF5es de opera\xE7\
+            \xF5es, de risco e de auditoria interna"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rr-03
       assessable: true
       depth: 3
@@ -940,6 +1134,18 @@ objects:
             \ tolerancia al riesgo y la respuesta\nEx3: Proporcionar las personas,\
             \ los procesos y los recursos t\xE9cnicos adecuados y suficientes para\
             \ respaldar la estrategia de ciberseguridad."
+        pt:
+          description: "S\xE3o alocados recursos adequados, proporcionais \xE0 estrat\xE9\
+            gia, pap\xE9is, responsabilidades e pol\xEDticas de risco de ciberseguran\xE7\
+            a"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Conduzir revis\xF5es peri\xF3dicas pela gest\xE3o para assegurar que\
+            \ aqueles a quem foram atribu\xEDdas responsabilidades de gest\xE3o de\
+            \ riscos de ciberseguran\xE7a tenham a autoridade necess\xE1ria\nEx2:\
+            \ Identificar a aloca\xE7\xE3o de recursos e o investimento em conformidade\
+            \ com a toler\xE2ncia e a resposta a risco\nEx3: Prover recursos humanos,\
+            \ de processos e t\xE9cnicos adequados e suficientes para apoiar a estrat\xE9\
+            gia de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.rr-04
       assessable: true
       depth: 3
@@ -994,6 +1200,21 @@ objects:
             \ funciones\nEx4: Definir y hacer cumplir las obligaciones para que el\
             \ personal conozca, se adhiera y defienda las pol\xEDticas de seguridad\
             \ en relaci\xF3n con sus funciones"
+        pt:
+          description: "A ciberseguran\xE7a est\xE1 inclu\xEDda nas pr\xE1ticas de\
+            \ recursos humanos"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Integrar as considera\xE7\
+            \xF5es de gest\xE3o de riscos de ciberseguran\xE7a aos processos de recursos\
+            \ humanos (por exemplo, triagem de pessoal, integra\xE7\xE3o [onboarding],\
+            \ notifica\xE7\xE3o de mudan\xE7as, desligamento [offboarding])\nEx2:\
+            \ Considerar o conhecimento em ciberseguran\xE7a como um fator positivo\
+            \ nas decis\xF5es de contrata\xE7\xE3o, treinamento e reten\xE7\xE3o\n\
+            Ex3: Realizar verifica\xE7\xF5es de antecedentes antes da integra\xE7\xE3\
+            o de novos colaboradores para fun\xE7\xF5es sens\xEDveis e repetir periodicamente\
+            \ as verifica\xE7\xF5es de antecedentes do pessoal que ocupa tais fun\xE7\
+            \xF5es\nEx4: Definir e impor as obriga\xE7\xF5es do pessoal de conhecer,\
+            \ aderir e sustentar as pol\xEDticas de seguran\xE7a no que se refere\
+            \ a seus pap\xE9is"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.po
       assessable: false
       depth: 2
@@ -1011,6 +1232,10 @@ objects:
           name: "Pol\xEDtica"
           description: "La pol\xEDtica de seguridad cibern\xE9tica de la organizaci\xF3\
             n es establecida, comunicada y aplicada."
+        pt:
+          name: "Pol\xEDtica"
+          description: "A pol\xEDtica de ciberseguran\xE7a organizacional \xE9 estabelecida,\
+            \ comunicada e imposta"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.po-01
       assessable: true
       depth: 3
@@ -1073,6 +1298,22 @@ objects:
             \ y los procesos y procedimientos de apoyo en toda la organizaci\xF3n\n\
             Ex5: Exigir que el personal acuse recibo de la p\xF3liza cuando se contrata\
             \ por primera vez, anualmente y siempre que se actualice la p\xF3liza."
+        pt:
+          description: "A pol\xEDtica de gest\xE3o de riscos de ciberseguran\xE7a\
+            \ \xE9 estabelecida com base no contexto organizacional, na estrat\xE9\
+            gia de ciberseguran\xE7a e nas prioridades, e \xE9 comunicada e imposta"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Criar, disseminar e manter\
+            \ uma pol\xEDtica de gest\xE3o de riscos compreens\xEDvel e utiliz\xE1\
+            vel, com declara\xE7\xF5es de inten\xE7\xE3o, expectativas e direcionamento\
+            \ da gest\xE3o\nEx2: Revisar periodicamente a pol\xEDtica e os processos\
+            \ e procedimentos de apoio para assegurar que estejam alinhados aos objetivos\
+            \ e prioridades da estrat\xE9gia de gest\xE3o de riscos, bem como ao direcionamento\
+            \ de alto n\xEDvel da pol\xEDtica de ciberseguran\xE7a\nEx3: Exigir a\
+            \ aprova\xE7\xE3o da alta gest\xE3o sobre a pol\xEDtica\nEx4: Comunicar\
+            \ a pol\xEDtica de gest\xE3o de riscos de ciberseguran\xE7a e os processos\
+            \ e procedimentos de apoio em toda a organiza\xE7\xE3o\nEx5: Exigir que\
+            \ o pessoal confirme o recebimento da pol\xEDtica na contrata\xE7\xE3\
+            o inicial, anualmente e sempre que a pol\xEDtica for atualizada"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.po-02
       assessable: true
       depth: 3
@@ -1138,6 +1379,23 @@ objects:
             \ los cambios en la tecnolog\xEDa (por ejemplo, la adopci\xF3n de la inteligencia\
             \ artificial) y los cambios en el negocio (por ejemplo, la adquisici\xF3\
             n de un nuevo negocio, los nuevos requisitos del contrato)"
+        pt:
+          description: "A pol\xEDtica de gest\xE3o de riscos de ciberseguran\xE7a\
+            \ \xE9 revisada, atualizada, comunicada e imposta para refletir mudan\xE7\
+            as nos requisitos, amea\xE7as, tecnologia e na miss\xE3o organizacional"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Atualizar a pol\xEDtica\
+            \ com base em revis\xF5es peri\xF3dicas dos resultados da gest\xE3o de\
+            \ riscos de ciberseguran\xE7a para assegurar que a pol\xEDtica e os processos\
+            \ e procedimentos de apoio mantenham adequadamente o risco em um n\xED\
+            vel aceit\xE1vel\nEx2: Fornecer um cronograma para revisar as mudan\xE7\
+            as no ambiente de risco da organiza\xE7\xE3o (por exemplo, mudan\xE7as\
+            \ no risco ou nos objetivos da miss\xE3o da organiza\xE7\xE3o) e comunicar\
+            \ as atualiza\xE7\xF5es de pol\xEDtica recomendadas\nEx3: Atualizar a\
+            \ pol\xEDtica para refletir mudan\xE7as nos requisitos legais e regulat\xF3\
+            rios\nEx4: Atualizar a pol\xEDtica para refletir mudan\xE7as na tecnologia\
+            \ (por exemplo, ado\xE7\xE3o de intelig\xEAncia artificial) e mudan\xE7\
+            as no neg\xF3cio (por exemplo, aquisi\xE7\xE3o de um novo neg\xF3cio,\
+            \ novos requisitos contratuais)"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.ov
       assessable: false
       depth: 2
@@ -1160,6 +1418,12 @@ objects:
             \ de seguridad cibern\xE9tica en toda la organizaci\xF3n y el rendimiento\
             \ se utilizan para informar, mejorar y ajustar la estrategia de gesti\xF3\
             n de riesgos"
+        pt:
+          name: "Supervis\xE3o"
+          description: "Os resultados das atividades e do desempenho da gest\xE3o\
+            \ de riscos de ciberseguran\xE7a em toda a organiza\xE7\xE3o s\xE3o utilizados\
+            \ para fundamentar, aprimorar e ajustar a estrat\xE9gia de gest\xE3o de\
+            \ riscos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.ov-01
       assessable: true
       depth: 3
@@ -1198,6 +1462,14 @@ objects:
             \ organizacionales.\nEx2: Examinar si se deben ajustar las estrategias\
             \ de riesgo de ciberseguridad que obstaculizan las operaciones o la innovaci\xF3\
             n"
+        pt:
+          description: "Os resultados da estrat\xE9gia de gest\xE3o de riscos de ciberseguran\xE7\
+            a s\xE3o revisados para fundamentar e ajustar a estrat\xE9gia e o direcionamento"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Medir qu\xE3o bem a estrat\xE9\
+            gia de gest\xE3o de riscos e os resultados de risco ajudaram os l\xED\
+            deres a tomar decis\xF5es e a alcan\xE7ar os objetivos organizacionais\n\
+            Ex2: Examinar se as estrat\xE9gias de risco de ciberseguran\xE7a que impedem\
+            \ as opera\xE7\xF5es ou a inova\xE7\xE3o devem ser ajustadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.ov-02
       assessable: true
       depth: 3
@@ -1241,6 +1513,17 @@ objects:
             an funciones relacionadas con la ciberseguridad para determinar si es\
             \ necesario realizar cambios en las pol\xEDticas\nEx3: Revisar la estrategia\
             \ a la luz de los incidentes de ciberseguridad"
+        pt:
+          description: "A estrat\xE9gia de gest\xE3o de riscos de ciberseguran\xE7\
+            a \xE9 revisada e ajustada para assegurar a cobertura dos requisitos e\
+            \ riscos organizacionais"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revisar as constata\xE7\xF5\
+            es de auditoria para confirmar se a estrat\xE9gia de ciberseguran\xE7\
+            a existente assegurou a conformidade com os requisitos internos e externos\n\
+            Ex2: Revisar a supervis\xE3o de desempenho daqueles em fun\xE7\xF5es relacionadas\
+            \ \xE0 ciberseguran\xE7a para determinar se mudan\xE7as de pol\xEDtica\
+            \ s\xE3o necess\xE1rias\nEx3: Revisar a estrat\xE9gia \xE0 luz dos incidentes\
+            \ de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.ov-03
       assessable: true
       depth: 3
@@ -1285,6 +1568,16 @@ objects:
             \ que se enfrenta la organizaci\xF3n, incluida la probabilidad y el impacto\
             \ potencial\nEx3: Recopilar y comunicar m\xE9tricas sobre la gesti\xF3\
             n de riesgos de ciberseguridad con la alta direcci\xF3n"
+        pt:
+          description: "O desempenho da gest\xE3o de riscos de ciberseguran\xE7a organizacional\
+            \ \xE9 avaliado e revisado quanto aos ajustes necess\xE1rios"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revisar os indicadores-chave\
+            \ de desempenho (KPIs) para assegurar que as pol\xEDticas e procedimentos\
+            \ de toda a organiza\xE7\xE3o alcancem os objetivos\nEx2: Revisar os indicadores-chave\
+            \ de risco (KRIs) para identificar os riscos enfrentados pela organiza\xE7\
+            \xE3o, incluindo a probabilidade e o impacto potencial\nEx3: Coletar e\
+            \ comunicar m\xE9tricas sobre a gest\xE3o de riscos de ciberseguran\xE7\
+            a \xE0 lideran\xE7a s\xEAnior"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc
       assessable: false
       depth: 2
@@ -1307,6 +1600,11 @@ objects:
           description: "Las partes interesadas de la organizaci\xF3n identifican,\
             \ establecen, gestionan, supervisan y mejoran los procesos de gesti\xF3\
             n de riesgos de la cadena de suministro cibern\xE9tica"
+        pt:
+          name: "Gest\xE3o de Riscos da Cadeia de Suprimentos de Ciberseguran\xE7a"
+          description: "Os processos de gest\xE3o de riscos da cadeia de suprimentos\
+            \ cibern\xE9tica s\xE3o identificados, estabelecidos, gerenciados, monitorados\
+            \ e aprimorados pelas partes interessadas organizacionais"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-01
       assessable: true
       depth: 3
@@ -1376,6 +1674,24 @@ objects:
             \ como la ciberseguridad, la inform\xE1tica, las operaciones, el \xE1\
             mbito jur\xEDdico, el de recursos humanos y el de ingenier\xEDa\n3\xBA\
             : Riesgo de 3\xAA parte"
+        pt:
+          description: "Um programa, estrat\xE9gia, objetivos, pol\xEDticas e processos\
+            \ de gest\xE3o de riscos da cadeia de suprimentos de ciberseguran\xE7\
+            a s\xE3o estabelecidos e acordados pelas partes interessadas organizacionais"
+          annotation: "Ex1: Estabelecer uma estrat\xE9gia que expresse os objetivos\
+            \ do programa de gest\xE3o de riscos da cadeia de suprimentos de ciberseguran\xE7\
+            a\nEx2: Desenvolver o programa de gest\xE3o de riscos da cadeia de suprimentos\
+            \ de ciberseguran\xE7a, incluindo um plano (com marcos), pol\xEDticas\
+            \ e procedimentos que orientem a implementa\xE7\xE3o e a melhoria do programa,\
+            \ e compartilhar as pol\xEDticas e procedimentos com as partes interessadas\
+            \ organizacionais\nEx3: Desenvolver e implementar os processos do programa\
+            \ com base na estrat\xE9gia, objetivos, pol\xEDticas e procedimentos que\
+            \ s\xE3o acordados e executados pelas partes interessadas organizacionais\n\
+            Ex4: Estabelecer um mecanismo interorganizacional que assegure o alinhamento\
+            \ entre as fun\xE7\xF5es que contribuem para a gest\xE3o de riscos da\
+            \ cadeia de suprimentos de ciberseguran\xE7a, tais como ciberseguran\xE7\
+            a, TI, opera\xE7\xF5es, jur\xEDdico, recursos humanos e engenharia\n3rd:\
+            \ Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-02
       assessable: true
       depth: 3
@@ -1478,6 +1794,34 @@ objects:
             \ reglas y protocolos para el intercambio de informaci\xF3n y los procesos\
             \ de presentaci\xF3n de informes entre la organizaci\xF3n y sus proveedores.\n\
             3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "Os pap\xE9is e responsabilidades de ciberseguran\xE7a para\
+            \ fornecedores, clientes e parceiros s\xE3o estabelecidos, comunicados\
+            \ e coordenados interna e externamente"
+          annotation: "Ex1: Identificar um ou mais pap\xE9is ou cargos espec\xEDficos\
+            \ que ser\xE3o respons\xE1veis e prestar\xE3o contas pelo planejamento,\
+            \ provis\xE3o de recursos e execu\xE7\xE3o das atividades de gest\xE3\
+            o de riscos da cadeia de suprimentos de ciberseguran\xE7a\nEx2: Documentar\
+            \ os pap\xE9is e responsabilidades de gest\xE3o de riscos da cadeia de\
+            \ suprimentos de ciberseguran\xE7a na pol\xEDtica\nEx3: Criar matrizes\
+            \ de responsabilidade para documentar quem ser\xE1 respons\xE1vel e prestar\xE1\
+            \ contas pelas atividades de gest\xE3o de riscos da cadeia de suprimentos\
+            \ de ciberseguran\xE7a e como essas equipes e indiv\xEDduos ser\xE3o consultados\
+            \ e informados\nEx4: Incluir as responsabilidades de gest\xE3o de riscos\
+            \ da cadeia de suprimentos de ciberseguran\xE7a e os requisitos de desempenho\
+            \ nas descri\xE7\xF5es de cargos para assegurar clareza e melhorar a responsabiliza\xE7\
+            \xE3o\nEx5: Documentar as metas de desempenho do pessoal com responsabilidades\
+            \ espec\xEDficas de gest\xE3o de riscos de ciberseguran\xE7a e medi-las\
+            \ periodicamente para demonstrar e melhorar o desempenho\nEx6: Desenvolver\
+            \ pap\xE9is e responsabilidades para fornecedores, clientes e parceiros\
+            \ de neg\xF3cio a fim de tratar as responsabilidades compartilhadas pelos\
+            \ riscos de ciberseguran\xE7a aplic\xE1veis, e integr\xE1-los \xE0s pol\xED\
+            ticas organizacionais e aos acordos de terceiros aplic\xE1veis\nEx7: Comunicar\
+            \ internamente os pap\xE9is e responsabilidades de gest\xE3o de riscos\
+            \ da cadeia de suprimentos de ciberseguran\xE7a para terceiros\nEx8: Estabelecer\
+            \ regras e protocolos para os processos de compartilhamento de informa\xE7\
+            \xF5es e de comunica\xE7\xE3o entre a organiza\xE7\xE3o e seus fornecedores\n\
+            3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-03
       assessable: true
       depth: 3
@@ -1531,6 +1875,18 @@ objects:
             \ los riesgos materiales de ciberseguridad en las cadenas de suministro\
             \ a la alta direcci\xF3n y abordarlos a nivel de gesti\xF3n de riesgos\
             \ empresariales\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "A gest\xE3o de riscos da cadeia de suprimentos de ciberseguran\xE7\
+            a \xE9 integrada \xE0 gest\xE3o de riscos de ciberseguran\xE7a e corporativa,\
+            \ \xE0 avalia\xE7\xE3o de riscos e aos processos de melhoria"
+          annotation: "Ex1: Identificar \xE1reas de alinhamento e sobreposi\xE7\xE3\
+            o com a gest\xE3o de riscos de ciberseguran\xE7a e corporativa\nEx2: Estabelecer\
+            \ conjuntos de controles integrados para a gest\xE3o de riscos de ciberseguran\xE7\
+            a e para a gest\xE3o de riscos da cadeia de suprimentos de ciberseguran\xE7\
+            a\nEx3: Integrar a gest\xE3o de riscos da cadeia de suprimentos de ciberseguran\xE7\
+            a aos processos de melhoria\nEx4: Escalonar os riscos materiais de ciberseguran\xE7\
+            a nas cadeias de suprimentos \xE0 alta gest\xE3o e trat\xE1-los no n\xED\
+            vel da gest\xE3o de riscos corporativos\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-04
       assessable: true
       depth: 3
@@ -1568,6 +1924,15 @@ objects:
             \ la misi\xF3n de la organizaci\xF3n.\nEx2: Mantener un registro de todos\
             \ los proveedores y priorizar a los proveedores en funci\xF3n de los criterios\
             \ de criticidad\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "Os fornecedores s\xE3o conhecidos e priorizados por criticidade"
+          annotation: "Ex1: Desenvolver crit\xE9rios para a criticidade dos fornecedores\
+            \ com base, por exemplo, na sensibilidade dos dados processados ou de\
+            \ posse dos fornecedores, no grau de acesso aos sistemas da organiza\xE7\
+            \xE3o e na import\xE2ncia dos produtos ou servi\xE7os para a miss\xE3\
+            o da organiza\xE7\xE3o\nEx2: Manter um registro de todos os fornecedores\
+            \ e prioriz\xE1-los com base nos crit\xE9rios de criticidade\n3rd: Risco\
+            \ de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-05
       assessable: true
       depth: 3
@@ -1685,6 +2050,39 @@ objects:
             \ de la organizaci\xF3n, sus proveedores y sus cadenas de suministro,\
             \ con respecto a los posibles riesgos de ciberseguridad\n3\xBA: Riesgo\
             \ de 3\xAA parte"
+        pt:
+          description: "Os requisitos para tratar os riscos de ciberseguran\xE7a nas\
+            \ cadeias de suprimentos s\xE3o estabelecidos, priorizados e integrados\
+            \ a contratos e outros tipos de acordos com fornecedores e outras partes\
+            \ terceiras relevantes"
+          annotation: "Ex1: Estabelecer requisitos de seguran\xE7a para fornecedores,\
+            \ produtos e servi\xE7os proporcionais ao seu n\xEDvel de criticidade\
+            \ e ao impacto potencial caso sejam comprometidos\nEx2: Incluir, na linguagem\
+            \ contratual padr\xE3o, todos os requisitos de ciberseguran\xE7a e de\
+            \ cadeia de suprimentos que as partes terceiras devem cumprir e como a\
+            \ conformidade com os requisitos pode ser verificada\nEx3: Definir, nos\
+            \ acordos, as regras e os protocolos para o compartilhamento de informa\xE7\
+            \xF5es entre a organiza\xE7\xE3o e seus fornecedores e subfornecedores\n\
+            Ex4: Gerenciar o risco incluindo requisitos de seguran\xE7a nos acordos\
+            \ com base em sua criticidade e no impacto potencial caso sejam comprometidos\n\
+            Ex5: Definir requisitos de seguran\xE7a em acordos de n\xEDvel de servi\xE7\
+            o (SLAs) para monitorar fornecedores quanto a um desempenho de seguran\xE7\
+            a aceit\xE1vel ao longo de todo o ciclo de vida do relacionamento com\
+            \ o fornecedor\nEx6: Exigir contratualmente que os fornecedores divulguem\
+            \ os recursos, fun\xE7\xF5es e vulnerabilidades de ciberseguran\xE7a de\
+            \ seus produtos e servi\xE7os durante a vida \xFAtil do produto ou o prazo\
+            \ do servi\xE7o\nEx7: Exigir contratualmente que os fornecedores forne\xE7\
+            am e mantenham um invent\xE1rio atualizado de componentes (por exemplo,\
+            \ lista de materiais de software ou hardware) para produtos cr\xEDticos\n\
+            Ex8: Exigir contratualmente que os fornecedores avaliem seus funcion\xE1\
+            rios e se protejam contra amea\xE7as internas\nEx9: Exigir contratualmente\
+            \ que os fornecedores apresentem evid\xEAncias da ado\xE7\xE3o de pr\xE1\
+            ticas de seguran\xE7a aceit\xE1veis por meio de, por exemplo, autodeclara\xE7\
+            \xE3o, conformidade com normas conhecidas, certifica\xE7\xF5es ou inspe\xE7\
+            \xF5es\nEx10: Especificar em contratos e outros acordos os direitos e\
+            \ as responsabilidades da organiza\xE7\xE3o, de seus fornecedores e de\
+            \ suas cadeias de suprimentos no que diz respeito a potenciais riscos\
+            \ de ciberseguran\xE7a\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-06
       assessable: true
       depth: 3
@@ -1739,6 +2137,20 @@ objects:
             \ y de ciberseguridad aplicables\nEx4: Evaluar la autenticidad, integridad\
             \ y seguridad de los productos cr\xEDticos antes de su adquisici\xF3n\
             \ y uso\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "O planejamento e a devida dilig\xEAncia s\xE3o realizados\
+            \ para reduzir riscos antes de se estabelecer relacionamentos formais\
+            \ com fornecedores ou outras partes terceiras"
+          annotation: "Ex1: Realizar uma devida dilig\xEAncia completa sobre fornecedores\
+            \ em potencial, de forma consistente com o planejamento de aquisi\xE7\xF5\
+            es e proporcional ao n\xEDvel de risco, criticidade e complexidade de\
+            \ cada relacionamento com fornecedor\nEx2: Avaliar a adequa\xE7\xE3o da\
+            \ tecnologia e das capacidades de ciberseguran\xE7a, bem como as pr\xE1\
+            ticas de gest\xE3o de riscos dos fornecedores em potencial\nEx3: Conduzir\
+            \ avalia\xE7\xF5es de risco de fornecedores em rela\xE7\xE3o aos requisitos\
+            \ de neg\xF3cio e de ciberseguran\xE7a aplic\xE1veis\nEx4: Avaliar a autenticidade,\
+            \ a integridade e a seguran\xE7a de produtos cr\xEDticos antes de sua\
+            \ aquisi\xE7\xE3o e uso\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-07
       assessable: true
       depth: 3
@@ -1810,6 +2222,25 @@ objects:
             \ las interrupciones inesperadas relacionadas con los proveedores y la\
             \ cadena de suministro para garantizar la continuidad del negocio\n3\xBA\
             : Riesgo de 3\xAA parte"
+        pt:
+          description: "Os riscos representados por um fornecedor, por seus produtos\
+            \ e servi\xE7os e por outras partes terceiras s\xE3o compreendidos, registrados,\
+            \ priorizados, avaliados, respondidos e monitorados ao longo do relacionamento"
+          annotation: "Ex1: Ajustar os formatos e a frequ\xEAncia das avalia\xE7\xF5\
+            es com base na reputa\xE7\xE3o da parte terceira e na criticidade dos\
+            \ produtos ou servi\xE7os que ela fornece\nEx2: Avaliar as evid\xEAncias\
+            \ de conformidade das partes terceiras com os requisitos contratuais de\
+            \ ciberseguran\xE7a, como autodeclara\xE7\xF5es, garantias, certifica\xE7\
+            \xF5es e outros artefatos\nEx3: Monitorar fornecedores cr\xEDticos para\
+            \ assegurar que est\xE3o cumprindo suas obriga\xE7\xF5es de seguran\xE7\
+            a ao longo de todo o ciclo de vida do relacionamento com o fornecedor,\
+            \ utilizando uma variedade de m\xE9todos e t\xE9cnicas, como inspe\xE7\
+            \xF5es, auditorias, testes ou outras formas de avalia\xE7\xE3o\nEx4: Monitorar\
+            \ fornecedores, servi\xE7os e produtos cr\xEDticos quanto a mudan\xE7\
+            as em seus perfis de risco e reavaliar a criticidade do fornecedor e o\
+            \ impacto do risco de forma correspondente\nEx5: Planejar interrup\xE7\
+            \xF5es inesperadas relacionadas a fornecedores e \xE0 cadeia de suprimentos\
+            \ para assegurar a continuidade dos neg\xF3cios\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-08
       assessable: true
       depth: 3
@@ -1866,6 +2297,19 @@ objects:
             \ crisis entre la organizaci\xF3n y sus proveedores cr\xEDticos\nEx5:\
             \ Llevar a cabo sesiones colaborativas de lecciones aprendidas con proveedores\
             \ cr\xEDticos\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "Fornecedores relevantes e outras partes terceiras s\xE3o inclu\xED\
+            dos nas atividades de planejamento, resposta e recupera\xE7\xE3o de incidentes"
+          annotation: "Ex1: Definir e utilizar regras e protocolos para reportar as\
+            \ atividades de resposta e recupera\xE7\xE3o de incidentes e a situa\xE7\
+            \xE3o entre a organiza\xE7\xE3o e seus fornecedores\nEx2: Identificar\
+            \ e documentar os pap\xE9is e as responsabilidades da organiza\xE7\xE3\
+            o e de seus fornecedores na resposta a incidentes\nEx3: Incluir fornecedores\
+            \ cr\xEDticos em exerc\xEDcios e simula\xE7\xF5es de resposta a incidentes\n\
+            Ex4: Definir e coordenar m\xE9todos e protocolos de comunica\xE7\xE3o\
+            \ de crise entre a organiza\xE7\xE3o e seus fornecedores cr\xEDticos\n\
+            Ex5: Conduzir sess\xF5es colaborativas de li\xE7\xF5es aprendidas com\
+            \ fornecedores cr\xEDticos\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-09
       assessable: true
       depth: 3
@@ -1932,6 +2376,24 @@ objects:
             ticas y los procedimientos requieren la comprobaci\xF3n de las actualizaciones\
             \ de hardware cr\xEDtico en busca de cambios no autorizados\n3\xBA: Riesgo\
             \ de 3\xAA parte"
+        pt:
+          description: "As pr\xE1ticas de seguran\xE7a da cadeia de suprimentos s\xE3\
+            o integradas aos programas de gest\xE3o de riscos de ciberseguran\xE7\
+            a e de riscos corporativos, e seu desempenho \xE9 monitorado ao longo\
+            \ do ciclo de vida do produto e servi\xE7o de tecnologia"
+          annotation: "Ex1: As pol\xEDticas e os procedimentos exigem registros de\
+            \ proveni\xEAncia para todos os produtos e servi\xE7os de tecnologia adquiridos\n\
+            Ex2: Fornecer periodicamente relat\xF3rios de risco aos l\xEDderes sobre\
+            \ como se comprova que os componentes adquiridos s\xE3o aut\xEAnticos\
+            \ e n\xE3o foram adulterados\nEx3: Comunicar regularmente, entre os gestores\
+            \ de risco de ciberseguran\xE7a e o pessoal de opera\xE7\xF5es, a necessidade\
+            \ de adquirir corre\xE7\xF5es (patches), atualiza\xE7\xF5es e upgrades\
+            \ de software somente de provedores de software autenticados e confi\xE1\
+            veis\nEx4: Revisar as pol\xEDticas para assegurar que exijam que apenas\
+            \ pessoal autorizado do fornecedor realize a manuten\xE7\xE3o dos produtos\
+            \ do fornecedor\nEx5: As pol\xEDticas e os procedimentos exigem a verifica\xE7\
+            \xE3o de upgrades em hardware cr\xEDtico quanto a altera\xE7\xF5es n\xE3\
+            o autorizadas\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:gv.sc-10
       assessable: true
       depth: 3
@@ -2004,6 +2466,24 @@ objects:
             \ los datos y los sistemas creados por la rescisi\xF3n de proveedores\n\
             Ex7: Gestionar los riesgos de fuga de datos asociados a la rescisi\xF3\
             n de proveedores\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "Os planos de gest\xE3o de riscos da cadeia de suprimentos\
+            \ de ciberseguran\xE7a incluem disposi\xE7\xF5es para atividades que ocorrem\
+            \ ap\xF3s o encerramento de uma parceria ou acordo de servi\xE7o"
+          annotation: "Ex1: Estabelecer processos para encerrar relacionamentos cr\xED\
+            ticos tanto em circunst\xE2ncias normais quanto adversas\nEx2: Definir\
+            \ e implementar planos para o suporte de manuten\xE7\xE3o de fim de vida\
+            \ e a obsolesc\xEAncia de componentes\nEx3: Verificar se o acesso do fornecedor\
+            \ aos recursos da organiza\xE7\xE3o \xE9 desativado prontamente quando\
+            \ n\xE3o for mais necess\xE1rio\nEx4: Verificar se os ativos que cont\xEA\
+            m dados da organiza\xE7\xE3o s\xE3o devolvidos ou descartados adequadamente\
+            \ de maneira oportuna, controlada e segura\nEx5: Desenvolver e executar\
+            \ um plano para o encerramento ou a transi\xE7\xE3o dos relacionamentos\
+            \ com fornecedores que leve em conta o risco e a resili\xEAncia da seguran\xE7\
+            a da cadeia de suprimentos\nEx6: Mitigar os riscos a dados e sistemas\
+            \ criados pelo encerramento do relacionamento com o fornecedor\nEx7: Gerenciar\
+            \ os riscos de vazamento de dados associados ao encerramento do relacionamento\
+            \ com o fornecedor\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id
       assessable: false
       depth: 1
@@ -2019,6 +2499,10 @@ objects:
           name: IDENTIFICAR
           description: "Se conocen los riesgos de seguridad cibern\xE9tica actuales\
             \ de la organizaci\xF3n"
+        pt:
+          name: IDENTIFICAR
+          description: "Os riscos atuais de ciberseguran\xE7a da organiza\xE7\xE3\
+            o s\xE3o compreendidos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am
       assessable: false
       depth: 2
@@ -2044,6 +2528,14 @@ objects:
             n alcanzar sus objetivos empresariales se identifican y gestionan de acuerdo\
             \ con su importancia relativa para los objetivos organizativos y la estrategia\
             \ de riesgos de la organizaci\xF3n"
+        pt:
+          name: "Gest\xE3o de Ativos"
+          description: "Os ativos (por exemplo, dados, hardware, software, sistemas,\
+            \ instala\xE7\xF5es, servi\xE7os, pessoas) que permitem \xE0 organiza\xE7\
+            \xE3o atingir seus prop\xF3sitos de neg\xF3cio s\xE3o identificados e\
+            \ gerenciados de forma consistente com sua import\xE2ncia relativa para\
+            \ os objetivos organizacionais e a estrat\xE9gia de risco da organiza\xE7\
+            \xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-01
       assessable: true
       depth: 3
@@ -2077,6 +2569,13 @@ objects:
             \ todo tipo de hardware, incluidos TI, IoT, OT y dispositivos m\xF3viles\n\
             Ex2: Monitoree constantemente las redes para detectar nuevo hardware y\
             \ actualizar autom\xE1ticamente los inventarios"
+        pt:
+          description: "S\xE3o mantidos invent\xE1rios do hardware gerenciado pela\
+            \ organiza\xE7\xE3o"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Manter invent\xE1rios de\
+            \ todos os tipos de hardware, incluindo dispositivos de TI, IoT, OT e\
+            \ m\xF3veis\nEx2: Monitorar constantemente as redes para detectar novos\
+            \ hardwares e atualizar automaticamente os invent\xE1rios"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-02
       assessable: true
       depth: 3
@@ -2120,6 +2619,17 @@ objects:
             \ las plataformas, incluidos los contenedores y las m\xE1quinas virtuales,\
             \ para detectar cambios en el inventario de software y servicios.\nEx3:\
             \ Mantener un inventario de los sistemas de la organizaci\xF3n"
+        pt:
+          description: "S\xE3o mantidos invent\xE1rios do software, dos servi\xE7\
+            os e dos sistemas gerenciados pela organiza\xE7\xE3o"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Manter invent\xE1rios de\
+            \ todos os tipos de software e servi\xE7os, incluindo software comercial\
+            \ de prateleira (COTS), de c\xF3digo aberto, aplica\xE7\xF5es personalizadas,\
+            \ servi\xE7os de API e aplica\xE7\xF5es e servi\xE7os baseados em nuvem\n\
+            Ex2: Monitorar constantemente todas as plataformas, incluindo cont\xEA\
+            ineres e m\xE1quinas virtuais, quanto a mudan\xE7as no invent\xE1rio de\
+            \ software e servi\xE7os\nEx3: Manter um invent\xE1rio dos sistemas da\
+            \ organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-03
       assessable: true
       depth: 3
@@ -2173,6 +2683,19 @@ objects:
             \ infraestructura como servicio (IaaS) de la organizaci\xF3n\nEx4: Mantener\
             \ la documentaci\xF3n de los puertos de red, protocolos y servicios esperados\
             \ que se utilizan normalmente entre los sistemas autorizados"
+        pt:
+          description: "S\xE3o mantidas representa\xE7\xF5es das comunica\xE7\xF5\
+            es de rede autorizadas e dos fluxos de dados de rede internos e externos\
+            \ da organiza\xE7\xE3o"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Manter linhas de base (baselines) das comunica\xE7\xF5es e dos fluxos\
+            \ de dados nas redes com e sem fio da organiza\xE7\xE3o\nEx2: Manter linhas\
+            \ de base das comunica\xE7\xF5es e dos fluxos de dados entre a organiza\xE7\
+            \xE3o e partes terceiras\nEx3: Manter linhas de base das comunica\xE7\xF5\
+            es e dos fluxos de dados para o uso de infraestrutura como servi\xE7o\
+            \ (IaaS) pela organiza\xE7\xE3o\nEx4: Manter documenta\xE7\xE3o das portas,\
+            \ protocolos e servi\xE7os de rede esperados que s\xE3o tipicamente utilizados\
+            \ entre sistemas autorizados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-04
       assessable: true
       depth: 3
@@ -2215,6 +2738,17 @@ objects:
             \ un nuevo servicio externo para garantizar un seguimiento adecuado de\
             \ la gesti\xF3n de riesgos de ciberseguridad del uso de ese servicio por\
             \ parte de la organizaci\xF3n\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "S\xE3o mantidos invent\xE1rios dos servi\xE7os fornecidos\
+            \ por fornecedores"
+          annotation: "Ex1: Inventariar todos os servi\xE7os externos utilizados pela\
+            \ organiza\xE7\xE3o, incluindo ofertas de infraestrutura como servi\xE7\
+            o (IaaS), plataforma como servi\xE7o (PaaS) e software como servi\xE7\
+            o (SaaS) de terceiros; APIs; e outros servi\xE7os de aplica\xE7\xE3o hospedados\
+            \ externamente\nEx2: Atualizar o invent\xE1rio quando um novo servi\xE7\
+            o externo for utilizado para assegurar o monitoramento adequado da gest\xE3\
+            o de riscos de ciberseguran\xE7a no uso desse servi\xE7o pela organiza\xE7\
+            \xE3o\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-05
       assessable: true
       depth: 3
@@ -2251,6 +2785,14 @@ objects:
             n a los activos\nEx3: Realice un seguimiento de las prioridades de los\
             \ activos y actual\xEDcelas peri\xF3dicamente o cuando se produzcan cambios\
             \ significativos en la organizaci\xF3n"
+        pt:
+          description: "Os ativos s\xE3o priorizados com base na classifica\xE7\xE3\
+            o, na criticidade, nos recursos e no impacto sobre a miss\xE3o"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Definir crit\xE9rios para\
+            \ priorizar cada classe de ativos\nEx2: Aplicar os crit\xE9rios de prioriza\xE7\
+            \xE3o aos ativos\nEx3: Acompanhar as prioridades dos ativos e atualiz\xE1\
+            -las periodicamente ou quando ocorrerem mudan\xE7as significativas na\
+            \ organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-07
       assessable: true
       depth: 3
@@ -2304,6 +2846,19 @@ objects:
             s de etiquetas o r\xF3tulos\nEx4: Rastree la procedencia, el propietario\
             \ de los datos y la geolocalizaci\xF3n de cada instancia de los tipos\
             \ de datos designados"
+        pt:
+          description: "S\xE3o mantidos invent\xE1rios de dados e dos metadados correspondentes\
+            \ para os tipos de dados designados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Manter uma lista dos tipos\
+            \ de dados designados de interesse (por exemplo, informa\xE7\xF5es de\
+            \ identifica\xE7\xE3o pessoal, informa\xE7\xF5es de sa\xFAde protegidas,\
+            \ n\xFAmeros de contas financeiras, propriedade intelectual da organiza\xE7\
+            \xE3o, dados de tecnologia operacional)\nEx2: Descobrir e analisar continuamente\
+            \ dados ad hoc para identificar novas inst\xE2ncias dos tipos de dados\
+            \ designados\nEx3: Atribuir classifica\xE7\xF5es de dados aos tipos de\
+            \ dados designados por meio de tags ou r\xF3tulos\nEx4: Acompanhar a proveni\xEA\
+            ncia, o propriet\xE1rio dos dados e a geolocaliza\xE7\xE3o de cada inst\xE2\
+            ncia dos tipos de dados designados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.am-08
       assessable: true
       depth: 3
@@ -2394,6 +2949,28 @@ objects:
             \ reasigne o se env\xEDe para su reparaci\xF3n o reemplazo\nEx9: Ofrecer\
             \ m\xE9todos para destruir papel, medios de almacenamiento y otras formas\
             \ f\xEDsicas de almacenamiento de datos."
+        pt:
+          description: "Sistemas, hardware, software, servi\xE7os e dados s\xE3o gerenciados\
+            \ ao longo de seus ciclos de vida"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Integrar considera\xE7\xF5es de ciberseguran\xE7a ao longo dos ciclos\
+            \ de vida de sistemas, hardware, software e servi\xE7os\nEx2: Integrar\
+            \ considera\xE7\xF5es de ciberseguran\xE7a aos ciclos de vida dos produtos\n\
+            Ex3: Identificar usos n\xE3o oficiais de tecnologia para atingir os objetivos\
+            \ da miss\xE3o (ou seja, shadow IT)\nEx4: Identificar periodicamente sistemas,\
+            \ hardware, software e servi\xE7os redundantes que aumentam desnecessariamente\
+            \ a superf\xEDcie de ataque da organiza\xE7\xE3o\nEx5: Configurar e proteger\
+            \ adequadamente sistemas, hardware, software e servi\xE7os antes de sua\
+            \ implanta\xE7\xE3o em produ\xE7\xE3o\nEx6: Atualizar os invent\xE1rios\
+            \ quando sistemas, hardware, software e servi\xE7os forem movidos ou transferidos\
+            \ dentro da organiza\xE7\xE3o\nEx7: Destruir de forma segura os dados\
+            \ armazenados com base na pol\xEDtica de reten\xE7\xE3o de dados da organiza\xE7\
+            \xE3o, utilizando o m\xE9todo de destrui\xE7\xE3o prescrito, e manter\
+            \ e gerenciar um registro das destrui\xE7\xF5es\nEx8: Sanitizar de forma\
+            \ segura o armazenamento de dados quando o hardware estiver sendo desativado,\
+            \ descomissionado, reatribu\xEDdo ou enviado para reparo ou substitui\xE7\
+            \xE3o\nEx9: Oferecer m\xE9todos para destruir papel, m\xEDdias de armazenamento\
+            \ e outras formas f\xEDsicas de armazenamento de dados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra
       assessable: false
       depth: 2
@@ -2411,6 +2988,10 @@ objects:
           name: "Evaluaci\xF3n de riesgos"
           description: "La organizaci\xF3n comprende el riesgo de seguridad cibern\xE9\
             tica para la organizaci\xF3n, los activos y los individuos"
+        pt:
+          name: "Avalia\xE7\xE3o de Riscos"
+          description: "O risco de ciberseguran\xE7a para a organiza\xE7\xE3o, os\
+            \ ativos e os indiv\xEDduos \xE9 compreendido pela organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-01
       assessable: true
       depth: 3
@@ -2475,6 +3056,22 @@ objects:
             \ obtener informaci\xF3n sobre nuevas vulnerabilidades en productos y\
             \ servicios\nEx6: Revisar los procesos y procedimientos en busca de debilidades\
             \ que puedan aprovecharse para afectar a la ciberseguridad."
+        pt:
+          description: "As vulnerabilidades nos ativos s\xE3o identificadas, validadas\
+            \ e registradas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Utilizar tecnologias de\
+            \ gest\xE3o de vulnerabilidades para identificar software n\xE3o corrigido\
+            \ e mal configurado\nEx2: Avaliar arquiteturas de rede e de sistemas quanto\
+            \ a fraquezas de projeto e implementa\xE7\xE3o que afetam a ciberseguran\xE7\
+            a\nEx3: Revisar, analisar ou testar o software desenvolvido pela organiza\xE7\
+            \xE3o para identificar vulnerabilidades de projeto, codifica\xE7\xE3o\
+            \ e configura\xE7\xE3o padr\xE3o\nEx4: Avaliar as instala\xE7\xF5es que\
+            \ abrigam ativos computacionais cr\xEDticos quanto a vulnerabilidades\
+            \ f\xEDsicas e quest\xF5es de resili\xEAncia\nEx5: Monitorar fontes de\
+            \ intelig\xEAncia de amea\xE7as cibern\xE9ticas em busca de informa\xE7\
+            \xF5es sobre novas vulnerabilidades em produtos e servi\xE7os\nEx6: Revisar\
+            \ processos e procedimentos em busca de fraquezas que possam ser exploradas\
+            \ para afetar a ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-02
       assessable: true
       depth: 3
@@ -2519,6 +3116,17 @@ objects:
             \ y procedimientos (TTP)\nEx3: Monitorear las fuentes de inteligencia\
             \ de amenazas cibern\xE9ticas para obtener informaci\xF3n sobre los tipos\
             \ de vulnerabilidades que pueden tener las tecnolog\xEDas emergentes"
+        pt:
+          description: "A intelig\xEAncia de amea\xE7as cibern\xE9ticas \xE9 recebida\
+            \ de f\xF3runs e fontes de compartilhamento de informa\xE7\xF5es"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Configurar ferramentas e\
+            \ tecnologias de ciberseguran\xE7a com capacidades de detec\xE7\xE3o ou\
+            \ resposta para ingerir de forma segura feeds de intelig\xEAncia de amea\xE7\
+            as cibern\xE9ticas\nEx2: Receber e revisar comunicados (advisories) de\
+            \ terceiros confi\xE1veis sobre os atores de amea\xE7a atuais e suas t\xE1\
+            ticas, t\xE9cnicas e procedimentos (TTPs)\nEx3: Monitorar fontes de intelig\xEA\
+            ncia de amea\xE7as cibern\xE9ticas em busca de informa\xE7\xF5es sobre\
+            \ os tipos de vulnerabilidades que as tecnologias emergentes podem apresentar"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-03
       assessable: true
       depth: 3
@@ -2561,6 +3169,16 @@ objects:
             n\nEx2: Realizar la b\xFAsqueda de amenazas para buscar signos de actores\
             \ de amenazas dentro del entorno\nEx3: Implementar procesos para identificar\
             \ a los actores de amenazas internas"
+        pt:
+          description: "As amea\xE7as internas e externas \xE0 organiza\xE7\xE3o s\xE3\
+            o identificadas e registradas"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Utilizar intelig\xEAncia de amea\xE7as cibern\xE9ticas para manter a\
+            \ consci\xEAncia sobre os tipos de atores de amea\xE7a que provavelmente\
+            \ ter\xE3o a organiza\xE7\xE3o como alvo e os TTPs que provavelmente utilizar\xE3\
+            o\nEx2: Realizar ca\xE7a a amea\xE7as (threat hunting) para procurar sinais\
+            \ de atores de amea\xE7a dentro do ambiente\nEx3: Implementar processos\
+            \ para identificar atores de amea\xE7a internos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-04
       assessable: true
       depth: 3
@@ -2608,6 +3226,17 @@ objects:
             \ los sistemas y los datos de la organizaci\xF3n procesados en o por esos\
             \ sistemas\nEx3: Tener en cuenta los impactos potenciales de los fallos\
             \ en cascada para los sistemas de sistemas"
+        pt:
+          description: "Os impactos potenciais e as probabilidades de amea\xE7as explorarem\
+            \ vulnerabilidades s\xE3o identificados e registrados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: L\xEDderes de neg\xF3cio\
+            \ e profissionais de gest\xE3o de riscos de ciberseguran\xE7a trabalham\
+            \ em conjunto para estimar a probabilidade e o impacto de cen\xE1rios\
+            \ de risco e os registram em registros de risco\nEx2: Enumerar os impactos\
+            \ potenciais ao neg\xF3cio decorrentes do acesso n\xE3o autorizado \xE0\
+            s comunica\xE7\xF5es, aos sistemas e aos dados processados nesses sistemas\
+            \ ou por eles\nEx3: Considerar os impactos potenciais de falhas em cascata\
+            \ para sistemas de sistemas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-05
       assessable: true
       depth: 3
@@ -2644,6 +3273,15 @@ objects:
             \ adecuadas a los riesgos\nEx2: Priorizar las asignaciones de recursos\
             \ de ciberseguridad y las inversiones en funci\xF3n de las probabilidades\
             \ y los impactos estimados"
+        pt:
+          description: "Amea\xE7as, vulnerabilidades, probabilidades e impactos s\xE3\
+            o utilizados para compreender o risco inerente e fundamentar a prioriza\xE7\
+            \xE3o da resposta ao risco"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Desenvolver modelos de amea\xE7\
+            a para compreender melhor os riscos aos dados e identificar respostas\
+            \ adequadas ao risco\nEx2: Priorizar as aloca\xE7\xF5es de recursos e\
+            \ os investimentos em ciberseguran\xE7a com base nas probabilidades e\
+            \ nos impactos estimados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-06
       assessable: true
       depth: 3
@@ -2697,6 +3335,20 @@ objects:
             \ resultados de la evaluaci\xF3n de riesgos para informar las decisiones\
             \ y acciones de respuesta al riesgo\nEx5: Comunicar las respuestas planificadas\
             \ a los riesgos a las partes interesadas afectadas en orden de prioridad"
+        pt:
+          description: "As respostas ao risco s\xE3o escolhidas, priorizadas, planejadas,\
+            \ acompanhadas e comunicadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Aplicar os crit\xE9rios\
+            \ do plano de gest\xE3o de vulnerabilidades para decidir se o risco ser\xE1\
+            \ aceito, transferido, mitigado ou evitado\nEx2: Aplicar os crit\xE9rios\
+            \ do plano de gest\xE3o de vulnerabilidades para selecionar controles\
+            \ compensat\xF3rios que mitiguem o risco\nEx3: Acompanhar o progresso\
+            \ da implementa\xE7\xE3o da resposta ao risco (por exemplo, plano de a\xE7\
+            \xE3o e marcos [POA&M], registro de risco, relat\xF3rio detalhado de risco)\n\
+            Ex4: Utilizar as constata\xE7\xF5es da avalia\xE7\xE3o de riscos para\
+            \ fundamentar as decis\xF5es e a\xE7\xF5es de resposta ao risco\nEx5:\
+            \ Comunicar as respostas ao risco planejadas \xE0s partes interessadas\
+            \ afetadas em ordem de prioridade"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-07
       assessable: true
       depth: 3
@@ -2744,6 +3396,17 @@ objects:
             \ con cada excepci\xF3n solicitada y el plan para responder a esos riesgos.\n\
             Ex4: Revisar peri\xF3dicamente los riesgos que se aceptaron en funci\xF3\
             n de las acciones o hitos futuros planificados"
+        pt:
+          description: "As mudan\xE7as e exce\xE7\xF5es s\xE3o gerenciadas, avaliadas\
+            \ quanto ao impacto de risco, registradas e acompanhadas"
+          annotation: "Ex1: Implementar e seguir procedimentos para a documenta\xE7\
+            \xE3o, revis\xE3o, teste e aprova\xE7\xE3o formal de mudan\xE7as propostas\
+            \ e exce\xE7\xF5es solicitadas\nEx2: Documentar os poss\xEDveis riscos\
+            \ de realizar ou n\xE3o realizar cada mudan\xE7a proposta e fornecer orienta\xE7\
+            \xE3o sobre a revers\xE3o das mudan\xE7as\nEx3: Documentar os riscos relacionados\
+            \ a cada exce\xE7\xE3o solicitada e o plano de resposta a esses riscos\n\
+            Ex4: Revisar periodicamente os riscos que foram aceitos com base em a\xE7\
+            \xF5es futuras planejadas ou marcos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-08
       assessable: true
       depth: 3
@@ -2789,6 +3452,17 @@ objects:
             \ y responder a las divulgaciones de amenazas, vulnerabilidades o incidentes\
             \ de ciberseguridad por parte de proveedores, clientes, socios y organizaciones\
             \ gubernamentales de ciberseguridad"
+        pt:
+          description: "S\xE3o estabelecidos processos para receber, analisar e responder\
+            \ a divulga\xE7\xF5es de vulnerabilidades"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Conduzir o compartilhamento de informa\xE7\xF5es sobre vulnerabilidades\
+            \ entre a organiza\xE7\xE3o e seus fornecedores seguindo as regras e os\
+            \ protocolos definidos nos contratos\nEx2: Atribuir responsabilidades\
+            \ e verificar a execu\xE7\xE3o dos procedimentos para processar, analisar\
+            \ o impacto de e responder a divulga\xE7\xF5es de amea\xE7as, vulnerabilidades\
+            \ ou incidentes de ciberseguran\xE7a feitas por fornecedores, clientes,\
+            \ parceiros e organiza\xE7\xF5es governamentais de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-09
       assessable: true
       depth: 3
@@ -2818,6 +3492,12 @@ objects:
           annotation: "Ex1: Evaluar la autenticidad y la ciberseguridad de los productos\
             \ y servicios tecnol\xF3gicos cr\xEDticos antes de su adquisici\xF3n y\
             \ uso\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "A autenticidade e a integridade do hardware e do software\
+            \ s\xE3o avaliadas antes da aquisi\xE7\xE3o e do uso"
+          annotation: "Ex1: Avaliar a autenticidade e a ciberseguran\xE7a de produtos\
+            \ e servi\xE7os de tecnologia cr\xEDticos antes da aquisi\xE7\xE3o e do\
+            \ uso\n3rd: Risco de Terceiros"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.ra-10
       assessable: true
       depth: 3
@@ -2842,6 +3522,12 @@ objects:
           annotation: "Ex1: Realizar evaluaciones de riesgos de los proveedores en\
             \ relaci\xF3n con los requisitos empresariales y de ciberseguridad aplicables,\
             \ incluida la cadena de suministro"
+        pt:
+          description: "Os fornecedores cr\xEDticos s\xE3o avaliados antes da aquisi\xE7\
+            \xE3o"
+          annotation: "Ex1: Conduzir avalia\xE7\xF5es de risco de fornecedores em\
+            \ rela\xE7\xE3o aos requisitos de neg\xF3cio e de ciberseguran\xE7a aplic\xE1\
+            veis, incluindo a cadeia de suprimentos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.im
       assessable: false
       depth: 2
@@ -2861,6 +3547,11 @@ objects:
           description: "Se identifican mejoras en los procesos, procedimientos y actividades\
             \ de gesti\xF3n de riesgos de seguridad cibern\xE9tica de la organizaci\xF3\
             n en todas las funciones del CSF"
+        pt:
+          name: Melhoria
+          description: "As melhorias nos processos, procedimentos e atividades de\
+            \ gest\xE3o de riscos de ciberseguran\xE7a da organiza\xE7\xE3o s\xE3\
+            o identificadas em todas as Fun\xE7\xF5es do CSF"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.im-01
       assessable: true
       depth: 3
@@ -2901,6 +3592,16 @@ objects:
             n para identificar las \xE1reas que necesitan mejoras.\nEx3: Evaluar constantemente\
             \ el cumplimiento de los requisitos de ciberseguridad seleccionados a\
             \ trav\xE9s de medios automatizados"
+        pt:
+          description: "As melhorias s\xE3o identificadas a partir de avalia\xE7\xF5\
+            es"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Realizar autoavalia\xE7\xF5\
+            es de servi\xE7os cr\xEDticos que levem em considera\xE7\xE3o as amea\xE7\
+            as e os TTPs atuais\nEx2: Investir em avalia\xE7\xF5es por terceiros ou\
+            \ auditorias independentes da efic\xE1cia do programa de ciberseguran\xE7\
+            a da organiza\xE7\xE3o para identificar \xE1reas que precisam de melhoria\n\
+            Ex3: Avaliar constantemente a conformidade com os requisitos de ciberseguran\xE7\
+            a selecionados por meios automatizados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.im-02
       assessable: true
       depth: 3
@@ -2985,6 +3686,29 @@ objects:
             \ alterados antes de su recepci\xF3n\nEx6: Recopilar y analizar m\xE9\
             tricas de rendimiento utilizando herramientas y servicios de seguridad\
             \ para informar sobre las mejoras en el programa de ciberseguridad"
+        pt:
+          description: "As melhorias s\xE3o identificadas a partir de testes e exerc\xED\
+            cios de seguran\xE7a, incluindo aqueles realizados em coordena\xE7\xE3\
+            o com fornecedores e partes terceiras relevantes"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceiros\nEx1:\
+            \ Identificar melhorias para futuras atividades de resposta a incidentes\
+            \ com base nas constata\xE7\xF5es de avalia\xE7\xF5es de resposta a incidentes\
+            \ (por exemplo, exerc\xEDcios de mesa e simula\xE7\xF5es, testes, revis\xF5\
+            es internas, auditorias independentes)\nEx2: Identificar melhorias para\
+            \ futuras atividades de continuidade de neg\xF3cios, recupera\xE7\xE3\
+            o de desastres e resposta a incidentes com base em exerc\xEDcios realizados\
+            \ em coordena\xE7\xE3o com provedores de servi\xE7os e fornecedores de\
+            \ produtos cr\xEDticos\nEx3: Envolver as partes interessadas internas\
+            \ (por exemplo, executivos seniores, departamento jur\xEDdico, RH) em\
+            \ testes e exerc\xEDcios de seguran\xE7a conforme apropriado\nEx4: Realizar\
+            \ testes de penetra\xE7\xE3o para identificar oportunidades de melhorar\
+            \ a postura de seguran\xE7a de sistemas selecionados de alto risco, conforme\
+            \ aprovado pela lideran\xE7a\nEx5: Exercitar planos de conting\xEAncia\
+            \ para responder e se recuperar da descoberta de que produtos ou servi\xE7\
+            os n\xE3o se originaram do fornecedor ou parceiro contratado ou foram\
+            \ alterados antes do recebimento\nEx6: Coletar e analisar m\xE9tricas\
+            \ de desempenho utilizando ferramentas e servi\xE7os de seguran\xE7a para\
+            \ fundamentar melhorias no programa de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.im-03
       assessable: true
       depth: 3
@@ -3022,6 +3746,15 @@ objects:
             \ las pol\xEDticas, procesos y procedimientos de ciberseguridad para tener\
             \ en cuenta las lecciones aprendidas.\nEx3: Utilice m\xE9tricas para evaluar\
             \ el rendimiento de la ciberseguridad operativa a lo largo del tiempo"
+        pt:
+          description: "As melhorias s\xE3o identificadas a partir da execu\xE7\xE3\
+            o de processos, procedimentos e atividades operacionais"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Conduzir sess\xF5es colaborativas\
+            \ de li\xE7\xF5es aprendidas com fornecedores\nEx2: Revisar anualmente\
+            \ as pol\xEDticas, processos e procedimentos de ciberseguran\xE7a para\
+            \ levar em conta as li\xE7\xF5es aprendidas\nEx3: Utilizar m\xE9tricas\
+            \ para avaliar o desempenho operacional de ciberseguran\xE7a ao longo\
+            \ do tempo"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:id.im-04
       assessable: true
       depth: 3
@@ -3092,6 +3825,25 @@ objects:
             \ actualizaciones) a los responsables de llevarlos a cabo y a las partes\
             \ afectadas\nEx5: Revisar y actualizar todos los planes de ciberseguridad\
             \ anualmente o cuando se identifique la necesidad de mejoras significativas."
+        pt:
+          description: "Os planos de resposta a incidentes e outros planos de ciberseguran\xE7\
+            a que afetam as opera\xE7\xF5es s\xE3o estabelecidos, comunicados, mantidos\
+            \ e aprimorados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Estabelecer planos de conting\xEA\
+            ncia (por exemplo, resposta a incidentes, continuidade de neg\xF3cios,\
+            \ recupera\xE7\xE3o de desastres) para responder e se recuperar de eventos\
+            \ adversos que possam interferir nas opera\xE7\xF5es, expor informa\xE7\
+            \xF5es confidenciais ou de outra forma colocar em risco a miss\xE3o e\
+            \ a viabilidade da organiza\xE7\xE3o\nEx2: Incluir informa\xE7\xF5es de\
+            \ contato e comunica\xE7\xE3o, processos para o tratamento de cen\xE1\
+            rios comuns e crit\xE9rios para prioriza\xE7\xE3o, escalonamento e eleva\xE7\
+            \xE3o em todos os planos de conting\xEAncia\nEx3: Criar um plano de gest\xE3\
+            o de vulnerabilidades para identificar e avaliar todos os tipos de vulnerabilidades\
+            \ e para priorizar, testar e implementar respostas ao risco\nEx4: Comunicar\
+            \ os planos de ciberseguran\xE7a (incluindo atualiza\xE7\xF5es) aos respons\xE1\
+            veis por execut\xE1-los e \xE0s partes afetadas\nEx5: Revisar e atualizar\
+            \ todos os planos de ciberseguran\xE7a anualmente ou quando for identificada\
+            \ a necessidade de melhorias significativas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr
       assessable: false
       depth: 1
@@ -3108,6 +3860,10 @@ objects:
           name: PROTEGER
           description: "Se utilizan medidas de protecci\xF3n para gestionar los riesgos\
             \ de seguridad cibern\xE9tica de la organizaci\xF3n"
+        pt:
+          name: PROTEGER
+          description: "S\xE3o utilizadas salvaguardas para gerenciar os riscos de\
+            \ ciberseguran\xE7a da organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa
       assessable: false
       depth: 2
@@ -3129,6 +3885,11 @@ objects:
           description: "El acceso a los activos f\xEDsicos y l\xF3gicos se limita\
             \ a los usuarios, servicios y hardware autorizados y se gestiona de forma\
             \ proporcional al riesgo evaluado de acceso no autorizado"
+        pt:
+          name: "Gest\xE3o de Identidades, Autentica\xE7\xE3o e Controle de Acesso"
+          description: "O acesso a ativos f\xEDsicos e l\xF3gicos \xE9 limitado a\
+            \ usu\xE1rios, servi\xE7os e hardware autorizados e gerenciado de forma\
+            \ proporcional ao risco avaliado de acesso n\xE3o autorizado"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-01
       assessable: true
       depth: 3
@@ -3183,6 +3944,20 @@ objects:
             \ de caracter\xEDsticas de hardware inmutables o un identificador aprovisionado\
             \ de forma segura en el dispositivo\nEx4: Etiquete f\xEDsicamente el hardware\
             \ autorizado con un identificador para fines de inventario y servicio"
+        pt:
+          description: "As identidades e credenciais de usu\xE1rios, servi\xE7os e\
+            \ hardware autorizados s\xE3o gerenciadas pela organiza\xE7\xE3o"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Iniciar solicita\xE7\xF5\
+            es de novo acesso ou acesso adicional para funcion\xE1rios, prestadores\
+            \ de servi\xE7o e outros, e acompanhar, revisar e atender \xE0s solicita\xE7\
+            \xF5es, com permiss\xE3o dos propriet\xE1rios dos sistemas ou dados quando\
+            \ necess\xE1rio\nEx2: Emitir, gerenciar e revogar certificados criptogr\xE1\
+            ficos e tokens de identidade, chaves criptogr\xE1ficas (ou seja, gest\xE3\
+            o de chaves) e outras credenciais\nEx3: Selecionar um identificador \xFA\
+            nico para cada dispositivo a partir de caracter\xEDsticas imut\xE1veis\
+            \ de hardware ou de um identificador provisionado de forma segura no dispositivo\n\
+            Ex4: Rotular fisicamente o hardware autorizado com um identificador para\
+            \ fins de invent\xE1rio e manuten\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-02
       assessable: true
       depth: 3
@@ -3219,6 +3994,19 @@ objects:
             \ la inscripci\xF3n utilizando credenciales de identidad emitidas por\
             \ el gobierno (p. ej., pasaporte, visa, licencia de conducir)\nEx2: Emitir\
             \ una credencial diferente para cada persona (es decir, no compartir credenciales)"
+        pt:
+          description: "As identidades s\xE3o comprovadas e vinculadas a credenciais\
+            \ com base no contexto das intera\xE7\xF5es"
+          annotation: '1st: Risco de Primeira Parte
+
+            3rd: Risco de Terceiros
+
+            Ex1: Verificar a identidade declarada de uma pessoa no momento do cadastro
+            utilizando credenciais de identidade emitidas pelo governo (por exemplo,
+            passaporte, visto, carteira de motorista)
+
+            Ex2: Emitir uma credencial diferente para cada pessoa (ou seja, sem compartilhamento
+            de credenciais)'
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-03
       assessable: true
       depth: 3
@@ -3262,6 +4050,15 @@ objects:
             n del riesgo (por ejemplo, en arquitecturas de confianza cero)\nPunto\
             \ 4: Garantizar que el personal autorizado pueda acceder a las cuentas\
             \ esenciales para proteger la seguridad en condiciones de emergencia"
+        pt:
+          description: "Usu\xE1rios, servi\xE7os e hardware s\xE3o autenticados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Exigir autentica\xE7\xE3\
+            o multifator\nEx2: Aplicar pol\xEDticas para a robustez m\xEDnima de senhas,\
+            \ PINs e autenticadores semelhantes\nEx3: Reautenticar periodicamente\
+            \ usu\xE1rios, servi\xE7os e hardware com base no risco (por exemplo,\
+            \ em arquiteturas de confian\xE7a zero)\nEx4: Assegurar que o pessoal\
+            \ autorizado possa acessar contas essenciais para a prote\xE7\xE3o da\
+            \ seguran\xE7a em condi\xE7\xF5es de emerg\xEAncia"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-04
       assessable: true
       depth: 3
@@ -3312,6 +4109,20 @@ objects:
             \ la generaci\xF3n (p. ej., modelos de datos, metadatos), protecci\xF3\
             n (p. ej., firma digital, cifrado) y verificaci\xF3n (p. ej., validaci\xF3\
             n de firma) de aserciones de identidad"
+        pt:
+          description: "As asser\xE7\xF5es de identidade s\xE3o protegidas, transmitidas\
+            \ e verificadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Proteger as asser\xE7\xF5\
+            es de identidade utilizadas para transmitir informa\xE7\xF5es de autentica\xE7\
+            \xE3o e do usu\xE1rio por meio de sistemas de logon \xFAnico (single sign-on)\n\
+            Ex2: Proteger as asser\xE7\xF5es de identidade utilizadas para transmitir\
+            \ informa\xE7\xF5es de autentica\xE7\xE3o e do usu\xE1rio entre sistemas\
+            \ federados\nEx3: Implementar abordagens baseadas em normas para asser\xE7\
+            \xF5es de identidade em todos os contextos e seguir todas as orienta\xE7\
+            \xF5es para a gera\xE7\xE3o (por exemplo, modelos de dados, metadados),\
+            \ prote\xE7\xE3o (por exemplo, assinatura digital, criptografia) e verifica\xE7\
+            \xE3o (por exemplo, valida\xE7\xE3o de assinatura) das asser\xE7\xF5es\
+            \ de identidade"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-05
       assessable: true
       depth: 3
@@ -3373,6 +4184,22 @@ objects:
             \ de confianza cero)\nEx4: Revisar peri\xF3dicamente los privilegios asociados\
             \ con las funciones cr\xEDticas del negocio para confirmar la separaci\xF3\
             n adecuada de funciones"
+        pt:
+          description: "As permiss\xF5es de acesso, os direitos e as autoriza\xE7\xF5\
+            es s\xE3o definidos em uma pol\xEDtica, gerenciados, aplicados e revisados,\
+            \ e incorporam os princ\xEDpios de privil\xE9gio m\xEDnimo e segrega\xE7\
+            \xE3o de fun\xE7\xF5es"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revisar os privil\xE9gios\
+            \ de acesso l\xF3gico e f\xEDsico periodicamente e sempre que algu\xE9\
+            m mudar de fun\xE7\xE3o ou deixar a organiza\xE7\xE3o, e revogar prontamente\
+            \ os privil\xE9gios que n\xE3o forem mais necess\xE1rios\nEx2: Levar em\
+            \ conta os atributos do solicitante e do recurso solicitado nas decis\xF5\
+            es de autoriza\xE7\xE3o (por exemplo, geolocaliza\xE7\xE3o, dia/hora,\
+            \ integridade cibern\xE9tica do endpoint do solicitante)\nEx3: Restringir\
+            \ o acesso e os privil\xE9gios ao m\xEDnimo necess\xE1rio (por exemplo,\
+            \ arquitetura de confian\xE7a zero)\nEx4: Revisar periodicamente os privil\xE9\
+            gios associados a fun\xE7\xF5es de neg\xF3cio cr\xEDticas para confirmar\
+            \ a adequada segrega\xE7\xE3o de fun\xE7\xF5es"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.aa-06
       assessable: true
       depth: 3
@@ -3419,6 +4246,16 @@ objects:
             \ f\xEDsica adicionales para \xE1reas que contienen activos de alto riesgo\n\
             Ex3: Acompa\xF1e a invitados, proveedores y otros terceros dentro de \xE1\
             reas que contengan activos cr\xEDticos para el negocio"
+        pt:
+          description: "O acesso f\xEDsico aos ativos \xE9 gerenciado, monitorado\
+            \ e imposto de forma proporcional ao risco"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Use seguran\xE7as, c\xE2meras de seguran\xE7a, entradas trancadas,\
+            \ sistemas de alarme e outros controles f\xEDsicos para monitorar as instala\xE7\
+            \xF5es e restringir o acesso\nEx2: Empregue controles de seguran\xE7a\
+            \ f\xEDsica adicionais para \xE1reas que contenham ativos de alto risco\n\
+            Ex3: Acompanhe visitantes, fornecedores e outras terceiras partes dentro\
+            \ de \xE1reas que contenham ativos cr\xEDticos para o neg\xF3cio"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.at
       assessable: false
       depth: 2
@@ -3438,6 +4275,11 @@ objects:
           description: "Se proporciona al personal de la organizaci\xF3n concienciaci\xF3\
             n y capacitaci\xF3n en seguridad cibern\xE9tica para que puedan realizar\
             \ sus tareas relacionadas con la seguridad cibern\xE9tica"
+        pt:
+          name: "Conscientiza\xE7\xE3o e Treinamento"
+          description: "O pessoal da organiza\xE7\xE3o recebe conscientiza\xE7\xE3\
+            o e treinamento em ciberseguran\xE7a para que possa desempenhar suas tarefas\
+            \ relacionadas \xE0 ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.at-01
       assessable: true
       depth: 3
@@ -3509,6 +4351,25 @@ objects:
             dicamente a los usuarios en su comprensi\xF3n de las pr\xE1cticas b\xE1\
             sicas de ciberseguridad\nEx5: Exigir un repaso anual para reforzar las\
             \ pr\xE1cticas existentes e introducir nuevas pr\xE1cticas"
+        pt:
+          description: "O pessoal recebe conscientiza\xE7\xE3o e treinamento para\
+            \ que possua o conhecimento e as habilidades necess\xE1rias para desempenhar\
+            \ tarefas gerais levando em considera\xE7\xE3o os riscos de ciberseguran\xE7\
+            a"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Forne\xE7a conscientiza\xE7\
+            \xE3o e treinamento b\xE1sicos em ciberseguran\xE7a a funcion\xE1rios,\
+            \ contratados, parceiros, fornecedores e todos os demais usu\xE1rios dos\
+            \ recursos n\xE3o p\xFAblicos da organiza\xE7\xE3o\nEx2: Treine o pessoal\
+            \ para reconhecer tentativas de engenharia social e outros ataques comuns,\
+            \ relatar ataques e atividades suspeitas, cumprir as pol\xEDticas de uso\
+            \ aceit\xE1vel e executar tarefas b\xE1sicas de higiene cibern\xE9tica\
+            \ (por exemplo, aplicar patches em software, escolher senhas, proteger\
+            \ credenciais)\nEx3: Explique as consequ\xEAncias das viola\xE7\xF5es\
+            \ da pol\xEDtica de ciberseguran\xE7a, tanto para os usu\xE1rios individuais\
+            \ quanto para a organiza\xE7\xE3o como um todo\nEx4: Avalie ou teste periodicamente\
+            \ os usu\xE1rios quanto ao seu entendimento das pr\xE1ticas b\xE1sicas\
+            \ de ciberseguran\xE7a\nEx5: Exija reciclagens anuais para refor\xE7ar\
+            \ as pr\xE1ticas existentes e introduzir novas pr\xE1ticas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.at-02
       assessable: true
       depth: 3
@@ -3576,6 +4437,23 @@ objects:
             n de las pr\xE1cticas de ciberseguridad para sus roles especializados\n\
             Ex4: Exigir un repaso anual para reforzar las pr\xE1cticas existentes\
             \ e introducir nuevas pr\xE1cticas"
+        pt:
+          description: "Os indiv\xEDduos em fun\xE7\xF5es especializadas recebem conscientiza\xE7\
+            \xE3o e treinamento para que possuam o conhecimento e as habilidades necess\xE1\
+            rias para desempenhar tarefas relevantes levando em considera\xE7\xE3\
+            o os riscos de ciberseguran\xE7a"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Identifique as fun\xE7\xF5es especializadas dentro da organiza\xE7\
+            \xE3o que exigem treinamento adicional em ciberseguran\xE7a, como pessoal\
+            \ de seguran\xE7a f\xEDsica e ciberseguran\xE7a, pessoal financeiro, alta\
+            \ lideran\xE7a e qualquer pessoa com acesso a dados cr\xEDticos para o\
+            \ neg\xF3cio\nEx2: Forne\xE7a conscientiza\xE7\xE3o e treinamento em ciberseguran\xE7\
+            a baseados em fun\xE7\xE3o a todos aqueles em fun\xE7\xF5es especializadas,\
+            \ incluindo contratados, parceiros, fornecedores e outras terceiras partes\n\
+            Ex3: Avalie ou teste periodicamente os usu\xE1rios quanto ao seu entendimento\
+            \ das pr\xE1ticas de ciberseguran\xE7a para suas fun\xE7\xF5es especializadas\n\
+            Ex4: Exija reciclagens anuais para refor\xE7ar as pr\xE1ticas existentes\
+            \ e introduzir novas pr\xE1ticas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ds
       assessable: false
       depth: 2
@@ -3595,6 +4473,11 @@ objects:
           description: "Los datos se gestionan de forma coherente con la estrategia\
             \ de riesgos de la organizaci\xF3n para proteger la confidencialidad,\
             \ integridad y disponibilidad de la informaci\xF3n"
+        pt:
+          name: "Seguran\xE7a de Dados"
+          description: "Os dados s\xE3o gerenciados de forma consistente com a estrat\xE9\
+            gia de risco da organiza\xE7\xE3o para proteger a confidencialidade, integridade\
+            \ e disponibilidade das informa\xE7\xF5es"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ds-01
       assessable: true
       depth: 3
@@ -3650,6 +4533,20 @@ objects:
             n de datos\nEx5: Medios extra\xEDbles f\xEDsicamente seguros que contienen\
             \ informaci\xF3n confidencial sin cifrar, como dentro de oficinas o archivadores\
             \ cerrados con llave"
+        pt:
+          description: "A confidencialidade, integridade e disponibilidade dos dados\
+            \ em repouso s\xE3o protegidas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Use criptografia, assinaturas\
+            \ digitais e hashes criptogr\xE1ficos para proteger a confidencialidade\
+            \ e a integridade dos dados armazenados em arquivos, bancos de dados,\
+            \ imagens de disco de m\xE1quinas virtuais, imagens de cont\xEAineres\
+            \ e outros recursos\nEx2: Use criptografia de disco completo para proteger\
+            \ os dados armazenados em endpoints de usu\xE1rios\nEx3: Confirme a integridade\
+            \ do software validando as assinaturas\nEx4: Restrinja o uso de m\xED\
+            dias remov\xEDveis para evitar a exfiltra\xE7\xE3o de dados\nEx5: Proteja\
+            \ fisicamente as m\xEDdias remov\xEDveis que contenham informa\xE7\xF5\
+            es sens\xEDveis n\xE3o criptografadas, como em escrit\xF3rios ou arm\xE1\
+            rios de arquivos trancados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ds-02
       assessable: true
       depth: 3
@@ -3706,6 +4603,21 @@ objects:
             n de datos confidenciales de entornos de producci\xF3n (por ejemplo, registros\
             \ de clientes) en entornos de desarrollo, pruebas y otros entornos que\
             \ no sean de producci\xF3n"
+        pt:
+          description: "A confidencialidade, integridade e disponibilidade dos dados\
+            \ em tr\xE2nsito s\xE3o protegidas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Use criptografia, assinaturas\
+            \ digitais e hashes criptogr\xE1ficos para proteger a confidencialidade\
+            \ e a integridade das comunica\xE7\xF5es de rede\nEx2: Criptografe ou\
+            \ bloqueie automaticamente e-mails de sa\xEDda e outras comunica\xE7\xF5\
+            es que contenham dados sens\xEDveis, dependendo da classifica\xE7\xE3\
+            o dos dados\nEx3: Bloqueie o acesso a e-mail pessoal, compartilhamento\
+            \ de arquivos, servi\xE7os de armazenamento de arquivos e outros aplicativos\
+            \ e servi\xE7os de comunica\xE7\xE3o pessoal a partir de sistemas e redes\
+            \ organizacionais\nEx4: Evite a reutiliza\xE7\xE3o de dados sens\xEDveis\
+            \ de ambientes de produ\xE7\xE3o (por exemplo, registros de clientes)\
+            \ em ambientes de desenvolvimento, teste e outros ambientes que n\xE3\
+            o sejam de produ\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ds-10
       assessable: true
       depth: 3
@@ -3739,6 +4651,13 @@ objects:
             \ permanecer confidenciales (por ejemplo, de los procesadores y la memoria)\
             \ tan pronto como ya no sean necesarios\nEx2: Proteger los datos en uso\
             \ del acceso de otros usuarios y procesos de la misma plataforma"
+        pt:
+          description: "A confidencialidade, integridade e disponibilidade dos dados\
+            \ em uso s\xE3o protegidas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Remova os dados que devem\
+            \ permanecer confidenciais (por exemplo, de processadores e mem\xF3ria)\
+            \ assim que n\xE3o forem mais necess\xE1rios\nEx2: Proteja os dados em\
+            \ uso contra o acesso por outros usu\xE1rios e processos da mesma plataforma"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ds-11
       assessable: true
       depth: 3
@@ -3786,6 +4705,17 @@ objects:
             \ para que un incidente o desastre no las da\xF1e\nEx4: Aplicar restricciones\
             \ de separaci\xF3n geogr\xE1fica y geolocalizaci\xF3n para el almacenamiento\
             \ de copias de seguridad de datos"
+        pt:
+          description: "Os backups dos dados s\xE3o criados, protegidos, mantidos\
+            \ e testados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Fa\xE7a backup cont\xED\
+            nuo dos dados cr\xEDticos em tempo quase real e fa\xE7a backup dos demais\
+            \ dados com frequ\xEAncia em cronogramas acordados\nEx2: Teste os backups\
+            \ e as restaura\xE7\xF5es para todos os tipos de fontes de dados pelo\
+            \ menos anualmente\nEx3: Armazene com seguran\xE7a alguns backups offline\
+            \ e fora do local, de modo que um incidente ou desastre n\xE3o os danifique\n\
+            Ex4: Imponha separa\xE7\xE3o geogr\xE1fica e restri\xE7\xF5es de geolocaliza\xE7\
+            \xE3o para o armazenamento de backups de dados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps
       assessable: false
       depth: 2
@@ -3810,6 +4740,12 @@ objects:
             \ aplicaciones) y los servicios de las plataformas f\xEDsicas y virtuales\
             \ se gestionan de acuerdo con la estrategia de riesgos de la organizaci\xF3\
             n para proteger su confidencialidad, integridad y disponibilidad"
+        pt:
+          name: "Seguran\xE7a de Plataforma"
+          description: "O hardware, o software (por exemplo, firmware, sistemas operacionais,\
+            \ aplicativos) e os servi\xE7os de plataformas f\xEDsicas e virtuais s\xE3\
+            o gerenciados de forma consistente com a estrat\xE9gia de risco da organiza\xE7\
+            \xE3o para proteger sua confidencialidade, integridade e disponibilidade"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-01
       assessable: true
       depth: 3
@@ -3855,6 +4791,16 @@ objects:
             \ afectar a la ciberseguridad al instalar o actualizar software\nEx3:\
             \ Supervisar el software implementado para detectar desviaciones de las\
             \ l\xEDneas de base aprobadas"
+        pt:
+          description: "As pr\xE1ticas de gerenciamento de configura\xE7\xE3o s\xE3\
+            o estabelecidas e aplicadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Estabele\xE7a, teste, implante\
+            \ e mantenha baselines refor\xE7adas (hardened) que imponham as pol\xED\
+            ticas de ciberseguran\xE7a da organiza\xE7\xE3o e forne\xE7am apenas as\
+            \ capacidades essenciais (ou seja, princ\xEDpio da menor funcionalidade)\n\
+            Ex2: Revise todas as configura\xE7\xF5es padr\xE3o que possam potencialmente\
+            \ afetar a ciberseguran\xE7a ao instalar ou atualizar software\nEx3: Monitore\
+            \ o software implementado quanto a desvios das baselines aprovadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-02
       assessable: true
       depth: 3
@@ -3917,6 +4863,22 @@ objects:
             \ operativo) que los atacantes puedan utilizar indebidamente\nEx6: Definir\
             \ e implementar planes para el soporte de mantenimiento al final de la\
             \ vida \xFAtil del software y los servicios y la obsolescencia"
+        pt:
+          description: "O software \xE9 mantido, substitu\xEDdo e removido de forma\
+            \ proporcional ao risco"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Realize a aplica\xE7\xE3\
+            o de patches de rotina e de emerg\xEAncia dentro dos prazos especificados\
+            \ no plano de gerenciamento de vulnerabilidades\nEx2: Atualize as imagens\
+            \ de cont\xEAineres e implante novas inst\xE2ncias de cont\xEAineres para\
+            \ substituir, em vez de atualizar, as inst\xE2ncias existentes\nEx3: Substitua\
+            \ vers\xF5es de software e servi\xE7os em fim de vida \xFAtil por vers\xF5\
+            es suportadas e mantidas\nEx4: Desinstale e remova software e servi\xE7\
+            os n\xE3o autorizados que representem riscos indevidos\nEx5: Desinstale\
+            \ e remova quaisquer componentes de software desnecess\xE1rios (por exemplo,\
+            \ utilit\xE1rios do sistema operacional) que os atacantes possam utilizar\
+            \ indevidamente\nEx6: Defina e implemente planos para suporte de manuten\xE7\
+            \xE3o de fim de vida \xFAtil e obsolesc\xEAncia de software e servi\xE7\
+            os"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-03
       assessable: true
       depth: 3
@@ -3961,6 +4923,16 @@ objects:
             \ de mantenimiento al final de la vida \xFAtil del hardware y la obsolescencia\n\
             Ex3: Realizar la eliminaci\xF3n de hardware de forma segura, responsable\
             \ y auditable"
+        pt:
+          description: "O hardware \xE9 mantido, substitu\xEDdo e removido de forma\
+            \ proporcional ao risco"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Substitua o hardware quando ele n\xE3o tiver as capacidades de seguran\xE7\
+            a necess\xE1rias ou quando n\xE3o puder suportar software com as capacidades\
+            \ de seguran\xE7a necess\xE1rias\nEx2: Defina e implemente planos para\
+            \ suporte de manuten\xE7\xE3o de fim de vida \xFAtil e obsolesc\xEAncia\
+            \ de hardware\nEx3: Realize o descarte de hardware de maneira segura,\
+            \ respons\xE1vel e audit\xE1vel"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-04
       assessable: true
       depth: 3
@@ -4002,6 +4974,16 @@ objects:
             \ de infraestructura de registro de la organizaci\xF3n\nEx3: Configurar\
             \ generadores de registros para registrar los datos que necesitan las\
             \ arquitecturas de confianza cero"
+        pt:
+          description: "Registros de log s\xE3o gerados e disponibilizados para monitoramento\
+            \ cont\xEDnuo"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Configure todos os sistemas\
+            \ operacionais, aplicativos e servi\xE7os (incluindo servi\xE7os baseados\
+            \ em nuvem) para gerar registros de log\nEx2: Configure os geradores de\
+            \ log para compartilhar com seguran\xE7a seus logs com os sistemas e servi\xE7\
+            os de infraestrutura de logging da organiza\xE7\xE3o\nEx3: Configure os\
+            \ geradores de log para registrar os dados necess\xE1rios para arquiteturas\
+            \ de confian\xE7a zero (zero trust)"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-05
       assessable: true
       depth: 3
@@ -4048,6 +5030,17 @@ objects:
             \ DNS aprobados que bloqueen el acceso a dominios malintencionados conocidos\n\
             Ex4: Configurar plataformas para permitir la instalaci\xF3n solo de software\
             \ aprobado por la organizaci\xF3n"
+        pt:
+          description: "A instala\xE7\xE3o e a execu\xE7\xE3o de software n\xE3o autorizado\
+            \ s\xE3o impedidas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Quando o risco o justificar,\
+            \ restrinja a execu\xE7\xE3o de software apenas a produtos permitidos\
+            \ ou negue a execu\xE7\xE3o de software proibido e n\xE3o autorizado\n\
+            Ex2: Verifique a origem do novo software e a integridade do software antes\
+            \ de instal\xE1-lo\nEx3: Configure as plataformas para usar apenas servi\xE7\
+            os de DNS aprovados que bloqueiem o acesso a dom\xEDnios maliciosos conhecidos\n\
+            Ex4: Configure as plataformas para permitir a instala\xE7\xE3o somente\
+            \ de software aprovado pela organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ps-06
       assessable: true
       depth: 3
@@ -4091,6 +5084,17 @@ objects:
             \ por la organizaci\xF3n, con vulnerabilidades m\xEDnimas en sus versiones\n\
             Ex3: Mantener el software utilizado en los entornos de producci\xF3n y\
             \ desechar de forma segura el software una vez que ya no sea necesario"
+        pt:
+          description: "Pr\xE1ticas de desenvolvimento seguro de software s\xE3o integradas,\
+            \ e seu desempenho \xE9 monitorado ao longo de todo o ciclo de vida de\
+            \ desenvolvimento de software"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Proteja todos os componentes\
+            \ do software desenvolvido pela organiza\xE7\xE3o contra adultera\xE7\xE3\
+            o e acesso n\xE3o autorizado\nEx2: Torne seguro todo o software produzido\
+            \ pela organiza\xE7\xE3o, com vulnerabilidades m\xEDnimas em suas vers\xF5\
+            es (releases)\nEx3: Mantenha o software usado em ambientes de produ\xE7\
+            \xE3o e descarte com seguran\xE7a o software quando ele n\xE3o for mais\
+            \ necess\xE1rio"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ir
       assessable: false
       depth: 2
@@ -4113,6 +5117,11 @@ objects:
             \ de riesgos de la organizaci\xF3n a fin de proteger la confidencialidad,\
             \ la integridad y la disponibilidad de los activos, as\xED como la resiliencia\
             \ de la organizaci\xF3n"
+        pt:
+          name: "Resili\xEAncia da Infraestrutura de Tecnologia"
+          description: "As arquiteturas de seguran\xE7a s\xE3o gerenciadas de acordo\
+            \ com a estrat\xE9gia de risco da organiza\xE7\xE3o para proteger a confidencialidade,\
+            \ integridade e disponibilidade dos ativos e a resili\xEAncia organizacional"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ir-01
       assessable: true
       depth: 3
@@ -4174,6 +5183,21 @@ objects:
             \ cada recurso al m\xEDnimo necesario\nEx4: Comprobar el estado cibern\xE9\
             tico de los endpoints antes de permitirles acceder y utilizar los recursos\
             \ de producci\xF3n"
+        pt:
+          description: "As redes e os ambientes s\xE3o protegidos contra acesso e\
+            \ uso l\xF3gico n\xE3o autorizado"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Segmente logicamente as redes da organiza\xE7\xE3o e as plataformas\
+            \ baseadas em nuvem de acordo com os limites de confian\xE7a e os tipos\
+            \ de plataforma (por exemplo, TI, IoT, OT, dispositivos m\xF3veis, visitantes),\
+            \ e permita apenas as comunica\xE7\xF5es necess\xE1rias entre os segmentos\n\
+            Ex2: Segmente logicamente as redes da organiza\xE7\xE3o das redes externas\
+            \ e permita apenas as comunica\xE7\xF5es necess\xE1rias para que entrem\
+            \ nas redes da organiza\xE7\xE3o a partir das redes externas\nEx3: Implemente\
+            \ arquiteturas de confian\xE7a zero (zero trust) para restringir o acesso\
+            \ \xE0 rede de cada recurso ao m\xEDnimo necess\xE1rio\nEx4: Verifique\
+            \ a sa\xFAde cibern\xE9tica dos endpoints antes de permitir que acessem\
+            \ e utilizem os recursos de produ\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ir-02
       assessable: true
       depth: 3
@@ -4217,6 +5241,16 @@ objects:
             \ para una infraestructura operativa adecuada en los requisitos para los\
             \ proveedores de servicios que operan sistemas en nombre de la organizaci\xF3\
             n."
+        pt:
+          description: "Os ativos de tecnologia da organiza\xE7\xE3o s\xE3o protegidos\
+            \ contra amea\xE7as ambientais"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Proteja os equipamentos organizacionais contra amea\xE7as ambientais\
+            \ conhecidas, como inunda\xE7\xF5es, inc\xEAndio, vento e calor e umidade\
+            \ excessivos\nEx2: Inclua prote\xE7\xE3o contra amea\xE7as ambientais\
+            \ e provis\xF5es para infraestrutura operacional adequada nos requisitos\
+            \ para provedores de servi\xE7os que operam sistemas em nome da organiza\xE7\
+            \xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ir-03
       assessable: true
       depth: 3
@@ -4253,6 +5287,14 @@ objects:
             \ de carga para aumentar la capacidad y mejorar la confiabilidad\nEx3:\
             \ Utilice componentes de alta disponibilidad, como almacenamiento redundante\
             \ y fuentes de alimentaci\xF3n, para mejorar la fiabilidad del sistema"
+        pt:
+          description: "Mecanismos s\xE3o implementados para atender aos requisitos\
+            \ de resili\xEAncia em situa\xE7\xF5es normais e adversas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Evite pontos \xFAnicos de\
+            \ falha em sistemas e infraestrutura\nEx2: Use balanceamento de carga\
+            \ para aumentar a capacidade e melhorar a confiabilidade\nEx3: Use componentes\
+            \ de alta disponibilidade, como armazenamento e fontes de alimenta\xE7\
+            \xE3o redundantes, para melhorar a confiabilidade do sistema"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:pr.ir-04
       assessable: true
       depth: 3
@@ -4279,6 +5321,12 @@ objects:
           annotation: "Ex1: Supervise el uso del almacenamiento, la energ\xEDa, la\
             \ computaci\xF3n, el ancho de banda de red y otros recursos\nEx2: Pronostique\
             \ las necesidades futuras y escale los recursos en consecuencia"
+        pt:
+          description: "Capacidade adequada de recursos para garantir a disponibilidade\
+            \ \xE9 mantida"
+          annotation: "Ex1: Monitore o uso de armazenamento, energia, computa\xE7\xE3\
+            o, largura de banda de rede e outros recursos\nEx2: Preveja necessidades\
+            \ futuras e dimensione os recursos de acordo"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de
       assessable: false
       depth: 1
@@ -4294,6 +5342,10 @@ objects:
           name: DETECTAR
           description: "Se detectan y analizan posibles ataques y situaciones comprometedoras\
             \ en materia de seguridad cibern\xE9tica."
+        pt:
+          name: DETECTAR
+          description: "Poss\xEDveis ataques e comprometimentos de ciberseguran\xE7\
+            a s\xE3o encontrados e analisados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm
       assessable: false
       depth: 2
@@ -4312,6 +5364,10 @@ objects:
           name: Monitoreo continuo
           description: "Los activos se monitorean para encontrar anomal\xEDas, indicadores\
             \ de compromiso y otros acontecimientos potencialmente adversos"
+        pt:
+          name: "Monitoramento Cont\xEDnuo"
+          description: "Os ativos s\xE3o monitorados para encontrar anomalias, indicadores\
+            \ de comprometimento e outros eventos potencialmente adversos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm-01
       assessable: true
       depth: 3
@@ -4362,6 +5418,17 @@ objects:
             neas de base para detectar desviaciones\nEx5: Supervisar las comunicaciones\
             \ de red para identificar cambios en las posturas de seguridad con fines\
             \ de confianza cero\n1\xBA: Riesgo de 1\xAA parte"
+        pt:
+          description: "As redes e os servi\xE7os de rede s\xE3o monitorados para\
+            \ encontrar eventos potencialmente adversos"
+          annotation: "Ex1: Monitore DNS, BGP e outros servi\xE7os de rede quanto\
+            \ a eventos adversos\nEx2: Monitore redes com e sem fio quanto a conex\xF5\
+            es de endpoints n\xE3o autorizados\nEx3: Monitore as instala\xE7\xF5es\
+            \ quanto a redes sem fio n\xE3o autorizadas ou clandestinas (rogue)\n\
+            Ex4: Compare os fluxos reais de rede com as baselines para detectar desvios\n\
+            Ex5: Monitore as comunica\xE7\xF5es de rede para identificar mudan\xE7\
+            as nas posturas de seguran\xE7a para fins de confian\xE7a zero (zero trust)\n\
+            1st: Risco de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm-02
       assessable: true
       depth: 3
@@ -4413,6 +5480,18 @@ objects:
             \ pestillos, pasadores de bisagras, alarmas) para detectar signos de manipulaci\xF3\
             n\nEx4: Monitoree el entorno f\xEDsico utilizando sistemas de alarma,\
             \ c\xE1maras y guardias de seguridad\n1\xBA: Riesgo de 1\xAA parte"
+        pt:
+          description: "O ambiente f\xEDsico \xE9 monitorado para encontrar eventos\
+            \ potencialmente adversos"
+          annotation: "Ex1: Monitore os logs dos sistemas de controle de acesso f\xED\
+            sico (por exemplo, leitores de crach\xE1) para encontrar padr\xF5es de\
+            \ acesso incomuns (por exemplo, desvios da norma) e tentativas de acesso\
+            \ malsucedidas\nEx2: Revise e monitore os registros de acesso f\xEDsico\
+            \ (por exemplo, de registro de visitantes, listas de presen\xE7a)\nEx3:\
+            \ Monitore os controles de acesso f\xEDsico (por exemplo, fechaduras,\
+            \ trincos, pinos de dobradi\xE7a, alarmes) quanto a sinais de adultera\xE7\
+            \xE3o\nEx4: Monitore o ambiente f\xEDsico usando sistemas de alarme, c\xE2\
+            meras e seguran\xE7as\n1st: Risco de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm-03
       assessable: true
       depth: 3
@@ -4456,6 +5535,16 @@ objects:
             \ de acceso fallidos\nEx3: Supervise continuamente la tecnolog\xEDa de\
             \ enga\xF1o, incluidas las cuentas de usuario, para cualquier uso\n1\xBA\
             : Riesgo de 1\xAA parte"
+        pt:
+          description: "A atividade do pessoal e o uso de tecnologia s\xE3o monitorados\
+            \ para encontrar eventos potencialmente adversos"
+          annotation: "Ex1: Use software de an\xE1lise de comportamento para detectar\
+            \ atividades an\xF4malas de usu\xE1rios a fim de mitigar amea\xE7as internas\n\
+            Ex2: Monitore os logs dos sistemas de controle de acesso l\xF3gico para\
+            \ encontrar padr\xF5es de acesso incomuns e tentativas de acesso malsucedidas\n\
+            Ex3: Monitore continuamente a tecnologia de dissimula\xE7\xE3o (deception),\
+            \ incluindo contas de usu\xE1rios, quanto a qualquer uso\n1st: Risco de\
+            \ Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm-06
       assessable: true
       depth: 3
@@ -4494,6 +5583,15 @@ objects:
             \ basados en la nube, los proveedores de servicios de Internet y otros\
             \ proveedores de servicios para detectar desviaciones del comportamiento\
             \ esperado\n3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "As atividades e os servi\xE7os de provedores de servi\xE7\
+            os externos s\xE3o monitorados para encontrar eventos potencialmente adversos"
+          annotation: "Ex1: Monitore as atividades de administra\xE7\xE3o e manuten\xE7\
+            \xE3o remotas e no local que provedores externos realizam nos sistemas\
+            \ organizacionais\nEx2: Monitore a atividade de servi\xE7os baseados em\
+            \ nuvem, provedores de servi\xE7os de internet e outros provedores de\
+            \ servi\xE7os quanto a desvios do comportamento esperado\n3rd: Risco de\
+            \ Terceira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.cm-09
       assessable: true
       depth: 3
@@ -4558,6 +5656,22 @@ objects:
             \ de malware, software no autorizado) y redirija los puntos finales a\
             \ un entorno de correcci\xF3n antes de que se autorice el acceso\n1\xBA\
             : Riesgo de 1\xAA parte"
+        pt:
+          description: "Hardware e software de computa\xE7\xE3o, ambientes de runtime\
+            \ e seus dados s\xE3o monitorados para encontrar eventos potencialmente\
+            \ adversos"
+          annotation: "Ex1: Monitore e-mail, web, compartilhamento de arquivos, servi\xE7\
+            os de colabora\xE7\xE3o e outros vetores de ataque comuns para detectar\
+            \ malware, phishing, vazamentos e exfiltra\xE7\xE3o de dados e outros\
+            \ eventos adversos\nEx2: Monitore as tentativas de autentica\xE7\xE3o\
+            \ para identificar ataques contra credenciais e reutiliza\xE7\xE3o n\xE3\
+            o autorizada de credenciais\nEx3: Monitore as configura\xE7\xF5es de software\
+            \ quanto a desvios das baselines de seguran\xE7a\nEx4: Monitore hardware\
+            \ e software quanto a sinais de adultera\xE7\xE3o\nEx5: Use tecnologias\
+            \ com presen\xE7a em endpoints para detectar problemas de sa\xFAde cibern\xE9\
+            tica (por exemplo, patches ausentes, infec\xE7\xF5es por malware, software\
+            \ n\xE3o autorizado) e redirecione os endpoints para um ambiente de remedia\xE7\
+            \xE3o antes que o acesso seja autorizado\n1st: Risco de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae
       assessable: false
       depth: 2
@@ -4578,6 +5692,11 @@ objects:
           description: "Se analizan anomal\xEDas, indicadores de compromiso y otros\
             \ acontecimientos potencialmente adversos para caracterizarlos y detectar\
             \ incidentes de seguridad cibern\xE9tica"
+        pt:
+          name: "An\xE1lise de Eventos Adversos"
+          description: "Anomalias, indicadores de comprometimento e outros eventos\
+            \ potencialmente adversos s\xE3o analisados para caracterizar os eventos\
+            \ e detectar incidentes de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-02
       assessable: true
       depth: 3
@@ -4633,6 +5752,20 @@ objects:
             \ no se pueden supervisar suficientemente mediante la automatizaci\xF3\
             n\nEx4: Utilice herramientas de an\xE1lisis de registros para generar\
             \ informes sobre sus hallazgos\n1\xBA: Riesgo de 1\xAA parte"
+        pt:
+          description: "Eventos potencialmente adversos s\xE3o analisados para melhor\
+            \ compreender as atividades associadas"
+          annotation: "Ex1: Use o gerenciamento de informa\xE7\xF5es e eventos de\
+            \ seguran\xE7a (SIEM) ou outras ferramentas para monitorar continuamente\
+            \ os eventos de log em busca de atividades maliciosas e suspeitas conhecidas\n\
+            Ex2: Utilize intelig\xEAncia de amea\xE7as cibern\xE9ticas atualizada\
+            \ nas ferramentas de an\xE1lise de log para melhorar a precis\xE3o da\
+            \ detec\xE7\xE3o e caracterizar os agentes de amea\xE7a, seus m\xE9todos\
+            \ e indicadores de comprometimento\nEx3: Realize regularmente revis\xF5\
+            es manuais dos eventos de log para tecnologias que n\xE3o podem ser suficientemente\
+            \ monitoradas por meio de automa\xE7\xE3o\nEx4: Use ferramentas de an\xE1\
+            lise de log para gerar relat\xF3rios sobre suas descobertas\n1st: Risco\
+            \ de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-03
       assessable: true
       depth: 3
@@ -4672,6 +5805,16 @@ objects:
             ltiples fuentes\nEx3: Utilice la inteligencia de amenazas cibern\xE9ticas\
             \ para ayudar a correlacionar eventos entre or\xEDgenes de registro\n\
             1\xBA: Riesgo de 1\xAA parte"
+        pt:
+          description: "As informa\xE7\xF5es s\xE3o correlacionadas a partir de m\xFA\
+            ltiplas fontes"
+          annotation: "Ex1: Transfira constantemente os dados de log gerados por outras\
+            \ fontes para um n\xFAmero relativamente pequeno de servidores de log\n\
+            Ex2: Use tecnologia de correla\xE7\xE3o de eventos (por exemplo, SIEM)\
+            \ para coletar informa\xE7\xF5es capturadas por m\xFAltiplas fontes\n\
+            Ex3: Utilize intelig\xEAncia de amea\xE7as cibern\xE9ticas para ajudar\
+            \ a correlacionar eventos entre as fontes de log\n1st: Risco de Primeira\
+            \ Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-04
       assessable: true
       depth: 3
@@ -4702,6 +5845,13 @@ objects:
             \ y el alcance, y revise y perfeccione las estimaciones\nEx2: Una persona\
             \ crea sus propias estimaciones de impacto y alcance\n1\xBA: Riesgo de\
             \ 1\xAA parte"
+        pt:
+          description: "O impacto e o escopo estimados dos eventos adversos s\xE3\
+            o compreendidos"
+          annotation: "Ex1: Use SIEMs ou outras ferramentas para estimar o impacto\
+            \ e o escopo, e revise e refine as estimativas\nEx2: Uma pessoa cria suas\
+            \ pr\xF3prias estimativas de impacto e escopo\n1st: Risco de Primeira\
+            \ Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-06
       assessable: true
       depth: 3
@@ -4755,6 +5905,19 @@ objects:
             \ Crear y asignar tickets manualmente en el sistema de tickets de la organizaci\xF3\
             n cuando el personal t\xE9cnico descubra indicadores de compromiso\n1\xBA\
             : Riesgo de 1\xAA parte"
+        pt:
+          description: "Informa\xE7\xF5es sobre eventos adversos s\xE3o fornecidas\
+            \ \xE0 equipe e \xE0s ferramentas autorizadas"
+          annotation: "Ex1: Use software de ciberseguran\xE7a para gerar alertas e\
+            \ fornec\xEA-los ao centro de opera\xE7\xF5es de seguran\xE7a (SOC), aos\
+            \ respondedores de incidentes e \xE0s ferramentas de resposta a incidentes\n\
+            Ex2: Os respondedores de incidentes e outro pessoal autorizado podem acessar\
+            \ as descobertas da an\xE1lise de log a qualquer momento\nEx3: Crie e\
+            \ atribua automaticamente t\xEDquetes no sistema de t\xEDquetes da organiza\xE7\
+            \xE3o quando ocorrerem determinados tipos de alertas\nEx4: Crie e atribua\
+            \ manualmente t\xEDquetes no sistema de t\xEDquetes da organiza\xE7\xE3\
+            o quando a equipe t\xE9cnica descobrir indicadores de comprometimento\n\
+            1st: Risco de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-07
       assessable: true
       depth: 3
@@ -4799,6 +5962,16 @@ objects:
             \ las divulgaciones de vulnerabilidades de las tecnolog\xEDas de la organizaci\xF3\
             n de proveedores, vendedores y avisos de seguridad de terceros.\n1\xBA\
             : Riesgo de 1\xAA parte"
+        pt:
+          description: "Intelig\xEAncia de amea\xE7as cibern\xE9ticas e outras informa\xE7\
+            \xF5es contextuais s\xE3o integradas \xE0 an\xE1lise"
+          annotation: "Ex1: Forne\xE7a com seguran\xE7a feeds de intelig\xEAncia de\
+            \ amea\xE7as cibern\xE9ticas \xE0s tecnologias, processos e pessoal de\
+            \ detec\xE7\xE3o\nEx2: Forne\xE7a com seguran\xE7a informa\xE7\xF5es dos\
+            \ invent\xE1rios de ativos \xE0s tecnologias, processos e pessoal de detec\xE7\
+            \xE3o\nEx3: Adquira e analise rapidamente as divulga\xE7\xF5es de vulnerabilidades\
+            \ das tecnologias da organiza\xE7\xE3o provenientes de fornecedores, vendedores\
+            \ e avisos de seguran\xE7a de terceiros\n1st: Risco de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:de.ae-08
       assessable: true
       depth: 3
@@ -4831,6 +6004,14 @@ objects:
             \ conocidas y supuestas de la actividad para determinar si un incidente\
             \ debe declararse\nEx2: Tener en cuenta los falsos positivos conocidos\
             \ al aplicar los criterios de incidentes\n1\xBA: Riesgo de 1\xAA parte"
+        pt:
+          description: "Os incidentes s\xE3o declarados quando os eventos adversos\
+            \ atendem aos crit\xE9rios de incidente definidos"
+          annotation: "Ex1: Aplique os crit\xE9rios de incidente \xE0s caracter\xED\
+            sticas conhecidas e presumidas da atividade a fim de determinar se um\
+            \ incidente deve ser declarado\nEx2: Leve em considera\xE7\xE3o os falsos\
+            \ positivos conhecidos ao aplicar os crit\xE9rios de incidente\n1st: Risco\
+            \ de Primeira Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs
       assessable: false
       depth: 1
@@ -4846,6 +6027,10 @@ objects:
           name: RESPONDER
           description: "Se toman medidas en relaci\xF3n con un incidente de seguridad\
             \ cibern\xE9tica detectado"
+        pt:
+          name: RESPONDER
+          description: "A\xE7\xF5es relativas a um incidente de ciberseguran\xE7a\
+            \ detectado s\xE3o tomadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma
       assessable: false
       depth: 2
@@ -4862,6 +6047,10 @@ objects:
           name: "Gesti\xF3n de incidentes"
           description: "Se gestionan las respuestas a los incidentes de seguridad\
             \ cibern\xE9tica detectados"
+        pt:
+          name: Gerenciamento de Incidentes
+          description: "As respostas a incidentes de ciberseguran\xE7a detectados\
+            \ s\xE3o gerenciadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma-01
       assessable: true
       depth: 3
@@ -4906,6 +6095,17 @@ objects:
             \ adicionales seg\xFAn sea necesario para respaldar la respuesta a incidentes\
             \ (por ejemplo, continuidad del negocio y recuperaci\xF3n ante desastres)\n\
             3\xBA: Riesgo de 3\xAA parte"
+        pt:
+          description: "O plano de resposta a incidentes \xE9 executado em coordena\xE7\
+            \xE3o com terceiras partes relevantes assim que um incidente \xE9 declarado"
+          annotation: "Ex1: As tecnologias de detec\xE7\xE3o relatam automaticamente\
+            \ os incidentes confirmados\nEx2: Solicite assist\xEAncia de resposta\
+            \ a incidentes ao terceirizado de resposta a incidentes da organiza\xE7\
+            \xE3o\nEx3: Designe um l\xEDder de incidente para cada incidente\nEx4:\
+            \ Inicie a execu\xE7\xE3o de planos de ciberseguran\xE7a adicionais conforme\
+            \ necess\xE1rio para apoiar a resposta a incidentes (por exemplo, continuidade\
+            \ de neg\xF3cios e recupera\xE7\xE3o de desastres)\n3rd: Risco de Terceira\
+            \ Parte"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma-02
       assessable: true
       depth: 3
@@ -4935,6 +6135,12 @@ objects:
             \ los informes de incidentes para confirmar que est\xE1n relacionados\
             \ con la ciberseguridad y requieren actividades de respuesta a incidentes.\n\
             Ex2: Aplicar criterios para estimar la gravedad de un incidente"
+        pt:
+          description: "Os relat\xF3rios de incidentes s\xE3o triados e validados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revise preliminarmente os\
+            \ relat\xF3rios de incidentes para confirmar que s\xE3o relacionados \xE0\
+            \ ciberseguran\xE7a e exigem atividades de resposta a incidentes\nEx2:\
+            \ Aplique crit\xE9rios para estimar a severidade de um incidente"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma-03
       assessable: true
       depth: 3
@@ -4976,6 +6182,16 @@ objects:
             \ incidentes para incidentes activos equilibrando la necesidad de recuperarse\
             \ r\xE1pidamente de un incidente con la necesidad de observar al atacante\
             \ o realizar una investigaci\xF3n m\xE1s exhaustiva"
+        pt:
+          description: "Os incidentes s\xE3o categorizados e priorizados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revise e categorize ainda\
+            \ mais os incidentes com base no tipo de incidente (por exemplo, viola\xE7\
+            \xE3o de dados, ransomware, DDoS, comprometimento de conta)\nEx2: Priorize\
+            \ os incidentes com base em seu escopo, prov\xE1vel impacto e natureza\
+            \ cr\xEDtica em termos de tempo\nEx3: Selecione estrat\xE9gias de resposta\
+            \ a incidentes para incidentes ativos equilibrando a necessidade de recupera\xE7\
+            \xE3o r\xE1pida de um incidente com a necessidade de observar o atacante\
+            \ ou conduzir uma investiga\xE7\xE3o mais minuciosa"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma-04
       assessable: true
       depth: 3
@@ -5005,6 +6221,12 @@ objects:
             n del estado de todos los incidentes en curso\nEx2: Coordinar la escalada\
             \ o elevaci\xF3n de incidentes con las partes interesadas internas y externas\
             \ designadas"
+        pt:
+          description: "Os incidentes s\xE3o escalados ou elevados conforme necess\xE1\
+            rio"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Acompanhe e valide o status\
+            \ de todos os incidentes em andamento\nEx2: Coordene a escalada ou eleva\xE7\
+            \xE3o de incidentes com as partes interessadas internas e externas designadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.ma-05
       assessable: true
       depth: 3
@@ -5040,6 +6262,15 @@ objects:
             \ para determinar si se deben iniciar procesos de recuperaci\xF3n de incidentes\n\
             Ex2: Tener en cuenta la posible interrupci\xF3n operativa de las actividades\
             \ de recuperaci\xF3n de incidentes"
+        pt:
+          description: "Os crit\xE9rios para iniciar a recupera\xE7\xE3o de incidentes\
+            \ s\xE3o aplicados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Aplique os crit\xE9rios\
+            \ de recupera\xE7\xE3o de incidentes \xE0s caracter\xEDsticas conhecidas\
+            \ e presumidas do incidente para determinar se os processos de recupera\xE7\
+            \xE3o de incidentes devem ser iniciados\nEx2: Leve em considera\xE7\xE3\
+            o a poss\xEDvel interrup\xE7\xE3o operacional das atividades de recupera\xE7\
+            \xE3o de incidentes"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.an
       assessable: false
       depth: 2
@@ -5059,6 +6290,10 @@ objects:
           description: "Se llevan a cabo investigaciones con el fin de garantizar\
             \ una respuesta eficaz y apoyar las actividades forenses y de recuperaci\xF3\
             n"
+        pt:
+          name: "An\xE1lise de Incidentes"
+          description: "Investiga\xE7\xF5es s\xE3o conduzidas para garantir uma resposta\
+            \ eficaz e apoiar as atividades forenses e de recupera\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.an-03
       assessable: true
       depth: 3
@@ -5106,6 +6341,17 @@ objects:
             \ para encontrar las causas ra\xEDz sist\xE9micas subyacentes\nEx4: Compruebe\
             \ cualquier tecnolog\xEDa de enga\xF1o cibern\xE9tico para obtener informaci\xF3\
             n adicional sobre el comportamiento del atacante"
+        pt:
+          description: "\xC9 realizada uma an\xE1lise para estabelecer o que ocorreu\
+            \ durante um incidente e a causa raiz do incidente"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Determine a sequ\xEAncia\
+            \ de eventos que ocorreram durante o incidente e quais ativos e recursos\
+            \ estiveram envolvidos em cada evento\nEx2: Tente determinar quais vulnerabilidades,\
+            \ amea\xE7as e agentes de amea\xE7a estiveram direta ou indiretamente\
+            \ envolvidos no incidente\nEx3: Analise o incidente para encontrar as\
+            \ causas ra\xEDzes subjacentes e sist\xEAmicas\nEx4: Verifique qualquer\
+            \ tecnologia de dissimula\xE7\xE3o cibern\xE9tica (cyber deception) em\
+            \ busca de informa\xE7\xF5es adicionais sobre o comportamento do atacante"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.an-06
       assessable: true
       depth: 3
@@ -5147,6 +6393,17 @@ objects:
             \ Exigir al l\xEDder del incidente que documente el incidente en detalle\
             \ y sea responsable de preservar la integridad de la documentaci\xF3n\
             \ y las fuentes de toda la informaci\xF3n que se informa."
+        pt:
+          description: "As a\xE7\xF5es realizadas durante uma investiga\xE7\xE3o s\xE3\
+            o registradas, e a integridade e a proveni\xEAncia dos registros s\xE3\
+            o preservadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Exija que cada respondedor\
+            \ de incidentes e outros (por exemplo, administradores de sistemas, engenheiros\
+            \ de ciberseguran\xE7a) que realizam tarefas de resposta a incidentes\
+            \ registrem suas a\xE7\xF5es e tornem o registro imut\xE1vel\nEx2: Exija\
+            \ que o l\xEDder de incidente documente o incidente em detalhes e seja\
+            \ respons\xE1vel por preservar a integridade da documenta\xE7\xE3o e das\
+            \ fontes de todas as informa\xE7\xF5es relatadas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.an-07
       assessable: true
       depth: 3
@@ -5179,6 +6436,13 @@ objects:
             \ la integridad de todos los datos y metadatos pertinentes del incidente\
             \ (por ejemplo, fuente de datos, fecha/hora de recopilaci\xF3n) en funci\xF3\
             n de los procedimientos de preservaci\xF3n de pruebas y cadena de custodia"
+        pt:
+          description: "Os dados e metadados do incidente s\xE3o coletados, e sua\
+            \ integridade e proveni\xEAncia s\xE3o preservadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Colete, preserve e proteja\
+            \ a integridade de todos os dados e metadados pertinentes do incidente\
+            \ (por exemplo, fonte dos dados, data/hora da coleta) com base em procedimentos\
+            \ de preserva\xE7\xE3o de evid\xEAncias e cadeia de cust\xF3dia"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.an-08
       assessable: true
       depth: 3
@@ -5210,6 +6474,13 @@ objects:
             \ del incidente para buscar indicadores de compromiso y evidencia de persistencia\n\
             Ex2: Ejecute autom\xE1ticamente herramientas en los objetivos para buscar\
             \ indicadores de compromiso y evidencia de persistencia"
+        pt:
+          description: "A magnitude de um incidente \xE9 estimada e validada"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Revise outros poss\xEDveis\
+            \ alvos do incidente para procurar indicadores de comprometimento e evid\xEA\
+            ncias de persist\xEAncia\nEx2: Execute automaticamente ferramentas nos\
+            \ alvos para procurar indicadores de comprometimento e evid\xEAncias de\
+            \ persist\xEAncia"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.co
       assessable: false
       depth: 2
@@ -5229,6 +6500,11 @@ objects:
           description: "Las actividades de respuesta se coordinan con las partes interesadas\
             \ internas y externas, seg\xFAn lo exijan las leyes, las normativas o\
             \ las pol\xEDticas"
+        pt:
+          name: "Relato e Comunica\xE7\xE3o de Resposta a Incidentes"
+          description: "As atividades de resposta s\xE3o coordenadas com as partes\
+            \ interessadas internas e externas conforme exigido por leis, regulamentos\
+            \ ou pol\xEDticas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.co-02
       assessable: true
       depth: 3
@@ -5277,6 +6553,18 @@ objects:
             n de la ley y a los organismos reguladores de los incidentes en funci\xF3\
             n de los criterios del plan de respuesta a incidentes y la aprobaci\xF3\
             n de la direcci\xF3n."
+        pt:
+          description: "As partes interessadas internas e externas s\xE3o notificadas\
+            \ sobre os incidentes"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Siga os procedimentos de notifica\xE7\xE3o de viola\xE7\xE3o da organiza\xE7\
+            \xE3o ap\xF3s descobrir um incidente de viola\xE7\xE3o de dados, incluindo\
+            \ a notifica\xE7\xE3o dos clientes afetados\nEx2: Notifique parceiros\
+            \ de neg\xF3cios e clientes sobre incidentes de acordo com os requisitos\
+            \ contratuais\nEx3: Notifique as ag\xEAncias de aplica\xE7\xE3o da lei\
+            \ e os \xF3rg\xE3os reguladores sobre incidentes com base nos crit\xE9\
+            rios do plano de resposta a incidentes e na aprova\xE7\xE3o da ger\xEA\
+            ncia"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.co-03
       assessable: true
       depth: 3
@@ -5337,6 +6625,22 @@ objects:
             \ intercambio de informaci\xF3n sobre incidentes entre la organizaci\xF3\
             n y sus proveedores\nEx6: Coordinar los m\xE9todos de comunicaci\xF3n\
             \ de crisis entre la organizaci\xF3n y sus proveedores cr\xEDticos"
+        pt:
+          description: "As informa\xE7\xF5es s\xE3o compartilhadas com as partes interessadas\
+            \ internas e externas designadas"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Compartilhe com seguran\xE7a as informa\xE7\xF5es de forma consistente\
+            \ com os planos de resposta e os acordos de compartilhamento de informa\xE7\
+            \xF5es\nEx2: Compartilhe voluntariamente informa\xE7\xF5es sobre as TTPs\
+            \ observadas de um atacante, com todos os dados sens\xEDveis removidos,\
+            \ com um Centro de Compartilhamento e An\xE1lise de Informa\xE7\xF5es\
+            \ (ISAC)\nEx3: Notifique o RH quando ocorrer atividade interna maliciosa\n\
+            Ex4: Atualize regularmente a alta lideran\xE7a sobre o status de incidentes\
+            \ importantes\nEx5: Siga as regras e protocolos definidos nos contratos\
+            \ para o compartilhamento de informa\xE7\xF5es sobre incidentes entre\
+            \ a organiza\xE7\xE3o e seus fornecedores\nEx6: Coordene os m\xE9todos\
+            \ de comunica\xE7\xE3o de crise entre a organiza\xE7\xE3o e seus fornecedores\
+            \ cr\xEDticos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.mi
       assessable: false
       depth: 2
@@ -5354,6 +6658,10 @@ objects:
           name: "Mitigaci\xF3n de incidentes"
           description: "Se llevan a cabo actividades a fin de evitar la expansi\xF3\
             n de un incidente y mitigar sus efectos"
+        pt:
+          name: "Mitiga\xE7\xE3o de Incidentes"
+          description: "Atividades s\xE3o realizadas para impedir a expans\xE3o de\
+            \ um evento e mitigar seus efeitos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.mi-01
       assessable: true
       depth: 3
@@ -5408,6 +6716,19 @@ objects:
             \ administrada) realice acciones de contenci\xF3n en nombre de la organizaci\xF3\
             n\nEx4: Transfiera autom\xE1ticamente los puntos de conexi\xF3n comprometidos\
             \ a una red de \xE1rea local virtual (VLAN) de correcci\xF3n"
+        pt:
+          description: "Os incidentes s\xE3o contidos"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: As tecnologias de ciberseguran\xE7a (por exemplo, software antiv\xED\
+            rus) e os recursos de ciberseguran\xE7a de outras tecnologias (por exemplo,\
+            \ sistemas operacionais, dispositivos de infraestrutura de rede) realizam\
+            \ automaticamente a\xE7\xF5es de conten\xE7\xE3o\nEx2: Permita que os\
+            \ respondedores de incidentes selecionem e realizem manualmente a\xE7\xF5\
+            es de conten\xE7\xE3o\nEx3: Permita que uma terceira parte (por exemplo,\
+            \ provedor de servi\xE7os de internet, provedor de servi\xE7os de seguran\xE7\
+            a gerenciados) realize a\xE7\xF5es de conten\xE7\xE3o em nome da organiza\xE7\
+            \xE3o\nEx4: Transfira automaticamente os endpoints comprometidos para\
+            \ uma rede local virtual (VLAN) de remedia\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rs.mi-02
       assessable: true
       depth: 3
@@ -5453,6 +6774,17 @@ objects:
             n\nEx3: Permitir que un tercero (por ejemplo, un proveedor de servicios\
             \ de seguridad administrados) realice acciones de erradicaci\xF3n en nombre\
             \ de la organizaci\xF3n."
+        pt:
+          description: "Os incidentes s\xE3o erradicados"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: As tecnologias de ciberseguran\xE7a e os recursos de ciberseguran\xE7\
+            a de outras tecnologias (por exemplo, sistemas operacionais, dispositivos\
+            \ de infraestrutura de rede) realizam automaticamente a\xE7\xF5es de erradica\xE7\
+            \xE3o\nEx2: Permita que os respondedores de incidentes selecionem e realizem\
+            \ manualmente a\xE7\xF5es de erradica\xE7\xE3o\nEx3: Permita que uma terceira\
+            \ parte (por exemplo, provedor de servi\xE7os de seguran\xE7a gerenciados)\
+            \ realize a\xE7\xF5es de erradica\xE7\xE3o em nome da organiza\xE7\xE3\
+            o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc
       assessable: false
       depth: 1
@@ -5469,6 +6801,10 @@ objects:
           name: RECUPERAR
           description: "Se restauran los activos y las operaciones afectados por un\
             \ incidente de seguridad cibern\xE9tica"
+        pt:
+          name: RECUPERAR
+          description: "Os ativos e as opera\xE7\xF5es afetados por um incidente de\
+            \ ciberseguran\xE7a s\xE3o restaurados"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp
       assessable: false
       depth: 2
@@ -5488,6 +6824,11 @@ objects:
           description: "Se realizan actividades de restauraci\xF3n que garantizan\
             \ la disponibilidad operativa de los sistemas y servicios afectados por\
             \ incidentes de seguridad cibern\xE9tica"
+        pt:
+          name: "Execu\xE7\xE3o do Plano de Recupera\xE7\xE3o de Incidentes"
+          description: "Atividades de restaura\xE7\xE3o s\xE3o realizadas para garantir\
+            \ a disponibilidade operacional de sistemas e servi\xE7os afetados por\
+            \ incidentes de ciberseguran\xE7a"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-01
       assessable: true
       depth: 3
@@ -5525,6 +6866,14 @@ objects:
             \ incidentes\nEx2: Informar a todas las personas con responsabilidades\
             \ de recuperaci\xF3n de los planes de recuperaci\xF3n y de las autorizaciones\
             \ necesarias para implementar cada aspecto de los planes"
+        pt:
+          description: "A parte de recupera\xE7\xE3o do plano de resposta a incidentes\
+            \ \xE9 executada quando iniciada a partir do processo de resposta a incidentes"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Iniciar os procedimentos\
+            \ de recupera\xE7\xE3o durante ou ap\xF3s os processos de resposta a incidentes\n\
+            Ex2: Tornar todos os indiv\xEDduos com responsabilidades de recupera\xE7\
+            \xE3o cientes dos planos de recupera\xE7\xE3o e das autoriza\xE7\xF5es\
+            \ necess\xE1rias para implementar cada aspecto dos planos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-02
       assessable: true
       depth: 3
@@ -5558,6 +6907,14 @@ objects:
             \ de respuesta a incidentes y los recursos disponibles\nEx2: Cambiar las\
             \ acciones de recuperaci\xF3n planificadas en funci\xF3n de una reevaluaci\xF3\
             n de las necesidades y los recursos de la organizaci\xF3n"
+        pt:
+          description: "As a\xE7\xF5es de recupera\xE7\xE3o s\xE3o selecionadas, delimitadas\
+            \ em escopo, priorizadas e executadas"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Selecionar as a\xE7\xF5\
+            es de recupera\xE7\xE3o com base nos crit\xE9rios definidos no plano de\
+            \ resposta a incidentes e nos recursos dispon\xEDveis\nEx2: Alterar as\
+            \ a\xE7\xF5es de recupera\xE7\xE3o planejadas com base em uma reavalia\xE7\
+            \xE3o das necessidades e dos recursos organizacionais"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-03
       assessable: true
       depth: 3
@@ -5587,6 +6944,12 @@ objects:
           annotation: "1\xBA: Riesgo de 1\xAA parte\nEx1: Compruebe los activos de\
             \ restauraci\xF3n en busca de indicadores de compromiso, da\xF1os en los\
             \ archivos y otros problemas de integridad antes de su uso"
+        pt:
+          description: "A integridade dos backups e de outros ativos de restaura\xE7\
+            \xE3o \xE9 verificada antes de utiliz\xE1-los para a restaura\xE7\xE3o"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Verificar nos ativos de\
+            \ restaura\xE7\xE3o indicadores de comprometimento, corrup\xE7\xE3o de\
+            \ arquivos e outros problemas de integridade antes do uso"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-04
       assessable: true
       depth: 3
@@ -5633,6 +6996,18 @@ objects:
             \ de los sistemas y el retorno a las operaciones normales\nEx3: Supervisar\
             \ el rendimiento de los sistemas restaurados para verificar la idoneidad\
             \ de la restauraci\xF3n"
+        pt:
+          description: "As fun\xE7\xF5es cr\xEDticas de miss\xE3o e a gest\xE3o de\
+            \ risco de ciberseguran\xE7a s\xE3o consideradas para estabelecer normas\
+            \ operacionais p\xF3s-incidente"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Utilizar os registros de\
+            \ impacto nos neg\xF3cios e de categoriza\xE7\xE3o de sistemas (incluindo\
+            \ os objetivos de entrega de servi\xE7o) para validar que os servi\xE7\
+            os essenciais sejam restaurados na ordem apropriada\nEx2: Trabalhar com\
+            \ os propriet\xE1rios dos sistemas para confirmar a restaura\xE7\xE3o\
+            \ bem-sucedida dos sistemas e o retorno \xE0s opera\xE7\xF5es normais\n\
+            Ex3: Monitorar o desempenho dos sistemas restaurados para verificar a\
+            \ adequa\xE7\xE3o da restaura\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-05
       assessable: true
       depth: 3
@@ -5668,6 +7043,15 @@ objects:
             \ ra\xEDz del incidente antes del uso en producci\xF3n\nEx2: Verificar\
             \ la exactitud y adecuaci\xF3n de las acciones de restauraci\xF3n realizadas\
             \ antes de poner en l\xEDnea un sistema restaurado"
+        pt:
+          description: "A integridade dos ativos restaurados \xE9 verificada, os sistemas\
+            \ e servi\xE7os s\xE3o restaurados e o status operacional normal \xE9\
+            \ confirmado"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Verificar nos ativos restaurados\
+            \ indicadores de comprometimento e a remedia\xE7\xE3o das causas-raiz\
+            \ do incidente antes do uso em produ\xE7\xE3o\nEx2: Verificar a corre\xE7\
+            \xE3o e a adequa\xE7\xE3o das a\xE7\xF5es de restaura\xE7\xE3o realizadas\
+            \ antes de colocar um sistema restaurado on-line"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.rp-06
       assessable: true
       depth: 3
@@ -5703,6 +7087,15 @@ objects:
             \ respuesta y recuperaci\xF3n tomadas, y las lecciones aprendidas\nEx2:\
             \ Declarar el fin de la recuperaci\xF3n de incidentes una vez que se cumplan\
             \ los criterios"
+        pt:
+          description: "O fim da recupera\xE7\xE3o do incidente \xE9 declarado com\
+            \ base em crit\xE9rios, e a documenta\xE7\xE3o relacionada ao incidente\
+            \ \xE9 conclu\xEDda"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Preparar um relat\xF3rio\
+            \ p\xF3s-a\xE7\xE3o que documente o pr\xF3prio incidente, as a\xE7\xF5\
+            es de resposta e recupera\xE7\xE3o tomadas e as li\xE7\xF5es aprendidas\n\
+            Ex2: Declarar o fim da recupera\xE7\xE3o do incidente quando os crit\xE9\
+            rios forem atendidos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.co
       assessable: false
       depth: 2
@@ -5720,6 +7113,10 @@ objects:
           name: "Comunicaci\xF3n de la recuperaci\xF3n del incidente"
           description: "Se coordinan las actividades de restauraci\xF3n con las partes\
             \ internas y externas"
+        pt:
+          name: "Comunica\xE7\xE3o da Recupera\xE7\xE3o de Incidentes"
+          description: "As atividades de restaura\xE7\xE3o s\xE3o coordenadas com\
+            \ partes internas e externas"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.co-03
       assessable: true
       depth: 3
@@ -5776,6 +7173,20 @@ objects:
             \ de informaci\xF3n sobre incidentes entre la organizaci\xF3n y sus proveedores\n\
             Ex4: Coordinar la comunicaci\xF3n de crisis entre la organizaci\xF3n y\
             \ sus proveedores cr\xEDticos"
+        pt:
+          description: "As atividades de recupera\xE7\xE3o e o progresso na restaura\xE7\
+            \xE3o das capacidades operacionais s\xE3o comunicados \xE0s partes interessadas\
+            \ internas e externas designadas"
+          annotation: "1st: Risco de Primeira Parte\n3rd: Risco de Terceira Parte\n\
+            Ex1: Compartilhar com seguran\xE7a as informa\xE7\xF5es de recupera\xE7\
+            \xE3o, incluindo o progresso da restaura\xE7\xE3o, de forma consistente\
+            \ com os planos de resposta e os acordos de compartilhamento de informa\xE7\
+            \xF5es\nEx2: Atualizar regularmente a alta lideran\xE7a sobre o status\
+            \ da recupera\xE7\xE3o e o progresso da restaura\xE7\xE3o em incidentes\
+            \ de grande porte\nEx3: Seguir as regras e protocolos definidos em contratos\
+            \ para o compartilhamento de informa\xE7\xF5es sobre incidentes entre\
+            \ a organiza\xE7\xE3o e seus fornecedores\nEx4: Coordenar a comunica\xE7\
+            \xE3o de crise entre a organiza\xE7\xE3o e seus fornecedores cr\xEDticos"
     - urn: urn:intuitem:risk:req_node:nist-csf-2.0:rc.co-04
       assessable: true
       depth: 3
@@ -5810,3 +7221,16 @@ objects:
             \ de notificaci\xF3n de violaci\xF3n de la organizaci\xF3n para recuperarse\
             \ de un incidente de violaci\xF3n de datos\nEx2: Explique los pasos que\
             \ se est\xE1n tomando para recuperarse del incidente y evitar que se repita"
+        pt:
+          description: "As atualiza\xE7\xF5es p\xFAblicas sobre a recupera\xE7\xE3\
+            o do incidente s\xE3o compartilhadas utilizando m\xE9todos e mensagens\
+            \ aprovados"
+          annotation: "1st: Risco de Primeira Parte\nEx1: Seguir os procedimentos\
+            \ de notifica\xE7\xE3o de viola\xE7\xE3o da organiza\xE7\xE3o para a recupera\xE7\
+            \xE3o de um incidente de viola\xE7\xE3o de dados\nEx2: Explicar as medidas\
+            \ que est\xE3o sendo tomadas para se recuperar do incidente e prevenir\
+            \ uma recorr\xEAncia"
+    translations:
+      pt:
+        name: NIST CSF v2.0
+        description: "Estrutura de Ciberseguran\xE7a do NIST (NIST Cybersecurity Framework)"

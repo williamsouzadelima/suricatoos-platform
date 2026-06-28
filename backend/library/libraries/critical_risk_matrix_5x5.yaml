@@ -16,208 +16,256 @@ translations:
     description: Kritische Risikomatrix 5x5
 objects:
   risk_matrix:
-    - urn: urn:intuitem:risk:matrix:critical_risk_matrix_5x5
-      ref_id: critical_5x5
-      name: critical 5x5
-      description: critical risk matrix 5x5
+  - urn: urn:intuitem:risk:matrix:critical_risk_matrix_5x5
+    ref_id: critical_5x5
+    name: critical 5x5
+    description: critical risk matrix 5x5
+    translations:
+      fr:
+        name: Matrice de risque critique 5x5
+        description: Matrice de risque critique 5x5
+      de:
+        name: Kritische Risikomatrix 5x5
+        description: Kritische Risikomatrix 5x5
+      pt:
+        name: "Matriz de risco cr\xEDtica 5x5"
+        description: "Matriz de risco cr\xEDtica 5x5"
+    probability:
+    - abbreviation: VL
+      name: Very Low
+      description: Very unfrequent event
+      hexcolor: '#BBF7D0'
       translations:
         fr:
-          name: Matrice de risque critique 5x5
-          description: Matrice de risque critique 5x5
+          name: "Tr\xE8s faible"
+          description: "\xC9v\xE9nement tr\xE8s peu fr\xE9quent"
         de:
-          name: Kritische Risikomatrix 5x5
-          description: Kritische Risikomatrix 5x5
-      probability:
-        - abbreviation: VL
-          name: Very Low
-          description: Very unfrequent event
-          hexcolor: '#BBF7D0'
-          translations:
-            fr:
-              name: Très faible
-              description: Événement très peu fréquent
-            de:
-              name: Sehr gering
-              description: Sehr seltenes Ereignis
-        - abbreviation: L
-          name: Low
-          description: Unfrequent event
-          hexcolor: '#BEF264'
-          translations:
-            fr:
-              name: Faible
-              description: Événement peu fréquent
-            de:
-              name: Gering
-              description: Seltenes Ereignis
-        - abbreviation: M
-          name: Medium
-          description: Occasional event
-          hexcolor: '#FEF08A'
-          translations:
-            fr:
-              name: Moyen
-              description: Événement occasionnel
-            de:
-              name: Mittel
-              description: Gelegentliches Ereignis
-        - abbreviation: H
-          name: High
-          description: Frequent event
-          hexcolor: '#FBBF24'
-          translations:
-            fr:
-              name: Élevé
-              description: Événement fréquent
-            de:
-              name: Hoch
-              description: Häufiges Ereignis
-        - abbreviation: VH
-          name: Very High
-          description: Very frequent event
-          hexcolor: '#F87171'
-          translations:
-            fr:
-              name: Très élevé
-              description: Événement très fréquent
-            de:
-              name: Sehr hoch
-              description: Sehr häufiges Ereignis
-      impact:
-        - abbreviation: VL
-          name: Very Low
-          description: Very low impact
-          hexcolor: '#BBF7D0'
-          translations:
-            fr:
-              name: Très faible
-              description: Impact très faible
-            de:
-              name: Sehr gering
-              description: Sehr geringe Auswirkung
-        - abbreviation: L
-          name: Low
-          description: Low impact
-          hexcolor: '#BEF264'
-          translations:
-            fr:
-              name: Faible
-              description: Impact faible
-            de:
-              name: Gering
-              description: Geringe Auswirkung
-        - abbreviation: M
-          name: Medium
-          description: Medium impact
-          hexcolor: '#FEF08A'
-          translations:
-            fr:
-              name: Moyen
-              description: Impact moyen
-            de:
-              name: Mittel
-              description: Mittlere Auswirkung
-        - abbreviation: H
-          name: High
-          description: High impact
-          hexcolor: '#FBBF24'
-          translations:
-            fr:
-              name: Élevé
-              description: Impact élevé
-            de:
-              name: Hoch
-              description: Hohe Auswirkung
-        - abbreviation: VH
-          name: Very High
-          description: Very high impact
-          hexcolor: '#F87171'
-          translations:
-            fr:
-              name: Très élevé
-              description: Impact très élevé
-            de:
-              name: Sehr hoch
-              description: Sehr hohe Auswirkung
-      risk:
-        - abbreviation: VL
-          name: Very Low
-          description: negligible risk
-          hexcolor: "#BBF7D0"
-          translations:
-            fr:
-              name: Très faible
-              description: Risque négligeable
-            de:
-              name: Sehr gering
-              description: Vernachlässigbares Risiko
-        - abbreviation: L
-          name: Low
-          description: acceptable risk
-          hexcolor: "#BEF264"
-          translations:
-            fr:
-              name: Faible
-              description: Risque acceptable
-            de:
-              name: Gering
-              description: Akzeptables Risiko
-        - abbreviation: M
-          name: Medium
-          description: risk requiring mitigation within 2 years
-          hexcolor: "#FEF08A"
-          translations:
-            fr:
-              name: Moyen
-              description: Risque nécessitant une atténuation dans les 2 ans
-            de:
-              name: Mittel
-              description: Risiko mit Behandlungsbedarf innerhalb von 2 Jahren
-        - abbreviation: H
-          name: High
-          description: risk requiring mitigation within 6 months
-          hexcolor: "#FBBF24"
-          translations:
-            fr:
-              name: Élevé
-              description: Risque nécessitant une atténuation dans les 6 mois
-            de:
-              name: Hoch
-              description: Risiko mit Behandlungsbedarf innerhalb von 6 Monaten
-        - abbreviation: VH
-          name: Very High
-          description: unacceptable risk
-          hexcolor: "#F87171"
-          translations:
-            fr:
-              name: Très élevé
-              description: Risque inacceptable
-            de:
-              name: Sehr hoch
-              description: Inakzeptables Risiko
-      grid:
-        - - 0
-          - 0
-          - 1
-          - 1
-          - 2
-        - - 0
-          - 1
-          - 1
-          - 2
-          - 2
-        - - 1
-          - 1
-          - 2
-          - 2
-          - 3
-        - - 1
-          - 2
-          - 2
-          - 3
-          - 4
-        - - 2
-          - 2
-          - 3
-          - 4
-          - 4
+          name: Sehr gering
+          description: Sehr seltenes Ereignis
+        pt:
+          name: Muito Baixa
+          description: Evento muito infrequente
+    - abbreviation: L
+      name: Low
+      description: Unfrequent event
+      hexcolor: '#BEF264'
+      translations:
+        fr:
+          name: Faible
+          description: "\xC9v\xE9nement peu fr\xE9quent"
+        de:
+          name: Gering
+          description: Seltenes Ereignis
+        pt:
+          name: Baixa
+          description: Evento infrequente
+    - abbreviation: M
+      name: Medium
+      description: Occasional event
+      hexcolor: '#FEF08A'
+      translations:
+        fr:
+          name: Moyen
+          description: "\xC9v\xE9nement occasionnel"
+        de:
+          name: Mittel
+          description: Gelegentliches Ereignis
+        pt:
+          name: "M\xE9dia"
+          description: Evento ocasional
+    - abbreviation: H
+      name: High
+      description: Frequent event
+      hexcolor: '#FBBF24'
+      translations:
+        fr:
+          name: "\xC9lev\xE9"
+          description: "\xC9v\xE9nement fr\xE9quent"
+        de:
+          name: Hoch
+          description: "H\xE4ufiges Ereignis"
+        pt:
+          name: Alta
+          description: Evento frequente
+    - abbreviation: VH
+      name: Very High
+      description: Very frequent event
+      hexcolor: '#F87171'
+      translations:
+        fr:
+          name: "Tr\xE8s \xE9lev\xE9"
+          description: "\xC9v\xE9nement tr\xE8s fr\xE9quent"
+        de:
+          name: Sehr hoch
+          description: "Sehr h\xE4ufiges Ereignis"
+        pt:
+          name: Muito Alta
+          description: Evento muito frequente
+    impact:
+    - abbreviation: VL
+      name: Very Low
+      description: Very low impact
+      hexcolor: '#BBF7D0'
+      translations:
+        fr:
+          name: "Tr\xE8s faible"
+          description: "Impact tr\xE8s faible"
+        de:
+          name: Sehr gering
+          description: Sehr geringe Auswirkung
+        pt:
+          name: Muito Baixo
+          description: Impacto muito baixo
+    - abbreviation: L
+      name: Low
+      description: Low impact
+      hexcolor: '#BEF264'
+      translations:
+        fr:
+          name: Faible
+          description: Impact faible
+        de:
+          name: Gering
+          description: Geringe Auswirkung
+        pt:
+          name: Baixo
+          description: Impacto baixo
+    - abbreviation: M
+      name: Medium
+      description: Medium impact
+      hexcolor: '#FEF08A'
+      translations:
+        fr:
+          name: Moyen
+          description: Impact moyen
+        de:
+          name: Mittel
+          description: Mittlere Auswirkung
+        pt:
+          name: "M\xE9dio"
+          description: "Impacto m\xE9dio"
+    - abbreviation: H
+      name: High
+      description: High impact
+      hexcolor: '#FBBF24'
+      translations:
+        fr:
+          name: "\xC9lev\xE9"
+          description: "Impact \xE9lev\xE9"
+        de:
+          name: Hoch
+          description: Hohe Auswirkung
+        pt:
+          name: Alto
+          description: Impacto alto
+    - abbreviation: VH
+      name: Very High
+      description: Very high impact
+      hexcolor: '#F87171'
+      translations:
+        fr:
+          name: "Tr\xE8s \xE9lev\xE9"
+          description: "Impact tr\xE8s \xE9lev\xE9"
+        de:
+          name: Sehr hoch
+          description: Sehr hohe Auswirkung
+        pt:
+          name: Muito Alto
+          description: Impacto muito alto
+    risk:
+    - abbreviation: VL
+      name: Very Low
+      description: negligible risk
+      hexcolor: '#BBF7D0'
+      translations:
+        fr:
+          name: "Tr\xE8s faible"
+          description: "Risque n\xE9gligeable"
+        de:
+          name: Sehr gering
+          description: "Vernachl\xE4ssigbares Risiko"
+        pt:
+          name: Muito Baixo
+          description: Risco insignificante
+    - abbreviation: L
+      name: Low
+      description: acceptable risk
+      hexcolor: '#BEF264'
+      translations:
+        fr:
+          name: Faible
+          description: Risque acceptable
+        de:
+          name: Gering
+          description: Akzeptables Risiko
+        pt:
+          name: Baixo
+          description: "Risco aceit\xE1vel"
+    - abbreviation: M
+      name: Medium
+      description: risk requiring mitigation within 2 years
+      hexcolor: '#FEF08A'
+      translations:
+        fr:
+          name: Moyen
+          description: "Risque n\xE9cessitant une att\xE9nuation dans les 2 ans"
+        de:
+          name: Mittel
+          description: Risiko mit Behandlungsbedarf innerhalb von 2 Jahren
+        pt:
+          name: "M\xE9dio"
+          description: "Risco que requer mitiga\xE7\xE3o em at\xE9 2 anos"
+    - abbreviation: H
+      name: High
+      description: risk requiring mitigation within 6 months
+      hexcolor: '#FBBF24'
+      translations:
+        fr:
+          name: "\xC9lev\xE9"
+          description: "Risque n\xE9cessitant une att\xE9nuation dans les 6 mois"
+        de:
+          name: Hoch
+          description: Risiko mit Behandlungsbedarf innerhalb von 6 Monaten
+        pt:
+          name: Alto
+          description: "Risco que requer mitiga\xE7\xE3o em at\xE9 6 meses"
+    - abbreviation: VH
+      name: Very High
+      description: unacceptable risk
+      hexcolor: '#F87171'
+      translations:
+        fr:
+          name: "Tr\xE8s \xE9lev\xE9"
+          description: Risque inacceptable
+        de:
+          name: Sehr hoch
+          description: Inakzeptables Risiko
+        pt:
+          name: Muito Alto
+          description: "Risco inaceit\xE1vel"
+    grid:
+    - - 0
+      - 0
+      - 1
+      - 1
+      - 2
+    - - 0
+      - 1
+      - 1
+      - 2
+      - 2
+    - - 1
+      - 1
+      - 2
+      - 2
+      - 3
+    - - 1
+      - 2
+      - 2
+      - 3
+      - 4
+    - - 2
+      - 2
+      - 3
+      - 4
+      - 4
