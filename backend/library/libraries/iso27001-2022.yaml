@@ -54,6 +54,11 @@ translations:
     copyright: "\u8FD9\u662FISO27001-2022\u6807\u51C6\u7684\u8F6E\u5ED3\u3002\u4F60\
       \u53EF\u4EE5\u4ECE https://www.iso.org/standard/27001 \u8D2D\u4E70\u5168\u6807\
       \u51C6\u7248"
+  pt:
+    name: Norma internacional ISO/IEC 27001:2022
+    description: "Seguran\xE7a da informa\xE7\xE3o, ciberseguran\xE7a e prote\xE7\xE3\
+      o da privacidade \u2014 Sistemas de gest\xE3o de seguran\xE7a da informa\xE7\
+      \xE3o \u2014 Requisitos"
 dependencies:
 - urn:intuitem:risk:library:doc-pol
 objects:
@@ -106,6 +111,12 @@ objects:
           \u7B56\u3002\u63AA\u65BD\u5305\u62EC\u754C\u5B9A\u8303\u56F4\u3001\u8BBE\
           \u5B9A\u76EE\u6807\uFF0C\u5E76\u786E\u4FDD\u7B26\u5408\u5408\u89C4\u8981\
           \u6C42\u3002"
+      pt:
+        name: "Pol\xEDticas para seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle estabelece e mant\xE9m pol\xEDticas de seguran\xE7\
+          a da informa\xE7\xE3o alinhadas aos objetivos organizacionais. As medidas\
+          \ incluem a defini\xE7\xE3o de escopo, o estabelecimento de metas e a garantia\
+          \ de alinhamento aos requisitos de conformidade."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.2
     ref_id: A.5.2
     name: Information security roles and responsibilities
@@ -155,6 +166,12 @@ objects:
           \u4FDD\u95EE\u8D23\u5236\u3002\u63AA\u65BD\u5305\u62EC\u660E\u786E\u8D23\
           \u4EFB\u8BB0\u5F55\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\u6267\u6CD5\u673A\
           \u5236\u3002"
+      pt:
+        name: "Pap\xE9is e responsabilidades de seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle define e atribui pap\xE9is e responsabilidades\
+          \ de seguran\xE7a da informa\xE7\xE3o para assegurar a responsabiliza\xE7\
+          \xE3o. As medidas incluem documenta\xE7\xE3o clara das responsabilidades,\
+          \ revis\xF5es peri\xF3dicas e mecanismos de aplica\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.3
     ref_id: A.5.3
     name: Segregation of duties
@@ -201,6 +218,12 @@ objects:
           \u6388\u6743\u8BBF\u95EE\u7684\u98CE\u9669\u3002\u63AA\u65BD\u5305\u62EC\
           \u89D2\u8272\u5206\u79BB\u3001\u8BBF\u95EE\u9650\u5236\u548C\u5B9A\u671F\
           \u5BA1\u8BA1\u3002"
+      pt:
+        name: "Segrega\xE7\xE3o de fun\xE7\xF5es"
+        description: "Este controle assegura a segrega\xE7\xE3o de fun\xE7\xF5es para\
+          \ reduzir o risco de erros, fraudes e acessos n\xE3o autorizados. As medidas\
+          \ incluem separa\xE7\xE3o de pap\xE9is, restri\xE7\xF5es de acesso e auditorias\
+          \ regulares."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.4
     ref_id: A.5.4
     name: Management responsibilities
@@ -247,6 +270,12 @@ objects:
           \u7684\u7BA1\u7406\u804C\u8D23\u88AB\u660E\u786E\u5B9A\u4E49\u5E76\u5F97\
           \u4EE5\u5B9E\u65BD\u3002\u63AA\u65BD\u5305\u62EC\u8BBE\u5B9A\u76EE\u6807\
           \u3001\u5206\u914D\u8D44\u6E90\u548C\u76D1\u7763\u5408\u89C4\u3002"
+      pt:
+        name: "Responsabilidades da dire\xE7\xE3o"
+        description: "Este controle assegura que as responsabilidades da dire\xE7\xE3\
+          o quanto \xE0 seguran\xE7a da informa\xE7\xE3o sejam claramente definidas\
+          \ e implementadas. As medidas incluem o estabelecimento de objetivos, a\
+          \ aloca\xE7\xE3o de recursos e a supervis\xE3o da conformidade."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.5
     ref_id: A.5.5
     name: Contact with authorities
@@ -295,6 +324,13 @@ objects:
           \u6C9F\u901A\u3002\u63AA\u65BD\u5305\u62EC\u5EFA\u7ACB\u8054\u7CFB\u534F\
           \u8BAE\u3001\u7EF4\u62A4\u8054\u7CFB\u4EBA\u540D\u5355\u66F4\u65B0\u4EE5\
           \u53CA\u5206\u914D\u804C\u8D23\u3002"
+      pt:
+        name: Contato com autoridades
+        description: "Este controle assegura a comunica\xE7\xE3o tempestiva com as\
+          \ autoridades pertinentes durante incidentes de seguran\xE7a da informa\xE7\
+          \xE3o. As medidas incluem o estabelecimento de protocolos de contato, a\
+          \ manuten\xE7\xE3o de listas de contatos atualizadas e a atribui\xE7\xE3\
+          o de responsabilidades."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.6
     ref_id: A.5.6
     name: Contact with special interest groups
@@ -339,6 +375,12 @@ objects:
           \u5B9E\u8DF5\u7684\u4E86\u89E3\u3002\u63AA\u65BD\u5305\u62EC\u53C2\u4E0E\
           \u8BBA\u575B\u3001\u4F1A\u5458\u8D44\u683C\u548C\u534F\u4F5C\u9879\u76EE\
           \u3002"
+      pt:
+        name: Contato com grupos de interesse especial
+        description: "Este controle facilita o contato com grupos de interesse especial\
+          \ para manter-se informado sobre tend\xEAncias e pr\xE1ticas de seguran\xE7\
+          a. As medidas incluem participa\xE7\xE3o em f\xF3runs, associa\xE7\xF5es\
+          \ e iniciativas colaborativas."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.7
     ref_id: A.5.7
     name: Threat intelligence
@@ -386,6 +428,12 @@ objects:
           \u89E3\u5B89\u5168\u98CE\u9669\u3002\u63AA\u65BD\u5305\u62EC\u76D1\u63A7\
           \u5A01\u80C1\u4FE1\u606F\u6D41\u3001\u5206\u6790\u8D8B\u52BF\u4EE5\u53CA\
           \u5206\u4EAB\u53EF\u4F5C\u7684\u89C1\u89E3\u3002"
+      pt:
+        name: "Intelig\xEAncia de amea\xE7as"
+        description: "Este controle assegura que a intelig\xEAncia de amea\xE7as seja\
+          \ desenvolvida e mantida para identificar e mitigar riscos de seguran\xE7\
+          a. As medidas incluem o monitoramento de feeds de amea\xE7as, a an\xE1lise\
+          \ de tend\xEAncias e o compartilhamento de informa\xE7\xF5es acion\xE1veis."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.8
     ref_id: A.5.8
     name: Information security in project management
@@ -431,6 +479,12 @@ objects:
           \u62EC\u98CE\u9669\u8BC4\u4F30\u3001\u5408\u89C4\u5BA1\u67E5\u4EE5\u53CA\
           \u9879\u76EE\u751F\u547D\u5468\u671F\u5185\u7684\u5B89\u5168\u68C0\u67E5\
           \u70B9\u3002"
+      pt:
+        name: "Seguran\xE7a da informa\xE7\xE3o na gest\xE3o de projetos"
+        description: "Este controle incorpora a seguran\xE7a da informa\xE7\xE3o \xE0\
+          s pr\xE1ticas de gest\xE3o de projetos. As medidas incluem avalia\xE7\xF5\
+          es de risco, revis\xF5es de conformidade e pontos de verifica\xE7\xE3o de\
+          \ seguran\xE7a ao longo do ciclo de vida dos projetos."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.9
     ref_id: A.5.9
     name: Inventory of information and other associated assets
@@ -474,6 +528,12 @@ objects:
           \u76F8\u5173\u8D44\u4EA7\u7684\u51C6\u786E\u76D8\u70B9\u3002\u63AA\u65BD\
           \u5305\u62EC\u8D44\u4EA7\u8DDF\u8E2A\u3001\u5B9A\u671F\u5BA1\u8BA1\u4EE5\
           \u53CA\u6309\u654F\u611F\u5EA6\u5206\u7C7B\u3002"
+      pt:
+        name: "Invent\xE1rio de informa\xE7\xF5es e outros ativos associados"
+        description: "Este controle assegura a manuten\xE7\xE3o de um invent\xE1rio\
+          \ preciso de informa\xE7\xF5es e ativos associados. As medidas incluem o\
+          \ rastreamento de ativos, auditorias peri\xF3dicas e a classifica\xE7\xE3\
+          o por sensibilidade."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.10
     ref_id: A.5.10
     name: Acceptable use of information and other associated assets
@@ -524,6 +584,12 @@ objects:
           \u786E\u4FDD\u6B63\u786E\u5904\u7406\u3002\u63AA\u65BD\u5305\u62EC\u6709\
           \u6587\u6863\u5316\u7684\u653F\u7B56\u3001\u7528\u6237\u57F9\u8BAD\u548C\
           \u6267\u884C\u673A\u5236\u3002"
+      pt:
+        name: "Uso aceit\xE1vel de informa\xE7\xF5es e outros ativos associados"
+        description: "Este controle define o uso aceit\xE1vel de informa\xE7\xF5es\
+          \ e ativos associados para assegurar seu manuseio adequado. As medidas incluem\
+          \ pol\xEDticas documentadas, treinamento de usu\xE1rios e mecanismos de\
+          \ aplica\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.11
     ref_id: A.5.11
     name: Return of assets
@@ -569,6 +635,12 @@ objects:
           \uFF0C\u8D44\u4EA7\u80FD\u591F\u5B89\u5168\u56DE\u6536\u3002\u63AA\u65BD\
           \u5305\u62EC\u6E05\u5355\u3001\u8D44\u4EA7\u8DDF\u8E2A\u548C\u9000\u5F79\
           \u534F\u8BAE\u3002"
+      pt:
+        name: "Devolu\xE7\xE3o de ativos"
+        description: "Este controle assegura a devolu\xE7\xE3o segura de ativos quando\
+          \ colaboradores ou prestadores de servi\xE7o se desligam ou mudam de fun\xE7\
+          \xE3o. As medidas incluem listas de verifica\xE7\xE3o, rastreamento de ativos\
+          \ e protocolos de desativa\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.12
     ref_id: A.5.12
     name: Classification of information
@@ -616,6 +688,12 @@ objects:
           \u4EE5\u786E\u4FDD\u9002\u5F53\u7684\u4FDD\u62A4\u3002\u63AA\u65BD\u5305\
           \u62EC\u5206\u7C7B\u65B9\u6848\u3001\u8BBF\u95EE\u9650\u5236\u548C\u6807\
           \u7B7E\u6307\u5357\u3002"
+      pt:
+        name: "Classifica\xE7\xE3o da informa\xE7\xE3o"
+        description: "Este controle assegura que as informa\xE7\xF5es sejam classificadas\
+          \ com base em sua sensibilidade e valor para garantir a prote\xE7\xE3o adequada.\
+          \ As medidas incluem esquemas de classifica\xE7\xE3o, restri\xE7\xF5es de\
+          \ acesso e diretrizes de rotulagem."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.13
     ref_id: A.5.13
     name: Labelling of information
@@ -657,6 +735,11 @@ objects:
           \u7B7E\u4E00\u81F4\uFF0C\u53CD\u6620\u5176\u5206\u7C7B\u548C\u5904\u7406\
           \u8981\u6C42\u3002\u8861\u91CF\u6807\u51C6\u5305\u62EC\u6807\u51C6\u5316\
           \u6A21\u677F\u3001\u57F9\u8BAD\u548C\u5BA1\u8BA1\u3002"
+      pt:
+        name: "Rotulagem da informa\xE7\xE3o"
+        description: "Este controle assegura a rotulagem consistente das informa\xE7\
+          \xF5es para refletir sua classifica\xE7\xE3o e seus requisitos de tratamento.\
+          \ As medidas incluem modelos padronizados, treinamento e auditorias."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.14
     ref_id: A.5.14
     name: Information transfer
@@ -700,6 +783,12 @@ objects:
           \u7EC4\u7EC7\u4E4B\u95F4\u4FE1\u606F\u4F20\u8F93\u7684\u5B89\u5168\u6D41\
           \u7A0B\u3002\u63AA\u65BD\u5305\u62EC\u52A0\u5BC6\u3001\u8BBF\u95EE\u63A7\
           \u5236\u548C\u5B89\u5168\u4F20\u8F93\u534F\u8BAE\u3002"
+      pt:
+        name: "Transfer\xEAncia de informa\xE7\xF5es"
+        description: "Este controle estabelece processos seguros para a transfer\xEA\
+          ncia de informa\xE7\xF5es entre sistemas ou organiza\xE7\xF5es. As medidas\
+          \ incluem criptografia, controles de acesso e protocolos de transfer\xEA\
+          ncia seguros."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.15
     ref_id: A.5.15
     name: Access control
@@ -747,6 +836,12 @@ objects:
           \u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u57FA\u4E8E\u89D2\u8272\u7684\
           \u8BBF\u95EE\u3001\u591A\u56E0\u7D20\u8BA4\u8BC1\u548C\u5B9A\u671F\u5BA1\
           \u67E5\u3002"
+      pt:
+        name: Controle de acesso
+        description: "Este controle implementa e mant\xE9m mecanismos de controle\
+          \ de acesso para restringir o acesso a indiv\xEDduos autorizados. As medidas\
+          \ incluem acesso baseado em pap\xE9is, autentica\xE7\xE3o multifator (MFA)\
+          \ e revis\xF5es peri\xF3dicas."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.16
     ref_id: A.5.16
     name: Identity management
@@ -794,6 +889,12 @@ objects:
           \u9760\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u8EAB\u4EFD\u9A8C\u8BC1\
           \u3001\u751F\u547D\u5468\u671F\u7BA1\u7406\u548C\u8BBF\u95EE\u914D\u7F6E\
           \u3002"
+      pt:
+        name: "Gest\xE3o de identidades"
+        description: "Este controle assegura que as identidades sejam gerenciadas\
+          \ de forma segura para garantir acesso preciso e confi\xE1vel aos sistemas.\
+          \ As medidas incluem verifica\xE7\xE3o de identidade, gest\xE3o do ciclo\
+          \ de vida e provisionamento de acessos."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.17
     ref_id: A.5.17
     name: Authentication information
@@ -837,6 +938,12 @@ objects:
           \u606F\uFF0C\u5982\u5BC6\u7801\uFF0C\u4EE5\u9632\u6B62\u672A\u7ECF\u6388\
           \u6743\u7684\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u52A0\u5BC6\u3001\
           \u5B89\u5168\u5B58\u50A8\u548C\u5B9A\u671F\u66F4\u65B0\u5BC6\u7801\u3002"
+      pt:
+        name: "Informa\xE7\xF5es de autentica\xE7\xE3o"
+        description: "Este controle protege as informa\xE7\xF5es de autentica\xE7\xE3\
+          o, como senhas, para prevenir acessos n\xE3o autorizados. As medidas incluem\
+          \ criptografia, armazenamento seguro e atualiza\xE7\xF5es peri\xF3dicas\
+          \ de senhas."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.18
     ref_id: A.5.18
     name: Access rights
@@ -883,6 +990,12 @@ objects:
           \u89D2\u8272\u548C\u804C\u8D23\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\
           \u5BA1\u8BA1\u3001\u8BBF\u95EE\u64A4\u9500\u548C\u81EA\u52A8\u5316\u8BBF\
           \u95EE\u7BA1\u7406\u3002"
+      pt:
+        name: Direitos de acesso
+        description: "Este controle assegura que os direitos de acesso sejam revisados\
+          \ e gerenciados regularmente para alinhar-se aos pap\xE9is e responsabilidades.\
+          \ As medidas incluem auditorias peri\xF3dicas, revoga\xE7\xE3o de acessos\
+          \ e gest\xE3o automatizada de acessos."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.19
     ref_id: A.5.19
     name: Information security in supplier relationships
@@ -926,6 +1039,12 @@ objects:
           \u5D4C\u5165\u4F9B\u5E94\u5546\u5173\u7CFB\u548C\u6D41\u7A0B\u4E2D\u3002\
           \u63AA\u65BD\u5305\u62EC\u5C3D\u804C\u8C03\u67E5\u3001\u5B89\u5168\u5BA1\
           \u67E5\u548C\u6301\u7EED\u76D1\u63A7\u3002"
+      pt:
+        name: "Seguran\xE7a da informa\xE7\xE3o nas rela\xE7\xF5es com fornecedores"
+        description: "Este controle assegura que a seguran\xE7a da informa\xE7\xE3\
+          o esteja incorporada \xE0s rela\xE7\xF5es e aos processos com fornecedores.\
+          \ As medidas incluem due diligence, revis\xF5es de seguran\xE7a e monitoramento\
+          \ cont\xEDnuo."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.20
     ref_id: A.5.20
     name: Addressing information security within supplier agreements
@@ -972,6 +1091,12 @@ objects:
           \u4E2D\u7684\u4FE1\u606F\u5B89\u5168\u8981\u6C42\u3002\u63AA\u65BD\u5305\
           \u62EC\u660E\u786E\u7684\u5408\u540C\u6761\u6B3E\u3001\u5408\u89C4\u5BA1\
           \u8BA1\u4EE5\u53CA\u5BF9\u8FDD\u89C4\u7684\u660E\u786E\u5904\u7F5A\u3002"
+      pt:
+        name: "Tratamento da seguran\xE7a da informa\xE7\xE3o nos acordos com fornecedores"
+        description: "Este controle trata dos requisitos de seguran\xE7a da informa\xE7\
+          \xE3o nos acordos com fornecedores. As medidas incluem cl\xE1usulas contratuais\
+          \ expl\xEDcitas, auditorias de conformidade e penalidades definidas para\
+          \ viola\xE7\xF5es."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.21
     ref_id: A.5.21
     name: Managing information security in the ICT supply chain
@@ -1023,6 +1148,13 @@ objects:
           \u7EC4\u4EF6\u7684\u5B89\u5168\u3002\u63AA\u65BD\u5305\u62EC\u98CE\u9669\
           \u8BC4\u4F30\u3001\u4F9B\u5E94\u5546\u8BC4\u4F30\u548C\u4E8B\u6545\u54CD\
           \u5E94\u534F\u8BAE\u3002"
+      pt:
+        name: "Gest\xE3o da seguran\xE7a da informa\xE7\xE3o na cadeia de suprimentos\
+          \ de TIC"
+        description: "Este controle gerencia os riscos de seguran\xE7a da informa\xE7\
+          \xE3o na cadeia de suprimentos de TIC para assegurar a seguran\xE7a de servi\xE7\
+          os e componentes. As medidas incluem avalia\xE7\xF5es de risco, avalia\xE7\
+          \xF5es de fornecedores e protocolos de resposta a incidentes."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.22
     ref_id: A.5.22
     name: Monitoring, review and change management of supplier services
@@ -1072,6 +1204,13 @@ objects:
           \u4EE5\u7EF4\u62A4\u4FE1\u606F\u5B89\u5168\u3002\u63AA\u65BD\u5305\u62EC\
           \u670D\u52A1\u6C34\u5E73\u534F\u8BAE\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\
           \u5408\u540C\u66F4\u65B0\u3002"
+      pt:
+        name: "Monitoramento, revis\xE3o e gest\xE3o de mudan\xE7as dos servi\xE7\
+          os de fornecedores"
+        description: "Este controle assegura que os servi\xE7os de fornecedores sejam\
+          \ monitorados, revisados e ajustados para manter a seguran\xE7a da informa\xE7\
+          \xE3o. As medidas incluem acordos de n\xEDvel de servi\xE7o, revis\xF5es\
+          \ peri\xF3dicas e atualiza\xE7\xF5es contratuais."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.23
     ref_id: A.5.23
     name: Information security for use of cloud services
@@ -1117,6 +1256,11 @@ objects:
           \u98CE\u9669\uFF0C\u786E\u4FDD\u4E91\u670D\u52A1\u7684\u5B89\u5168\u4F7F\
           \u7528\u3002\u63AA\u65BD\u5305\u62EC\u6570\u636E\u52A0\u5BC6\u3001\u8BBF\
           \u95EE\u63A7\u5236\u548C\u63D0\u4F9B\u8005\u5408\u89C4\u5BA1\u67E5\u3002"
+      pt:
+        name: "Seguran\xE7a da informa\xE7\xE3o no uso de servi\xE7os de nuvem"
+        description: "Este controle assegura o uso seguro de servi\xE7os de nuvem\
+          \ ao tratar os riscos associados. As medidas incluem criptografia de dados,\
+          \ controles de acesso e revis\xF5es de conformidade do provedor."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.24
     ref_id: A.5.24
     name: Information security incident management planning and preparation
@@ -1166,6 +1310,13 @@ objects:
           \u5168\u4E8B\u4EF6\u7684\u5408\u7406\u89C4\u5212\u548C\u51C6\u5907\u3002\
           \u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u54CD\u5E94\u8BA1\u5212\u3001\u57F9\
           \u8BAD\u6F14\u4E60\u548C\u901A\u4FE1\u534F\u8BAE\u3002"
+      pt:
+        name: "Planejamento e prepara\xE7\xE3o da gest\xE3o de incidentes de seguran\xE7\
+          a da informa\xE7\xE3o"
+        description: "Este controle assegura o planejamento e a prepara\xE7\xE3o adequados\
+          \ para a gest\xE3o de incidentes de seguran\xE7a da informa\xE7\xE3o. As\
+          \ medidas incluem planos de resposta a incidentes, exerc\xEDcios de treinamento\
+          \ e protocolos de comunica\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.25
     ref_id: A.5.25
     name: Assessment and decision on information security events
@@ -1216,6 +1367,13 @@ objects:
           \u52A8\u7684\u6D41\u7A0B\u3002\u63AA\u65BD\u5305\u62EC\u6839\u672C\u539F\
           \u56E0\u5206\u6790\u3001\u98CE\u9669\u8BC4\u4F30\u548C\u7F13\u89E3\u8BA1\
           \u5212\u3002"
+      pt:
+        name: "Avalia\xE7\xE3o e decis\xE3o sobre eventos de seguran\xE7a da informa\xE7\
+          \xE3o"
+        description: "Este controle estabelece processos para avaliar e decidir sobre\
+          \ as a\xE7\xF5es relacionadas a eventos de seguran\xE7a da informa\xE7\xE3\
+          o. As medidas incluem an\xE1lise de causa raiz, avalia\xE7\xE3o de risco\
+          \ e planos de mitiga\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.26
     ref_id: A.5.26
     name: Response to information security incidents
@@ -1263,6 +1421,12 @@ objects:
           \u9650\u5EA6\u5730\u51CF\u5C11\u5F71\u54CD\u5E76\u8FC5\u901F\u6062\u590D\
           \u3002\u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u62A5\u544A\u3001\u5347\u7EA7\
           \u534F\u8BAE\u548C\u904F\u5236\u7B56\u7565\u3002"
+      pt:
+        name: "Resposta a incidentes de seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle assegura uma resposta eficaz a incidentes de seguran\xE7\
+          a da informa\xE7\xE3o para minimizar o impacto e recuperar-se rapidamente.\
+          \ As medidas incluem registro de incidentes, protocolos de escalonamento\
+          \ e estrat\xE9gias de conten\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.27
     ref_id: A.5.27
     name: Learning from information security incidents
@@ -1312,6 +1476,12 @@ objects:
           \u5F55\u5E76\u52A0\u4EE5\u5B9E\u65BD\uFF0C\u4EE5\u6539\u8FDB\u6D41\u7A0B\
           \u3002\u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u540E\u5BA1\u67E5\u3001\u884C\
           \u52A8\u8BA1\u5212\u548C\u653F\u7B56\u66F4\u65B0\u3002"
+      pt:
+        name: "Aprendizado com incidentes de seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle assegura que as li\xE7\xF5es aprendidas com incidentes\
+          \ de seguran\xE7a da informa\xE7\xE3o sejam documentadas e implementadas\
+          \ para aprimorar os processos. As medidas incluem revis\xF5es p\xF3s-incidente,\
+          \ planos de a\xE7\xE3o e atualiza\xE7\xF5es de pol\xEDticas."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.28
     ref_id: A.5.28
     name: Collection of evidence
@@ -1360,6 +1530,12 @@ objects:
           \u4EE5\u652F\u6301\u8C03\u67E5\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u7BA1\
           \u94FE\u7A0B\u5E8F\u3001\u5B89\u5168\u5B58\u50A8\u548C\u95E8\u7981\u63A7\
           \u5236\u3002"
+      pt:
+        name: "Coleta de evid\xEAncias"
+        description: "Este controle assegura que as evid\xEAncias sejam coletadas\
+          \ e preservadas durante incidentes de seguran\xE7a para apoiar as investiga\xE7\
+          \xF5es. As medidas incluem procedimentos de cadeia de cust\xF3dia, armazenamento\
+          \ seguro e controles de acesso."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.29
     ref_id: A.5.29
     name: Information security during disruption
@@ -1406,6 +1582,12 @@ objects:
           \u8FD0\u8425\u7684\u8FDE\u7EED\u6027\u3002\u63AA\u65BD\u5305\u62EC\u5E94\
           \u6025\u9884\u6848\u3001\u5907\u4EFD\u7CFB\u7EDF\u548C\u6545\u969C\u5207\
           \u6362\u673A\u5236\u3002"
+      pt:
+        name: "Seguran\xE7a da informa\xE7\xE3o durante interrup\xE7\xF5es"
+        description: "Este controle assegura a manuten\xE7\xE3o da seguran\xE7a da\
+          \ informa\xE7\xE3o durante interrup\xE7\xF5es para garantir a continuidade\
+          \ das opera\xE7\xF5es. As medidas incluem planos de conting\xEAncia, sistemas\
+          \ de backup e mecanismos de failover."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.30
     ref_id: A.5.30
     name: ICT readiness for business continuity
@@ -1453,6 +1635,12 @@ objects:
           \u51CF\u5C11\u4E2D\u65AD\u671F\u95F4\u7684\u505C\u673A\u65F6\u95F4\u3002\
           \u63AA\u65BD\u5305\u62EC\u6D4B\u8BD5\u6062\u590D\u8BA1\u5212\u3001\u5197\
           \u4F59\u7CFB\u7EDF\u548C\u707E\u96BE\u6062\u590D\u7AD9\u70B9\u3002"
+      pt:
+        name: "Prontid\xE3o de TIC para continuidade de neg\xF3cios"
+        description: "Este controle assegura a prontid\xE3o de TIC para a continuidade\
+          \ de neg\xF3cios a fim de minimizar o tempo de inatividade durante interrup\xE7\
+          \xF5es. As medidas incluem testes de planos de recupera\xE7\xE3o, sistemas\
+          \ redundantes e sites de recupera\xE7\xE3o de desastres."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.31
     ref_id: A.5.31
     name: Legal, statutory, regulatory and contractual requirements
@@ -1499,6 +1687,12 @@ objects:
           \u3001\u6CD5\u5B9A\u3001\u76D1\u7BA1\u548C\u5408\u540C\u4FE1\u606F\u5B89\
           \u5168\u8981\u6C42\u3002\u63AA\u65BD\u5305\u62EC\u653F\u7B56\u5BA1\u67E5\
           \u3001\u5BA1\u8BA1\u548C\u8BC1\u636E\u8BB0\u5F55\u3002"
+      pt:
+        name: "Requisitos legais, estatut\xE1rios, regulat\xF3rios e contratuais"
+        description: "Este controle assegura a conformidade com os requisitos legais,\
+          \ estatut\xE1rios, regulat\xF3rios e contratuais de seguran\xE7a da informa\xE7\
+          \xE3o. As medidas incluem revis\xF5es de pol\xEDticas, auditorias e documenta\xE7\
+          \xE3o de evid\xEAncias."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.32
     ref_id: A.5.32
     name: Intellectual property rights
@@ -1543,6 +1737,12 @@ objects:
           \u901A\u8FC7\u9002\u5F53\u7684\u4FE1\u606F\u5B89\u5168\u63AA\u65BD\u5F97\
           \u5230\u4FDD\u62A4\u3002\u63AA\u65BD\u5305\u62EC\u8BBF\u95EE\u9650\u5236\
           \u3001\u52A0\u5BC6\u548C\u6CD5\u5F8B\u534F\u8BAE\u3002"
+      pt:
+        name: Direitos de propriedade intelectual
+        description: "Este controle garante que os direitos de propriedade intelectual\
+          \ sejam protegidos por meio de medidas adequadas de seguran\xE7a da informa\xE7\
+          \xE3o. As medidas incluem restri\xE7\xF5es de acesso, criptografia e acordos\
+          \ jur\xEDdicos."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.33
     ref_id: A.5.33
     name: Protection of records
@@ -1591,6 +1791,12 @@ objects:
           \u7ECF\u6388\u6743\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u7559\
           \u653F\u7B56\u3001\u5B89\u5168\u5B58\u50A8\u548C\u8BBF\u95EE\u63A7\u5236\
           \u3002"
+      pt:
+        name: "Prote\xE7\xE3o de registros"
+        description: "Este controle garante que os registros sejam armazenados e protegidos\
+          \ com seguran\xE7a para evitar perda ou acesso n\xE3o autorizado. As medidas\
+          \ incluem pol\xEDticas de reten\xE7\xE3o, armazenamento seguro e controles\
+          \ de acesso."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.34
     ref_id: A.5.34
     name: Privacy and protection of PII
@@ -1636,6 +1842,12 @@ objects:
           \u4FDD\u4E2A\u4EBA\u8EAB\u4EFD\u4FE1\u606F\uFF08PII\uFF09\u7684\u5B89\u5168\
           \u5904\u7406\u3002\u63AA\u65BD\u5305\u62EC\u533F\u540D\u5316\u3001\u52A0\
           \u5BC6\u4EE5\u53CA\u9075\u5B88\u9690\u79C1\u6CD5\u5F8B\u3002"
+      pt:
+        name: "Privacidade e prote\xE7\xE3o de PII"
+        description: "Este controle protege a privacidade e garante o tratamento seguro\
+          \ de informa\xE7\xF5es de identifica\xE7\xE3o pessoal (PII). As medidas\
+          \ incluem anonimiza\xE7\xE3o, criptografia e conformidade com as leis de\
+          \ privacidade."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.35
     ref_id: A.5.35
     name: Independent review of information security
@@ -1682,6 +1894,12 @@ objects:
           \u6709\u6548\u6027\u548C\u5408\u89C4\u6027\u3002\u63AA\u65BD\u5305\u62EC\
           \u5916\u90E8\u5BA1\u8BA1\u3001\u98CE\u9669\u8BC4\u4F30\u548C\u540E\u7EED\
           \u884C\u52A8\u3002"
+      pt:
+        name: "An\xE1lise independente da seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle garante an\xE1lises independentes da seguran\xE7\
+          a da informa\xE7\xE3o para avaliar a efic\xE1cia e a conformidade. As medidas\
+          \ incluem auditorias externas, avalia\xE7\xF5es de risco e a\xE7\xF5es de\
+          \ acompanhamento."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.36
     ref_id: A.5.36
     name: Compliance with policies, rules and standards for information security
@@ -1731,6 +1949,13 @@ objects:
           \u4FE1\u606F\u5B89\u5168\u7684\u653F\u7B56\u3001\u89C4\u5219\u548C\u6807\
           \u51C6\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u57F9\u8BAD\u3001\u653F\
           \u7B56\u5BA1\u67E5\u548C\u6267\u6CD5\u673A\u5236\u3002"
+      pt:
+        name: "Conformidade com pol\xEDticas, regras e normas de seguran\xE7a da informa\xE7\
+          \xE3o"
+        description: "Este controle garante a conformidade com todas as pol\xEDticas,\
+          \ regras e normas de seguran\xE7a da informa\xE7\xE3o. As medidas incluem\
+          \ treinamentos peri\xF3dicos, revis\xF5es de pol\xEDticas e mecanismos de\
+          \ aplica\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.5.37
     ref_id: A.5.37
     name: Documented operating procedures
@@ -1774,6 +1999,12 @@ objects:
           \u6863\u7684\u4F5C\u7A0B\u5E8F\uFF0C\u4EE5\u786E\u4FDD\u5B89\u5168\u5B9E\
           \u8DF5\u7684\u4E00\u81F4\u6027\u3002\u63AA\u65BD\u5305\u62EC\u6D41\u7A0B\
           \u6587\u6863\u3001\u7248\u672C\u63A7\u5236\u548C\u65E0\u969C\u788D\u3002"
+      pt:
+        name: Procedimentos operacionais documentados
+        description: "Este controle desenvolve e mant\xE9m procedimentos operacionais\
+          \ documentados para garantir a consist\xEAncia das pr\xE1ticas de seguran\xE7\
+          a. As medidas incluem documenta\xE7\xE3o de processos, controle de vers\xE3\
+          o e acessibilidade."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.1
     ref_id: A.6.1
     name: Screening
@@ -1824,6 +2055,13 @@ objects:
           \u4EBA\u7684\u9002\u4EFB\u6027\u3002\u63AA\u65BD\u5305\u62EC\u80CC\u666F\
           \u8C03\u67E5\u3001\u8EAB\u4EFD\u9A8C\u8BC1\u548C\u8D44\u683C\u8BC4\u4F30\
           \uFF0C\u4EE5\u964D\u4F4E\u5B89\u5168\u98CE\u9669\u3002"
+      pt:
+        name: Triagem
+        description: "Este controle garante a implementa\xE7\xE3o de processos de\
+          \ triagem para verificar a adequa\xE7\xE3o dos candidatos antes da contrata\xE7\
+          \xE3o. As medidas incluem verifica\xE7\xE3o de antecedentes, verifica\xE7\
+          \xE3o de identidade e avalia\xE7\xE3o de qualifica\xE7\xF5es para reduzir\
+          \ riscos de seguran\xE7a."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.2
     ref_id: A.6.2
     name: Terms and conditions of employment
@@ -1870,6 +2108,12 @@ objects:
           \u63AA\u65BD\u5305\u62EC\u660E\u786E\u89C4\u5B9A\u4FDD\u5BC6\u3001\u9075\
           \u5B88\u653F\u7B56\u4EE5\u53CA\u8FDD\u89C4\u540E\u679C\u7B49\u6761\u6B3E\
           \u3002"
+      pt:
+        name: "Termos e condi\xE7\xF5es de contrata\xE7\xE3o"
+        description: "Este controle garante que os termos e condi\xE7\xF5es de contrata\xE7\
+          \xE3o incluam responsabilidades de seguran\xE7a da informa\xE7\xE3o. As\
+          \ medidas incluem cl\xE1usulas expl\xEDcitas sobre confidencialidade, conformidade\
+          \ com pol\xEDticas e consequ\xEAncias em caso de viola\xE7\xF5es."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.3
     ref_id: A.6.3
     name: Information security awareness, education and training
@@ -1919,6 +2163,13 @@ objects:
           \u57F9\u8BAD\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u57F9\u8BAD\u3001\
           \u7535\u5B50\u5B66\u4E60\u9879\u76EE\u548C\u6A21\u62DF\u9493\u9C7C\u6F14\
           \u4E60\u3002"
+      pt:
+        name: "Conscientiza\xE7\xE3o, educa\xE7\xE3o e treinamento em seguran\xE7\
+          a da informa\xE7\xE3o"
+        description: "Este controle garante que os colaboradores recebam regularmente\
+          \ conscientiza\xE7\xE3o, educa\xE7\xE3o e treinamento em seguran\xE7a da\
+          \ informa\xE7\xE3o. As medidas incluem sess\xF5es de treinamento programadas,\
+          \ programas de e-learning e exerc\xEDcios simulados de phishing."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.4
     ref_id: A.6.4
     name: Disciplinary process
@@ -1966,6 +2217,12 @@ objects:
           \u89C4\u884C\u4E3A\u3002\u63AA\u65BD\u5305\u62EC\u660E\u786E\u7684\u6307\
           \u5BFC\u65B9\u9488\u3001\u5347\u7EA7\u7A0B\u5E8F\u548C\u6301\u7EED\u7684\
           \u6267\u6CD5\uFF0C\u4EE5\u4FDD\u6301\u95EE\u8D23\u5236\u3002"
+      pt:
+        name: Processo disciplinar
+        description: "Este controle estabelece um processo disciplinar para tratar\
+          \ viola\xE7\xF5es das pol\xEDticas de seguran\xE7a da informa\xE7\xE3o.\
+          \ As medidas incluem diretrizes claras, procedimentos de escalonamento e\
+          \ aplica\xE7\xE3o consistente para manter a responsabiliza\xE7\xE3o."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.5
     ref_id: A.6.5
     name: Responsibilities after termination or change of employment
@@ -2020,6 +2277,14 @@ objects:
           \u66F4\u540E\u5F97\u5230\u5B9A\u4E49\u548C\u6267\u884C\u3002\u63AA\u65BD\
           \u5305\u62EC\u64A4\u9500\u8BBF\u95EE\u6743\u3001\u6536\u7F34\u7EC4\u7EC7\
           \u8D44\u4EA7\u4EE5\u53CA\u8FDB\u884C\u79BB\u804C\u9762\u8C08\u3002"
+      pt:
+        name: "Responsabilidades ap\xF3s o encerramento ou mudan\xE7a de v\xEDnculo\
+          \ empregat\xEDcio"
+        description: "Este controle garante que as responsabilidades relacionadas\
+          \ \xE0 seguran\xE7a da informa\xE7\xE3o sejam definidas e aplicadas ap\xF3\
+          s o encerramento ou mudan\xE7a de fun\xE7\xE3o. As medidas incluem revoga\xE7\
+          \xE3o de direitos de acesso, recolhimento de ativos organizacionais e realiza\xE7\
+          \xE3o de entrevistas de desligamento."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.6
     ref_id: A.6.6
     name: Confidentiality or non-disclosure agreements
@@ -2069,6 +2334,13 @@ objects:
           \u63AA\u65BD\u5305\u62EC\u5165\u804C\u65F6\u7B7E\u7F72\u534F\u8BAE\u3001\
           \u5B9A\u671F\u63D0\u9192\u4EE5\u53CA\u5728\u8FDD\u89C4\u65F6\u6267\u884C\
           \u6CD5\u5F8B\u884C\u52A8\u3002"
+      pt:
+        name: "Acordos de confidencialidade ou n\xE3o divulga\xE7\xE3o"
+        description: "Este controle implementa acordos de confidencialidade ou n\xE3\
+          o divulga\xE7\xE3o para proteger informa\xE7\xF5es sens\xEDveis. As medidas\
+          \ incluem acordos assinados no in\xEDcio da contrata\xE7\xE3o, lembretes\
+          \ peri\xF3dicos e aplica\xE7\xE3o de a\xE7\xF5es legais em caso de viola\xE7\
+          \xF5es."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.7
     ref_id: A.6.7
     name: Remote working
@@ -2117,6 +2389,12 @@ objects:
           \u7684\u5B89\u5168\u8BBF\u95EE\u3001\u5F3A\u5236\u4F7F\u7528VPN\uFF0C\u4EE5\
           \u53CA\u5236\u5B9A\u8FDC\u7A0B\u5904\u7406\u654F\u611F\u6570\u636E\u7684\
           \u653F\u7B56\u3002"
+      pt:
+        name: Trabalho remoto
+        description: "Este controle garante a gest\xE3o segura dos riscos de seguran\xE7\
+          a da informa\xE7\xE3o durante o trabalho remoto. As medidas incluem acesso\
+          \ seguro aos sistemas corporativos, uso obrigat\xF3rio de VPNs e pol\xED\
+          ticas para o tratamento de dados sens\xEDveis remotamente."
   - urn: urn:intuitem:risk:function:doc-pol:a.6.8
     ref_id: A.6.8
     name: Information security event reporting
@@ -2167,6 +2445,13 @@ objects:
           \u65BD\u5305\u62EC\u4E8B\u4EF6\u62A5\u544A\u6E20\u9053\u3001\u5BA3\u4F20\
           \u6D3B\u52A8\u4EE5\u53CA\u8C03\u67E5\u548C\u5904\u7406\u62A5\u544A\u4E8B\
           \u4EF6\u7684\u540E\u7EED\u7A0B\u5E8F\u3002"
+      pt:
+        name: "Relato de eventos de seguran\xE7a da informa\xE7\xE3o"
+        description: "Este controle garante que os colaboradores possam relatar prontamente\
+          \ eventos de seguran\xE7a da informa\xE7\xE3o. As medidas incluem canais\
+          \ de notifica\xE7\xE3o de incidentes, campanhas de conscientiza\xE7\xE3\
+          o e procedimentos de acompanhamento para investigar e tratar os eventos\
+          \ relatados."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.1
     ref_id: A.7.1
     name: Physical security perimeters
@@ -2217,6 +2502,12 @@ objects:
           \u8BBE\u7F6E\u969C\u788D\u7269\u3001\u95E8\u7981\u63A7\u5236\u548C\u76D1\
           \u63A7\u7CFB\u7EDF\uFF0C\u786E\u4FDD\u53EA\u6709\u6388\u6743\u4EBA\u5458\
           \u624D\u80FD\u8FDB\u5165\u3002"
+      pt:
+        name: "Per\xEDmetros de seguran\xE7a f\xEDsica"
+        description: "Este controle estabelece per\xEDmetros de seguran\xE7a f\xED\
+          sica para proteger \xE1reas cr\xEDticas contra acesso n\xE3o autorizado.\
+          \ As medidas incluem barreiras, controles de acesso e sistemas de monitoramento\
+          \ para garantir que apenas pessoas autorizadas possam entrar."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.2
     ref_id: A.7.2
     name: Physical entry
@@ -2263,6 +2554,11 @@ objects:
           \u7ECF\u6388\u6743\u7684\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u5FBD\
           \u7AE0\u7CFB\u7EDF\u3001\u5B89\u4FDD\u4EBA\u5458\u548C\u8BBF\u5BA2\u8BB0\
           \u5F55\u3002"
+      pt:
+        name: "Entrada f\xEDsica"
+        description: "Este controle garante que os pontos de entrada f\xEDsica sejam\
+          \ controlados e monitorados para evitar acesso n\xE3o autorizado. As medidas\
+          \ incluem sistemas de crach\xE1, equipe de seguran\xE7a e registros de visitantes."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.3
     ref_id: A.7.3
     name: Securing offices, rooms and facilities
@@ -2308,6 +2604,12 @@ objects:
           \u623F\u95F4\u548C\u8BBE\u65BD\u7684\u5B89\u5168\uFF0C\u4EE5\u4FDD\u62A4\
           \u4FE1\u606F\u548C\u8D44\u6E90\u3002\u63AA\u65BD\u5305\u62EC\u4E0A\u9501\
           \u95E8\u3001\u9650\u5236\u533A\u57DF\u548C\u76D1\u63A7\u7CFB\u7EDF\u3002"
+      pt:
+        name: "Prote\xE7\xE3o de escrit\xF3rios, salas e instala\xE7\xF5es"
+        description: "Este controle garante que escrit\xF3rios, salas e instala\xE7\
+          \xF5es sejam protegidos para resguardar informa\xE7\xF5es e recursos. As\
+          \ medidas incluem portas trancadas, \xE1reas restritas e sistemas de vigil\xE2\
+          ncia."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.4
     ref_id: A.7.4
     name: Physical security monitoring
@@ -2351,6 +2653,11 @@ objects:
           \u76D1\u63A7\uFF0C\u4EE5\u68C0\u6D4B\u5E76\u8FC5\u901F\u54CD\u5E94\u5A01\
           \u80C1\u3002\u63AA\u65BD\u5305\u62EC\u95ED\u8DEF\u7535\u89C6\u7CFB\u7EDF\
           \u3001\u8FD0\u52A8\u63A2\u6D4B\u5668\u548C\u5B9E\u65F6\u8B66\u62A5\u3002"
+      pt:
+        name: "Monitoramento de seguran\xE7a f\xEDsica"
+        description: "Este controle implementa o monitoramento de seguran\xE7a f\xED\
+          sica para detectar e responder prontamente a amea\xE7as. As medidas incluem\
+          \ sistemas de CFTV, detectores de movimento e alertas em tempo real."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.5
     ref_id: A.7.5
     name: Protecting against physical and environmental threats
@@ -2396,6 +2703,12 @@ objects:
           \u6E90\u514D\u53D7\u7269\u7406\u548C\u73AF\u5883\u5A01\u80C1\u3002\u63AA\
           \u65BD\u5305\u62EC\u706D\u706B\u7CFB\u7EDF\u3001\u6E29\u5EA6\u63A7\u5236\
           \u548C\u9632\u6D2A\u5C4F\u969C\u3002"
+      pt:
+        name: "Prote\xE7\xE3o contra amea\xE7as f\xEDsicas e ambientais"
+        description: "Este controle protege sistemas e recursos contra amea\xE7as\
+          \ f\xEDsicas e ambientais. As medidas incluem sistemas de supress\xE3o de\
+          \ inc\xEAndio, controles de temperatura e barreiras de preven\xE7\xE3o contra\
+          \ inunda\xE7\xF5es."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.6
     ref_id: A.7.6
     name: Working In secure areas
@@ -2440,6 +2753,11 @@ objects:
           \u53EA\u5141\u8BB8\u6388\u6743\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\
           \u95E8\u7981\u7CFB\u7EDF\u3001\u8BBF\u5BA2\u62A4\u9001\u548C\u6D3B\u52A8\
           \u76D1\u6D4B\u3002"
+      pt:
+        name: "Trabalho em \xE1reas seguras"
+        description: "Este controle garante que as \xE1reas seguras sejam gerenciadas\
+          \ para permitir apenas acesso autorizado. As medidas incluem sistemas de\
+          \ controle de acesso, acompanhamento de visitantes e monitoramento de atividades."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.7
     ref_id: A.7.7
     name: Clear desk and clear screen
@@ -2488,6 +2806,13 @@ objects:
           \u654F\u611F\u4FE1\u606F\u4E0D\u4F1A\u88AB\u9057\u6F0F\u3002\u63AA\u65BD\
           \u5305\u62EC\u5C06\u654F\u611F\u6587\u4EF6\u9501\u597D\uFF0C\u5E76\u5728\
           \u672A\u4F7F\u7528\u65F6\u81EA\u52A8\u9501\u5B9A\u5C4F\u5E55\u3002"
+      pt:
+        name: Mesa limpa e tela limpa
+        description: "Este controle garante que informa\xE7\xF5es sens\xEDveis n\xE3\
+          o fiquem expostas por meio da ado\xE7\xE3o de pol\xEDticas de mesa limpa\
+          \ e tela limpa. As medidas incluem guardar documentos sens\xEDveis em local\
+          \ trancado e o bloqueio autom\xE1tico das telas quando n\xE3o est\xE3o em\
+          \ uso."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.8
     ref_id: A.7.8
     name: Equipment siting and protection
@@ -2533,6 +2858,12 @@ objects:
           \u7684\u8BBF\u95EE\u6216\u635F\u574F\u3002\u63AA\u65BD\u5305\u62EC\u5B89\
           \u5168\u5B89\u88C5\u3001\u4E0A\u9501\u67DC\u5B50\u548C\u9650\u5236\u8FDB\
           \u5165\u533A\u57DF\u3002"
+      pt:
+        name: "Posicionamento e prote\xE7\xE3o de equipamentos"
+        description: "Este controle garante que os equipamentos sejam posicionados\
+          \ e protegidos para evitar acesso n\xE3o autorizado ou danos. As medidas\
+          \ incluem fixa\xE7\xE3o segura, gabinetes trancados e \xE1reas de acesso\
+          \ restrito."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.9
     ref_id: A.7.9
     name: Security of assets off-premises
@@ -2579,6 +2910,12 @@ objects:
           \u4EE5\u7EF4\u62A4\u673A\u5BC6\u6027\u548C\u5B8C\u6574\u6027\u3002\u63AA\
           \u65BD\u5305\u62EC\u52A0\u5BC6\u3001\u5B89\u5168\u4F20\u8F93\u548C\u8BBF\
           \u95EE\u8FFD\u8E2A\u3002"
+      pt:
+        name: "Seguran\xE7a de ativos fora das instala\xE7\xF5es"
+        description: "Este controle garante que os ativos utilizados ou armazenados\
+          \ fora das instala\xE7\xF5es sejam protegidos para manter a confidencialidade\
+          \ e a integridade. As medidas incluem criptografia, transporte seguro e\
+          \ rastreamento de acesso."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.10
     ref_id: A.7.10
     name: Storage media
@@ -2620,6 +2957,11 @@ objects:
           \uFF0C\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u8BBF\u95EE\u6216\u7BE1\
           \u6539\u3002\u63AA\u65BD\u5305\u62EC\u5B89\u5168\u5B58\u50A8\u3001\u52A0\
           \u5BC6\u548C\u8BBF\u95EE\u9650\u5236\u3002"
+      pt:
+        name: "M\xEDdias de armazenamento"
+        description: "Este controle protege as m\xEDdias de armazenamento para evitar\
+          \ acesso n\xE3o autorizado ou adultera\xE7\xE3o. As medidas incluem armazenamento\
+          \ seguro, criptografia e restri\xE7\xF5es de acesso."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.11
     ref_id: A.7.11
     name: Supporting utilities
@@ -2665,6 +3007,12 @@ objects:
           \u516C\u7528\u4E8B\u4E1A\uFF0C\u5982\u7535\u529B\u548C\u51B7\u5374\u7CFB\
           \u7EDF\uFF0C\u53EF\u9760\u4E14\u4E0D\u53D7\u5E72\u6270\u3002\u63AA\u65BD\
           \u5305\u62EC\u5197\u4F59\u7CFB\u7EDF\u548C\u7269\u7406\u5B89\u5168\u3002"
+      pt:
+        name: Utilidades de suporte
+        description: "Este controle garante que as utilidades de suporte, como sistemas\
+          \ de energia e refrigera\xE7\xE3o, sejam confi\xE1veis e protegidas contra\
+          \ interrup\xE7\xF5es. As medidas incluem sistemas redundantes e seguran\xE7\
+          a f\xEDsica."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.12
     ref_id: A.7.12
     name: Cabling security
@@ -2708,6 +3056,11 @@ objects:
           \u62E6\u622A\u6216\u635F\u574F\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u62A4\
           \u7BA1\u9053\u3001\u6B63\u786E\u6807\u8BC6\u548C\u5B89\u5168\u5E03\u7EBF\
           \u3002"
+      pt:
+        name: "Seguran\xE7a do cabeamento"
+        description: "Este controle garante que os cabos sejam protegidos para evitar\
+          \ intercepta\xE7\xE3o n\xE3o autorizada ou danos. As medidas incluem condu\xED\
+          tes de prote\xE7\xE3o, identifica\xE7\xE3o adequada e roteamento seguro."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.13
     ref_id: A.7.13
     name: Equipment maintenance
@@ -2754,6 +3107,12 @@ objects:
           \u6545\u969C\u53D1\u751F\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u4FDD\
           \u517B\u3001\u5B89\u5168\u7EF4\u62A4\u5B9E\u8DF5\u4EE5\u53CA\u6388\u6743\
           \u4EBA\u5458\u901A\u884C\u3002"
+      pt:
+        name: "Manuten\xE7\xE3o de equipamentos"
+        description: "Este controle garante que os equipamentos sejam mantidos para\
+          \ assegurar o funcionamento adequado e evitar falhas. As medidas incluem\
+          \ manuten\xE7\xE3o regular, pr\xE1ticas seguras de manuten\xE7\xE3o e acesso\
+          \ restrito a pessoal autorizado."
   - urn: urn:intuitem:risk:function:doc-pol:a.7.14
     ref_id: A.7.14
     name: Secure disposal or re-use of equipment
@@ -2800,6 +3159,12 @@ objects:
           \u5904\u7F6E\u6216\u518D\u5229\u7528\uFF0C\u4EE5\u4FDD\u62A4\u654F\u611F\
           \u4FE1\u606F\u3002\u63AA\u65BD\u5305\u62EC\u6570\u636E\u51C0\u5316\u3001\
           \u7269\u7406\u9500\u6BC1\u548C\u8BA4\u8BC1\u5904\u7406\u6D41\u7A0B\u3002"
+      pt:
+        name: "Descarte seguro ou reutiliza\xE7\xE3o de equipamentos"
+        description: "Este controle garante o descarte seguro ou a reutiliza\xE7\xE3\
+          o de equipamentos para proteger informa\xE7\xF5es sens\xEDveis. As medidas\
+          \ incluem sanitiza\xE7\xE3o de dados, destrui\xE7\xE3o f\xEDsica e processos\
+          \ de descarte certificados."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.1
     ref_id: A.8.1
     name: User end point devices
@@ -2849,6 +3214,12 @@ objects:
           \u3001\u53F0\u5F0F\u673A\u548C\u79FB\u52A8\u8BBE\u5907\u7B49\u7EC8\u7AEF\
           \u8BBE\u5907\u7684\u4FDD\u62A4\uFF0C\u4EE5\u6700\u5927\u9650\u5EA6\u5730\
           \u964D\u4F4E\u98CE\u9669\u3002"
+      pt:
+        name: "Dispositivos de endpoint do usu\xE1rio"
+        description: "Este controle garante a prote\xE7\xE3o de dispositivos de endpoint,\
+          \ como notebooks, desktops e dispositivos m\xF3veis, por meio da implementa\xE7\
+          \xE3o de medidas de seguran\xE7a como detec\xE7\xE3o em endpoints, criptografia\
+          \ e configura\xE7\xF5es seguras para minimizar riscos."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.2
     ref_id: A.8.2
     name: Privileged access rights
@@ -2901,6 +3272,13 @@ objects:
           \u6027\u3002\u63AA\u65BD\u5305\u62EC\u57FA\u4E8E\u89D2\u8272\u7684\u8BBF\
           \u95EE\u63A7\u5236\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\u4E25\u683C\u7684\
           \u8D26\u6237\u7BA1\u7406\u3002"
+      pt:
+        name: Direitos de acesso privilegiado
+        description: "Este controle garante que os direitos de acesso privilegiado\
+          \ sejam concedidos, gerenciados e monitorados com cuidado para evitar uso\
+          \ indevido e refor\xE7ar a seguran\xE7a. As medidas incluem controles de\
+          \ acesso baseados em fun\xE7\xE3o, revis\xF5es peri\xF3dicas e gest\xE3\
+          o rigorosa de contas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.3
     ref_id: A.8.3
     name: Information access restriction
@@ -2947,6 +3325,12 @@ objects:
           \u95EE\u3002\u63AA\u65BD\u5305\u62EC\u7528\u6237\u8BA4\u8BC1\u3001\u57FA\
           \u4E8E\u89D2\u8272\u7684\u6743\u9650\u4EE5\u53CA\u5B9A\u671F\u7684\u8BBF\
           \u95EE\u5BA1\u67E5\u3002"
+      pt:
+        name: "Restri\xE7\xE3o de acesso \xE0 informa\xE7\xE3o"
+        description: "Este controle restringe o acesso a informa\xE7\xF5es sens\xED\
+          veis com base no princ\xEDpio da necessidade de conhecer. As medidas incluem\
+          \ autentica\xE7\xE3o de usu\xE1rios, permiss\xF5es baseadas em fun\xE7\xE3\
+          o e revis\xF5es peri\xF3dicas de acesso."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.4
     ref_id: A.8.4
     name: Access to source code
@@ -2993,6 +3377,12 @@ objects:
           \u4FDD\u969C\u4E86\u5BF9\u6E90\u4EE3\u7801\u7684\u8BBF\u95EE\u3002\u63AA\
           \u65BD\u5305\u62EC\u7248\u672C\u63A7\u5236\u3001\u5B89\u5168\u4ED3\u5E93\
           \u548C\u9650\u5236\u5F00\u53D1\u8005\u8BBF\u95EE\u3002"
+      pt:
+        name: "Acesso ao c\xF3digo-fonte"
+        description: "Este controle protege o acesso ao c\xF3digo-fonte ao evitar\
+          \ visualiza\xE7\xE3o, modifica\xE7\xE3o ou exposi\xE7\xE3o n\xE3o autorizadas.\
+          \ As medidas incluem controle de vers\xE3o, reposit\xF3rios seguros e acesso\
+          \ restrito de desenvolvedores."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.5
     ref_id: A.8.5
     name: Secure authentication
@@ -3034,6 +3424,11 @@ objects:
           \uFF0C\u5982\u591A\u56E0\u7D20\u8BA4\u8BC1\uFF0C\u4EE5\u9A8C\u8BC1\u7528\
           \u6237\u8EAB\u4EFD\u5E76\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u8BBF\
           \u95EE\u3002"
+      pt:
+        name: "Autentica\xE7\xE3o segura"
+        description: "Este controle implementa mecanismos de autentica\xE7\xE3o robustos,\
+          \ como autentica\xE7\xE3o multifator (MFA), para verificar a identidade\
+          \ dos usu\xE1rios e evitar acesso n\xE3o autorizado."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.6
     ref_id: A.8.6
     name: Capacity management
@@ -3080,6 +3475,12 @@ objects:
           \u80FD\u5E76\u9632\u6B62\u4E2D\u65AD\u3002\u63AA\u65BD\u5305\u62EC\u76D1\
           \u63A7\u8D44\u6E90\u4F7F\u7528\u548C\u89C4\u5212\u672A\u6765\u9700\u6C42\
           \u3002"
+      pt:
+        name: "Gest\xE3o de capacidade"
+        description: "Este controle garante que a capacidade do sistema seja gerenciada\
+          \ para proporcionar desempenho adequado e evitar interrup\xE7\xF5es. As\
+          \ medidas incluem o monitoramento do uso de recursos e o planejamento de\
+          \ necessidades futuras."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.7
     ref_id: A.8.7
     name: Protection against malware
@@ -3121,6 +3522,11 @@ objects:
           \u3001\u5A01\u80C1\u68C0\u6D4B\u5DE5\u5177\u548C\u5B9A\u671F\u66F4\u65B0\
           \u7B49\u63AA\u65BD\uFF0C\u4EE5\u4FDD\u62A4\u7CFB\u7EDF\u514D\u53D7\u6076\
           \u610F\u8F6F\u4EF6\u548C\u6076\u610F\u653B\u51FB\u3002"
+      pt:
+        name: "Prote\xE7\xE3o contra malware"
+        description: "Este controle implementa medidas como software antiv\xEDrus,\
+          \ ferramentas de detec\xE7\xE3o de amea\xE7as e atualiza\xE7\xF5es regulares\
+          \ para proteger os sistemas contra malware e ataques maliciosos."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.8
     ref_id: A.8.8
     name: Management of technical vulnerabilities
@@ -3165,6 +3571,11 @@ objects:
           \u5927\u9650\u5EA6\u5730\u964D\u4F4E\u5B89\u5168\u98CE\u9669\u3002\u63AA\
           \u65BD\u5305\u62EC\u6F0F\u6D1E\u626B\u63CF\u548C\u8865\u4E01\u7BA1\u7406\
           \u3002"
+      pt:
+        name: "Gest\xE3o de vulnerabilidades t\xE9cnicas"
+        description: "Este controle identifica, avalia e corrige vulnerabilidades\
+          \ t\xE9cnicas prontamente para minimizar riscos de seguran\xE7a. As medidas\
+          \ incluem varredura de vulnerabilidades e gest\xE3o de patches."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.9
     ref_id: A.8.9
     name: Configuration management
@@ -3203,6 +3614,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u914D\u7F6E\
           \u7684\u4E00\u81F4\u7BA1\u7406\uFF0C\u4EE5\u7EF4\u62A4\u5B89\u5168\u8BBE\
           \u7F6E\u5E76\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u66F4\u6539\u3002"
+      pt:
+        name: "Gest\xE3o de configura\xE7\xE3o"
+        description: "Este controle garante a gest\xE3o consistente das configura\xE7\
+          \xF5es de sistema para manter as defini\xE7\xF5es de seguran\xE7a e evitar\
+          \ altera\xE7\xF5es n\xE3o autorizadas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.10
     ref_id: A.8.10
     name: Information deletion
@@ -3243,6 +3659,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u654F\u611F\u4FE1\u606F\
           \u5728\u4E0D\u518D\u9700\u8981\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\
           \u6062\u590D\u6216\u66DD\u5149\u65F6\u88AB\u5B89\u5168\u5220\u9664\u3002"
+      pt:
+        name: "Exclus\xE3o de informa\xE7\xF5es"
+        description: "Este controle garante que informa\xE7\xF5es sens\xEDveis sejam\
+          \ exclu\xEDdas com seguran\xE7a quando n\xE3o forem mais necess\xE1rias,\
+          \ para evitar recupera\xE7\xE3o ou exposi\xE7\xE3o n\xE3o autorizadas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.11
     ref_id: A.8.11
     name: Data masking
@@ -3282,6 +3703,11 @@ objects:
         description: "\u8BE5\u63A7\u5236\u901A\u8FC7\u4F7F\u7528\u6570\u636E\u63A9\
           \u853D\u6280\u672F\u4FDD\u62A4\u654F\u611F\u4FE1\u606F\uFF0C\u9632\u6B62\
           \u672A\u6388\u6743\u7528\u6237\u53D1\u73B0\u3002"
+      pt:
+        name: Mascaramento de dados
+        description: "Este controle protege informa\xE7\xF5es sens\xEDveis durante\
+          \ o processamento ou a exibi\xE7\xE3o por meio de t\xE9cnicas de mascaramento\
+          \ de dados para ocult\xE1-los de usu\xE1rios n\xE3o autorizados."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.12
     ref_id: A.8.12
     name: Data leakage prevention
@@ -3322,6 +3748,11 @@ objects:
           \u654F\u611F\u6570\u636E\u901A\u8FC7\u7535\u5B50\u90AE\u4EF6\u3001\u53EF\
           \u79FB\u52A8\u5A92\u4F53\u6216\u5176\u4ED6\u6E20\u9053\u610F\u5916\u6CC4\
           \u9732\u7684\u673A\u5236\u3002"
+      pt:
+        name: "Preven\xE7\xE3o contra vazamento de dados"
+        description: "Este controle implementa mecanismos para evitar a exposi\xE7\
+          \xE3o acidental de dados sens\xEDveis por e-mail, m\xEDdias remov\xEDveis\
+          \ ou outros canais."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.13
     ref_id: A.8.13
     name: Information backup
@@ -3361,6 +3792,11 @@ objects:
           \u80FD\u591F\u5B9A\u671F\u4E14\u5B89\u5168\u5730\u5907\u4EFD\uFF0C\u786E\
           \u4FDD\u5728\u4E8B\u6545\u6216\u707E\u96BE\u53D1\u751F\u65F6\u5176\u53EF\
           \u7528\u6027\u3002"
+      pt:
+        name: "Backup de informa\xE7\xF5es"
+        description: "Este controle garante que informa\xE7\xF5es cr\xEDticas sejam\
+          \ copiadas regularmente e com seguran\xE7a para assegurar sua disponibilidade\
+          \ em caso de incidentes ou desastres."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.14
     ref_id: A.8.14
     name: Redundancy of information processing facilities
@@ -3402,6 +3838,12 @@ objects:
           \u5185\u7F6E\u5197\u4F59\uFF0C\u4EE5\u5728\u7CFB\u7EDF\u6545\u969C\u6216\
           \u7D27\u6025\u60C5\u51B5\u4E0B\u4FDD\u6301\u53EF\u7528\u6027\u548C\u8FD0\
           \u884C\u3002"
+      pt:
+        name: "Redund\xE2ncia de instala\xE7\xF5es de processamento de informa\xE7\
+          \xF5es"
+        description: "Este controle garante que a redund\xE2ncia seja incorporada\
+          \ \xE0s instala\xE7\xF5es de processamento para manter a disponibilidade\
+          \ e as opera\xE7\xF5es durante falhas de sistema ou emerg\xEAncias."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.15
     ref_id: A.8.15
     name: Logging
@@ -3440,6 +3882,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u4F7F\u7CFB\u7EDF\u5185\u6D3B\u52A8\
           \u80FD\u591F\u8BB0\u5F55\uFF0C\u4EE5\u652F\u6301\u76D1\u63A7\u3001\u4E8B\
           \u4EF6\u68C0\u6D4B\u548C\u53D6\u8BC1\u8C03\u67E5\u3002"
+      pt:
+        name: Registro de logs
+        description: "Este controle habilita o registro de logs das atividades dentro\
+          \ dos sistemas para apoiar o monitoramento, a detec\xE7\xE3o de incidentes\
+          \ e as investiga\xE7\xF5es forenses."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.16
     ref_id: A.8.16
     name: Monitoring activities
@@ -3477,6 +3924,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u6D3B\u52A8\
           \u6301\u7EED\u76D1\u63A7\uFF0C\u4EE5\u68C0\u6D4B\u3001\u54CD\u5E94\u5E76\
           \u7F13\u89E3\u5B89\u5168\u5A01\u80C1\u3002"
+      pt:
+        name: Atividades de monitoramento
+        description: "Este controle garante o monitoramento cont\xEDnuo das atividades\
+          \ do sistema para detectar, responder e mitigar amea\xE7as de seguran\xE7\
+          a."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.17
     ref_id: A.8.17
     name: Clock synchronization
@@ -3514,6 +3966,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u65F6\u949F\
           \u540C\u6B65\uFF0C\u4EE5\u4FDD\u6301\u65E5\u5FD7\u53CA\u5176\u4ED6\u5173\
           \u952E\u8FDB\u7A0B\u7684\u65F6\u95F4\u6233\u51C6\u786E\u4E00\u81F4\u3002"
+      pt:
+        name: "Sincroniza\xE7\xE3o de rel\xF3gios"
+        description: "Este controle garante que os rel\xF3gios dos sistemas estejam\
+          \ sincronizados para manter registros de data e hora precisos e consistentes\
+          \ para logs e outros processos cr\xEDticos."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.18
     ref_id: A.8.18
     name: Use of privileged utility programs
@@ -3551,6 +4008,10 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u9650\u5236\u5E76\u76D1\u63A7\u7279\
           \u6743\u5DE5\u5177\u7A0B\u5E8F\u7684\u4F7F\u7528\uFF0C\u4EE5\u9632\u6B62\
           \u6EE5\u7528\u548C\u672A\u7ECF\u6388\u6743\u7684\u884C\u4E3A\u3002"
+      pt:
+        name: "Uso de programas utilit\xE1rios privilegiados"
+        description: "Este controle restringe e monitora o uso de programas utilit\xE1\
+          rios privilegiados para evitar uso indevido e a\xE7\xF5es n\xE3o autorizadas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.19
     ref_id: A.8.19
     name: Installation of software on operational systems
@@ -3591,6 +4052,11 @@ objects:
           \u7EDF\u4E0A\u7684\u8F6F\u4EF6\u5B89\u88C5\u5F97\u5230\u5B89\u5168\u7BA1\
           \u7406\uFF0C\u4EE5\u9632\u6B62\u6F0F\u6D1E\u6216\u672A\u7ECF\u6388\u6743\
           \u7684\u66F4\u6539\u3002"
+      pt:
+        name: "Instala\xE7\xE3o de software em sistemas operacionais"
+        description: "Este controle garante que a instala\xE7\xE3o de software em\
+          \ sistemas operacionais seja gerenciada de forma segura para evitar vulnerabilidades\
+          \ ou altera\xE7\xF5es n\xE3o autorizadas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.20
     ref_id: A.8.20
     name: Networks security
@@ -3632,6 +4098,11 @@ objects:
           \u5165\u4FB5\u68C0\u6D4B\u7CFB\u7EDF\u548C\u8BBF\u95EE\u63A7\u5236\u786E\
           \u4FDD\u7F51\u7EDC\u5B89\u5168\uFF0C\u9632\u6B62\u672A\u7ECF\u6388\u6743\
           \u7684\u8BBF\u95EE\u548C\u653B\u51FB\u3002"
+      pt:
+        name: "Seguran\xE7a de redes"
+        description: "Este controle garante a seguran\xE7a da rede por meio de firewalls,\
+          \ sistemas de detec\xE7\xE3o de intrus\xE3o e controles de acesso para proteger\
+          \ contra acessos n\xE3o autorizados e ataques."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.21
     ref_id: A.8.21
     name: Security of network services
@@ -3670,6 +4141,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7F51\u7EDC\u670D\u52A1\
           \u5728\u4F7F\u7528\u8FC7\u7A0B\u4E2D\u4FDD\u6301\u673A\u5BC6\u6027\u3001\
           \u5B8C\u6574\u6027\u548C\u53EF\u7528\u6027\u3002"
+      pt:
+        name: "Seguran\xE7a dos servi\xE7os de rede"
+        description: "Este controle garante que os servi\xE7os de rede sejam protegidos\
+          \ para manter a confidencialidade, a integridade e a disponibilidade durante\
+          \ o uso."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.22
     ref_id: A.8.22
     name: Segregation of networks
@@ -3707,6 +4183,11 @@ objects:
           \u79BB\uFF0C\u4EE5\u9650\u5236\u5A01\u80C1\u7684\u6269\u6563\uFF0C\u5E76\
           \u6700\u5927\u9650\u5EA6\u5730\u51CF\u5C11\u6F5C\u5728\u5165\u4FB5\u7684\
           \u5F71\u54CD\u3002"
+      pt:
+        name: "Segrega\xE7\xE3o de redes"
+        description: "Este controle implementa a segrega\xE7\xE3o de redes para limitar\
+          \ a propaga\xE7\xE3o de amea\xE7as e minimizar o impacto de poss\xEDveis\
+          \ viola\xE7\xF5es."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.23
     ref_id: A.8.23
     name: Web filtering
@@ -3743,6 +4224,10 @@ objects:
         description: "\u8BE5\u63A7\u5236\u5229\u7528\u7F51\u7EDC\u8FC7\u6EE4\u5DE5\
           \u5177\u963B\u6B62\u672A\u7ECF\u6388\u6743\u6216\u6709\u5BB3\u5185\u5BB9\
           \u901A\u8FC7\u4E92\u8054\u7F51\u8BBF\u95EE\u3002"
+      pt:
+        name: Filtragem da web
+        description: "Este controle utiliza ferramentas de filtragem da web para bloquear\
+          \ o acesso a conte\xFAdo n\xE3o autorizado ou malicioso pela internet."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.24
     ref_id: A.8.24
     name: Use of cryptography
@@ -3781,6 +4266,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u91C7\u7528\u5BC6\u7801\
           \u5B66\u6280\u672F\u6765\u4FDD\u62A4\u6570\u636E\u7684\u673A\u5BC6\u6027\
           \u3001\u5B8C\u6574\u6027\u548C\u771F\u5B9E\u6027\u3002"
+      pt:
+        name: Uso de criptografia
+        description: "Este controle garante que t\xE9cnicas criptogr\xE1ficas sejam\
+          \ aplicadas para proteger a confidencialidade, a integridade e a autenticidade\
+          \ dos dados."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.25
     ref_id: A.8.25
     name: Secure development life cycle
@@ -3820,6 +4310,11 @@ objects:
         description: "\u8BE5\u63A7\u5236\u5C06\u5B89\u5168\u6574\u5408\u5230\u5F00\
           \u53D1\u751F\u547D\u5468\u671F\u7684\u6240\u6709\u9636\u6BB5\uFF0C\u786E\
           \u4FDD\u7CFB\u7EDF\u548C\u5E94\u7528\u7684\u5B89\u5168\u6784\u5EFA\u3002"
+      pt:
+        name: Ciclo de vida de desenvolvimento seguro
+        description: "Este controle integra a seguran\xE7a em todas as etapas do ciclo\
+          \ de vida de desenvolvimento para garantir que sistemas e aplica\xE7\xF5\
+          es sejam constru\xEDdos de forma segura."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.26
     ref_id: A.8.26
     name: Application security requirements
@@ -3854,6 +4349,10 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u5B9A\u4E49\u5E76\u6267\u884C\u5E94\
           \u7528\u7A0B\u5E8F\u7684\u5B89\u5168\u8981\u6C42\uFF0C\u4EE5\u9632\u8303\
           \u6F0F\u6D1E\u3002"
+      pt:
+        name: "Requisitos de seguran\xE7a de aplica\xE7\xF5es"
+        description: "Este controle define e imp\xF5e requisitos de seguran\xE7a para\
+          \ aplica\xE7\xF5es a fim de proteger contra vulnerabilidades."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.27
     ref_id: A.8.27
     name: Secure system architecture and engineering principles
@@ -3891,6 +4390,10 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u7CFB\u7EDF\u67B6\
           \u6784\u5F00\u53D1\u8FC7\u7A0B\u4E2D\u91C7\u7528\u5B89\u5168\u7684\u8BBE\
           \u8BA1\u539F\u5219\u3002"
+      pt:
+        name: "Princ\xEDpios de arquitetura e engenharia de sistemas seguros"
+        description: "Este controle garante que princ\xEDpios de design seguro sejam\
+          \ adotados durante o desenvolvimento de arquiteturas de sistemas."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.28
     ref_id: A.8.28
     name: Secure coding
@@ -3925,6 +4428,10 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u5B9E\u65BD\u4E86\u5B89\u5168\u7684\
           \u7F16\u7801\u5B9E\u8DF5\uFF0C\u4EE5\u6700\u5927\u9650\u5EA6\u5730\u51CF\
           \u5C11\u5F00\u53D1\u8F6F\u4EF6\u4E2D\u7684\u6F0F\u6D1E\u3002"
+      pt:
+        name: "Codifica\xE7\xE3o segura"
+        description: "Este controle implementa pr\xE1ticas de codifica\xE7\xE3o segura\
+          \ para minimizar vulnerabilidades no software desenvolvido."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.29
     ref_id: A.8.29
     name: Security testing in development and acceptance
@@ -3962,6 +4469,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u5F00\u53D1\u548C\
           \u9A8C\u6536\u9636\u6BB5\u8FDB\u884C\u5B89\u5168\u6D4B\u8BD5\uFF0C\u4EE5\
           \u8BC6\u522B\u5F31\u70B9\u3002"
+      pt:
+        name: "Testes de seguran\xE7a no desenvolvimento e na aceita\xE7\xE3o"
+        description: "Este controle garante que testes de seguran\xE7a sejam realizados\
+          \ durante as fases de desenvolvimento e aceita\xE7\xE3o para identificar\
+          \ fragilidades."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.30
     ref_id: A.8.30
     name: Outsourced development
@@ -3998,6 +4510,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u5F00\u53D1\u5916\
           \u5305\u7ED9\u7B2C\u4E09\u65B9\u4F9B\u5E94\u5546\u65F6\u5B89\u5168\u98CE\
           \u9669\u5F97\u5230\u6709\u6548\u7BA1\u7406\u3002"
+      pt:
+        name: Desenvolvimento terceirizado
+        description: "Este controle garante que os riscos de seguran\xE7a sejam gerenciados\
+          \ de forma eficaz quando o desenvolvimento \xE9 terceirizado para fornecedores\
+          \ externos."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.31
     ref_id: A.8.31
     name: Separation of development, test and production environments
@@ -4041,6 +4558,12 @@ objects:
           \u8BD5\u548C\u751F\u4EA7\u73AF\u5883\u88AB\u9694\u79BB\uFF0C\u4EE5\u9632\
           \u6B62\u610F\u5916\u4EA4\u4E92\u548C\u672A\u7ECF\u6388\u6743\u7684\u8BBF\
           \u95EE\u3002"
+      pt:
+        name: "Separa\xE7\xE3o dos ambientes de desenvolvimento, teste e produ\xE7\
+          \xE3o"
+        description: "Este controle garante que os ambientes de desenvolvimento, teste\
+          \ e produ\xE7\xE3o sejam segregados para evitar intera\xE7\xF5es n\xE3o\
+          \ intencionais e acessos n\xE3o autorizados."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.32
     ref_id: A.8.32
     name: Change management
@@ -4078,6 +4601,11 @@ objects:
         description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u53D8\u66F4\
           \u5F97\u5230\u5B89\u5168\u7BA1\u7406\uFF0C\u4EE5\u964D\u4F4E\u98CE\u9669\
           \u5E76\u4FDD\u6301\u8FD0\u8425\u7A33\u5B9A\u6027\u3002"
+      pt:
+        name: "Gest\xE3o de mudan\xE7as"
+        description: "Este controle garante que as mudan\xE7as nos sistemas sejam\
+          \ gerenciadas de forma segura para minimizar riscos e manter a estabilidade\
+          \ operacional."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.33
     ref_id: A.8.33
     name: Test information
@@ -4114,6 +4642,11 @@ objects:
         description: "\u8BE5\u63A7\u5236\u4FDD\u62A4\u6D4B\u8BD5\u6570\u636E\uFF0C\
           \u9632\u6B62\u654F\u611F\u6216\u673A\u5BC6\u4FE1\u606F\u5728\u6D4B\u8BD5\
           \u8FC7\u7A0B\u4E2D\u6CC4\u9732\u3002"
+      pt:
+        name: "Informa\xE7\xF5es de teste"
+        description: "Este controle protege os dados de teste para evitar a exposi\xE7\
+          \xE3o de informa\xE7\xF5es sens\xEDveis ou confidenciais durante os processos\
+          \ de teste."
   - urn: urn:intuitem:risk:function:doc-pol:a.8.34
     ref_id: A.8.34
     name: Protection of information systems during audit testing
@@ -4172,6 +4705,13 @@ objects:
           \u975E\u751F\u4EA7\u73AF\u5883\u3001\u8BBF\u95EE\u9650\u5236\u548C\u4FDD\
           \u5BC6\u534F\u8BAE\uFF0C\u4EE5\u7EF4\u62A4\u7CFB\u7EDF\u5B89\u5168\u548C\
           \u5B8C\u6574\u6027\u3002"
+      pt:
+        name: "Prote\xE7\xE3o dos sistemas de informa\xE7\xE3o durante testes de auditoria"
+        description: "Este controle garante que os sistemas e dados sejam protegidos\
+          \ durante as auditorias, evitando acessos n\xE3o autorizados, vazamento\
+          \ de dados ou interrup\xE7\xF5es. As medidas incluem o uso de ambientes\
+          \ de n\xE3o produ\xE7\xE3o, restri\xE7\xF5es de acesso e acordos de confidencialidade\
+          \ para manter a seguran\xE7a e a integridade do sistema."
   framework:
     urn: urn:intuitem:risk:framework:iso27001-2022
     ref_id: ISO/IEC 27001:2022
@@ -4207,6 +4747,11 @@ objects:
         description: "\u4FE1\u606F\u5B89\u5168\u3001\u7F51\u7EDC\u5B89\u5168\u548C\
           \u9690\u79C1\u4FDD\u62A4\u2014\u2014\u4FE1\u606F\u5B89\u5168\u7BA1\u7406\
           \u7CFB\u7EDF\u2014\u2014\u8981\u6C42"
+      pt:
+        name: Norma internacional ISO/IEC 27001:2022
+        description: "Seguran\xE7a da informa\xE7\xE3o, ciberseguran\xE7a e prote\xE7\
+          \xE3o da privacidade \u2014 Sistemas de gest\xE3o de seguran\xE7a da informa\xE7\
+          \xE3o \u2014 Requisitos"
     implementation_groups_definition:
     - ref_id: Clauses
       name: Clauses
@@ -4235,6 +4780,8 @@ objects:
           name: Kapitel
         zh:
           name: "\u6761\u6B3E"
+        pt:
+          name: "Cl\xE1usulas"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:4
       assessable: false
       depth: 2
@@ -4256,6 +4803,8 @@ objects:
           name: Kontext der Organisation
         zh:
           name: "\u7EC4\u7EC7\u80CC\u666F"
+        pt:
+          name: "Contexto da organiza\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:4.1
       assessable: true
       depth: 3
@@ -4304,6 +4853,11 @@ objects:
             \u5B89\u5168\u76EE\u6807\u80FD\u529B\u7684\u5185\u90E8\u548C\u5916\u90E8\
             \u56E0\u7D20\uFF0C\u786E\u4FDDISMS\u4E0E\u5176\u80CC\u666F\u4FDD\u6301\
             \u4E00\u81F4\u3002"
+        pt:
+          name: "Compreens\xE3o da organiza\xE7\xE3o e do seu contexto"
+          description: "Identificar fatores internos e externos que influenciam a\
+            \ capacidade da organiza\xE7\xE3o de alcan\xE7ar os objetivos de seguran\xE7\
+            a da informa\xE7\xE3o, assegurando que o SGSI esteja alinhado ao seu contexto."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:4.2
       assessable: true
       depth: 3
@@ -4350,6 +4904,11 @@ objects:
           description: "\u5206\u6790\u76F8\u5173\u65B9\u7684\u9700\u6C42\u548C\u671F\
             \u671B\uFF0C\u5C06\u5176\u7EB3\u5165ISMS\uFF0C\u5E76\u6EE1\u8DB3\u76F8\
             \u5173\u7684\u4FE1\u606F\u5B89\u5168\u9700\u6C42\u3002"
+        pt:
+          name: "Compreens\xE3o das necessidades e expectativas das partes interessadas"
+          description: "Analisar as necessidades e expectativas das partes interessadas\
+            \ para incorpor\xE1-las ao SGSI e atender aos requisitos de seguran\xE7\
+            a da informa\xE7\xE3o pertinentes."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:4.3
       assessable: true
       depth: 3
@@ -4400,6 +4959,12 @@ objects:
             \u7D20\u3001\u5229\u76CA\u76F8\u5173\u8005\u9700\u6C42\u4EE5\u53CA\u8FD0\
             \u8425\u73AF\u5883\u4E2D\u7684\u4F9D\u8D56\u5173\u7CFB\uFF0C\u5B9A\u4E49\
             ISMS\u7684\u8303\u56F4\u3002"
+        pt:
+          name: "Determina\xE7\xE3o do escopo do sistema de gest\xE3o de seguran\xE7\
+            a da informa\xE7\xE3o"
+          description: "Definir o escopo do SGSI considerando fatores internos e externos,\
+            \ as necessidades das partes interessadas e as depend\xEAncias no ambiente\
+            \ operacional."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:4.4
       assessable: true
       depth: 3
@@ -4443,6 +5008,11 @@ objects:
           description: "\u6784\u5EFA\u3001\u8FD0\u884C\u5E76\u6301\u7EED\u6539\u8FDB\
             ISM\uFF0C\u4EE5\u6709\u6548\u7BA1\u7406\u4FE1\u606F\u5B89\u5168\u98CE\u9669\
             \u5E76\u5B9E\u73B0\u7EC4\u7EC7\u76EE\u6807\u3002"
+        pt:
+          name: "Sistema de gest\xE3o de seguran\xE7a da informa\xE7\xE3o"
+          description: "Construir, operar e melhorar continuamente um SGSI para gerenciar\
+            \ de forma eficaz os riscos de seguran\xE7a da informa\xE7\xE3o e atender\
+            \ aos objetivos organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:5
       assessable: false
       depth: 2
@@ -4464,6 +5034,8 @@ objects:
           name: "F\xFChrung"
         zh:
           name: "\u9886\u5BFC\u5C42"
+        pt:
+          name: "Lideran\xE7a"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:5.1
       assessable: true
       depth: 3
@@ -4517,6 +5089,11 @@ objects:
             \u7EC7\u76EE\u6807\u5BF9\u9F50\u3001\u5206\u914D\u8D44\u6E90\u3001\u4FC3\
             \u8FDB\u5B89\u5168\u6587\u5316\u5E76\u63A8\u52A8\u6301\u7EED\u6539\u8FDB\
             \u6765\u5C55\u793A\u9886\u5BFC\u529B\u548C\u627F\u8BFA\u3002"
+        pt:
+          name: "Lideran\xE7a e comprometimento"
+          description: "Demonstrar lideran\xE7a e comprometimento apoiando o SGSI,\
+            \ alinhando-o aos objetivos organizacionais, alocando recursos, promovendo\
+            \ uma cultura de seguran\xE7a e impulsionando a melhoria cont\xEDnua."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:5.2
       assessable: true
       depth: 3
@@ -4567,6 +5144,12 @@ objects:
             \u65B9\u5411\u4E00\u81F4\u7684\u4FE1\u606F\u5B89\u5168\u653F\u7B56\uFF0C\
             \u660E\u786E\u5408\u89C4\u3001\u6301\u7EED\u6539\u8FDB\u548C\u4FE1\u606F\
             \u5B89\u5168\u4FC3\u8FDB\u7684\u627F\u8BFA\u3002"
+        pt:
+          name: "Pol\xEDtica"
+          description: "Estabelecer uma pol\xEDtica de seguran\xE7a da informa\xE7\
+            \xE3o alinhada aos objetivos e \xE0 dire\xE7\xE3o estrat\xE9gica da organiza\xE7\
+            \xE3o, definindo compromissos com a conformidade, a melhoria cont\xED\
+            nua e a promo\xE7\xE3o da seguran\xE7a da informa\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:5.3
       assessable: true
       depth: 3
@@ -4613,6 +5196,12 @@ objects:
             \u3001\u8D23\u4EFB\u548C\u6743\u9650\uFF0C\u4EE5\u786E\u4FDDISMS\u7684\
             \u6709\u6548\u5B9E\u65BD\u548C\u8FD0\u8425\uFF0C\u5E76\u4E0E\u7EC4\u7EC7\
             \u76EE\u6807\u4FDD\u6301\u4E00\u81F4\u7684\u95EE\u8D23\u5236\u3002"
+        pt:
+          name: "Pap\xE9is, responsabilidades e autoridades organizacionais"
+          description: "Definir, atribuir e comunicar pap\xE9is, responsabilidades\
+            \ e autoridades para assegurar a implementa\xE7\xE3o e a opera\xE7\xE3\
+            o eficazes do SGSI, com presta\xE7\xE3o de contas alinhada aos objetivos\
+            \ organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6
       assessable: false
       depth: 2
@@ -4634,6 +5223,8 @@ objects:
           name: Planung
         zh:
           name: "\u89C4\u5212"
+        pt:
+          name: Planejamento
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.1
       assessable: false
       depth: 3
@@ -4655,6 +5246,8 @@ objects:
           name: "Ma\xDFnahmen zum Umgang mit Risiken und Chancen"
         zh:
           name: "\u5E94\u5BF9\u98CE\u9669\u4E0E\u673A\u9047\u7684\u884C\u52A8"
+        pt:
+          name: "A\xE7\xF5es para abordar riscos e oportunidades"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.1.1
       assessable: true
       depth: 4
@@ -4708,6 +5301,12 @@ objects:
             \u5916\u90E8\u56E0\u7D20\u3001\u5229\u76CA\u76F8\u5173\u8005\u9700\u6C42\
             \u53CA\u9002\u7528\u8981\u6C42\uFF0C\u786E\u4FDDISMS\u5B9E\u73B0\u5176\
             \u76EE\u6807\u3002"
+        pt:
+          name: Geral
+          description: "Estabelecer um processo para identificar riscos e oportunidades\
+            \ de seguran\xE7a da informa\xE7\xE3o, considerando fatores internos e\
+            \ externos, as necessidades das partes interessadas e os requisitos aplic\xE1\
+            veis, a fim de assegurar que o SGSI alcance seus objetivos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.1.2
       assessable: true
       depth: 4
@@ -4764,6 +5363,13 @@ objects:
             \u7528\u5B9A\u4E49\u6807\u51C6\u8BC4\u4F30\u673A\u5BC6\u6027\u3001\u5B8C\
             \u6574\u6027\u548C\u53EF\u7528\u6027\u7684\u5A01\u80C1\uFF0C\u786E\u4FDD\
             \u7ED3\u679C\u4E00\u81F4\u4E14\u53EF\u9760\u3002"
+        pt:
+          name: "Requisito de avalia\xE7\xE3o de riscos de seguran\xE7a da informa\xE7\
+            \xE3o"
+          description: "Estabelecer um processo para avaliar os riscos de seguran\xE7\
+            a da informa\xE7\xE3o em intervalos planejados, utilizando crit\xE9rios\
+            \ definidos para avaliar amea\xE7as \xE0 confidencialidade, integridade\
+            \ e disponibilidade, assegurando resultados consistentes e confi\xE1veis."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.1.3
       assessable: true
       depth: 4
@@ -4818,6 +5424,12 @@ objects:
             \u9669\u5904\u7406\u8BA1\u5212\u4E2D\u8BB0\u5F55\u8FD9\u4E9B\u98CE\u9669\
             \uFF0C\u6765\u5E94\u5BF9\u5DF2\u8BC6\u522B\u7684\u4FE1\u606F\u5B89\u5168\
             \u98CE\u9669\u3002"
+        pt:
+          name: "Tratamento de riscos de seguran\xE7a da informa\xE7\xE3o"
+          description: "Definir um processo para tratar os riscos de seguran\xE7a\
+            \ da informa\xE7\xE3o identificados, selecionando controles apropriados,\
+            \ assegurando o alinhamento aos crit\xE9rios de aceita\xE7\xE3o de risco\
+            \ e documentando-os em um plano de tratamento de riscos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.2
       assessable: true
       depth: 3
@@ -4877,6 +5489,13 @@ objects:
             \u5E76\u89C4\u5212\u5177\u4F53\u7684\u8D23\u4EFB\u3001\u8D44\u6E90\u3001\
             \u65F6\u95F4\u8868\u53CA\u8BC4\u4F30\u65B9\u6CD5\u4EE5\u5B9E\u73B0\u8FD9\
             \u4E9B\u76EE\u6807\u3002"
+        pt:
+          name: "Objetivos de seguran\xE7a da informa\xE7\xE3o e planejamento para\
+            \ alcan\xE7\xE1-los"
+          description: "Definir objetivos mensur\xE1veis de seguran\xE7a da informa\xE7\
+            \xE3o alinhados ao SGSI e \xE0s metas estrat\xE9gicas, e planejar a\xE7\
+            \xF5es detalhando responsabilidades, recursos, prazos e m\xE9todos de\
+            \ avalia\xE7\xE3o para alcan\xE7\xE1-los."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:6.3
       assessable: true
       depth: 3
@@ -4924,6 +5543,12 @@ objects:
             \u786E\u4FDD\u4E0E\u4FE1\u606F\u5B89\u5168\u8981\u6C42\u4FDD\u6301\u4E00\
             \u81F4\uFF0C\u65E0\u7F1D\u6574\u5408\u4E8E\u73B0\u6709\u6D41\u7A0B\uFF0C\
             \u5E76\u6709\u6548\u7BA1\u7406\u98CE\u9669\u3002"
+        pt:
+          name: "Planejamento de mudan\xE7as"
+          description: "Planejar as mudan\xE7as no SGSI de forma sistem\xE1tica para\
+            \ assegurar o alinhamento aos requisitos de seguran\xE7a da informa\xE7\
+            \xE3o, a integra\xE7\xE3o harmoniosa aos processos existentes e a gest\xE3\
+            o eficaz de riscos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7
       assessable: false
       depth: 2
@@ -4945,6 +5570,8 @@ objects:
           name: "Unterst\xFCtzung"
         zh:
           name: "\u652F\u6301"
+        pt:
+          name: Apoio
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.1
       assessable: true
       depth: 3
@@ -4993,6 +5620,11 @@ objects:
             \u8FD0\u884C\u5E76\u6301\u7EED\u6539\u8FDBISMS\uFF0C\u786E\u4FDD\u5176\
             \u6709\u6548\u8FD0\u884C\u5E76\u4E0E\u7EC4\u7EC7\u76EE\u6807\u4FDD\u6301\
             \u4E00\u81F4\u3002"
+        pt:
+          name: Recursos
+          description: "Prover os recursos necess\xE1rios para construir, operar e\
+            \ melhorar continuamente o SGSI, assegurando sua opera\xE7\xE3o eficaz\
+            \ e o alinhamento aos objetivos organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.2
       assessable: true
       depth: 3
@@ -5042,6 +5674,11 @@ objects:
             \u9002\u5F53\u7684\u6559\u80B2\u3001\u57F9\u8BAD\u6216\u7ECF\u9A8C\u5177\
             \u5907\u5FC5\u8981\u7684\u80FD\u529B\uFF0C\u4EE5\u6709\u6548\u5C65\u884C\
             \u804C\u8D23\u3002"
+        pt:
+          name: "Compet\xEAncia"
+          description: "Assegurar que o pessoal envolvido no SGSI possua a compet\xEA\
+            ncia necess\xE1ria por meio de educa\xE7\xE3o, treinamento ou experi\xEA\
+            ncia apropriados para cumprir suas responsabilidades de forma eficaz."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.3
       assessable: true
       depth: 3
@@ -5090,6 +5727,11 @@ objects:
             \u5728\u4FE1\u606F\u5B89\u5168\u4E2D\u4F5C\u7528\u4EE5\u53CA\u9075\u5B88\
             \u5B89\u5168\u653F\u7B56\u548C\u8981\u6C42\u91CD\u8981\u6027\u7684\u8BA4\
             \u8BC6\u3002"
+        pt:
+          name: "Conscientiza\xE7\xE3o"
+          description: "Promover a conscientiza\xE7\xE3o entre o pessoal pertinente\
+            \ sobre o SGSI, seu papel na seguran\xE7a da informa\xE7\xE3o e a import\xE2\
+            ncia da conformidade com as pol\xEDticas e requisitos de seguran\xE7a."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.4
       assessable: true
       depth: 3
@@ -5135,6 +5777,11 @@ objects:
             \u7A0B\uFF0C\u786E\u4FDD\u53CA\u65F6\u4E14\u9002\u5F53\u5730\u4EA4\u6362\
             \u4E0EISMS\uFF08\u56FD\u9645\u5B89\u5168\u7BA1\u7406\u7CFB\u7EDF\u53CA\
             \u5176\u76EE\u6807\uFF09\u76F8\u5173\u7684\u4FE1\u606F\u3002"
+        pt:
+          name: "Comunica\xE7\xE3o"
+          description: "Estabelecer processos eficazes de comunica\xE7\xE3o interna\
+            \ e externa, assegurando a troca oportuna e apropriada de informa\xE7\xF5\
+            es pertinentes ao SGSI e aos seus objetivos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.5
       assessable: false
       depth: 3
@@ -5156,6 +5803,8 @@ objects:
           name: Dokumentierte Information
         zh:
           name: "\u6587\u732E\u4FE1\u606F"
+        pt:
+          name: "Informa\xE7\xE3o documentada"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.5.1
       assessable: true
       depth: 4
@@ -5200,6 +5849,11 @@ objects:
             \u4EE5\u786E\u4FDD\u6709\u6548\u7684\u89C4\u5212\u3001\u8FD0\u8425\u3001\
             \u6D41\u7A0B\u63A7\u5236\u5E76\u4E0E\u7EC4\u7EC7\u9700\u6C42\u4FDD\u6301\
             \u4E00\u81F4\u3002"
+        pt:
+          name: Geral
+          description: "Documentar o SGSI conforme necess\xE1rio para assegurar o\
+            \ planejamento, a opera\xE7\xE3o e o controle eficazes dos processos,\
+            \ bem como o alinhamento aos requisitos organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.5.2
       assessable: true
       depth: 4
@@ -5242,6 +5896,11 @@ objects:
           description: "\u786E\u4FDDISMS\u6587\u6863\u5F97\u5230\u9002\u5F53\u521B\
             \u5EFA\u3001\u66F4\u65B0\u548C\u63A7\u5236\uFF0C\u5305\u62EC\u9002\u5F53\
             \u7684\u5BA1\u6279\u548C\u7248\u672C\u7BA1\u7406\u3002"
+        pt:
+          name: "Cria\xE7\xE3o e atualiza\xE7\xE3o de informa\xE7\xE3o documentada"
+          description: "Assegurar que a documenta\xE7\xE3o do SGSI seja criada, atualizada\
+            \ e controlada de forma apropriada, incluindo a devida aprova\xE7\xE3\
+            o e gest\xE3o de vers\xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:7.5.3
       assessable: true
       depth: 4
@@ -5285,6 +5944,11 @@ objects:
           description: "\u8BA9ISMS\u6587\u6863\u5BF9\u6709\u9700\u8981\u7684\u4EBA\
             \u53EF\u8BBF\u95EE\u548C\u4F7F\u7528\uFF0C\u540C\u65F6\u4FDD\u62A4\u5176\
             \u514D\u53D7\u672A\u7ECF\u6388\u6743\u8BBF\u95EE\u6216\u4E22\u5931\u3002"
+        pt:
+          name: "Controle da informa\xE7\xE3o documentada"
+          description: "Tornar a documenta\xE7\xE3o do SGSI acess\xEDvel e utiliz\xE1\
+            vel por quem dela necessita, ao mesmo tempo em que a protege contra acesso\
+            \ n\xE3o autorizado ou perda."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:8
       assessable: false
       depth: 2
@@ -5306,6 +5970,8 @@ objects:
           name: Betrieb
         zh:
           name: "\u8FD0\u8425"
+        pt:
+          name: "Opera\xE7\xF5es"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:8.1
       assessable: true
       depth: 3
@@ -5349,6 +6015,11 @@ objects:
           description: "\u89C4\u5212\u548C\u63A7\u5236ISMS\u6D41\u7A0B\uFF0C\u786E\
             \u4FDD\u4E0E\u9700\u6C42\u4E00\u81F4\uFF0C\u5E76\u505A\u51FA\u5FC5\u8981\
             \u8C03\u6574\u4EE5\u5E94\u5BF9\u98CE\u9669\u548C\u673A\u9047\u3002"
+        pt:
+          name: Planejamento e controle operacional
+          description: "Planejar e controlar os processos do SGSI, assegurando a consist\xEA\
+            ncia com os requisitos e realizando os ajustes necess\xE1rios para abordar\
+            \ riscos e oportunidades."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:8.2
       assessable: true
       depth: 3
@@ -5394,6 +6065,11 @@ objects:
           description: "\u5B9E\u65BD\u98CE\u9669\u8BC4\u4F30\u6D41\u7A0B\uFF0C\u8BC6\
             \u522B\u3001\u8BC4\u4F30\u5E76\u4F18\u5148\u6392\u5E8FISMS\u6846\u67B6\
             \u4E2D\u5B9A\u4E49\u7684\u4FE1\u606F\u5B89\u5168\u98CE\u9669\u3002"
+        pt:
+          name: "Avalia\xE7\xE3o de riscos de seguran\xE7a da informa\xE7\xE3o"
+          description: "Implementar o processo de avalia\xE7\xE3o de riscos para identificar,\
+            \ avaliar e priorizar os riscos de seguran\xE7a da informa\xE7\xE3o conforme\
+            \ definido na estrutura do SGSI."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:8.3
       assessable: true
       depth: 3
@@ -5444,6 +6120,12 @@ objects:
             \u9669\uFF0C\u5E94\u7528\u98CE\u9669\u5904\u7406\u6D41\u7A0B\uFF0C\u786E\
             \u4FDD\u4E0E\u7EC4\u7EC7\u7684\u98CE\u9669\u63A5\u53D7\u6807\u51C6\u4FDD\
             \u6301\u4E00\u81F4\u3002"
+        pt:
+          name: "Tratamento de riscos de seguran\xE7a da informa\xE7\xE3o"
+          description: "Aplicar o processo de tratamento de riscos selecionando e\
+            \ implementando controles apropriados para tratar os riscos identificados,\
+            \ assegurando o alinhamento aos crit\xE9rios de aceita\xE7\xE3o de risco\
+            \ da organiza\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9
       assessable: false
       depth: 2
@@ -5465,6 +6147,8 @@ objects:
           name: Bewertung der Leistung
         zh:
           name: "\u7EE9\u6548\u8BC4\u4F30"
+        pt:
+          name: "Avalia\xE7\xE3o de desempenho"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.1
       assessable: true
       depth: 3
@@ -5510,6 +6194,11 @@ objects:
           description: "\u4F7F\u7528\u7B26\u5408\u7EC4\u7EC7\u76EE\u6807\u7684\u9002\
             \u5F53\u65B9\u6CD5\uFF0C\u76D1\u63A7\u3001\u6D4B\u91CF\u3001\u5206\u6790\
             \u548C\u8BC4\u4F30ISMS\u7684\u7EE9\u6548\u548C\u6709\u6548\u6027\u3002"
+        pt:
+          name: "Monitoramento, medi\xE7\xE3o, an\xE1lise e avalia\xE7\xE3o"
+          description: "Monitorar, medir, analisar e avaliar o desempenho e a efic\xE1\
+            cia do SGSI utilizando m\xE9todos apropriados alinhados aos objetivos\
+            \ da organiza\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.2
       assessable: false
       depth: 3
@@ -5531,6 +6220,8 @@ objects:
           name: Internes Audit
         zh:
           name: "\u5185\u90E8\u5BA1\u8BA1"
+        pt:
+          name: Auditoria interna
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.2.1
       assessable: true
       depth: 4
@@ -5576,6 +6267,11 @@ objects:
           description: "\u6309\u8BA1\u5212\u95F4\u9694\u8FDB\u884C\u5185\u90E8\u5BA1\
             \u8BA1\uFF0C\u786E\u4FDDISMS\u7B26\u5408ISO/IEC 27001\u8981\u6C42\u5E76\
             \u6709\u6548\u5B9E\u65BD\u548C\u7EF4\u62A4\u3002"
+        pt:
+          name: Geral
+          description: Conduzir auditorias internas em intervalos planejados para
+            assegurar que o SGSI esteja em conformidade com os requisitos da ISO/IEC
+            27001 e seja efetivamente implementado e mantido.
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.2.2
       assessable: true
       depth: 4
@@ -5621,6 +6317,11 @@ objects:
             \u5305\u62EC\u5B9A\u4E49\u6807\u51C6\u3001\u8303\u56F4\u3001\u65B9\u6CD5\
             \u548C\u804C\u8D23\uFF0C\u5E76\u5C06\u7ED3\u679C\u62A5\u544A\u7ED9\u76F8\
             \u5173\u7BA1\u7406\u5C42\u3002"
+        pt:
+          name: Programa de auditoria interna
+          description: "Planejar e realizar auditorias internas, incluindo a defini\xE7\
+            \xE3o de crit\xE9rios, escopo, m\xE9todos e responsabilidades, e reportar\
+            \ os resultados \xE0 gest\xE3o pertinente."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.3
       assessable: false
       depth: 3
@@ -5642,6 +6343,8 @@ objects:
           name: Managementbewertung
         zh:
           name: "\u7BA1\u7406\u6743\u5BA1\u67E5"
+        pt:
+          name: "An\xE1lise cr\xEDtica pela dire\xE7\xE3o"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.3.1
       assessable: true
       depth: 4
@@ -5685,6 +6388,11 @@ objects:
           description: "\u5B9A\u671F\u5BA1\u67E5ISMS\u4EE5\u786E\u4FDD\u5176\u5728\
             \u5B9E\u73B0\u7EC4\u7EC7\u76EE\u6807\u65B9\u9762\u7684\u9002\u7528\u6027\
             \u3001\u5145\u5206\u6027\u548C\u6709\u6548\u6027\u3002"
+        pt:
+          name: Geral
+          description: "Analisar criticamente o SGSI periodicamente para assegurar\
+            \ sua pertin\xEAncia, adequa\xE7\xE3o e efic\xE1cia no alcance dos objetivos\
+            \ organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.3.2
       assessable: true
       depth: 4
@@ -5730,6 +6438,11 @@ objects:
             \u3001\u98CE\u9669\u72B6\u6001\u3001\u6539\u8FDB\u673A\u4F1A\u4EE5\u53CA\
             \u7BA1\u7406\u5BA1\u67E5\u4E2D\u6240\u9700\u7684\u53D8\u66F4\u7B49\u8F93\
             \u5165\u3002"
+        pt:
+          name: "Entradas da an\xE1lise cr\xEDtica pela dire\xE7\xE3o"
+          description: "Incluir na an\xE1lise cr\xEDtica pela dire\xE7\xE3o entradas\
+            \ como resultados de auditorias, desempenho do SGSI, situa\xE7\xE3o dos\
+            \ riscos, oportunidades de melhoria e mudan\xE7as necess\xE1rias."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:9.3.3
       assessable: true
       depth: 4
@@ -5772,6 +6485,11 @@ objects:
           description: "\u8BB0\u5F55\u7BA1\u7406\u5BA1\u67E5\u7684\u7ED3\u679C\uFF0C\
             \u5305\u62EC\u6539\u8FDB\u51B3\u7B56\u3001ISMS\u53D8\u66F4\u548C\u8D44\
             \u6E90\u9700\u6C42\u3002"
+        pt:
+          name: "Resultados da an\xE1lise cr\xEDtica pela dire\xE7\xE3o"
+          description: "Documentar os resultados das an\xE1lises cr\xEDticas pela\
+            \ dire\xE7\xE3o, incluindo decis\xF5es sobre melhorias, mudan\xE7as no\
+            \ SGSI e necessidades de recursos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:10
       assessable: false
       depth: 2
@@ -5793,6 +6511,8 @@ objects:
           name: Verbesserung
         zh:
           name: "\u6539\u8FDB"
+        pt:
+          name: Melhoria
     - urn: urn:intuitem:risk:req_node:iso27001-2022:10.1
       assessable: true
       depth: 3
@@ -5837,6 +6557,11 @@ objects:
           description: "\u8BC6\u522B\u5E76\u91C7\u53D6\u884C\u52A8\uFF0C\u4EE5\u6301\
             \u7EED\u6539\u8FDB\uFF0C\u4EE5\u63D0\u5347ISMS\u7684\u6548\u80FD\u548C\
             \u4E0E\u7EC4\u7EC7\u76EE\u6807\u7684\u4E00\u81F4\u6027\u3002"
+        pt:
+          name: "Melhoria cont\xEDnua"
+          description: "Identificar e agir sobre oportunidades de melhoria cont\xED\
+            nua para aprimorar a efic\xE1cia do SGSI e seu alinhamento aos objetivos\
+            \ organizacionais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:10.2
       assessable: true
       depth: 3
@@ -5888,6 +6613,11 @@ objects:
             \u522B\u6839\u672C\u539F\u56E0\u5E76\u5B9E\u65BD\u9632\u6B62\u590D\u53D1\
             \u63AA\u65BD\uFF0C\u540C\u65F6\u8BB0\u5F55\u6D41\u7A0B\uFF0C\u89E3\u51B3\
             \u4E0D\u5408\u89C4\u95EE\u9898\u3002"
+        pt:
+          name: "N\xE3o conformidade e a\xE7\xE3o corretiva"
+          description: "Tratar n\xE3o conformidades por meio de a\xE7\xF5es corretivas,\
+            \ identificando as causas-raiz e implementando medidas para prevenir a\
+            \ recorr\xEAncia, ao mesmo tempo em que se documenta o processo."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:annex-a
       assessable: false
       depth: 1
@@ -5908,6 +6638,8 @@ objects:
           name: "Erkl\xE4rung zur Anwendbarkeit"
         zh:
           name: "\u9002\u7528\u6027\u8BF4\u660E"
+        pt:
+          name: "Declara\xE7\xE3o de Aplicabilidade"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5
       assessable: false
       depth: 2
@@ -5929,6 +6661,8 @@ objects:
           name: "Organisatorische Ma\xDFnahmen"
         zh:
           name: "\u7EC4\u7EC7\u63A7\u5236"
+        pt:
+          name: Controles organizacionais
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.1
       assessable: true
       depth: 3
@@ -5985,6 +6719,12 @@ objects:
             \u7B56\u3002\u63AA\u65BD\u5305\u62EC\u754C\u5B9A\u8303\u56F4\u3001\u8BBE\
             \u5B9A\u76EE\u6807\uFF0C\u5E76\u786E\u4FDD\u7B26\u5408\u5408\u89C4\u8981\
             \u6C42\u3002"
+        pt:
+          name: "Pol\xEDticas de seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle estabelece e mant\xE9m pol\xEDticas de seguran\xE7\
+            a da informa\xE7\xE3o alinhadas aos objetivos organizacionais. As medidas\
+            \ incluem definir o escopo, estabelecer metas e assegurar o alinhamento\
+            \ aos requisitos de conformidade."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.2
       assessable: true
       depth: 3
@@ -6042,6 +6782,12 @@ objects:
             \u4FDD\u95EE\u8D23\u5236\u3002\u63AA\u65BD\u5305\u62EC\u660E\u786E\u8D23\
             \u4EFB\u8BB0\u5F55\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\u6267\u6CD5\u673A\
             \u5236\u3002"
+        pt:
+          name: "Pap\xE9is e responsabilidades de seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle define e atribui pap\xE9is e responsabilidades\
+            \ de seguran\xE7a da informa\xE7\xE3o para assegurar a presta\xE7\xE3\
+            o de contas. As medidas incluem a documenta\xE7\xE3o clara das responsabilidades,\
+            \ an\xE1lises peri\xF3dicas e mecanismos de fiscaliza\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.3
       assessable: true
       depth: 3
@@ -6094,6 +6840,12 @@ objects:
             \u6388\u6743\u8BBF\u95EE\u7684\u98CE\u9669\u3002\u63AA\u65BD\u5305\u62EC\
             \u89D2\u8272\u5206\u79BB\u3001\u8BBF\u95EE\u9650\u5236\u548C\u5B9A\u671F\
             \u5BA1\u8BA1\u3002"
+        pt:
+          name: "Segrega\xE7\xE3o de fun\xE7\xF5es"
+          description: "Este controle assegura a segrega\xE7\xE3o de fun\xE7\xF5es\
+            \ para reduzir o risco de erros, fraudes e acessos n\xE3o autorizados.\
+            \ As medidas incluem a separa\xE7\xE3o de pap\xE9is, restri\xE7\xF5es\
+            \ de acesso e auditorias regulares."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.4
       assessable: true
       depth: 3
@@ -6147,6 +6899,12 @@ objects:
             \u7684\u7BA1\u7406\u804C\u8D23\u88AB\u660E\u786E\u5B9A\u4E49\u5E76\u5F97\
             \u4EE5\u5B9E\u65BD\u3002\u63AA\u65BD\u5305\u62EC\u8BBE\u5B9A\u76EE\u6807\
             \u3001\u5206\u914D\u8D44\u6E90\u548C\u76D1\u7763\u5408\u89C4\u3002"
+        pt:
+          name: "Responsabilidades da dire\xE7\xE3o"
+          description: "Este controle assegura que as responsabilidades da dire\xE7\
+            \xE3o quanto \xE0 seguran\xE7a da informa\xE7\xE3o sejam claramente definidas\
+            \ e implementadas. As medidas incluem estabelecer objetivos, alocar recursos\
+            \ e supervisionar a conformidade."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.5
       assessable: true
       depth: 3
@@ -6203,6 +6961,12 @@ objects:
             \u6C9F\u901A\u3002\u63AA\u65BD\u5305\u62EC\u5EFA\u7ACB\u8054\u7CFB\u534F\
             \u8BAE\u3001\u7EF4\u62A4\u8054\u7CFB\u4EBA\u540D\u5355\u66F4\u65B0\u4EE5\
             \u53CA\u5206\u914D\u804C\u8D23\u3002"
+        pt:
+          name: Contato com autoridades
+          description: "Este controle assegura a comunica\xE7\xE3o oportuna com as\
+            \ autoridades pertinentes durante incidentes de seguran\xE7a da informa\xE7\
+            \xE3o. As medidas incluem estabelecer protocolos de contato, manter listas\
+            \ de contatos atualizadas e atribuir responsabilidades."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.6
       assessable: true
       depth: 3
@@ -6253,6 +7017,12 @@ objects:
             \u5B9E\u8DF5\u7684\u4E86\u89E3\u3002\u63AA\u65BD\u5305\u62EC\u53C2\u4E0E\
             \u8BBA\u575B\u3001\u4F1A\u5458\u8D44\u683C\u548C\u534F\u4F5C\u9879\u76EE\
             \u3002"
+        pt:
+          name: Contato com grupos de interesse especial
+          description: "Este controle facilita o contato com grupos de interesse especial\
+            \ para manter-se informado sobre tend\xEAncias e pr\xE1ticas de seguran\xE7\
+            a. As medidas incluem a participa\xE7\xE3o em f\xF3runs, associa\xE7\xF5\
+            es e iniciativas colaborativas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.7
       assessable: true
       depth: 3
@@ -6306,6 +7076,12 @@ objects:
             \u89E3\u5B89\u5168\u98CE\u9669\u3002\u63AA\u65BD\u5305\u62EC\u76D1\u63A7\
             \u5A01\u80C1\u4FE1\u606F\u6D41\u3001\u5206\u6790\u8D8B\u52BF\u4EE5\u53CA\
             \u5206\u4EAB\u53EF\u4F5C\u7684\u89C1\u89E3\u3002"
+        pt:
+          name: "Intelig\xEAncia de amea\xE7as"
+          description: "Este controle assegura que a intelig\xEAncia de amea\xE7as\
+            \ seja desenvolvida e mantida para identificar e mitigar riscos de seguran\xE7\
+            a. As medidas incluem monitorar feeds de amea\xE7as, analisar tend\xEA\
+            ncias e compartilhar percep\xE7\xF5es acion\xE1veis."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.8
       assessable: true
       depth: 3
@@ -6359,6 +7135,12 @@ objects:
             \u62EC\u98CE\u9669\u8BC4\u4F30\u3001\u5408\u89C4\u5BA1\u67E5\u4EE5\u53CA\
             \u9879\u76EE\u751F\u547D\u5468\u671F\u5185\u7684\u5B89\u5168\u68C0\u67E5\
             \u70B9\u3002"
+        pt:
+          name: "Seguran\xE7a da informa\xE7\xE3o na gest\xE3o de projetos"
+          description: "Este controle incorpora a seguran\xE7a da informa\xE7\xE3\
+            o \xE0s pr\xE1ticas de gest\xE3o de projetos. As medidas incluem avalia\xE7\
+            \xF5es de riscos, an\xE1lises de conformidade e pontos de verifica\xE7\
+            \xE3o de seguran\xE7a ao longo dos ciclos de vida dos projetos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.9
       assessable: true
       depth: 3
@@ -6408,6 +7190,12 @@ objects:
             \u76F8\u5173\u8D44\u4EA7\u7684\u51C6\u786E\u76D8\u70B9\u3002\u63AA\u65BD\
             \u5305\u62EC\u8D44\u4EA7\u8DDF\u8E2A\u3001\u5B9A\u671F\u5BA1\u8BA1\u4EE5\
             \u53CA\u6309\u654F\u611F\u5EA6\u5206\u7C7B\u3002"
+        pt:
+          name: "Invent\xE1rio de informa\xE7\xF5es e outros ativos associados"
+          description: "Este controle assegura a manuten\xE7\xE3o de um invent\xE1\
+            rio preciso de informa\xE7\xF5es e ativos associados. As medidas incluem\
+            \ o rastreamento de ativos, auditorias peri\xF3dicas e a classifica\xE7\
+            \xE3o por sensibilidade."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.10
       assessable: true
       depth: 3
@@ -6465,6 +7253,12 @@ objects:
             \u786E\u4FDD\u6B63\u786E\u5904\u7406\u3002\u63AA\u65BD\u5305\u62EC\u6709\
             \u6587\u6863\u5316\u7684\u653F\u7B56\u3001\u7528\u6237\u57F9\u8BAD\u548C\
             \u6267\u884C\u673A\u5236\u3002"
+        pt:
+          name: "Uso aceit\xE1vel de informa\xE7\xF5es e outros ativos associados"
+          description: "Este controle define o uso aceit\xE1vel de informa\xE7\xF5\
+            es e ativos associados para assegurar o manuseio adequado. As medidas\
+            \ incluem pol\xEDticas documentadas, treinamento de usu\xE1rios e mecanismos\
+            \ de fiscaliza\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.11
       assessable: true
       depth: 3
@@ -6517,6 +7311,12 @@ objects:
             \uFF0C\u8D44\u4EA7\u80FD\u591F\u5B89\u5168\u56DE\u6536\u3002\u63AA\u65BD\
             \u5305\u62EC\u6E05\u5355\u3001\u8D44\u4EA7\u8DDF\u8E2A\u548C\u9000\u5F79\
             \u534F\u8BAE\u3002"
+        pt:
+          name: "Devolu\xE7\xE3o de ativos"
+          description: "Este controle assegura a devolu\xE7\xE3o segura de ativos\
+            \ quando funcion\xE1rios ou contratados saem ou mudam de fun\xE7\xE3o.\
+            \ As medidas incluem listas de verifica\xE7\xE3o, rastreamento de ativos\
+            \ e protocolos de descomissionamento."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.12
       assessable: true
       depth: 3
@@ -6570,6 +7370,12 @@ objects:
             \u4EE5\u786E\u4FDD\u9002\u5F53\u7684\u4FDD\u62A4\u3002\u63AA\u65BD\u5305\
             \u62EC\u5206\u7C7B\u65B9\u6848\u3001\u8BBF\u95EE\u9650\u5236\u548C\u6807\
             \u7B7E\u6307\u5357\u3002"
+        pt:
+          name: "Classifica\xE7\xE3o da informa\xE7\xE3o"
+          description: "Este controle assegura que a informa\xE7\xE3o seja classificada\
+            \ com base em sua sensibilidade e valor para garantir a prote\xE7\xE3\
+            o apropriada. As medidas incluem esquemas de classifica\xE7\xE3o, restri\xE7\
+            \xF5es de acesso e diretrizes de rotulagem."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.13
       assessable: true
       depth: 3
@@ -6618,6 +7424,11 @@ objects:
             \u7B7E\u4E00\u81F4\uFF0C\u53CD\u6620\u5176\u5206\u7C7B\u548C\u5904\u7406\
             \u8981\u6C42\u3002\u8861\u91CF\u6807\u51C6\u5305\u62EC\u6807\u51C6\u5316\
             \u6A21\u677F\u3001\u57F9\u8BAD\u548C\u5BA1\u8BA1\u3002"
+        pt:
+          name: "Rotulagem da informa\xE7\xE3o"
+          description: "Este controle assegura a rotulagem consistente da informa\xE7\
+            \xE3o para refletir sua classifica\xE7\xE3o e seus requisitos de manuseio.\
+            \ As medidas incluem modelos padronizados, treinamento e auditorias."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.14
       assessable: true
       depth: 3
@@ -6667,6 +7478,11 @@ objects:
             \u7EC4\u7EC7\u4E4B\u95F4\u4FE1\u606F\u4F20\u8F93\u7684\u5B89\u5168\u6D41\
             \u7A0B\u3002\u63AA\u65BD\u5305\u62EC\u52A0\u5BC6\u3001\u8BBF\u95EE\u63A7\
             \u5236\u548C\u5B89\u5168\u4F20\u8F93\u534F\u8BAE\u3002"
+        pt:
+          name: "Transfer\xEAncia de informa\xE7\xF5es"
+          description: "Este controle estabelece processos seguros para transferir\
+            \ informa\xE7\xF5es entre sistemas ou organiza\xE7\xF5es. As medidas incluem\
+            \ criptografia, controles de acesso e protocolos de transfer\xEAncia seguros."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.15
       assessable: true
       depth: 3
@@ -6720,6 +7536,12 @@ objects:
             \u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u57FA\u4E8E\u89D2\u8272\u7684\
             \u8BBF\u95EE\u3001\u591A\u56E0\u7D20\u8BA4\u8BC1\u548C\u5B9A\u671F\u5BA1\
             \u67E5\u3002"
+        pt:
+          name: Controle de acesso
+          description: "Este controle implementa e mant\xE9m mecanismos de controle\
+            \ de acesso para restringir o acesso a indiv\xEDduos autorizados. As medidas\
+            \ incluem acesso baseado em pap\xE9is, autentica\xE7\xE3o multifator e\
+            \ an\xE1lises peri\xF3dicas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.16
       assessable: true
       depth: 3
@@ -6773,6 +7595,12 @@ objects:
             \u9760\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u8EAB\u4EFD\u9A8C\u8BC1\
             \u3001\u751F\u547D\u5468\u671F\u7BA1\u7406\u548C\u8BBF\u95EE\u914D\u7F6E\
             \u3002"
+        pt:
+          name: "Gest\xE3o de identidades"
+          description: "Este controle assegura que as identidades sejam gerenciadas\
+            \ de forma segura para garantir um acesso preciso e confi\xE1vel aos sistemas.\
+            \ As medidas incluem a verifica\xE7\xE3o de identidade, a gest\xE3o do\
+            \ ciclo de vida e o provisionamento de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.17
       assessable: true
       depth: 3
@@ -6822,6 +7650,12 @@ objects:
             \u606F\uFF0C\u5982\u5BC6\u7801\uFF0C\u4EE5\u9632\u6B62\u672A\u7ECF\u6388\
             \u6743\u7684\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u52A0\u5BC6\u3001\
             \u5B89\u5168\u5B58\u50A8\u548C\u5B9A\u671F\u66F4\u65B0\u5BC6\u7801\u3002"
+        pt:
+          name: "Informa\xE7\xF5es de autentica\xE7\xE3o"
+          description: "Este controle protege as informa\xE7\xF5es de autentica\xE7\
+            \xE3o, como senhas, para evitar acessos n\xE3o autorizados. As medidas\
+            \ incluem criptografia, armazenamento seguro e atualiza\xE7\xF5es peri\xF3\
+            dicas de senha."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.18
       assessable: true
       depth: 3
@@ -6874,6 +7708,12 @@ objects:
             \u89D2\u8272\u548C\u804C\u8D23\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\
             \u5BA1\u8BA1\u3001\u8BBF\u95EE\u64A4\u9500\u548C\u81EA\u52A8\u5316\u8BBF\
             \u95EE\u7BA1\u7406\u3002"
+        pt:
+          name: Direitos de acesso
+          description: "Este controle assegura que os direitos de acesso sejam regularmente\
+            \ revisados e gerenciados para se alinhar aos pap\xE9is e responsabilidades.\
+            \ As medidas incluem auditorias peri\xF3dicas, revoga\xE7\xE3o de acesso\
+            \ e gest\xE3o automatizada de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.19
       assessable: true
       depth: 3
@@ -6923,6 +7763,12 @@ objects:
             \u5D4C\u5165\u4F9B\u5E94\u5546\u5173\u7CFB\u548C\u6D41\u7A0B\u4E2D\u3002\
             \u63AA\u65BD\u5305\u62EC\u5C3D\u804C\u8C03\u67E5\u3001\u5B89\u5168\u5BA1\
             \u67E5\u548C\u6301\u7EED\u76D1\u63A7\u3002"
+        pt:
+          name: "Seguran\xE7a da informa\xE7\xE3o nas rela\xE7\xF5es com fornecedores"
+          description: "Este controle assegura que a seguran\xE7a da informa\xE7\xE3\
+            o esteja integrada \xE0s rela\xE7\xF5es e processos com fornecedores.\
+            \ As medidas incluem due diligence, an\xE1lises de seguran\xE7a e monitoramento\
+            \ cont\xEDnuo."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.20
       assessable: true
       depth: 3
@@ -6976,6 +7822,12 @@ objects:
             \u4E2D\u7684\u4FE1\u606F\u5B89\u5168\u8981\u6C42\u3002\u63AA\u65BD\u5305\
             \u62EC\u660E\u786E\u7684\u5408\u540C\u6761\u6B3E\u3001\u5408\u89C4\u5BA1\
             \u8BA1\u4EE5\u53CA\u5BF9\u8FDD\u89C4\u7684\u660E\u786E\u5904\u7F5A\u3002"
+        pt:
+          name: "Abordagem da seguran\xE7a da informa\xE7\xE3o nos acordos com fornecedores"
+          description: "Este controle aborda os requisitos de seguran\xE7a da informa\xE7\
+            \xE3o nos acordos com fornecedores. As medidas incluem cl\xE1usulas contratuais\
+            \ expl\xEDcitas, auditorias de conformidade e penalidades definidas para\
+            \ viola\xE7\xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.21
       assessable: true
       depth: 3
@@ -7033,6 +7885,13 @@ objects:
             \u7EC4\u4EF6\u7684\u5B89\u5168\u3002\u63AA\u65BD\u5305\u62EC\u98CE\u9669\
             \u8BC4\u4F30\u3001\u4F9B\u5E94\u5546\u8BC4\u4F30\u548C\u4E8B\u6545\u54CD\
             \u5E94\u534F\u8BAE\u3002"
+        pt:
+          name: "Gest\xE3o da seguran\xE7a da informa\xE7\xE3o na cadeia de suprimentos\
+            \ de TIC"
+          description: "Este controle gerencia os riscos de seguran\xE7a da informa\xE7\
+            \xE3o na cadeia de suprimentos de TIC para assegurar a seguran\xE7a dos\
+            \ servi\xE7os e componentes. As medidas incluem avalia\xE7\xF5es de riscos,\
+            \ avalia\xE7\xF5es de fornecedores e protocolos de resposta a incidentes."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.22
       assessable: true
       depth: 3
@@ -7093,6 +7952,13 @@ objects:
             \u4EE5\u7EF4\u62A4\u4FE1\u606F\u5B89\u5168\u3002\u63AA\u65BD\u5305\u62EC\
             \u670D\u52A1\u6C34\u5E73\u534F\u8BAE\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\
             \u5408\u540C\u66F4\u65B0\u3002"
+        pt:
+          name: "Monitoramento, an\xE1lise e gest\xE3o de mudan\xE7as dos servi\xE7\
+            os de fornecedores"
+          description: "Este controle assegura que os servi\xE7os de fornecedores\
+            \ sejam monitorados, analisados e ajustados para manter a seguran\xE7\
+            a da informa\xE7\xE3o. As medidas incluem acordos de n\xEDvel de servi\xE7\
+            o, an\xE1lises peri\xF3dicas e atualiza\xE7\xF5es contratuais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.23
       assessable: true
       depth: 3
@@ -7146,6 +8012,11 @@ objects:
             \u98CE\u9669\uFF0C\u786E\u4FDD\u4E91\u670D\u52A1\u7684\u5B89\u5168\u4F7F\
             \u7528\u3002\u63AA\u65BD\u5305\u62EC\u6570\u636E\u52A0\u5BC6\u3001\u8BBF\
             \u95EE\u63A7\u5236\u548C\u63D0\u4F9B\u8005\u5408\u89C4\u5BA1\u67E5\u3002"
+        pt:
+          name: "Seguran\xE7a da informa\xE7\xE3o para uso de servi\xE7os em nuvem"
+          description: "Este controle assegura o uso seguro de servi\xE7os em nuvem\
+            \ ao abordar os riscos associados. As medidas incluem criptografia de\
+            \ dados, controles de acesso e an\xE1lises de conformidade dos provedores."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.24
       assessable: true
       depth: 3
@@ -7201,6 +8072,13 @@ objects:
             \u5168\u4E8B\u4EF6\u7684\u5408\u7406\u89C4\u5212\u548C\u51C6\u5907\u3002\
             \u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u54CD\u5E94\u8BA1\u5212\u3001\u57F9\
             \u8BAD\u6F14\u4E60\u548C\u901A\u4FE1\u534F\u8BAE\u3002"
+        pt:
+          name: "Planejamento e prepara\xE7\xE3o da gest\xE3o de incidentes de seguran\xE7\
+            a da informa\xE7\xE3o"
+          description: "Este controle assegura o planejamento e a prepara\xE7\xE3\
+            o adequados para a gest\xE3o de incidentes de seguran\xE7a da informa\xE7\
+            \xE3o. As medidas incluem planos de resposta a incidentes, exerc\xEDcios\
+            \ de treinamento e protocolos de comunica\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.25
       assessable: true
       depth: 3
@@ -7259,6 +8137,13 @@ objects:
             \u52A8\u7684\u6D41\u7A0B\u3002\u63AA\u65BD\u5305\u62EC\u6839\u672C\u539F\
             \u56E0\u5206\u6790\u3001\u98CE\u9669\u8BC4\u4F30\u548C\u7F13\u89E3\u8BA1\
             \u5212\u3002"
+        pt:
+          name: "Avalia\xE7\xE3o e decis\xE3o sobre eventos de seguran\xE7a da informa\xE7\
+            \xE3o"
+          description: "Este controle estabelece processos para avaliar e decidir\
+            \ sobre as a\xE7\xF5es relacionadas a eventos de seguran\xE7a da informa\xE7\
+            \xE3o. As medidas incluem an\xE1lise de causa-raiz, avalia\xE7\xE3o de\
+            \ riscos e planos de mitiga\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.26
       assessable: true
       depth: 3
@@ -7312,6 +8197,12 @@ objects:
             \u9650\u5EA6\u5730\u51CF\u5C11\u5F71\u54CD\u5E76\u8FC5\u901F\u6062\u590D\
             \u3002\u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u62A5\u544A\u3001\u5347\u7EA7\
             \u534F\u8BAE\u548C\u904F\u5236\u7B56\u7565\u3002"
+        pt:
+          name: "Resposta a incidentes de seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle assegura uma resposta eficaz a incidentes de\
+            \ seguran\xE7a da informa\xE7\xE3o para minimizar o impacto e recuperar-se\
+            \ rapidamente. As medidas incluem o registro de incidentes, protocolos\
+            \ de escalonamento e estrat\xE9gias de conten\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.27
       assessable: true
       depth: 3
@@ -7367,6 +8258,13 @@ objects:
             \u5F55\u5E76\u52A0\u4EE5\u5B9E\u65BD\uFF0C\u4EE5\u6539\u8FDB\u6D41\u7A0B\
             \u3002\u63AA\u65BD\u5305\u62EC\u4E8B\u4EF6\u540E\u5BA1\u67E5\u3001\u884C\
             \u52A8\u8BA1\u5212\u548C\u653F\u7B56\u66F4\u65B0\u3002"
+        pt:
+          name: "Aprendizado com incidentes de seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle assegura que as li\xE7\xF5es aprendidas com\
+            \ incidentes de seguran\xE7a da informa\xE7\xE3o sejam documentadas e\
+            \ implementadas para aprimorar os processos. As medidas incluem an\xE1\
+            lises p\xF3s-incidente, planos de a\xE7\xE3o e atualiza\xE7\xF5es de pol\xED\
+            ticas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.28
       assessable: true
       depth: 3
@@ -7421,6 +8319,12 @@ objects:
             \u4EE5\u652F\u6301\u8C03\u67E5\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u7BA1\
             \u94FE\u7A0B\u5E8F\u3001\u5B89\u5168\u5B58\u50A8\u548C\u95E8\u7981\u63A7\
             \u5236\u3002"
+        pt:
+          name: "Coleta de evid\xEAncias"
+          description: "Este controle assegura que as evid\xEAncias sejam coletadas\
+            \ e preservadas durante incidentes de seguran\xE7a para apoiar investiga\xE7\
+            \xF5es. As medidas incluem procedimentos de cadeia de cust\xF3dia, armazenamento\
+            \ seguro e controles de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.29
       assessable: true
       depth: 3
@@ -7473,6 +8377,12 @@ objects:
             \u8FD0\u8425\u7684\u8FDE\u7EED\u6027\u3002\u63AA\u65BD\u5305\u62EC\u5E94\
             \u6025\u9884\u6848\u3001\u5907\u4EFD\u7CFB\u7EDF\u548C\u6545\u969C\u5207\
             \u6362\u673A\u5236\u3002"
+        pt:
+          name: "Seguran\xE7a da informa\xE7\xE3o durante interrup\xE7\xF5es"
+          description: "Este controle assegura que a seguran\xE7a da informa\xE7\xE3\
+            o seja mantida durante interrup\xE7\xF5es para garantir a continuidade\
+            \ das opera\xE7\xF5es. As medidas incluem planos de conting\xEAncia, sistemas\
+            \ de backup e mecanismos de failover."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.30
       assessable: true
       depth: 3
@@ -7527,6 +8437,12 @@ objects:
             \u51CF\u5C11\u4E2D\u65AD\u671F\u95F4\u7684\u505C\u673A\u65F6\u95F4\u3002\
             \u63AA\u65BD\u5305\u62EC\u6D4B\u8BD5\u6062\u590D\u8BA1\u5212\u3001\u5197\
             \u4F59\u7CFB\u7EDF\u548C\u707E\u96BE\u6062\u590D\u7AD9\u70B9\u3002"
+        pt:
+          name: "Prontid\xE3o de TIC para a continuidade de neg\xF3cios"
+          description: "Este controle assegura a prontid\xE3o de TIC para a continuidade\
+            \ de neg\xF3cios a fim de minimizar o tempo de inatividade durante interrup\xE7\
+            \xF5es. As medidas incluem testar planos de recupera\xE7\xE3o, sistemas\
+            \ redundantes e sites de recupera\xE7\xE3o de desastres."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.31
       assessable: true
       depth: 3
@@ -7579,6 +8495,12 @@ objects:
             \u3001\u6CD5\u5B9A\u3001\u76D1\u7BA1\u548C\u5408\u540C\u4FE1\u606F\u5B89\
             \u5168\u8981\u6C42\u3002\u63AA\u65BD\u5305\u62EC\u653F\u7B56\u5BA1\u67E5\
             \u3001\u5BA1\u8BA1\u548C\u8BC1\u636E\u8BB0\u5F55\u3002"
+        pt:
+          name: "Requisitos legais, estatut\xE1rios, regulat\xF3rios e contratuais"
+          description: "Este controle assegura a conformidade com os requisitos legais,\
+            \ estatut\xE1rios, regulat\xF3rios e contratuais de seguran\xE7a da informa\xE7\
+            \xE3o. As medidas incluem an\xE1lises de pol\xEDticas, auditorias e documenta\xE7\
+            \xE3o de evid\xEAncias."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.32
       assessable: true
       depth: 3
@@ -7630,6 +8552,12 @@ objects:
             \u901A\u8FC7\u9002\u5F53\u7684\u4FE1\u606F\u5B89\u5168\u63AA\u65BD\u5F97\
             \u5230\u4FDD\u62A4\u3002\u63AA\u65BD\u5305\u62EC\u8BBF\u95EE\u9650\u5236\
             \u3001\u52A0\u5BC6\u548C\u6CD5\u5F8B\u534F\u8BAE\u3002"
+        pt:
+          name: Direitos de propriedade intelectual
+          description: "Este controle assegura que os direitos de propriedade intelectual\
+            \ sejam protegidos por meio de medidas apropriadas de seguran\xE7a da\
+            \ informa\xE7\xE3o. As medidas incluem restri\xE7\xF5es de acesso, criptografia\
+            \ e acordos legais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.33
       assessable: true
       depth: 3
@@ -7684,6 +8612,12 @@ objects:
             \u7ECF\u6388\u6743\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u7559\
             \u653F\u7B56\u3001\u5B89\u5168\u5B58\u50A8\u548C\u8BBF\u95EE\u63A7\u5236\
             \u3002"
+        pt:
+          name: "Prote\xE7\xE3o de registros"
+          description: "Este controle assegura que os registros sejam armazenados\
+            \ e protegidos de forma segura para evitar perda ou acesso n\xE3o autorizado.\
+            \ As medidas incluem pol\xEDticas de reten\xE7\xE3o, armazenamento seguro\
+            \ e controles de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.34
       assessable: true
       depth: 3
@@ -7736,6 +8670,12 @@ objects:
             \u4FDD\u4E2A\u4EBA\u8EAB\u4EFD\u4FE1\u606F\uFF08PII\uFF09\u7684\u5B89\u5168\
             \u5904\u7406\u3002\u63AA\u65BD\u5305\u62EC\u533F\u540D\u5316\u3001\u52A0\
             \u5BC6\u4EE5\u53CA\u9075\u5B88\u9690\u79C1\u6CD5\u5F8B\u3002"
+        pt:
+          name: "Privacidade e prote\xE7\xE3o de PII"
+          description: "Este controle protege a privacidade e assegura o manuseio\
+            \ seguro de informa\xE7\xF5es de identifica\xE7\xE3o pessoal (PII). As\
+            \ medidas incluem anonimiza\xE7\xE3o, criptografia e conformidade com\
+            \ as leis de privacidade."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.35
       assessable: true
       depth: 3
@@ -7789,6 +8729,12 @@ objects:
             \u6709\u6548\u6027\u548C\u5408\u89C4\u6027\u3002\u63AA\u65BD\u5305\u62EC\
             \u5916\u90E8\u5BA1\u8BA1\u3001\u98CE\u9669\u8BC4\u4F30\u548C\u540E\u7EED\
             \u884C\u52A8\u3002"
+        pt:
+          name: "An\xE1lise independente da seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle assegura an\xE1lises independentes da seguran\xE7\
+            a da informa\xE7\xE3o para avaliar a efic\xE1cia e a conformidade. As\
+            \ medidas incluem auditorias externas, avalia\xE7\xF5es de riscos e a\xE7\
+            \xF5es de acompanhamento."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.36
       assessable: true
       depth: 3
@@ -7844,6 +8790,13 @@ objects:
             \u4FE1\u606F\u5B89\u5168\u7684\u653F\u7B56\u3001\u89C4\u5219\u548C\u6807\
             \u51C6\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u57F9\u8BAD\u3001\u653F\
             \u7B56\u5BA1\u67E5\u548C\u6267\u6CD5\u673A\u5236\u3002"
+        pt:
+          name: "Conformidade com pol\xEDticas, regras e normas de seguran\xE7a da\
+            \ informa\xE7\xE3o"
+          description: "Este controle assegura a conformidade com todas as pol\xED\
+            ticas, regras e normas de seguran\xE7a da informa\xE7\xE3o. As medidas\
+            \ incluem treinamento regular, an\xE1lises de pol\xEDticas e mecanismos\
+            \ de fiscaliza\xE7\xE3o."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.5.37
       assessable: true
       depth: 3
@@ -7894,6 +8847,12 @@ objects:
             \u6863\u7684\u4F5C\u7A0B\u5E8F\uFF0C\u4EE5\u786E\u4FDD\u5B89\u5168\u5B9E\
             \u8DF5\u7684\u4E00\u81F4\u6027\u3002\u63AA\u65BD\u5305\u62EC\u6D41\u7A0B\
             \u6587\u6863\u3001\u7248\u672C\u63A7\u5236\u548C\u65E0\u969C\u788D\u3002"
+        pt:
+          name: Procedimentos operacionais documentados
+          description: "Este controle desenvolve e mant\xE9m procedimentos operacionais\
+            \ documentados para assegurar a consist\xEAncia das pr\xE1ticas de seguran\xE7\
+            a. As medidas incluem documenta\xE7\xE3o de processos, controle de vers\xF5\
+            es e acessibilidade."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6
       assessable: false
       depth: 2
@@ -7915,6 +8874,8 @@ objects:
           name: "Personenbezogene Ma\xDFnahmen"
         zh:
           name: "\u4EBA\u5458\u63A7\u5236"
+        pt:
+          name: Controles de pessoas
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.1
       assessable: true
       depth: 3
@@ -7972,6 +8933,13 @@ objects:
             \u4EBA\u7684\u9002\u4EFB\u6027\u3002\u63AA\u65BD\u5305\u62EC\u80CC\u666F\
             \u8C03\u67E5\u3001\u8EAB\u4EFD\u9A8C\u8BC1\u548C\u8D44\u683C\u8BC4\u4F30\
             \uFF0C\u4EE5\u964D\u4F4E\u5B89\u5168\u98CE\u9669\u3002"
+        pt:
+          name: Triagem
+          description: "Este controle assegura a implementa\xE7\xE3o de processos\
+            \ de triagem para verificar a adequa\xE7\xE3o dos candidatos antes da\
+            \ contrata\xE7\xE3o. As medidas incluem verifica\xE7\xE3o de antecedentes,\
+            \ verifica\xE7\xE3o de identidade e avalia\xE7\xE3o de qualifica\xE7\xF5\
+            es para reduzir os riscos de seguran\xE7a."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.2
       assessable: true
       depth: 3
@@ -8025,6 +8993,13 @@ objects:
             \u63AA\u65BD\u5305\u62EC\u660E\u786E\u89C4\u5B9A\u4FDD\u5BC6\u3001\u9075\
             \u5B88\u653F\u7B56\u4EE5\u53CA\u8FDD\u89C4\u540E\u679C\u7B49\u6761\u6B3E\
             \u3002"
+        pt:
+          name: "Termos e condi\xE7\xF5es de contrata\xE7\xE3o"
+          description: "Este controle assegura que os termos e condi\xE7\xF5es de\
+            \ contrata\xE7\xE3o incluam responsabilidades de seguran\xE7a da informa\xE7\
+            \xE3o. As medidas incluem cl\xE1usulas expl\xEDcitas sobre confidencialidade,\
+            \ conformidade com as pol\xEDticas e consequ\xEAncias para viola\xE7\xF5\
+            es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.3
       assessable: true
       depth: 3
@@ -8081,6 +9056,13 @@ objects:
             \u57F9\u8BAD\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u57F9\u8BAD\u3001\
             \u7535\u5B50\u5B66\u4E60\u9879\u76EE\u548C\u6A21\u62DF\u9493\u9C7C\u6F14\
             \u4E60\u3002"
+        pt:
+          name: "Conscientiza\xE7\xE3o, educa\xE7\xE3o e treinamento em seguran\xE7\
+            a da informa\xE7\xE3o"
+          description: "Este controle assegura que os funcion\xE1rios recebam regularmente\
+            \ conscientiza\xE7\xE3o, educa\xE7\xE3o e treinamento em seguran\xE7a\
+            \ da informa\xE7\xE3o. As medidas incluem sess\xF5es de treinamento programadas,\
+            \ programas de e-learning e exerc\xEDcios simulados de phishing."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.4
       assessable: true
       depth: 3
@@ -8134,6 +9116,12 @@ objects:
             \u89C4\u884C\u4E3A\u3002\u63AA\u65BD\u5305\u62EC\u660E\u786E\u7684\u6307\
             \u5BFC\u65B9\u9488\u3001\u5347\u7EA7\u7A0B\u5E8F\u548C\u6301\u7EED\u7684\
             \u6267\u6CD5\uFF0C\u4EE5\u4FDD\u6301\u95EE\u8D23\u5236\u3002"
+        pt:
+          name: Processo disciplinar
+          description: "Este controle estabelece um processo disciplinar para tratar\
+            \ viola\xE7\xF5es das pol\xEDticas de seguran\xE7a da informa\xE7\xE3\
+            o. As medidas incluem diretrizes claras, procedimentos de escalonamento\
+            \ e aplica\xE7\xE3o consistente para manter a presta\xE7\xE3o de contas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.5
       assessable: true
       depth: 3
@@ -8195,6 +9183,14 @@ objects:
             \u66F4\u540E\u5F97\u5230\u5B9A\u4E49\u548C\u6267\u884C\u3002\u63AA\u65BD\
             \u5305\u62EC\u64A4\u9500\u8BBF\u95EE\u6743\u3001\u6536\u7F34\u7EC4\u7EC7\
             \u8D44\u4EA7\u4EE5\u53CA\u8FDB\u884C\u79BB\u804C\u9762\u8C08\u3002"
+        pt:
+          name: "Responsabilidades ap\xF3s o encerramento ou a mudan\xE7a de v\xED\
+            nculo empregat\xEDcio"
+          description: "Este controle assegura que as responsabilidades relacionadas\
+            \ \xE0 seguran\xE7a da informa\xE7\xE3o sejam definidas e aplicadas ap\xF3\
+            s o encerramento ou mudan\xE7as de fun\xE7\xE3o. As medidas incluem revogar\
+            \ direitos de acesso, recolher ativos organizacionais e realizar entrevistas\
+            \ de desligamento."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.6
       assessable: true
       depth: 3
@@ -8250,6 +9246,13 @@ objects:
             \u63AA\u65BD\u5305\u62EC\u5165\u804C\u65F6\u7B7E\u7F72\u534F\u8BAE\u3001\
             \u5B9A\u671F\u63D0\u9192\u4EE5\u53CA\u5728\u8FDD\u89C4\u65F6\u6267\u884C\
             \u6CD5\u5F8B\u884C\u52A8\u3002"
+        pt:
+          name: "Acordos de confidencialidade ou de n\xE3o divulga\xE7\xE3o"
+          description: "Este controle implementa acordos de confidencialidade ou de\
+            \ n\xE3o divulga\xE7\xE3o para proteger informa\xE7\xF5es sens\xEDveis.\
+            \ As medidas incluem acordos assinados no in\xEDcio da contrata\xE7\xE3\
+            o, lembretes peri\xF3dicos e a ado\xE7\xE3o de a\xE7\xF5es legais em caso\
+            \ de viola\xE7\xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.7
       assessable: true
       depth: 3
@@ -8307,6 +9310,12 @@ objects:
             \u7684\u5B89\u5168\u8BBF\u95EE\u3001\u5F3A\u5236\u4F7F\u7528VPN\uFF0C\u4EE5\
             \u53CA\u5236\u5B9A\u8FDC\u7A0B\u5904\u7406\u654F\u611F\u6570\u636E\u7684\
             \u653F\u7B56\u3002"
+        pt:
+          name: Trabalho remoto
+          description: "Este controle assegura a gest\xE3o segura dos riscos de seguran\xE7\
+            a da informa\xE7\xE3o durante o trabalho remoto. As medidas incluem acesso\
+            \ seguro aos sistemas corporativos, uso obrigat\xF3rio de VPNs e pol\xED\
+            ticas para o manuseio remoto de dados sens\xEDveis."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.6.8
       assessable: true
       depth: 3
@@ -8364,6 +9373,13 @@ objects:
             \u65BD\u5305\u62EC\u4E8B\u4EF6\u62A5\u544A\u6E20\u9053\u3001\u5BA3\u4F20\
             \u6D3B\u52A8\u4EE5\u53CA\u8C03\u67E5\u548C\u5904\u7406\u62A5\u544A\u4E8B\
             \u4EF6\u7684\u540E\u7EED\u7A0B\u5E8F\u3002"
+        pt:
+          name: "Registro de eventos de seguran\xE7a da informa\xE7\xE3o"
+          description: "Este controle assegura que os funcion\xE1rios possam relatar\
+            \ prontamente eventos de seguran\xE7a da informa\xE7\xE3o. As medidas\
+            \ incluem canais de registro de incidentes, campanhas de conscientiza\xE7\
+            \xE3o e procedimentos de acompanhamento para investigar e tratar os eventos\
+            \ relatados."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7
       assessable: false
       depth: 2
@@ -8385,6 +9401,8 @@ objects:
           name: "Physische Ma\xDFnahmen"
         zh:
           name: "\u7269\u7406\u63A7\u5236"
+        pt:
+          name: "Controles f\xEDsicos"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.1
       assessable: true
       depth: 3
@@ -8442,6 +9460,12 @@ objects:
             \u8BBE\u7F6E\u969C\u788D\u7269\u3001\u95E8\u7981\u63A7\u5236\u548C\u76D1\
             \u63A7\u7CFB\u7EDF\uFF0C\u786E\u4FDD\u53EA\u6709\u6388\u6743\u4EBA\u5458\
             \u624D\u80FD\u8FDB\u5165\u3002"
+        pt:
+          name: "Per\xEDmetros de seguran\xE7a f\xEDsica"
+          description: "Este controle estabelece per\xEDmetros de seguran\xE7a f\xED\
+            sica para proteger \xE1reas cr\xEDticas contra acesso n\xE3o autorizado.\
+            \ As medidas incluem barreiras, controles de acesso e sistemas de monitoramento\
+            \ para assegurar que apenas indiv\xEDduos autorizados possam entrar."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.2
       assessable: true
       depth: 3
@@ -8494,6 +9518,12 @@ objects:
             \u7ECF\u6388\u6743\u7684\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\u5FBD\
             \u7AE0\u7CFB\u7EDF\u3001\u5B89\u4FDD\u4EBA\u5458\u548C\u8BBF\u5BA2\u8BB0\
             \u5F55\u3002"
+        pt:
+          name: "Entrada f\xEDsica"
+          description: "Este controle assegura que os pontos de entrada f\xEDsica\
+            \ sejam controlados e monitorados para evitar acesso n\xE3o autorizado.\
+            \ As medidas incluem sistemas de crach\xE1, pessoal de seguran\xE7a e\
+            \ registros de visitantes."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.3
       assessable: true
       depth: 3
@@ -8545,6 +9575,12 @@ objects:
             \u623F\u95F4\u548C\u8BBE\u65BD\u7684\u5B89\u5168\uFF0C\u4EE5\u4FDD\u62A4\
             \u4FE1\u606F\u548C\u8D44\u6E90\u3002\u63AA\u65BD\u5305\u62EC\u4E0A\u9501\
             \u95E8\u3001\u9650\u5236\u533A\u57DF\u548C\u76D1\u63A7\u7CFB\u7EDF\u3002"
+        pt:
+          name: "Prote\xE7\xE3o de escrit\xF3rios, salas e instala\xE7\xF5es"
+          description: "Este controle assegura que escrit\xF3rios, salas e instala\xE7\
+            \xF5es sejam protegidos para resguardar informa\xE7\xF5es e recursos.\
+            \ As medidas incluem portas trancadas, \xE1reas restritas e sistemas de\
+            \ vigil\xE2ncia."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.4
       assessable: true
       depth: 3
@@ -8594,6 +9630,11 @@ objects:
             \u76D1\u63A7\uFF0C\u4EE5\u68C0\u6D4B\u5E76\u8FC5\u901F\u54CD\u5E94\u5A01\
             \u80C1\u3002\u63AA\u65BD\u5305\u62EC\u95ED\u8DEF\u7535\u89C6\u7CFB\u7EDF\
             \u3001\u8FD0\u52A8\u63A2\u6D4B\u5668\u548C\u5B9E\u65F6\u8B66\u62A5\u3002"
+        pt:
+          name: "Monitoramento de seguran\xE7a f\xEDsica"
+          description: "Este controle implementa o monitoramento de seguran\xE7a f\xED\
+            sica para detectar e responder prontamente a amea\xE7as. As medidas incluem\
+            \ sistemas de CFTV, detectores de movimento e alertas em tempo real."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.5
       assessable: true
       depth: 3
@@ -8645,6 +9686,12 @@ objects:
             \u6E90\u514D\u53D7\u7269\u7406\u548C\u73AF\u5883\u5A01\u80C1\u3002\u63AA\
             \u65BD\u5305\u62EC\u706D\u706B\u7CFB\u7EDF\u3001\u6E29\u5EA6\u63A7\u5236\
             \u548C\u9632\u6D2A\u5C4F\u969C\u3002"
+        pt:
+          name: "Prote\xE7\xE3o contra amea\xE7as f\xEDsicas e ambientais"
+          description: "Este controle protege sistemas e recursos contra amea\xE7\
+            as f\xEDsicas e ambientais. As medidas incluem sistemas de supress\xE3\
+            o de inc\xEAndio, controles de temperatura e barreiras de preven\xE7\xE3\
+            o de inunda\xE7\xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.6
       assessable: true
       depth: 3
@@ -8696,6 +9743,12 @@ objects:
             \u53EA\u5141\u8BB8\u6388\u6743\u8BBF\u95EE\u3002\u63AA\u65BD\u5305\u62EC\
             \u95E8\u7981\u7CFB\u7EDF\u3001\u8BBF\u5BA2\u62A4\u9001\u548C\u6D3B\u52A8\
             \u76D1\u6D4B\u3002"
+        pt:
+          name: "Trabalho em \xE1reas seguras"
+          description: "Este controle assegura que as \xE1reas seguras sejam gerenciadas\
+            \ para permitir apenas o acesso autorizado. As medidas incluem sistemas\
+            \ de controle de acesso, acompanhamento de visitantes e monitoramento\
+            \ de atividades."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.7
       assessable: true
       depth: 3
@@ -8750,6 +9803,13 @@ objects:
             \u654F\u611F\u4FE1\u606F\u4E0D\u4F1A\u88AB\u9057\u6F0F\u3002\u63AA\u65BD\
             \u5305\u62EC\u5C06\u654F\u611F\u6587\u4EF6\u9501\u597D\uFF0C\u5E76\u5728\
             \u672A\u4F7F\u7528\u65F6\u81EA\u52A8\u9501\u5B9A\u5C4F\u5E55\u3002"
+        pt:
+          name: Mesa limpa e tela limpa
+          description: "Este controle assegura que informa\xE7\xF5es sens\xEDveis\
+            \ n\xE3o sejam deixadas expostas, adotando pol\xEDticas de mesa limpa\
+            \ e tela limpa. As medidas incluem guardar documentos sens\xEDveis sob\
+            \ chave e bloquear automaticamente as telas quando n\xE3o estiverem em\
+            \ uso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.8
       assessable: true
       depth: 3
@@ -8803,6 +9863,12 @@ objects:
             \u7684\u8BBF\u95EE\u6216\u635F\u574F\u3002\u63AA\u65BD\u5305\u62EC\u5B89\
             \u5168\u5B89\u88C5\u3001\u4E0A\u9501\u67DC\u5B50\u548C\u9650\u5236\u8FDB\
             \u5165\u533A\u57DF\u3002"
+        pt:
+          name: "Posicionamento e prote\xE7\xE3o de equipamentos"
+          description: "Este controle assegura que os equipamentos sejam posicionados\
+            \ e protegidos para evitar acesso n\xE3o autorizado ou danos. As medidas\
+            \ incluem montagem segura, arm\xE1rios trancados e \xE1reas de acesso\
+            \ restrito."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.9
       assessable: true
       depth: 3
@@ -8855,6 +9921,12 @@ objects:
             \u4EE5\u7EF4\u62A4\u673A\u5BC6\u6027\u548C\u5B8C\u6574\u6027\u3002\u63AA\
             \u65BD\u5305\u62EC\u52A0\u5BC6\u3001\u5B89\u5168\u4F20\u8F93\u548C\u8BBF\
             \u95EE\u8FFD\u8E2A\u3002"
+        pt:
+          name: "Seguran\xE7a de ativos fora das instala\xE7\xF5es"
+          description: "Este controle assegura que os ativos utilizados ou armazenados\
+            \ fora das instala\xE7\xF5es sejam protegidos para manter a confidencialidade\
+            \ e a integridade. As medidas incluem criptografia, transporte seguro\
+            \ e rastreamento de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.10
       assessable: true
       depth: 3
@@ -8903,6 +9975,11 @@ objects:
             \uFF0C\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u8BBF\u95EE\u6216\u7BE1\
             \u6539\u3002\u63AA\u65BD\u5305\u62EC\u5B89\u5168\u5B58\u50A8\u3001\u52A0\
             \u5BC6\u548C\u8BBF\u95EE\u9650\u5236\u3002"
+        pt:
+          name: "M\xEDdia de armazenamento"
+          description: "Este controle protege as m\xEDdias de armazenamento para evitar\
+            \ acesso n\xE3o autorizado ou adultera\xE7\xE3o. As medidas incluem armazenamento\
+            \ seguro, criptografia e restri\xE7\xF5es de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.11
       assessable: true
       depth: 3
@@ -8954,6 +10031,12 @@ objects:
             \u516C\u7528\u4E8B\u4E1A\uFF0C\u5982\u7535\u529B\u548C\u51B7\u5374\u7CFB\
             \u7EDF\uFF0C\u53EF\u9760\u4E14\u4E0D\u53D7\u5E72\u6270\u3002\u63AA\u65BD\
             \u5305\u62EC\u5197\u4F59\u7CFB\u7EDF\u548C\u7269\u7406\u5B89\u5168\u3002"
+        pt:
+          name: Utilidades de apoio
+          description: "Este controle assegura que as utilidades de apoio, como sistemas\
+            \ de energia e refrigera\xE7\xE3o, sejam confi\xE1veis e protegidas contra\
+            \ interrup\xE7\xF5es. As medidas incluem sistemas redundantes e seguran\xE7\
+            a f\xEDsica."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.12
       assessable: true
       depth: 3
@@ -9004,6 +10087,11 @@ objects:
             \u62E6\u622A\u6216\u635F\u574F\u3002\u63AA\u65BD\u5305\u62EC\u4FDD\u62A4\
             \u7BA1\u9053\u3001\u6B63\u786E\u6807\u8BC6\u548C\u5B89\u5168\u5E03\u7EBF\
             \u3002"
+        pt:
+          name: "Seguran\xE7a do cabeamento"
+          description: "Este controle assegura que os cabos sejam protegidos para\
+            \ evitar intercepta\xE7\xE3o n\xE3o autorizada ou danos. As medidas incluem\
+            \ condu\xEDtes de prote\xE7\xE3o, rotulagem adequada e roteamento seguro."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.13
       assessable: true
       depth: 3
@@ -9057,6 +10145,12 @@ objects:
             \u6545\u969C\u53D1\u751F\u3002\u63AA\u65BD\u5305\u62EC\u5B9A\u671F\u4FDD\
             \u517B\u3001\u5B89\u5168\u7EF4\u62A4\u5B9E\u8DF5\u4EE5\u53CA\u6388\u6743\
             \u4EBA\u5458\u901A\u884C\u3002"
+        pt:
+          name: "Manuten\xE7\xE3o de equipamentos"
+          description: "Este controle assegura que os equipamentos sejam mantidos\
+            \ para garantir o funcionamento adequado e prevenir falhas. As medidas\
+            \ incluem manuten\xE7\xE3o regular, pr\xE1ticas de manuten\xE7\xE3o seguras\
+            \ e acesso de pessoal autorizado."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.7.14
       assessable: true
       depth: 3
@@ -9110,6 +10204,12 @@ objects:
             \u5904\u7F6E\u6216\u518D\u5229\u7528\uFF0C\u4EE5\u4FDD\u62A4\u654F\u611F\
             \u4FE1\u606F\u3002\u63AA\u65BD\u5305\u62EC\u6570\u636E\u51C0\u5316\u3001\
             \u7269\u7406\u9500\u6BC1\u548C\u8BA4\u8BC1\u5904\u7406\u6D41\u7A0B\u3002"
+        pt:
+          name: "Descarte seguro ou reutiliza\xE7\xE3o de equipamentos"
+          description: "Este controle assegura o descarte seguro ou a reutiliza\xE7\
+            \xE3o de equipamentos para proteger informa\xE7\xF5es sens\xEDveis. As\
+            \ medidas incluem sanitiza\xE7\xE3o de dados, destrui\xE7\xE3o f\xEDsica\
+            \ e processos de descarte certificados."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8
       assessable: false
       depth: 2
@@ -9131,6 +10231,8 @@ objects:
           name: "Technologische Ma\xDFnahmen"
         zh:
           name: "\u6280\u672F\u63A7\u5236"
+        pt:
+          name: "Controles tecnol\xF3gicos"
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.1
       assessable: true
       depth: 3
@@ -9186,6 +10288,12 @@ objects:
             \u3001\u53F0\u5F0F\u673A\u548C\u79FB\u52A8\u8BBE\u5907\u7B49\u7EC8\u7AEF\
             \u8BBE\u5907\u7684\u4FDD\u62A4\uFF0C\u4EE5\u6700\u5927\u9650\u5EA6\u5730\
             \u964D\u4F4E\u98CE\u9669\u3002"
+        pt:
+          name: "Dispositivos de endpoint do usu\xE1rio"
+          description: "Este controle assegura a prote\xE7\xE3o de dispositivos de\
+            \ endpoint, como laptops, desktops e dispositivos m\xF3veis, implementando\
+            \ medidas de seguran\xE7a como detec\xE7\xE3o de endpoint, criptografia\
+            \ e configura\xE7\xF5es seguras para minimizar riscos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.2
       assessable: true
       depth: 3
@@ -9244,6 +10352,13 @@ objects:
             \u6027\u3002\u63AA\u65BD\u5305\u62EC\u57FA\u4E8E\u89D2\u8272\u7684\u8BBF\
             \u95EE\u63A7\u5236\u3001\u5B9A\u671F\u5BA1\u67E5\u548C\u4E25\u683C\u7684\
             \u8D26\u6237\u7BA1\u7406\u3002"
+        pt:
+          name: Direitos de acesso privilegiado
+          description: "Este controle assegura que os direitos de acesso privilegiado\
+            \ sejam concedidos, gerenciados e monitorados cuidadosamente para evitar\
+            \ uso indevido e aprimorar a seguran\xE7a. As medidas incluem controles\
+            \ de acesso baseados em pap\xE9is, an\xE1lises peri\xF3dicas e gest\xE3\
+            o rigorosa de contas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.3
       assessable: true
       depth: 3
@@ -9296,6 +10411,12 @@ objects:
             \u95EE\u3002\u63AA\u65BD\u5305\u62EC\u7528\u6237\u8BA4\u8BC1\u3001\u57FA\
             \u4E8E\u89D2\u8272\u7684\u6743\u9650\u4EE5\u53CA\u5B9A\u671F\u7684\u8BBF\
             \u95EE\u5BA1\u67E5\u3002"
+        pt:
+          name: "Restri\xE7\xE3o de acesso \xE0 informa\xE7\xE3o"
+          description: "Este controle restringe o acesso a informa\xE7\xF5es sens\xED\
+            veis com base nos princ\xEDpios de necessidade de conhecimento. As medidas\
+            \ incluem autentica\xE7\xE3o de usu\xE1rios, permiss\xF5es baseadas em\
+            \ pap\xE9is e an\xE1lises regulares de acesso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.4
       assessable: true
       depth: 3
@@ -9348,6 +10469,12 @@ objects:
             \u4FDD\u969C\u4E86\u5BF9\u6E90\u4EE3\u7801\u7684\u8BBF\u95EE\u3002\u63AA\
             \u65BD\u5305\u62EC\u7248\u672C\u63A7\u5236\u3001\u5B89\u5168\u4ED3\u5E93\
             \u548C\u9650\u5236\u5F00\u53D1\u8005\u8BBF\u95EE\u3002"
+        pt:
+          name: "Acesso ao c\xF3digo-fonte"
+          description: "Este controle protege o acesso ao c\xF3digo-fonte, evitando\
+            \ visualiza\xE7\xE3o, modifica\xE7\xE3o ou exposi\xE7\xE3o n\xE3o autorizadas.\
+            \ As medidas incluem controle de vers\xF5es, reposit\xF3rios seguros e\
+            \ acesso restrito de desenvolvedores."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.5
       assessable: true
       depth: 3
@@ -9395,6 +10522,11 @@ objects:
             \uFF0C\u5982\u591A\u56E0\u7D20\u8BA4\u8BC1\uFF0C\u4EE5\u9A8C\u8BC1\u7528\
             \u6237\u8EAB\u4EFD\u5E76\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u8BBF\
             \u95EE\u3002"
+        pt:
+          name: "Autentica\xE7\xE3o segura"
+          description: "Este controle implementa mecanismos de autentica\xE7\xE3o\
+            \ fortes, como a autentica\xE7\xE3o multifator, para verificar as identidades\
+            \ dos usu\xE1rios e evitar acesso n\xE3o autorizado."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.6
       assessable: true
       depth: 3
@@ -9447,6 +10579,12 @@ objects:
             \u80FD\u5E76\u9632\u6B62\u4E2D\u65AD\u3002\u63AA\u65BD\u5305\u62EC\u76D1\
             \u63A7\u8D44\u6E90\u4F7F\u7528\u548C\u89C4\u5212\u672A\u6765\u9700\u6C42\
             \u3002"
+        pt:
+          name: "Gest\xE3o de capacidade"
+          description: "Este controle assegura que a capacidade do sistema seja gerenciada\
+            \ para fornecer desempenho adequado e evitar interrup\xE7\xF5es. As medidas\
+            \ incluem o monitoramento do uso de recursos e o planejamento para necessidades\
+            \ futuras."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.7
       assessable: true
       depth: 3
@@ -9494,6 +10632,11 @@ objects:
             \u3001\u5A01\u80C1\u68C0\u6D4B\u5DE5\u5177\u548C\u5B9A\u671F\u66F4\u65B0\
             \u7B49\u63AA\u65BD\uFF0C\u4EE5\u4FDD\u62A4\u7CFB\u7EDF\u514D\u53D7\u6076\
             \u610F\u8F6F\u4EF6\u548C\u6076\u610F\u653B\u51FB\u3002"
+        pt:
+          name: "Prote\xE7\xE3o contra malware"
+          description: "Este controle implementa medidas como software antiv\xEDrus,\
+            \ ferramentas de detec\xE7\xE3o de amea\xE7as e atualiza\xE7\xF5es regulares\
+            \ para proteger os sistemas contra malware e ataques maliciosos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.8
       assessable: true
       depth: 3
@@ -9544,6 +10687,12 @@ objects:
             \u5927\u9650\u5EA6\u5730\u964D\u4F4E\u5B89\u5168\u98CE\u9669\u3002\u63AA\
             \u65BD\u5305\u62EC\u6F0F\u6D1E\u626B\u63CF\u548C\u8865\u4E01\u7BA1\u7406\
             \u3002"
+        pt:
+          name: "Gest\xE3o de vulnerabilidades t\xE9cnicas"
+          description: "Este controle identifica, avalia e remedia vulnerabilidades\
+            \ t\xE9cnicas prontamente para minimizar os riscos de seguran\xE7a. As\
+            \ medidas incluem varredura de vulnerabilidades e gest\xE3o de corre\xE7\
+            \xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.9
       assessable: true
       depth: 3
@@ -9588,6 +10737,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u914D\u7F6E\
             \u7684\u4E00\u81F4\u7BA1\u7406\uFF0C\u4EE5\u7EF4\u62A4\u5B89\u5168\u8BBE\
             \u7F6E\u5E76\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\u66F4\u6539\u3002"
+        pt:
+          name: "Gest\xE3o de configura\xE7\xE3o"
+          description: "Este controle assegura a gest\xE3o consistente das configura\xE7\
+            \xF5es dos sistemas para manter as defini\xE7\xF5es de seguran\xE7a e\
+            \ evitar altera\xE7\xF5es n\xE3o autorizadas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.10
       assessable: true
       depth: 3
@@ -9635,6 +10789,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u654F\u611F\u4FE1\u606F\
             \u5728\u4E0D\u518D\u9700\u8981\u9632\u6B62\u672A\u7ECF\u6388\u6743\u7684\
             \u6062\u590D\u6216\u66DD\u5149\u65F6\u88AB\u5B89\u5168\u5220\u9664\u3002"
+        pt:
+          name: "Exclus\xE3o de informa\xE7\xF5es"
+          description: "Este controle assegura que informa\xE7\xF5es sens\xEDveis\
+            \ sejam exclu\xEDdas de forma segura quando n\xE3o forem mais necess\xE1\
+            rias, a fim de evitar recupera\xE7\xE3o ou exposi\xE7\xE3o n\xE3o autorizadas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.11
       assessable: true
       depth: 3
@@ -9682,6 +10841,11 @@ objects:
           description: "\u8BE5\u63A7\u5236\u901A\u8FC7\u4F7F\u7528\u6570\u636E\u63A9\
             \u853D\u6280\u672F\u4FDD\u62A4\u654F\u611F\u4FE1\u606F\uFF0C\u9632\u6B62\
             \u672A\u6388\u6743\u7528\u6237\u53D1\u73B0\u3002"
+        pt:
+          name: Mascaramento de dados
+          description: "Este controle protege informa\xE7\xF5es sens\xEDveis durante\
+            \ o processamento ou a exibi\xE7\xE3o, utilizando t\xE9cnicas de mascaramento\
+            \ de dados para ocultar os dados de usu\xE1rios n\xE3o autorizados."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.12
       assessable: true
       depth: 3
@@ -9728,6 +10892,11 @@ objects:
             \u654F\u611F\u6570\u636E\u901A\u8FC7\u7535\u5B50\u90AE\u4EF6\u3001\u53EF\
             \u79FB\u52A8\u5A92\u4F53\u6216\u5176\u4ED6\u6E20\u9053\u610F\u5916\u6CC4\
             \u9732\u7684\u673A\u5236\u3002"
+        pt:
+          name: "Preven\xE7\xE3o de vazamento de dados"
+          description: "Este controle implementa mecanismos para evitar a exposi\xE7\
+            \xE3o acidental de dados sens\xEDveis por e-mail, m\xEDdia remov\xEDvel\
+            \ ou outros canais."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.13
       assessable: true
       depth: 3
@@ -9775,6 +10944,11 @@ objects:
             \u80FD\u591F\u5B9A\u671F\u4E14\u5B89\u5168\u5730\u5907\u4EFD\uFF0C\u786E\
             \u4FDD\u5728\u4E8B\u6545\u6216\u707E\u96BE\u53D1\u751F\u65F6\u5176\u53EF\
             \u7528\u6027\u3002"
+        pt:
+          name: "Backup de informa\xE7\xF5es"
+          description: "Este controle assegura que informa\xE7\xF5es cr\xEDticas tenham\
+            \ backup feito regularmente e de forma segura para garantir sua disponibilidade\
+            \ em caso de incidentes ou desastres."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.14
       assessable: true
       depth: 3
@@ -9823,6 +10997,11 @@ objects:
             \u5185\u7F6E\u5197\u4F59\uFF0C\u4EE5\u5728\u7CFB\u7EDF\u6545\u969C\u6216\
             \u7D27\u6025\u60C5\u51B5\u4E0B\u4FDD\u6301\u53EF\u7528\u6027\u548C\u8FD0\
             \u884C\u3002"
+        pt:
+          name: "Redund\xE2ncia dos recursos de processamento da informa\xE7\xE3o"
+          description: "Este controle assegura que a redund\xE2ncia seja incorporada\
+            \ aos recursos de processamento para manter a disponibilidade e as opera\xE7\
+            \xF5es durante falhas de sistema ou emerg\xEAncias."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.15
       assessable: true
       depth: 3
@@ -9867,6 +11046,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u4F7F\u7CFB\u7EDF\u5185\u6D3B\u52A8\
             \u80FD\u591F\u8BB0\u5F55\uFF0C\u4EE5\u652F\u6301\u76D1\u63A7\u3001\u4E8B\
             \u4EF6\u68C0\u6D4B\u548C\u53D6\u8BC1\u8C03\u67E5\u3002"
+        pt:
+          name: Registro de eventos (logging)
+          description: "Este controle habilita o registro de atividades nos sistemas\
+            \ para apoiar o monitoramento, a detec\xE7\xE3o de incidentes e as investiga\xE7\
+            \xF5es forenses."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.16
       assessable: true
       depth: 3
@@ -9910,6 +11094,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u6D3B\u52A8\
             \u6301\u7EED\u76D1\u63A7\uFF0C\u4EE5\u68C0\u6D4B\u3001\u54CD\u5E94\u5E76\
             \u7F13\u89E3\u5B89\u5168\u5A01\u80C1\u3002"
+        pt:
+          name: Atividades de monitoramento
+          description: "Este controle assegura o monitoramento cont\xEDnuo das atividades\
+            \ dos sistemas para detectar, responder e mitigar amea\xE7as de seguran\xE7\
+            a."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.17
       assessable: true
       depth: 3
@@ -9953,6 +11142,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u65F6\u949F\
             \u540C\u6B65\uFF0C\u4EE5\u4FDD\u6301\u65E5\u5FD7\u53CA\u5176\u4ED6\u5173\
             \u952E\u8FDB\u7A0B\u7684\u65F6\u95F4\u6233\u51C6\u786E\u4E00\u81F4\u3002"
+        pt:
+          name: "Sincroniza\xE7\xE3o de rel\xF3gios"
+          description: "Este controle assegura que os rel\xF3gios dos sistemas estejam\
+            \ sincronizados para manter carimbos de tempo precisos e consistentes\
+            \ para logs e outros processos cr\xEDticos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.18
       assessable: true
       depth: 3
@@ -9996,6 +11190,10 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u9650\u5236\u5E76\u76D1\u63A7\u7279\
             \u6743\u5DE5\u5177\u7A0B\u5E8F\u7684\u4F7F\u7528\uFF0C\u4EE5\u9632\u6B62\
             \u6EE5\u7528\u548C\u672A\u7ECF\u6388\u6743\u7684\u884C\u4E3A\u3002"
+        pt:
+          name: "Uso de programas utilit\xE1rios privilegiados"
+          description: "Este controle restringe e monitora o uso de programas utilit\xE1\
+            rios privilegiados para prevenir uso indevido e a\xE7\xF5es n\xE3o autorizadas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.19
       assessable: true
       depth: 3
@@ -10042,6 +11240,11 @@ objects:
             \u7EDF\u4E0A\u7684\u8F6F\u4EF6\u5B89\u88C5\u5F97\u5230\u5B89\u5168\u7BA1\
             \u7406\uFF0C\u4EE5\u9632\u6B62\u6F0F\u6D1E\u6216\u672A\u7ECF\u6388\u6743\
             \u7684\u66F4\u6539\u3002"
+        pt:
+          name: "Instala\xE7\xE3o de software em sistemas operacionais"
+          description: "Este controle assegura que a instala\xE7\xE3o de software\
+            \ em sistemas operacionais seja gerenciada de forma segura para prevenir\
+            \ vulnerabilidades ou altera\xE7\xF5es n\xE3o autorizadas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.20
       assessable: true
       depth: 3
@@ -10089,6 +11292,11 @@ objects:
             \u5165\u4FB5\u68C0\u6D4B\u7CFB\u7EDF\u548C\u8BBF\u95EE\u63A7\u5236\u786E\
             \u4FDD\u7F51\u7EDC\u5B89\u5168\uFF0C\u9632\u6B62\u672A\u7ECF\u6388\u6743\
             \u7684\u8BBF\u95EE\u548C\u653B\u51FB\u3002"
+        pt:
+          name: "Seguran\xE7a de redes"
+          description: "Este controle assegura a seguran\xE7a da rede por meio de\
+            \ firewalls, sistemas de detec\xE7\xE3o de intrus\xE3o e controles de\
+            \ acesso para proteger contra acessos n\xE3o autorizados e ataques."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.21
       assessable: true
       depth: 3
@@ -10133,6 +11341,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7F51\u7EDC\u670D\u52A1\
             \u5728\u4F7F\u7528\u8FC7\u7A0B\u4E2D\u4FDD\u6301\u673A\u5BC6\u6027\u3001\
             \u5B8C\u6574\u6027\u548C\u53EF\u7528\u6027\u3002"
+        pt:
+          name: "Seguran\xE7a dos servi\xE7os de rede"
+          description: "Este controle assegura que os servi\xE7os de rede sejam protegidos\
+            \ para manter a confidencialidade, integridade e disponibilidade durante\
+            \ o uso."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.22
       assessable: true
       depth: 3
@@ -10176,6 +11389,11 @@ objects:
             \u79BB\uFF0C\u4EE5\u9650\u5236\u5A01\u80C1\u7684\u6269\u6563\uFF0C\u5E76\
             \u6700\u5927\u9650\u5EA6\u5730\u51CF\u5C11\u6F5C\u5728\u5165\u4FB5\u7684\
             \u5F71\u54CD\u3002"
+        pt:
+          name: "Segrega\xE7\xE3o de redes"
+          description: "Este controle implementa a segrega\xE7\xE3o de redes para\
+            \ limitar a propaga\xE7\xE3o de amea\xE7as e minimizar o impacto de poss\xED\
+            veis viola\xE7\xF5es."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.23
       assessable: true
       depth: 3
@@ -10218,6 +11436,10 @@ objects:
           description: "\u8BE5\u63A7\u5236\u5229\u7528\u7F51\u7EDC\u8FC7\u6EE4\u5DE5\
             \u5177\u963B\u6B62\u672A\u7ECF\u6388\u6743\u6216\u6709\u5BB3\u5185\u5BB9\
             \u901A\u8FC7\u4E92\u8054\u7F51\u8BBF\u95EE\u3002"
+        pt:
+          name: Filtragem web
+          description: "Este controle utiliza ferramentas de filtragem web para bloquear\
+            \ o acesso a conte\xFAdo n\xE3o autorizado ou prejudicial pela internet."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.24
       assessable: true
       depth: 3
@@ -10262,6 +11484,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u91C7\u7528\u5BC6\u7801\
             \u5B66\u6280\u672F\u6765\u4FDD\u62A4\u6570\u636E\u7684\u673A\u5BC6\u6027\
             \u3001\u5B8C\u6574\u6027\u548C\u771F\u5B9E\u6027\u3002"
+        pt:
+          name: Uso de criptografia
+          description: "Este controle assegura que t\xE9cnicas criptogr\xE1ficas sejam\
+            \ aplicadas para proteger a confidencialidade, integridade e autenticidade\
+            \ dos dados."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.25
       assessable: true
       depth: 3
@@ -10307,6 +11534,11 @@ objects:
           description: "\u8BE5\u63A7\u5236\u5C06\u5B89\u5168\u6574\u5408\u5230\u5F00\
             \u53D1\u751F\u547D\u5468\u671F\u7684\u6240\u6709\u9636\u6BB5\uFF0C\u786E\
             \u4FDD\u7CFB\u7EDF\u548C\u5E94\u7528\u7684\u5B89\u5168\u6784\u5EFA\u3002"
+        pt:
+          name: Ciclo de vida de desenvolvimento seguro
+          description: "Este controle integra a seguran\xE7a a todas as etapas do\
+            \ ciclo de vida de desenvolvimento para assegurar que sistemas e aplica\xE7\
+            \xF5es sejam constru\xEDdos de forma segura."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.26
       assessable: true
       depth: 3
@@ -10347,6 +11579,10 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u5B9A\u4E49\u5E76\u6267\u884C\u5E94\
             \u7528\u7A0B\u5E8F\u7684\u5B89\u5168\u8981\u6C42\uFF0C\u4EE5\u9632\u8303\
             \u6F0F\u6D1E\u3002"
+        pt:
+          name: "Requisitos de seguran\xE7a de aplica\xE7\xF5es"
+          description: "Este controle define e imp\xF5e requisitos de seguran\xE7\
+            a para aplica\xE7\xF5es a fim de proteg\xEA-las contra vulnerabilidades."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.27
       assessable: true
       depth: 3
@@ -10390,6 +11626,10 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u7CFB\u7EDF\u67B6\
             \u6784\u5F00\u53D1\u8FC7\u7A0B\u4E2D\u91C7\u7528\u5B89\u5168\u7684\u8BBE\
             \u8BA1\u539F\u5219\u3002"
+        pt:
+          name: "Princ\xEDpios de arquitetura e engenharia de sistemas seguros"
+          description: "Este controle assegura que princ\xEDpios de design seguro\
+            \ sejam adotados durante o desenvolvimento das arquiteturas de sistemas."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.28
       assessable: true
       depth: 3
@@ -10430,6 +11670,10 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u5B9E\u65BD\u4E86\u5B89\u5168\u7684\
             \u7F16\u7801\u5B9E\u8DF5\uFF0C\u4EE5\u6700\u5927\u9650\u5EA6\u5730\u51CF\
             \u5C11\u5F00\u53D1\u8F6F\u4EF6\u4E2D\u7684\u6F0F\u6D1E\u3002"
+        pt:
+          name: "Codifica\xE7\xE3o segura"
+          description: "Este controle implementa pr\xE1ticas de codifica\xE7\xE3o\
+            \ segura para minimizar vulnerabilidades no software desenvolvido."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.29
       assessable: true
       depth: 3
@@ -10474,6 +11718,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u5F00\u53D1\u548C\
             \u9A8C\u6536\u9636\u6BB5\u8FDB\u884C\u5B89\u5168\u6D4B\u8BD5\uFF0C\u4EE5\
             \u8BC6\u522B\u5F31\u70B9\u3002"
+        pt:
+          name: "Testes de seguran\xE7a em desenvolvimento e aceita\xE7\xE3o"
+          description: "Este controle assegura que testes de seguran\xE7a sejam realizados\
+            \ durante as fases de desenvolvimento e aceita\xE7\xE3o para identificar\
+            \ fragilidades."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.30
       assessable: true
       depth: 3
@@ -10516,6 +11765,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u5728\u5F00\u53D1\u5916\
             \u5305\u7ED9\u7B2C\u4E09\u65B9\u4F9B\u5E94\u5546\u65F6\u5B89\u5168\u98CE\
             \u9669\u5F97\u5230\u6709\u6548\u7BA1\u7406\u3002"
+        pt:
+          name: Desenvolvimento terceirizado
+          description: "Este controle assegura que os riscos de seguran\xE7a sejam\
+            \ gerenciados de forma eficaz quando o desenvolvimento \xE9 terceirizado\
+            \ para fornecedores externos."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.31
       assessable: true
       depth: 3
@@ -10566,6 +11820,12 @@ objects:
             \u8BD5\u548C\u751F\u4EA7\u73AF\u5883\u88AB\u9694\u79BB\uFF0C\u4EE5\u9632\
             \u6B62\u610F\u5916\u4EA4\u4E92\u548C\u672A\u7ECF\u6388\u6743\u7684\u8BBF\
             \u95EE\u3002"
+        pt:
+          name: "Separa\xE7\xE3o dos ambientes de desenvolvimento, teste e produ\xE7\
+            \xE3o"
+          description: "Este controle assegura que os ambientes de desenvolvimento,\
+            \ teste e produ\xE7\xE3o sejam segregados para prevenir intera\xE7\xF5\
+            es n\xE3o intencionais e acessos n\xE3o autorizados."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.32
       assessable: true
       depth: 3
@@ -10609,6 +11869,11 @@ objects:
           description: "\u8FD9\u79CD\u63A7\u5236\u786E\u4FDD\u7CFB\u7EDF\u53D8\u66F4\
             \u5F97\u5230\u5B89\u5168\u7BA1\u7406\uFF0C\u4EE5\u964D\u4F4E\u98CE\u9669\
             \u5E76\u4FDD\u6301\u8FD0\u8425\u7A33\u5B9A\u6027\u3002"
+        pt:
+          name: "Gest\xE3o de mudan\xE7as"
+          description: "Este controle assegura que as mudan\xE7as nos sistemas sejam\
+            \ gerenciadas de forma segura para minimizar riscos e manter a estabilidade\
+            \ operacional."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.33
       assessable: true
       depth: 3
@@ -10651,6 +11916,11 @@ objects:
           description: "\u8BE5\u63A7\u5236\u4FDD\u62A4\u6D4B\u8BD5\u6570\u636E\uFF0C\
             \u9632\u6B62\u654F\u611F\u6216\u673A\u5BC6\u4FE1\u606F\u5728\u6D4B\u8BD5\
             \u8FC7\u7A0B\u4E2D\u6CC4\u9732\u3002"
+        pt:
+          name: "Informa\xE7\xF5es de teste"
+          description: "Este controle protege os dados de teste para prevenir a exposi\xE7\
+            \xE3o de informa\xE7\xF5es sens\xEDveis ou confidenciais durante os processos\
+            \ de teste."
     - urn: urn:intuitem:risk:req_node:iso27001-2022:a.8.34
       assessable: true
       depth: 3
@@ -10715,3 +11985,11 @@ objects:
             \u975E\u751F\u4EA7\u73AF\u5883\u3001\u8BBF\u95EE\u9650\u5236\u548C\u4FDD\
             \u5BC6\u534F\u8BAE\uFF0C\u4EE5\u7EF4\u62A4\u7CFB\u7EDF\u5B89\u5168\u548C\
             \u5B8C\u6574\u6027\u3002"
+        pt:
+          name: "Prote\xE7\xE3o de sistemas de informa\xE7\xE3o durante testes de\
+            \ auditoria"
+          description: "Este controle assegura que os sistemas e dados sejam protegidos\
+            \ durante as auditorias, prevenindo acessos n\xE3o autorizados, vazamento\
+            \ de dados ou interrup\xE7\xF5es. As medidas incluem o uso de ambientes\
+            \ n\xE3o produtivos, restri\xE7\xF5es de acesso e acordos de confidencialidade\
+            \ para manter a seguran\xE7a e a integridade dos sistemas."
