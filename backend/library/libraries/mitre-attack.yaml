@@ -25,7 +25,7 @@ copyright: "Terms of Use\nLICENSE\nThe MITRE Corporation (MITRE) hereby grants y
 version: 4
 publication_date: 2026-01-09
 provider: Mitre ATT&CK
-packager: intuitem
+packager: Suricatoos
 translations:
   fr:
     name: "Mitre ATT&CK v18.1 - Menaces et mesures d\u2019att\xE9nuation"

@@ -9,7 +9,7 @@ copyright: EUROPEAN COMMISSION
 version: 2
 publication_date: 2025-10-30
 provider: EUROPEAN COMMISSION
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cloud-sovereignty-framework

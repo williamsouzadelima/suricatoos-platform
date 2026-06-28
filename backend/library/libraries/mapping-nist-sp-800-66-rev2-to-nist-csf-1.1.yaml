@@ -9,7 +9,7 @@ copyright: NIST
 version: 1
 publication_date: 2025-06-13
 provider: NIST
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:nist-sp-800-66-rev2
 - urn:intuitem:risk:library:nist-csf-1.1

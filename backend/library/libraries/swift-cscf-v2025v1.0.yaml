@@ -7,7 +7,7 @@ copyright: SWIFT
 version: 2
 publication_date: 2025-04-13
 provider: SWIFT
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:swift-cscf-v2025

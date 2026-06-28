@@ -11,7 +11,7 @@ copyright: This document is provided by CISA (Cybersecurity and Infrastructure S
 version: 1
 publication_date: '2025-03-04'
 provider: CISA
-packager: intuitem
+packager: Suricatoos
 translations:
   fr:
     name: "Objectifs de performance en cybers\xE9curit\xE9 CISA v2.0"

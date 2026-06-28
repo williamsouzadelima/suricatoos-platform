@@ -17,7 +17,7 @@ copyright: "\xA9 European Union Agency for Cybersecurity (ENISA), 2025\nUnless o
 version: 2
 publication_date: 2025-07-09
 provider: ENISA
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:annex-technical-and-methodological-requirements-nis2
 - urn:intuitem:risk:library:ccb-cff-2023-03-01

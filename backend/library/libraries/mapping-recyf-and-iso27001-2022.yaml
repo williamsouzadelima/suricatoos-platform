@@ -10,7 +10,7 @@ copyright: ANSSI
 version: 1
 publication_date: 2026-03-17
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:recyf
 - urn:intuitem:risk:library:iso27001-2022

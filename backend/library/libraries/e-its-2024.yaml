@@ -11,7 +11,7 @@ copyright: "RIA - Riigi Infos\xFCsteemi Amet"
 version: 1
 publication_date: null
 provider: RIA
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:e-its-2024

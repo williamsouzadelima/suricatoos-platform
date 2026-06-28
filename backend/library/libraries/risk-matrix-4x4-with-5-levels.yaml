@@ -6,8 +6,8 @@ description: 4x4 risk matrix with 5 risk levels
 copyright: public domain
 version: 2
 publication_date: 2024-07-28
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "Matrice 4x4 à 5 niveaux de risque"

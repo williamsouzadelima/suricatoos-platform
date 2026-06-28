@@ -12,7 +12,7 @@ copyright: "The Matrix is provided on an \u2018as is\u2019 basis. ENISA is not r
 version: 2
 publication_date: 2024-05-18
 provider: ENISA
-packager: intuitem
+packager: Suricatoos
 objects:
   reference_controls:
   - urn: urn:intuitem:risk:reference_control:enisa-5g-scm:5g-m1

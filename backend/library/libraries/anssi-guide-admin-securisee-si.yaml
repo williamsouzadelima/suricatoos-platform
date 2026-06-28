@@ -11,7 +11,7 @@ copyright: ANSSI Etalab
 version: 1
 publication_date: 2021-05-11
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:anssi-guide-admin-securisee-si

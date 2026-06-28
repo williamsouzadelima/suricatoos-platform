@@ -10,7 +10,7 @@ copyright: Cisco
 version: 2
 publication_date: 2025-07-02
 provider: Cisco
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:cisco-ccf-v3.0
 - urn:intuitem:risk:library:ncsc-caf-3.2

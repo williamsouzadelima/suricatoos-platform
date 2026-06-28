@@ -8,8 +8,8 @@ description: INTUITEM Common Catalog - Threats
 copyright: "\xA9 intuitem - 2025"
 version: 2
 publication_date: 2025-06-14
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: Catalogue commun INTUITEM

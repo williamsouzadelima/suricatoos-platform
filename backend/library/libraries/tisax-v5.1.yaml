@@ -24,7 +24,7 @@ copyright: "Publisher: VERBAND DER AUTOMOBILINDUSTRIE e.\_V. (VDA, German Associ
 version: 2
 publication_date: 2026-04-11
 provider: VDA
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:tisax-v5.1

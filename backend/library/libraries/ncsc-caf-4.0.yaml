@@ -11,7 +11,7 @@ copyright: NCSC https://www.ncsc.gov.uk/collection/cyber-assessment-framework
 version: 1
 publication_date: 2026-05-19
 provider: NCSC
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:ncsc-caf-4.0

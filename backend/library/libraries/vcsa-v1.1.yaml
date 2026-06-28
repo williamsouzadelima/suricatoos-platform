@@ -15,7 +15,7 @@ copyright: "\xA9 2023 ENX Association\nContact: vcs@enx.com +49 69 9866927-71\nw
 version: 1
 publication_date: 2025-05-30
 provider: ENX
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:vcsa-v1.1

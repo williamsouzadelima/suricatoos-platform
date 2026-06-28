@@ -7,8 +7,8 @@ description: Mapping from International standard ISO/IEC 27001:2013 to Internati
 copyright: intuitem
 version: 2
 publication_date: 2024-07-09
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:iso27001-2013
 - urn:intuitem:risk:library:iso27001-2022

@@ -9,7 +9,7 @@ copyright: Adobe
 version: 3
 publication_date: 2025-07-02
 provider: Adobe
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:adobe-ccf-v5
 - urn:intuitem:risk:library:iso27001-2022

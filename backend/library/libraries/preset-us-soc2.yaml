@@ -4,8 +4,8 @@ ref_id: preset-us-soc2
 name: US Company - SOC 2
 description: SOC 2 Type II readiness journey for US companies. Covers trust services criteria (security, availability, processing integrity, confidentiality, privacy), vendor management, and a guided path to audit readiness.
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "Entreprise am\xE9ricaine - SOC 2"

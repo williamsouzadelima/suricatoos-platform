@@ -9,8 +9,8 @@ description: Mapping between CCB CyberFundamentals Framework - 2023-03-01 and Cy
 copyright: intuitem
 version: 1
 publication_date: 2025-10-22
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:ccb-cff-2023-03-01
 - urn:intuitem:risk:library:ccb-cyfun2025

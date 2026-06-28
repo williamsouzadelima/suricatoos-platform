@@ -11,7 +11,7 @@ copyright: "Loi fran\xE7aise et europ\xE9enne"
 version: 2
 publication_date: 2025-05-10
 provider: "Agence du Num\xE9rique en Sant\xE9"
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:hds-v2023-a

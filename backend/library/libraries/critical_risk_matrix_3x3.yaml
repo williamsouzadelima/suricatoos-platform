@@ -5,8 +5,8 @@ name: Critical risk matrix 3x3
 description: Critical risk matrix 3x3
 version: 2
 publication_date: 2024-03-02
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   de:
     name: Kritische Risikomatrix 3x3

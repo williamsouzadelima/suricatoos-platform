@@ -22,7 +22,7 @@ copyright: "Terms of Use\nLICENSE\nThe MITRE Corporation (MITRE) hereby grants y
 version: 1
 publication_date: '2025-01-22'
 provider: Mitre D3FEND
-packager: intuitem
+packager: Suricatoos
 objects:
   reference_controls:
   - urn: urn:intuitem:risk:reference-controls:mitre-d3fend:d3-om

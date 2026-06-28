@@ -13,7 +13,7 @@ copyright: Cisco
 version: 1
 publication_date: 2025-06-05
 provider: Cisco
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cisco-ccf-v3.0

@@ -35,7 +35,7 @@ copyright: Licence Ouverte v2.0 - Etalab
 version: 1
 publication_date: 2026-04-28
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:anssi_rec-secu-sys-ctrl-acces-phys-videoprot_v2.2

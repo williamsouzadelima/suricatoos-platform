@@ -15,7 +15,7 @@ copyright: Directorate of Defense Trade Controls
 version: 2
 publication_date: 2024-12-21
 provider: Directorate of Defense Trade Controls
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:itar-compliance-program-guidelines

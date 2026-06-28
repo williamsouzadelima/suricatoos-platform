@@ -4,8 +4,8 @@ ref_id: preset-dora-financial
 name: "DORA — Digital Operational Resilience"
 description: "Compliance programme for the EU Digital Operational Resilience Act (DORA). Loads the NOREA DORA-in-Control framework, enables third-party risk management, incident reporting, and creates a structured journey covering ICT risk management, third-party oversight, and resilience testing."
 version: 2
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "DORA — Résilience opérationnelle numérique"

@@ -10,7 +10,7 @@ copyright: Licence Ouverte/Open Licence (Etalab - V1)
 version: 4
 publication_date: 2025-01-23
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:doc-pol
 objects:

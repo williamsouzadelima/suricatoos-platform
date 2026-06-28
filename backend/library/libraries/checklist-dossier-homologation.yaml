@@ -8,8 +8,8 @@ description: "Guide synth\xE9tique des livrables requis pour g\xE9rer un dossier
 copyright: _
 version: 1
 publication_date: 2025-10-01
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:checklist-dossier-homologation

@@ -6,8 +6,8 @@ description: based on the official guide of the EBIOS RM approach
 copyright: public domain
 version: 5
 publication_date: 2025-05-02
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: Matrice 4x4 EBIOS-RM

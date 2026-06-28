@@ -15,7 +15,7 @@ copyright: "\xA92025 The MITRE Corporation"
 version: 1
 publication_date: 2025-06-19
 provider: The MITRE Corporation
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:pqc-migration-roadmap

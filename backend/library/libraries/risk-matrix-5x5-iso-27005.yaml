@@ -6,8 +6,8 @@ description: 5x5 matrix from ISO 27005 Annex A
 copyright: ISO
 version: 6
 publication_date: 2025-02-21
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: Matrice 5x5 ISO-27005

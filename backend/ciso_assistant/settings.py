@@ -802,7 +802,7 @@ MFA_ADAPTER = "iam.adapter.MFAAdapter"
 
 if MAIL_DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    DEFAULT_FROM_EMAIL = "noreply@ciso.assistant"
+    DEFAULT_FROM_EMAIL = "noreply@suricatoos.com"
 
 
 ## Huey settings

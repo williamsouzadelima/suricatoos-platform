@@ -4,8 +4,8 @@ ref_id: preset-eu-saas-startup
 name: EU SaaS Startup
 description: ISO 27001 + GDPR compliance journey for European SaaS companies. Enables the privacy and TPRM modules, loads relevant frameworks, and creates a step-by-step journey.
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "Startup SaaS européenne"

@@ -7,7 +7,7 @@ copyright: "\xA9 Google"
 version: 1
 publication_date: 2025-03-22
 provider: Google
-packager: intuitem
+packager: Suricatoos
 objects:
   reference_controls:
   - urn: urn:intuitem:risk:reference_control:google-saif:gsc-01

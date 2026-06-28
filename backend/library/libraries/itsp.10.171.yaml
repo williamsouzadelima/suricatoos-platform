@@ -32,7 +32,7 @@ copyright: "Centre de la s\xE9curit\xE9 des t\xE9l\xE9communications Canada. [Op
 version: 1
 publication_date: 2026-03-05
 provider: "Centre de la s\xE9curit\xE9 des t\xE9l\xE9communications Canada"
-packager: intuitem
+packager: Suricatoos
 translations:
   en:
     name: '[ITSP.10.171] Protecting specified information in non-Government of Canada

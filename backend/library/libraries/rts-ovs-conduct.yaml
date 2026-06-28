@@ -21,7 +21,7 @@ copyright: ESA
 version: 1
 publication_date: 2024-08-12
 provider: ESA
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:rts-dora-OVS-conduct

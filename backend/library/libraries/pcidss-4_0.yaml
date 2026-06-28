@@ -12,7 +12,7 @@ copyright: "\xA92006 - 2024 PCI Security Standards Council, LLC. All Rights Rese
 version: 3
 publication_date: 2026-03-05
 provider: PCI Security Standards Council
-packager: intuitem
+packager: Suricatoos
 translations:
   fr:
     name: "Payment Card Industry - Standard de S\xE9curit\xE9 des Donn\xE9es (PCI-DSS)\

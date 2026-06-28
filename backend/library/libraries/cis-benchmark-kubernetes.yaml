@@ -7,7 +7,7 @@ copyright: "\xA9 CIS Security"
 version: 1
 publication_date: 2024-09-23
 provider: CIS
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cis-benchmark-kubernetes

@@ -10,7 +10,7 @@ copyright: "\xA9 2023 Association of International Certified Professional Accoun
 version: 1
 publication_date: 2024-03-02
 provider: AICPA
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:soc2-2017

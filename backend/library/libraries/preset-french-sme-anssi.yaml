@@ -4,8 +4,8 @@ ref_id: preset-french-sme-anssi
 name: "PME française - Hygiène ANSSI"
 description: "Guide d'hygiène cybersécurité ANSSI + parcours RGPD pour les petites et moyennes entreprises françaises. Active les modules vie privée et gestion des fournisseurs. Point de départ idéal pour les organisations débutant leur mise en conformité sécurité et vie privée."
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   en:
     name: French SME - ANSSI Hygiene

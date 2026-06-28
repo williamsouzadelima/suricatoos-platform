@@ -4,8 +4,8 @@ ref_id: preset-small-business-cisa-cpg
 name: "Small Business — CISA CPG 2.0"
 description: "Lightweight cybersecurity baseline for small organisations. Uses the CISA Cross-Sector Cybersecurity Performance Goals aligned with the NIST CSF — practical, actionable controls with built-in reference controls auto-created for you."
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "Petite entreprise — CISA CPG 2.0"

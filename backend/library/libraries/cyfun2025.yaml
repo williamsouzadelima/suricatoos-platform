@@ -17,7 +17,7 @@ copyright: "\u24B8 Centre for Cybersecurity Belgium (CCB)"
 version: 6
 publication_date: 2026-02-24
 provider: CCB
-packager: intuitem
+packager: Suricatoos
 objects:
   reference_controls:
   - urn: urn:intuitem:risk:reference_control:ccb-cyfun2025:gv.oc-01.1

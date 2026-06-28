@@ -16,7 +16,7 @@ copyright: APRA
 version: 1
 publication_date: 2023-07-01
 provider: APRA
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cps-230

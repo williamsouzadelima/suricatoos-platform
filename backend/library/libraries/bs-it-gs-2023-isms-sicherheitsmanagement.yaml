@@ -10,7 +10,7 @@ copyright: Deutschland BSI
 version: 1
 publication_date: 2024-05-18
 provider: BSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:bs-it-gs-2023-isms-sicherheitsmanagement

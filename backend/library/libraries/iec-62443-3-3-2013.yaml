@@ -15,7 +15,7 @@ copyright: IEC - Purchase the standard for the full normative text.
 version: 1
 publication_date: 2026-04-28
 provider: IEC
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:iec-62443-3-3-2013

@@ -7,8 +7,8 @@ description: Mapping from SOC2-2017 Trust Services Criteria (revision 2022) to I
 copyright: intuitem
 version: 1
 publication_date: 2025-06-04
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:soc2-2017-rev-2022
 - urn:intuitem:risk:library:iso27001-2022

@@ -10,8 +10,8 @@ description: A curated set of 25 essential cybersecurity metrics for organizatio
 copyright: intuitem
 version: 1
 publication_date: 2025-12-13
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 objects:
   metric_definitions:
   - urn: urn:intuitem:risk:metric:core:gov-01

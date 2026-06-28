@@ -22,7 +22,7 @@ copyright: SGDSN / ANSSI
 version: 1
 publication_date: 2026-05-22
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:ii-901_integral

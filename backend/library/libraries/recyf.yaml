@@ -13,7 +13,7 @@ copyright: ANSSI
 version: 3
 publication_date: 2026-05-05
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:doc-pol
 objects:

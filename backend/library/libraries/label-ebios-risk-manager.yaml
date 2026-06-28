@@ -14,7 +14,7 @@ description: "\"Ce document a pour but de rassembler les exigences de l\u2019Age
 copyright: ANSSI
 version: 1
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cahier-des-charges-label-ebios-rm-v3.1

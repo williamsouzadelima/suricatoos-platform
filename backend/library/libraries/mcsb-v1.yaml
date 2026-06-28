@@ -15,7 +15,7 @@ copyright: Microsoft
 version: 1
 publication_date: 2023-04-03
 provider: Microsoft
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:mcsb-v1

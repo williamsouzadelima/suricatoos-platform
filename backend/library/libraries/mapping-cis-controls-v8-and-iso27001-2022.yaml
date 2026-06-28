@@ -8,8 +8,8 @@ description: Mapping between CIS Controls v8 and International standard ISO/IEC 
 copyright: intuitem
 version: 1
 publication_date: 2025-10-29
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:cis-controls-v8
 - urn:intuitem:risk:library:iso27001-2022

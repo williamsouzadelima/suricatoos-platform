@@ -10,7 +10,7 @@ copyright: ANSSI Etalab
 version: 1
 publication_date: 2024-05-01
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:anssi-genai-security-recommendations-1.0

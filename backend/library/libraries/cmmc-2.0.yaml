@@ -24,7 +24,7 @@ copyright: "Copyright 2020, 2021 Carnegie Mellon University and The Johns Hopkin
 version: 6
 publication_date: 2026-03-05
 provider: DoD
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:cmmc-2.0

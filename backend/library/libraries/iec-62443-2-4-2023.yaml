@@ -19,7 +19,7 @@ copyright: IEC - Purchase the standard for the full normative text and Annex A T
 version: 1
 publication_date: 2026-04-28
 provider: IEC
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:iec-62443-2-4-2023

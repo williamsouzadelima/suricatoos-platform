@@ -13,7 +13,7 @@ copyright: ISO - You can purchase the standard for full details.
 version: 1
 publication_date: 2025-12-15
 provider: ISO
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:iso42001-2023

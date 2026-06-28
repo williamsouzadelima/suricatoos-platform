@@ -11,7 +11,7 @@ copyright: SCF - https://securecontrolsframework.com/terms-conditions/
 version: 1
 publication_date: 2025-09-26
 provider: SCF
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:scf-2025.2.2

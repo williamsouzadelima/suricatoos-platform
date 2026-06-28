@@ -11,7 +11,7 @@ copyright: OWASP - Creative Commons Attribution-ShareAlike 4.0
 version: 1
 publication_date: 2025-04-24
 provider: OWASP
-packager: intuitem
+packager: Suricatoos
 objects:
   threats:
   - urn: urn:intuitem:risk:threat:owasp-mas-threats:t1

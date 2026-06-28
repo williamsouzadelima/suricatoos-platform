@@ -5,8 +5,8 @@ name: Critical risk matrix 5x5
 description: Critical risk matrix 5x5
 version: 3
 publication_date: 2024-03-02
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: Matrice de risque critique 5x5

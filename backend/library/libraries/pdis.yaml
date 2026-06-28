@@ -11,7 +11,7 @@ copyright: ANSSI
 version: 1
 publication_date: 2025-01-27
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:pdis

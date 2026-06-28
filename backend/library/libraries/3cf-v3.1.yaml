@@ -14,7 +14,7 @@ copyright: "Ce document peut \xEAtre utilis\xE9 librement au sein de la communau
 version: 1
 publication_date: 2026-04-15
 provider: DSAC / OSAC
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:3cf-v3.1

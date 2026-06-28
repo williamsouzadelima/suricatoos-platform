@@ -11,7 +11,7 @@ copyright: With the exception of material marked as copyrighted, information pre
 version: 2
 publication_date: 2025-05-22
 provider: NIST
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:nist-sp-800-66-rev2

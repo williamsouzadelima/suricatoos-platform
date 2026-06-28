@@ -21,7 +21,7 @@ copyright: "Haute autorit\xE9 de la sant\xE9"
 version: 1
 publication_date: 2026-04-03
 provider: "Haute autorit\xE9 de la sant\xE9"
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:referentiel_certification_des_etablissements_de_sante_pour_la_qualite_des_soins

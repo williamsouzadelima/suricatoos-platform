@@ -9,7 +9,7 @@ description: This checklist is intended to help technology and business leaders 
 copyright: OWASP - Creative Commons Attribution-ShareAlike 4.0
 version: 1
 provider: OWASP
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:owasp-llm-checklist

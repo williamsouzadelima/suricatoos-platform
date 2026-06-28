@@ -4,8 +4,8 @@ ref_id: preset-belgian-cyfun
 name: Belgian Organisation - CyFun 2025
 description: CyberFundamentals 2025 (CyFun) compliance journey for Belgian organisations. Includes GDPR privacy management, vendor due diligence, and a guided path through the CCB framework.
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 
 translations:
   fr:

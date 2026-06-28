@@ -10,8 +10,8 @@ description: "Mapping between RECYF : R\xC9F\xC9RENTIEL CYBER France - Version 2
 copyright: intuitem
 version: 1
 publication_date: 2026-03-17
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 dependencies:
 - urn:intuitem:risk:library:recyf
 - urn:intuitem:risk:library:annex-technical-and-methodological-requirements-nis2

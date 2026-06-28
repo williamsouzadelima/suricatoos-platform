@@ -21,7 +21,7 @@ copyright: "Copyright 2023 ANSSI - Agence nationale de la s\xE9curit\xE9 des sys
 version: 1
 publication_date: 2026-03-02
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   reference_controls:
   - urn: urn:intuitem:risk:function:anssi-monaidecyber:gouvernance-infos-et-activites-a-proteger_niveau1

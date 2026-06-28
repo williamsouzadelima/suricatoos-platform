@@ -28,7 +28,7 @@ copyright: "Copyright \xA9 for the entire content of this website: European Cent
 version: 1
 publication_date: 2024-04-13
 provider: ECB
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:tiber-eu-2018

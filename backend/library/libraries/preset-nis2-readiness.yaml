@@ -4,8 +4,8 @@ ref_id: preset-nis2-readiness
 name: "NIS2 Readiness"
 description: "Structured preparation programme for the EU NIS2 directive. Loads the NIS2 implementing regulation (2024/2690) with technical guidance, enables third-party risk management, and creates a step-by-step compliance journey."
 version: 1
-provider: intuitem
-packager: intuitem
+provider: Suricatoos
+packager: Suricatoos
 translations:
   fr:
     name: "Préparation NIS2"

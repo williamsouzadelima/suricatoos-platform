@@ -52,7 +52,7 @@ copyright: ANSSI
 version: 3
 publication_date: 2026-05-21
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:igi-901

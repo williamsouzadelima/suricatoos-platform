@@ -8,7 +8,7 @@ copyright: anssi
 version: 1
 publication_date: 2024-05-18
 provider: ANSSI
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:anssi-maturite-gestion-crise-1.0.2

@@ -10,7 +10,7 @@ copyright: "Ce document peut \xEAtre utilis\xE9 librement, sous r\xE9serve de me
 version: 1
 publication_date: 2024-05-08
 provider: "Direction de la s\xE9curit\xE9 de l'aviation civile"
-packager: intuitem
+packager: Suricatoos
 objects:
   framework:
     urn: urn:intuitem:risk:framework:c3cf-ed1-v1
