@@ -13,7 +13,7 @@
 /* Suricatoos brand typography tokens */
 @theme {
 	--font-sans:
-		'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -144,4 +144,61 @@ div.multiselect > ul.options > li:not(.active):hover {
 }
 .hide-scrollbar::-webkit-scrollbar {
 	display: none;
+}
+
+/* ===== Corporativo Navy — polimento premium ===== */
+@layer base {
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+	}
+}
+@layer components {
+	/* Elevação sutil e refinada nos cards */
+	.card {
+		box-shadow:
+			0 1px 2px -1px rgb(15 23 42 / 0.08),
+			0 4px 12px -4px rgb(15 23 42 / 0.08);
+	}
+	.dark .card {
+		box-shadow:
+			0 1px 2px -1px rgb(0 0 0 / 0.5),
+			0 8px 24px -8px rgb(0 0 0 / 0.45);
+	}
+}
+@layer utilities {
+	/* Hover sutil nas linhas de tabela */
+	tbody tr {
+		transition: background-color 0.12s ease;
+	}
+	tbody tr:hover {
+		background-color: var(--color-surface-100-900);
+	}
+}
+
+/* ===== Remap acentos 'fun' (violet/pink) -> navy/blue corporativo (recolore toda a UI sem editar componentes) ===== */
+@theme {
+	--color-violet-50: oklch(96.5% 0.012 266deg);
+	--color-violet-100: oklch(92.5% 0.025 266deg);
+	--color-violet-200: oklch(85% 0.045 266deg);
+	--color-violet-300: oklch(74% 0.075 266deg);
+	--color-violet-400: oklch(57% 0.1 266deg);
+	--color-violet-500: oklch(42% 0.11 266deg);
+	--color-violet-600: oklch(36% 0.105 266deg);
+	--color-violet-700: oklch(31% 0.09 267deg);
+	--color-violet-800: oklch(27% 0.075 267deg);
+	--color-violet-900: oklch(23% 0.06 268deg);
+	--color-violet-950: oklch(19% 0.045 268deg);
+	--color-pink-50: oklch(96% 0.02 256deg);
+	--color-pink-100: oklch(92% 0.04 256deg);
+	--color-pink-200: oklch(85% 0.075 256deg);
+	--color-pink-300: oklch(77% 0.12 255deg);
+	--color-pink-400: oklch(68% 0.16 255deg);
+	--color-pink-500: oklch(57% 0.19 256deg);
+	--color-pink-600: oklch(50% 0.18 257deg);
+	--color-pink-700: oklch(44% 0.16 258deg);
+	--color-pink-800: oklch(39% 0.135 259deg);
+	--color-pink-900: oklch(34% 0.11 260deg);
+	--color-pink-950: oklch(29% 0.085 261deg);
 }
