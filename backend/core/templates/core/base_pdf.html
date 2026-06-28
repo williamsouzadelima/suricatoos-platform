@@ -289,6 +289,111 @@ ul {
   height: 2rem;
 }
 
+
+/* ── Suricatoos Corporativo Navy theme ──────────────────────────────────── */
+:root {
+    --pdf-navy:    #0f172a;
+    --pdf-slate8:  #1e293b;
+    --pdf-slate7:  #334155;
+    --pdf-slate5:  #64748b;
+    --pdf-slate4:  #94a3b8;
+    --pdf-slate1:  #f1f5f9;
+    --pdf-blue:    #3b82f6;
+    --pdf-emerald: #10b981;
+    --pdf-amber:   #f59e0b;
+    --pdf-rose:    #ef4444;
+}
+
+.pdf-header {
+    background-color: var(--pdf-slate8);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pdf-header .pdf-brand {
+    font-size: 0.7rem;
+    color: var(--pdf-slate4);
+    font-weight: 400;
+}
+
+.pdf-cover {
+    background-color: var(--pdf-navy);
+    color: #fff;
+    padding: 2.5rem 2rem 3rem;
+    position: relative;
+}
+.pdf-cover-accent {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0.35rem;
+    background-color: var(--pdf-blue);
+}
+.pdf-cover h1 {
+    font-size: 2rem; font-weight: 700;
+    margin: 0 0 0.4rem; color: #fff;
+}
+.pdf-cover .pdf-cover-subtitle {
+    font-size: 1.1rem; color: var(--pdf-slate4); margin-bottom: 0.3rem;
+}
+.pdf-cover .pdf-cover-meta {
+    font-size: 0.8rem; color: var(--pdf-slate5); margin-top: 1.5rem;
+}
+.pdf-cover .pdf-confidential {
+    display: inline-block;
+    background-color: var(--pdf-blue); color: #fff;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 0.25rem 0.75rem; border-radius: 0.25rem;
+    margin-top: 1.5rem; letter-spacing: 0.05em;
+}
+
+.pdf-section-header {
+    background-color: var(--pdf-slate8); color: #fff;
+    padding: 0.4rem 0.75rem; font-size: 0.95rem; font-weight: 600;
+    margin: 0.75rem 0 0.5rem; border-radius: 0.25rem;
+}
+
+.pdf-card {
+    border: 1px solid #e2e8f0; border-radius: 0.5rem;
+    padding: 0.75rem 1rem; margin-bottom: 0.75rem; background: #fff;
+}
+
+.pdf-kpi {
+    text-align: center; padding: 0.75rem 0.5rem;
+    border-radius: 0.375rem; color: #fff;
+}
+.pdf-kpi .pdf-kpi-value { font-size: 2rem; font-weight: 700; line-height: 1; }
+.pdf-kpi .pdf-kpi-label { font-size: 0.7rem; margin-top: 0.25rem; opacity: 0.9; }
+.pdf-kpi-compliant   { background-color: var(--pdf-emerald); }
+.pdf-kpi-partial     { background-color: var(--pdf-amber); }
+.pdf-kpi-non         { background-color: var(--pdf-rose); }
+.pdf-kpi-na          { background-color: var(--pdf-slate5); }
+.pdf-kpi-unassessed  { background-color: var(--pdf-blue); }
+
+thead tr th, th.pdf-th {
+    background-color: var(--pdf-slate8) !important;
+    color: #fff !important;
+    font-size: 0.8rem; padding: 0.4rem 0.5rem;
+}
+tbody tr:nth-child(even) td {
+    background-color: var(--pdf-slate1);
+}
+
+.pdf-badge {
+    display: inline-block; padding: 0.1rem 0.45rem;
+    border-radius: 0.2rem; font-size: 0.7rem; font-weight: 600; color: #fff;
+}
+.pdf-badge-critical, .pdf-badge-vh { background-color: var(--pdf-rose); }
+.pdf-badge-high,     .pdf-badge-h  { background-color: var(--pdf-amber); }
+.pdf-badge-medium,   .pdf-badge-m  { background-color: #f59e0b; color: #1c1917; }
+.pdf-badge-low,      .pdf-badge-l  { background-color: var(--pdf-emerald); }
+.pdf-badge-info,     .pdf-badge-vl { background-color: var(--pdf-blue); }
+/* ── End Navy theme ─────────────────────────────────────────────────────── */
+
 </style>
 </head>
 <body>
