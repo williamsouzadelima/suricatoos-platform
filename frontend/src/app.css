@@ -10,11 +10,53 @@
 @import '../ciso-theme.css';
 @import '@skeletonlabs/skeleton-svelte';
 
-/* Suricatoos brand typography tokens */
+/* Suricatoos brand tokens: typography + color palette overrides for hardcoded Tailwind classes.
+   violet/* → Electric Indigo 280° (matches primary).
+   pink/*   → Warm Amber 72° (matches tertiary) — turns gradient headers from pink→violet into amber→indigo. */
 @theme {
 	--font-sans:
 		'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	/* Remap Tailwind violet → Electric Indigo (affects ~46 hardcoded components) */
+	--color-violet-50:  oklch(96.5% 0.025 280deg);
+	--color-violet-100: oklch(92.0% 0.050 280deg);
+	--color-violet-200: oklch(86.0% 0.090 280deg);
+	--color-violet-300: oklch(79.0% 0.135 280deg);
+	--color-violet-400: oklch(70.5% 0.195 280deg);
+	--color-violet-500: oklch(59.0% 0.245 280deg);
+	--color-violet-600: oklch(52.0% 0.225 280deg);
+	--color-violet-700: oklch(44.5% 0.195 280deg);
+	--color-violet-800: oklch(38.0% 0.165 280deg);
+	--color-violet-900: oklch(30.5% 0.130 280deg);
+	--color-violet-950: oklch(22.0% 0.100 280deg);
+
+	/* Remap Tailwind pink → Warm Amber (affects ~22 hardcoded components).
+	   Gradient "from-pink-500 to-violet-600" becomes amber→indigo — premium warm-to-cool. */
+	--color-pink-50:  oklch(98.0% 0.020 72deg);
+	--color-pink-100: oklch(95.0% 0.050 72deg);
+	--color-pink-200: oklch(91.0% 0.090 72deg);
+	--color-pink-300: oklch(86.0% 0.130 72deg);
+	--color-pink-400: oklch(81.0% 0.165 72deg);
+	--color-pink-500: oklch(74.5% 0.175 72deg);
+	--color-pink-600: oklch(67.5% 0.165 72deg);
+	--color-pink-700: oklch(60.5% 0.150 72deg);
+	--color-pink-800: oklch(53.0% 0.130 72deg);
+	--color-pink-900: oklch(44.5% 0.110 72deg);
+	--color-pink-950: oklch(36.0% 0.090 72deg);
+
+	/* Remap purple → same indigo family for consistency */
+	--color-purple-50:  oklch(97.0% 0.020 282deg);
+	--color-purple-100: oklch(93.0% 0.040 282deg);
+	--color-purple-200: oklch(87.5% 0.080 282deg);
+	--color-purple-300: oklch(80.5% 0.125 282deg);
+	--color-purple-400: oklch(71.5% 0.185 282deg);
+	--color-purple-500: oklch(60.5% 0.235 282deg);
+	--color-purple-600: oklch(53.5% 0.215 282deg);
+	--color-purple-700: oklch(46.0% 0.190 282deg);
+	--color-purple-800: oklch(39.0% 0.160 282deg);
+	--color-purple-900: oklch(31.5% 0.130 282deg);
+	--color-purple-950: oklch(23.0% 0.100 282deg);
 }
 
 @source './**/*.{html,js,svelte,ts}';
@@ -45,7 +87,8 @@
 	@apply text-primary-contrast-500 bg-primary-500 hover:brightness-125 dark:hover:brightness-75;
 }
 @utility btn-mini-secondary {
-	@apply text-gray-50 bg-pink-500 hover:bg-pink-400 dark:bg-pink-600 dark:hover:bg-pink-500;
+	/* Amber accent — warm tertiary CTA (pink remapped to amber via @theme above) */
+	@apply text-gray-950 bg-pink-500 hover:bg-pink-400 dark:bg-pink-600 dark:hover:bg-pink-500;
 }
 @utility btn-mini-tertiary {
 	@apply text-gray-50 bg-sky-500 hover:bg-sky-400 dark:bg-sky-600 dark:hover:bg-sky-500;
@@ -144,4 +187,30 @@ div.multiselect > ul.options > li:not(.active):hover {
 }
 .hide-scrollbar::-webkit-scrollbar {
 	display: none;
+}
+
+/* ─── Suricatoos sidebar brand identity ──────────────────────────────────────
+   Gives the sidebar a deep indigo gradient visually distinct from the page body.
+   Higher chroma than surface-950 body bg → sidebar reads as "indigo shell".
+   Light mode: flat surface-100 with a right border for clear separation.
+   ──────────────────────────────────────────────────────────────────────────── */
+aside nav {
+	background-color: var(--color-surface-100);
+	border-right: 1px solid var(--color-surface-200);
+}
+.dark aside nav {
+	background: linear-gradient(
+		160deg,
+		oklch(14% 0.065 280deg) 0%,
+		oklch(10% 0.032 274deg) 100%
+	);
+	border-right: 1px solid oklch(22% 0.040 275deg);
+}
+
+/* Premium card elevation: subtle shadow on light, subtle glow on dark */
+.card {
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
+}
+.dark .card {
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 0 0 1px oklch(22% 0.025 278deg);
 }
