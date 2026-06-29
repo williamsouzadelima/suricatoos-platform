@@ -318,7 +318,7 @@
 			open
 		)}"
 	>
-		<nav class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden bg-surface-50-950 py-4 px-3">
+		<nav class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden py-4 px-3">
 			<SideBarHeader />
 			<SideBarNavigation {sideBarVisibleItems} />
 			<SideBarFooter on:getStarted={modalFirstLogin} />
